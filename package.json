@@ -66,6 +66,7 @@
     "eslint:build": "eslint --ext .js --ext .jsx *.js scripts test",
     "eslint:debug": "echo \"Checking code style...\"; DEBUG=eslint:cli-engine eslint --ext .js --ext .jsx *.js src scripts test",
     "stylint": "stylint src/web",
+    "prettier": "prettier --write --list-different 'src/**/*.js'; exit 0",
     "test": "tap test/*.js --no-timeout --node-arg=--require --node-arg=babel-register --node-arg=--require --node-arg=babel-polyfill",
     "coveralls": "tap test/*.js --coverage --coverage-report=text-lcov --nyc-arg=--require --nyc-arg=babel-register --nyc-arg=--require --nyc-arg=babel-polyfill | coveralls",
     "postinstall": "opencollective postinstall"
@@ -318,6 +319,7 @@
     "nib": "~1.1.2",
     "optimize-css-assets-webpack-plugin": "~5.0.0",
     "pre-push": "~0.1.1",
+    "prettier": "^1.14.3",
     "progress": "~2.0.0",
     "redux-devtools": "~3.4.1",
     "run-sequence": "~2.2.1",
