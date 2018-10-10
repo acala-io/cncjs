@@ -1,4 +1,4 @@
-import { MenuItem as DropdownMenuItem } from '../Dropdown';
+import {MenuItem as DropdownMenuItem} from '../Dropdown';
 import Widget from './Widget';
 import Header from './Header';
 import Content from './Content';

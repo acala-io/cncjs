@@ -14,21 +14,21 @@
  * @api public
  */
 
-const errclient = (options) => {
-    options = options || {};
+const errclient = options => {
+  options = options || {};
 
-    let error = options.error || '';
+  let error = options.error || '';
 
-    return (err, req, res, next) => {
-        if (req.xhr) {
-            res.send(500, {
-                error: error
-            });
-            return;
-        }
+  return (err, req, res, next) => {
+    if (req.xhr) {
+      res.send(500, {
+        error: error,
+      });
+      return;
+    }
 
-        next(err);
-    };
+    next(err);
+  };
 };
 
 module.exports = errclient;

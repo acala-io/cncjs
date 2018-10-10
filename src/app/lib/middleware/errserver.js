@@ -27,19 +27,19 @@
  * @api public
  */
 
-const errserver = (options) => {
-    options = options || {};
+const errserver = options => {
+  options = options || {};
 
-    let view = options.view || '500',
-        error = options.error || '';
+  let view = options.view || '500',
+    error = options.error || '';
 
-    return (err, req, res, next) => {
-        // we may use properties of the error object
-        // here and next(err) appropriately, or if
-        // we possibly recovered from the error, simply next().
-        res.status(err.status || 500);
-        res.render(view, { error: error });
-    };
+  return (err, req, res, next) => {
+    // we may use properties of the error object
+    // here and next(err) appropriately, or if
+    // we possibly recovered from the error, simply next().
+    res.status(err.status || 500);
+    res.render(view, {error: error});
+  };
 };
 
 module.exports = errserver;
