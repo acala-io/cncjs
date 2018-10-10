@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 const fade = (from = 0, to = 1) => keyframes`
     0%, 100% { opacity: ${from}; }
@@ -6,7 +6,7 @@ const fade = (from = 0, to = 1) => keyframes`
 `;
 
 const FadeInOut = styled.span`
-    animation: ${props => (props.disabled ? 'none' : `${fade(props.from, props.to)} 2s linear infinite`)};
+  animation: ${props => (props.disabled ? 'none' : `${fade(props.from, props.to)} 2s linear infinite`)};
 `;
 
 export default FadeInOut;
