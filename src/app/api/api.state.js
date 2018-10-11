@@ -1,5 +1,6 @@
-import deepKeys from 'deep-keys';
 import _ from 'lodash';
+import deepKeys from 'deep-keys';
+
 import config from '../services/configstore';
 import {ERR_NOT_FOUND} from '../constants';
 

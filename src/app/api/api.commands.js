@@ -70,15 +70,29 @@ export const fetch = (req, res) => {
         totalRecords: Number(totalRecords),
       },
       records: pagedRecords.map(record => {
-        const {id, mtime, enabled, title, commands} = {...record};
-        return {id, mtime, enabled, title, commands};
+        const {commands, enabled, id, mtime, title} = {...record};
+
+        return {
+          commands,
+          enabled,
+          id,
+          mtime,
+          title,
+        };
       }),
     });
   } else {
     res.send({
       records: records.map(record => {
-        const {id, mtime, enabled, title, commands} = {...record};
-        return {id, mtime, enabled, title, commands};
+        const {commands, enabled, id, mtime, title} = {...record};
+
+        return {
+          commands,
+          enabled,
+          id,
+          mtime,
+          title,
+        };
       }),
     });
   }
@@ -104,11 +118,11 @@ export const create = (req, res) => {
   try {
     const records = getSanitizedRecords();
     const record = {
+      commands,
+      enabled: Boolean(enabled),
       id: uuid.v4(),
       mtime: new Date().getTime(),
-      enabled: Boolean(enabled),
       title,
-      commands,
     };
 
     records.push(record);
@@ -134,8 +148,15 @@ export const read = (req, res) => {
     return;
   }
 
-  const {mtime, enabled, title, commands} = {...record};
-  res.send({id, mtime, enabled, title, commands});
+  const {commands, enabled, mtime, title} = {...record};
+
+  res.send({
+    commands,
+    enabled,
+    id,
+    mtime,
+    title,
+  });
 };
 
 export const update = (req, res) => {
@@ -150,7 +171,7 @@ export const update = (req, res) => {
     return;
   }
 
-  const {enabled = record.enabled, title = record.title, commands = record.commands} = {...req.body};
+  const {commands = record.commands, enabled = record.enabled, title = record.title} = {...req.body};
 
   // Skip validation for "enabled", "title", and "commands"
 
@@ -167,7 +188,10 @@ export const update = (req, res) => {
 
     config.set(CONFIG_KEY, records);
 
-    res.send({id: record.id, mtime: record.mtime});
+    res.send({
+      id: record.id,
+      mtime: record.mtime,
+    });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
       msg: 'Failed to save ' + JSON.stringify(settings.rcfile),
@@ -220,5 +244,5 @@ export const run = (req, res) => {
 
   const taskId = taskRunner.run(commands, title);
 
-  res.send({taskId: taskId});
+  res.send({taskId});
 };

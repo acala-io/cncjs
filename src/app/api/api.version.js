@@ -1,7 +1,8 @@
-import url from 'url';
-import registryUrl from 'registry-url';
 import registryAuthToken from 'registry-auth-token';
+import registryUrl from 'registry-url';
 import request from 'superagent';
+import url from 'url';
+
 import {ERR_INTERNAL_SERVER_ERROR} from '../constants';
 
 const pkgName = 'cncjs';
@@ -35,7 +36,7 @@ export const getLatestVersion = (req, res) => {
 
       const latest = data['dist-tags'].latest;
       const time = data.time[latest];
-      const {name, version, description, homepage} = {...data.versions[latest]};
+      const {description, homepage, name, version} = {...data.versions[latest]};
 
       res.send({
         description,

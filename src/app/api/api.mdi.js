@@ -4,6 +4,7 @@ import ensureArray from 'ensure-array';
 import find from 'lodash/find';
 import isPlainObject from 'lodash/isPlainObject';
 import uuid from 'uuid';
+
 import settings from '../config/settings';
 import logger from '../lib/logger';
 import config from '../services/configstore';
@@ -57,7 +58,7 @@ export const fetch = (req, res) => {
         totalRecords: Number(totalRecords),
       },
       records: pagedRecords.map(record => {
-        const {id, name, command, grid = {}} = {...record};
+        const {command, grid = {}, id, name} = {...record};
 
         return {
           command,
@@ -70,7 +71,7 @@ export const fetch = (req, res) => {
   } else {
     res.send({
       records: records.map(record => {
-        const {id, name, command, grid = {}} = {...record};
+        const {command, grid = {}, id, name} = {...record};
 
         return {
           command,
@@ -123,7 +124,7 @@ export const create = (req, res) => {
 export const read = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -132,7 +133,7 @@ export const read = (req, res) => {
     return;
   }
 
-  const {name, command, grid = {}} = {...record};
+  const {command, grid = {}, name} = {...record};
 
   res.send({
     command,
@@ -145,7 +146,7 @@ export const read = (req, res) => {
 export const update = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -154,7 +155,7 @@ export const update = (req, res) => {
     return;
   }
 
-  const {name = record.name, command = record.command, grid = record.grid} = {...req.body};
+  const {command = record.command, grid = record.grid, name = record.name} = {...req.body};
 
   /*
     if (!name) {
@@ -201,7 +202,7 @@ export const bulkUpdate = (req, res) => {
 
   for (let i = 0; i < filteredRecords.length; ++i) {
     const record = filteredRecords[i];
-    const {id, name, command, grid = {}} = {...record};
+    const {command, grid = {}, id, name} = {...record};
 
     if (!id) {
       record.id = uuid.v4();
@@ -224,7 +225,7 @@ export const bulkUpdate = (req, res) => {
 export const __delete = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -234,9 +235,7 @@ export const __delete = (req, res) => {
   }
 
   try {
-    const filteredRecords = records.filter(record => {
-      return record.id !== id;
-    });
+    const filteredRecords = records.filter(record => record.id !== id);
     config.set(CONFIG_KEY, filteredRecords);
 
     res.send({err: null});

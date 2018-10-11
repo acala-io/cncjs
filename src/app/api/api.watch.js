@@ -5,7 +5,10 @@ export const getFiles = (req, res) => {
   const path = req.body.path || req.query.path || '';
   const files = monitor.getFiles(path);
 
-  res.send({path: path, files: files});
+  res.send({
+    files,
+    path,
+  });
 };
 
 export const readFile = (req, res) => {
@@ -25,6 +28,9 @@ export const readFile = (req, res) => {
       return;
     }
 
-    res.send({file: file, data: data});
+    res.send({
+      data,
+      file,
+    });
   });
 };

@@ -8,9 +8,9 @@ import jwt from 'jsonwebtoken';
 import some from 'lodash/some';
 import uuid from 'uuid';
 
-import settings from '../config/settings';
-import logger from '../lib/logger';
 import config from '../services/configstore';
+import logger from '../lib/logger';
+import settings from '../config/settings';
 import {getPagingRange} from './paging';
 import {
   ERR_BAD_REQUEST,
@@ -68,11 +68,9 @@ const getSanitizedRecords = () => {
 };
 
 export const signin = (req, res) => {
-  const {token = '', name = '', password = ''} = {...req.body};
+  const {name = '', password = '', token = ''} = {...req.body};
   const users = getSanitizedRecords();
-  const enabledUsers = users.filter(user => {
-    return user.enabled;
-  });
+  const enabledUsers = users.filter(user => user.enabled);
 
   if (enabledUsers.length === 0) {
     const user = {id: '', name: ''};
@@ -80,14 +78,14 @@ export const signin = (req, res) => {
     const token = generateAccessToken(payload, settings.secret); // generate access token
     res.send({
       enabled: false, // session is disabled
-      token: token,
       name: user.name, // empty name
+      token: token,
     });
     return;
   }
 
   if (!token) {
-    const user = find(enabledUsers, {name: name});
+    const user = find(enabledUsers, {name});
     const valid = user && bcrypt.compareSync(password, user.password);
 
     if (!valid) {
@@ -104,8 +102,8 @@ export const signin = (req, res) => {
     const token = generateAccessToken(payload, settings.secret); // generate access token
     res.send({
       enabled: true, // session is enabled
-      token: token, // new token
       name: user.name,
+      token: token, // new token
     });
     return;
   }
@@ -132,8 +130,8 @@ export const signin = (req, res) => {
 
     res.send({
       enabled: true, // session is enabled
-      token: token, // old token
       name: user.name,
+      token: token, // old token
     });
   });
 };
@@ -155,15 +153,27 @@ export const fetch = (req, res) => {
         totalRecords: Number(totalRecords),
       },
       records: pagedRecords.map(record => {
-        const {id, mtime, enabled, name} = {...record};
-        return {id, mtime, enabled, name};
+        const {enabled, id, mtime, name} = {...record};
+
+        return {
+          enabled,
+          id,
+          mtime,
+          name,
+        };
       }),
     });
   } else {
     res.send({
       records: records.map(record => {
-        const {id, mtime, enabled, name} = {...record};
-        return {id, mtime, enabled, name};
+        const {enabled, id, mtime, name} = {...record};
+
+        return {
+          enabled,
+          id,
+          mtime,
+          name,
+        };
       }),
     });
   }
@@ -187,7 +197,7 @@ export const create = (req, res) => {
   }
 
   const records = getSanitizedRecords();
-  if (find(records, {name: name})) {
+  if (find(records, {name})) {
     res.status(ERR_CONFLICT).send({
       msg: 'The specified user already exists',
     });
@@ -199,17 +209,20 @@ export const create = (req, res) => {
     const hash = bcrypt.hashSync(password.trim(), salt);
     const records = getSanitizedRecords();
     const record = {
+      enabled,
       id: uuid.v4(),
       mtime: new Date().getTime(),
-      enabled: enabled,
-      name: name,
+      name,
       password: hash,
     };
 
     records.push(record);
     config.set(CONFIG_KEY, records);
 
-    res.send({id: record.id, mtime: record.mtime});
+    res.send({
+      id: record.id,
+      mtime: record.mtime,
+    });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
       msg: 'Failed to save ' + JSON.stringify(settings.rcfile),
@@ -220,7 +233,7 @@ export const create = (req, res) => {
 export const read = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -229,14 +242,20 @@ export const read = (req, res) => {
     return;
   }
 
-  const {mtime, enabled, name} = {...record};
-  res.send({id, mtime, enabled, name});
+  const {enabled, mtime, name} = {...record};
+
+  res.send({
+    enabled,
+    id,
+    mtime,
+    name,
+  });
 };
 
 export const update = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -245,7 +264,7 @@ export const update = (req, res) => {
     return;
   }
 
-  const {enabled = record.enabled, name = record.name, oldPassword = '', newPassword = ''} = {...req.body};
+  const {enabled = record.enabled, name = record.name, newPassword = '', oldPassword = ''} = {...req.body};
   const willChangePassword = oldPassword && newPassword;
 
   // Skip validation for "enabled" and "name"
@@ -257,9 +276,8 @@ export const update = (req, res) => {
     return;
   }
 
-  const inuse = record => {
-    return record.id !== id && record.name === name;
-  };
+  const inuse = record => record.id !== id && record.name === name;
+
   if (some(records, inuse)) {
     res.status(ERR_CONFLICT).send({
       msg: 'The specified user already exists',
@@ -280,7 +298,10 @@ export const update = (req, res) => {
 
     config.set(CONFIG_KEY, records);
 
-    res.send({id: record.id, mtime: record.mtime});
+    res.send({
+      id: record.id,
+      mtime: record.mtime,
+    });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
       msg: 'Failed to save ' + JSON.stringify(settings.rcfile),
@@ -291,7 +312,7 @@ export const update = (req, res) => {
 export const __delete = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -301,12 +322,13 @@ export const __delete = (req, res) => {
   }
 
   try {
-    const filteredRecords = records.filter(record => {
-      return record.id !== id;
-    });
+    const filteredRecords = records.filter(record => record.id !== id);
+
     config.set(CONFIG_KEY, filteredRecords);
 
-    res.send({id: record.id});
+    res.send({
+      id: record.id,
+    });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
       msg: 'Failed to save ' + JSON.stringify(settings.rcfile),

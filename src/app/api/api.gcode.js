@@ -1,9 +1,11 @@
 import get from 'lodash/get';
+
 import controllers from '../store/controllers';
+
 import {ERR_BAD_REQUEST, ERR_INTERNAL_SERVER_ERROR} from '../constants';
 
 export const upload = (req, res) => {
-  const {ident, name, gcode, context = {}} = req.body;
+  const {context = {}, gcode, ident, name} = req.body;
 
   if (!ident) {
     res.status(ERR_BAD_REQUEST).send({
@@ -11,6 +13,7 @@ export const upload = (req, res) => {
     });
     return;
   }
+
   if (!gcode) {
     res.status(ERR_BAD_REQUEST).send({
       msg: 'Empty G-code',

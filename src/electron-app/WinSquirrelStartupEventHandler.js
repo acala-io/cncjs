@@ -1,7 +1,9 @@
-/* eslint import/no-unresolved: 0 */
+/* eslint-disable import/no-unresolved */
+
 import path from 'path';
 import {spawn} from 'child_process';
 import {app} from 'electron';
+
 import log from './log';
 
 const run = (args, done) => {

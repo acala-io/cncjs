@@ -58,7 +58,7 @@ export const fetch = (req, res) => {
         totalRecords: Number(totalRecords),
       },
       records: pagedRecords.map(record => {
-        const {id, mtime, name, content} = {...record};
+        const {content, id, mtime, name} = {...record};
 
         return {
           content,
@@ -71,7 +71,7 @@ export const fetch = (req, res) => {
   } else {
     res.send({
       records: records.map(record => {
-        const {id, mtime, name, content} = {...record};
+        const {content, id, mtime, name} = {...record};
 
         return {
           content,
@@ -85,7 +85,7 @@ export const fetch = (req, res) => {
 };
 
 export const create = (req, res) => {
-  const {name, content} = {...req.body};
+  const {content, name} = {...req.body};
 
   if (!name) {
     res.status(ERR_BAD_REQUEST).send({
@@ -104,10 +104,10 @@ export const create = (req, res) => {
   try {
     const records = getSanitizedRecords();
     const record = {
+      content,
       id: uuid.v4(),
       mtime: new Date().getTime(),
       name,
-      content,
     };
 
     records.push(record);
@@ -124,7 +124,7 @@ export const create = (req, res) => {
 export const read = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -133,14 +133,20 @@ export const read = (req, res) => {
     return;
   }
 
-  const {mtime, name, content} = {...record};
-  res.send({id, mtime, name, content});
+  const {content, mtime, name} = {...record};
+
+  res.send({
+    content,
+    id,
+    mtime,
+    name,
+  });
 };
 
 export const update = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -149,7 +155,7 @@ export const update = (req, res) => {
     return;
   }
 
-  const {name = record.name, content = record.content} = {...req.body};
+  const {content = record.content, name = record.name} = {...req.body};
 
   /*
     if (!name) {
@@ -185,7 +191,7 @@ export const update = (req, res) => {
 export const __delete = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({

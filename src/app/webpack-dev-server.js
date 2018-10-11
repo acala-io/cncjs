@@ -3,6 +3,7 @@
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+
 import config from '../../webpack.webconfig.development';
 import log from './lib/logger';
 
@@ -19,14 +20,14 @@ const webpackDevServer = app => {
   app.use(
     webpackDevMiddleware(compiler, {
       lazy: false,
-      // https://webpack.github.io/docs/node.js-api.html#compiler
-      watchOptions: {
-        poll: true, // use polling instead of native watchers
-        ignored: /node_modules/,
-      },
       publicPath: config.output.publicPath,
       stats: {
         colors: true,
+      },
+      // https://webpack.github.io/docs/node.js-api.html#compiler
+      watchOptions: {
+        ignored: /node_modules/,
+        poll: true, // use polling instead of native watchers
       },
     })
   );

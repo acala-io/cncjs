@@ -1,4 +1,5 @@
 import debug from 'debug';
+
 import pkg from '../package.json';
 
 const log = {
