@@ -108,4 +108,7 @@ const main = () => {
   });
 };
 
+// needed for React Developer Tools
+window.React = React;
+
 main();
