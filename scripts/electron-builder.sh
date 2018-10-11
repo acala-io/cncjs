@@ -10,7 +10,7 @@ display_usage() {
 if [ $# -le 1 ]; then
     display_usage
     exit 1
-fi 
+fi
 
 if [[ ( $# == "--help") ||  $# == "-h" ]]; then
     display_usage
@@ -20,7 +20,7 @@ fi
 pushd "$__dirname/../dist/cnc"
 echo "Cleaning up \"`pwd`/node_modules\""
 rm -rf node_modules
-echo "Installing packages..."
+echo "Installing packages ..."
 npm install --production
 npm dedupe
 popd
