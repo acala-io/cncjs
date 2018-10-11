@@ -53,8 +53,8 @@ import styles from './index.styl';
 
 class PrimaryToolbar extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   canSendCommand() {

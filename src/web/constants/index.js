@@ -90,6 +90,7 @@ export const SMOOTHIE_MACHINE_STATE_RUN = 'Run';
 export const SMOOTHIE_MACHINE_STATE_HOLD = 'Hold';
 export const SMOOTHIE_MACHINE_STATE_DOOR = 'Door';
 export const SMOOTHIE_MACHINE_STATE_HOME = 'Home';
+export const SMOOTHIE_MACHINE_STATE_SLEEP = 'Sleep';
 export const SMOOTHIE_MACHINE_STATE_ALARM = 'Alarm';
 export const SMOOTHIE_MACHINE_STATE_CHECK = 'Check';
 

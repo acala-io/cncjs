@@ -1,3 +1,3 @@
 import constants from 'namespace-constants';
 
-module.exports = constants('widgets/Smoothie', ['MODAL_NONE', 'MODAL_CONTROLLER']);
+export const {MODAL_CONTROLLER, MODAL_NONE} = constants('widgets/Smoothie', ['MODAL_CONTROLLER', 'MODAL_NONE']);

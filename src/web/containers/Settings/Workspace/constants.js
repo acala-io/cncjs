@@ -1,3 +1,6 @@
 import constants from 'namespace-constants';
 
-module.exports = constants('containers/settings/workspace', ['MODAL_RESTORE_DEFAULTS', 'MODAL_IMPORT_SETTINGS']);
+export const {MODAL_IMPORT_SETTINGS, MODAL_RESTORE_DEFAULTS} = constants('containers/settings/workspace', [
+  'MODAL_IMPORT_SETTINGS',
+  'MODAL_RESTORE_DEFAULTS',
+]);
