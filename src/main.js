@@ -1,12 +1,14 @@
 import 'babel-polyfill';
-import {app, Menu} from 'electron';
-import ElectronConfig from 'electron-config';
 import chalk from 'chalk';
+import ElectronConfig from 'electron-config';
 import mkdirp from 'mkdirp';
+import {app, Menu} from 'electron';
+
+import pkg from './package.json';
+
+import cnc from './cnc';
 import menuTemplate from './electron-app/menu-template';
 import WindowManager from './electron-app/WindowManager';
-import cnc from './cnc';
-import pkg from './package.json';
 
 // The selection menu
 const selectionMenu = Menu.buildFromTemplate([{role: 'copy'}, {type: 'separator'}, {role: 'selectall'}]);
@@ -75,8 +77,8 @@ const main = () => {
       // * `width` Number - The width of the rectangle.
       // * `height` Number - The height of the rectangle.
       const bounds = {
-        width: 1280, // Defaults to 1280
         height: 768, // Defaults to 768
+        width: 1280, // Defaults to 1280
         ...config.get('bounds'),
       };
       const options = {
@@ -92,7 +94,7 @@ const main = () => {
 
       // https://github.com/electron/electron/issues/4068#issuecomment-274159726
       window.webContents.on('context-menu', (event, props) => {
-        const {selectionText, isEditable} = props;
+        const {isEditable, selectionText} = props;
 
         if (isEditable) {
           // Shows an input menu if editable
@@ -107,8 +109,5 @@ const main = () => {
     }
   });
 };
-
-// needed for React Developer Tools
-window.React = React;
 
 main();

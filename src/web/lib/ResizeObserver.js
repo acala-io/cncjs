@@ -8,6 +8,7 @@ class ResizeObserver {
     }
     return this;
   }
+
   observe(target) {
     if (this.observer) {
       this.observer.disconnect();
@@ -29,6 +30,7 @@ class ResizeObserver {
       subtree: true,
     });
   }
+
   disconnect() {
     if (this.observer) {
       this.observer.disconnect();

@@ -1,5 +1,5 @@
 {
-    "watchDirectory": "",
-    "accessTokenLifetime": "30d",
-    "allowRemoteAccess": false
+  "accessTokenLifetime": "30d",
+  "allowRemoteAccess": false,
+  "watchDirectory": "",
 }

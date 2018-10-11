@@ -4,10 +4,13 @@ import store from '../store';
 let authenticated = false;
 
 module.exports = {
+  authenticated: () => {
+    return authenticated;
+  },
   signin: ({token, name, password}) =>
     new Promise((resolve, reject) => {
       api
-        .signin({token, name, password})
+        .signin({name, password, token})
         .then(res => {
           const {enabled = false, token = '', name = ''} = {...res.body};
 
@@ -33,7 +36,4 @@ module.exports = {
       authenticated = false;
       resolve();
     }),
-  authenticated: () => {
-    return authenticated;
-  },
 };

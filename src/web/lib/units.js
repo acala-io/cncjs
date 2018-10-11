@@ -25,9 +25,11 @@ export const mapValueToUnits = (val, units = METRIC_UNITS) => {
   if (units === IMPERIAL_UNITS) {
     return mapValueToImperialUnits(val);
   }
+
   if (units === METRIC_UNITS) {
     return mapValueToMetricUnits(val);
   }
+
   return Number(val) || 0;
 };
 
@@ -50,8 +52,10 @@ export const mapPositionToUnits = (pos, units = METRIC_UNITS) => {
   if (units === IMPERIAL_UNITS) {
     return mapPositionToImperialUnits(pos);
   }
+
   if (units === METRIC_UNITS) {
     return mapPositionToMetricUnits(pos);
   }
+
   return Number(pos) || 0;
 };

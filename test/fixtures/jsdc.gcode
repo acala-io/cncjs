@@ -1,10 +1,10 @@
-G21         ; Set units to mm
-G90         ; Absolute positioning
-G1 Z1 F2540      ; Move to clearance level
+G21           ; Set units to mm
+G90           ; Absolute positioning
+G1 Z1 F2540   ; Move to clearance level
 
 ;
 ; Operation:    0
-; Name:         
+; Name:
 ; Type:         Engrave
 ; Paths:        5
 ; Direction:    Conventional

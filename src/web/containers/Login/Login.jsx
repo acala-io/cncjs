@@ -61,7 +61,7 @@ class Login extends PureComponent {
           host,
           options,
           () => {
-            // @see "src/web/index.jsx"
+            // @see "src/web/index.js"
             this.setState({
               alertMessage: '',
               authenticating: false,

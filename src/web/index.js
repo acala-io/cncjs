@@ -1,37 +1,44 @@
 /* eslint import/no-dynamic-require: 0 */
 /* eslint-disable import/default */
 import chainedFunction from 'chained-function';
+import i18next from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 import moment from 'moment';
 import pubsub from 'pubsub-js';
 import qs from 'qs';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter as Router, Route} from 'react-router-dom';
-import i18next from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 import XHR from 'i18next-xhr-backend';
-import {TRACE, DEBUG, INFO, WARN, ERROR} from 'universal-logger';
+import {HashRouter as Router, Route} from 'react-router-dom';
 import {Provider as GridSystemProvider} from 'web/components/GridSystem';
-import settings from './config/settings';
-import portal from './lib/portal';
+import {TRACE, DEBUG, INFO, WARN, ERROR} from 'universal-logger';
+
 import controller from './lib/controller';
 import i18n from './lib/i18n';
 import log from './lib/log';
-import series from './lib/promise-series';
+import portal from './lib/portal';
 import promisify from './lib/promisify';
+import series from './lib/promise-series';
 import user from './lib/user';
-import store from './store';
+
 import defaultState from './store/defaultState';
+import store from './store';
+
+import settings from './config/settings';
+
+import Anchor from './components/Anchor';
 import App from './containers/App';
 import Login from './containers/Login';
-import Anchor from './components/Anchor';
-import {Button} from './components/Buttons';
-import ModalTemplate from './components/ModalTemplate';
 import Modal from './components/Modal';
+import ModalTemplate from './components/ModalTemplate';
 import ProtectedRoute from './components/ProtectedRoute';
 import Space from './components/Space';
+import {Button} from './components/Buttons';
+
 import './styles/vendor.styl';
 import './styles/app.styl';
+
+import './scss/app.scss';
 
 const renderPage = () => {
   const container = document.createElement('div');
@@ -106,7 +113,7 @@ series([
             host,
             options,
             () => {
-              // @see "src/web/containers/Login/Login.jsx"
+              // @see "src/web/containers/Login/Login.js"
               next();
             }
           );
@@ -125,7 +132,7 @@ series([
       event => {
         // TODO: event.origin
 
-        const {token = '', action} = {...event.data};
+        const {action, token = ''} = {...event.data};
 
         // Token authentication
         if (token !== store.get('session.token')) {
@@ -133,7 +140,8 @@ series([
           return;
         }
 
-        const {type, payload} = {...action};
+        const {payload, type} = {...action};
+
         if (type === 'connect') {
           pubsub.publish('message:connect', payload);
         } else if (type === 'resize') {
@@ -145,37 +153,27 @@ series([
       false
     );
 
-    {
-      // Prevent browser from loading a drag-and-dropped file
-      // @see http://stackoverflow.com/questions/6756583/prevent-browser-from-loading-a-drag-and-dropped-file
-      window.addEventListener(
-        'dragover',
-        e => {
-          e.preventDefault();
-        },
-        false
-      );
+    // Prevent browser from loading a drag-and-dropped file
+    // @see http://stackoverflow.com/questions/6756583/prevent-browser-from-loading-a-drag-and-dropped-file
+    window.addEventListener(
+      'dragover',
+      e => {
+        e.preventDefault();
+      },
+      false
+    );
 
-      window.addEventListener(
-        'drop',
-        e => {
-          e.preventDefault();
-        },
-        false
-      );
-    }
+    window.addEventListener(
+      'drop',
+      e => {
+        e.preventDefault();
+      },
+      false
+    );
 
-    {
-      // Hide loading
-      const loading = document.getElementById('loading');
-      loading && loading.remove();
-    }
-
-    {
-      // Change backgrond color after loading complete
-      const body = document.querySelector('body');
-      body.style.backgroundColor = '#222'; // sidebar background color
-    }
+    // Hide loading state
+    const loading = document.getElementById('loading');
+    loading && loading.remove();
 
     if (settings.error.corruptedWorkspaceSettings) {
       const text = store.getConfig();
@@ -220,6 +218,9 @@ series([
     }
 
     renderPage();
+
+    // Enable React Developer Tools
+    window.React = React;
   })
   .catch(err => {
     log.error(err);

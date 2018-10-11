@@ -1,6 +1,6 @@
 import events from 'events';
-import Mousetrap from 'mousetrap';
 import log from './log';
+import Mousetrap from 'mousetrap';
 import {preventDefault} from './dom-events';
 
 const AXIS_X = 'x';
@@ -599,6 +599,7 @@ class Combokeys extends events.EventEmitter {
       this.bind();
     }
   }
+
   bind() {
     if (this.state.didBindEvents) {
       return;
@@ -617,6 +618,7 @@ class Combokeys extends events.EventEmitter {
     });
     this.state.didBindEvents = true;
   }
+
   unbind() {
     if (!this.state.didBindEvents) {
       return;
@@ -627,6 +629,7 @@ class Combokeys extends events.EventEmitter {
     });
     this.state.didBindEvents = false;
   }
+
   reset() {
     Mousetrap.reset();
     this.state.didBindEvents = false;

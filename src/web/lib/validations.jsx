@@ -56,4 +56,4 @@ const password = (value, props, components) => {
   return null;
 };
 
-export {required, password};
+export {password, required};

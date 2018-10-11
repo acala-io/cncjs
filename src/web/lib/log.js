@@ -1,5 +1,5 @@
-import {detect} from 'detect-browser';
 import logger from 'universal-logger';
+import {detect} from 'detect-browser';
 import {styleable} from 'universal-logger-browser';
 
 const browser = detect();

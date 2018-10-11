@@ -43,6 +43,6 @@ const _ = (...args) => {
 };
 
 export default {
-  t,
   _,
+  t,
 };

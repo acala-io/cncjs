@@ -1,6 +1,7 @@
 /* eslint-disable import/default */
 
 import {test} from 'tap';
+
 import logger from '../src/app/lib/logger';
 import evaluateExpression from '../src/app/lib/evaluate-expression';
 

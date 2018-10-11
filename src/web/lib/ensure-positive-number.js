@@ -3,6 +3,7 @@ const ensurePositiveNumber = (value, minimumValue = 0) => {
   if (!Number.isFinite(minimumValue) || minimumValue < 0) {
     minimumValue = 0;
   }
+
   return Math.max(Number(value) || 0, minimumValue);
 };
 

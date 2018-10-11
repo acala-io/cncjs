@@ -3,6 +3,7 @@
 import path from 'path';
 import isElectron from 'is-electron';
 import program from 'commander';
+
 import pkg from './package.json';
 
 // Defaults to 'production'
@@ -61,7 +62,7 @@ program
   .option('--allow-remote-access', 'Allow remote access to the server (default: false)')
   .option(
     '--controller <type>',
-    'Specify CNC controller: Grbl|Marlin|Smoothie|TinyG|g2core (default: \'\')',
+    "Specify CNC controller: Grbl|Marlin|Smoothie|TinyG|g2core (default: '')",
     parseController,
     ''
   );
@@ -96,16 +97,16 @@ const cnc = () =>
 
     require('./app').createServer(
       {
-        port: program.port,
-        host: program.host,
-        backlog: program.backlog,
-        configFile: program.config,
-        verbosity: program.verbose,
-        mountPoints: program.mount,
-        watchDirectory: program.watchDirectory,
         accessTokenLifetime: program.accessTokenLifetime,
         allowRemoteAccess: Boolean(program.allowRemoteAccess),
+        backlog: program.backlog,
+        configFile: program.config,
         controller: program.controller,
+        host: program.host,
+        mountPoints: program.mount,
+        port: program.port,
+        verbosity: program.verbose,
+        watchDirectory: program.watchDirectory,
       },
       (err, data) => {
         if (err) {

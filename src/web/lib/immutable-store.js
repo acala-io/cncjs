@@ -9,9 +9,11 @@ class ImmutableStore extends events.EventEmitter {
 
     this.state = state;
   }
+
   get(key, defaultValue) {
     return key === undefined ? this.state : _.get(this.state, key, defaultValue);
   }
+
   set(key, value) {
     const prevValue = this.get(key);
     if (typeof value === 'object' && _.isEqual(value, prevValue)) {
@@ -23,15 +25,19 @@ class ImmutableStore extends events.EventEmitter {
 
     this.state = _.merge({}, this.state, _.set({}, key, value));
     this.emit('change', this.state);
+
     return this.state;
   }
+
   unset(key) {
     const state = _.extend({}, this.state);
     _.unset(state, key);
     this.state = state;
     this.emit('change', this.state);
+
     return this.state;
   }
+
   replace(key, value) {
     const prevValue = this.get(key);
     if (typeof value === 'object' && _.isEqual(value, prevValue)) {
@@ -43,11 +49,14 @@ class ImmutableStore extends events.EventEmitter {
 
     this.unset(key);
     this.set(key, value);
+
     return this.state;
   }
+
   clear() {
     this.state = {};
     this.emit('change', this.state);
+
     return this.state;
   }
 }

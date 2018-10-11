@@ -5,16 +5,15 @@
  * github.com/inuitcss | inuitcss.com
  */
 
+html {
+    background: orange;
+}
+
 // SETTINGS
 // @import 'settings/settings.config.scss';
 // @import 'settings/settings.core.scss';
 // @import 'settings/settings.global';
 // @import 'settings/variables';
-
-// $page-width: 48.666 * $inuit-global-spacing-unit;
-// $page-height: round(
-//     1.4142 * $page-width
-// ); // DIN proportions: 1 / sqrt(2) /* stylelint-disable-line number-max-precision */
 
 // // TOOLS
 // @import 'inuitcss/tools/tools.font-size';
