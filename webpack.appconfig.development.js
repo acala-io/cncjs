@@ -21,7 +21,7 @@ module.exports = {
     context: path.resolve(__dirname, 'src/app'),
     entry: {
         index: [
-            //'webpack/hot/poll?1000',
+            // 'webpack/hot/poll?1000',
             './index.js'
         ]
     },

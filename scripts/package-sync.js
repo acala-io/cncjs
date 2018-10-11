@@ -19,7 +19,7 @@ const deps = [
     'debug' // 'debug' is required for electron app
 ].concat(findImports(files, { flatten: true })).sort();
 
-//pkgApp.name = pkg.name; // Exclude the name field
+// pkgApp.name = pkg.name; // Exclude the name field
 pkgApp.version = pkg.version;
 pkgApp.homepage = pkg.homepage;
 pkgApp.author = pkg.author;

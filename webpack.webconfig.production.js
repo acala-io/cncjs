@@ -20,9 +20,9 @@ dotenv.config({
     path: path.resolve('webpack.webconfig.production.env')
 });
 
-const USE_ESLINT_LOADER = boolean(process.env.USE_ESLINT_LOADER);
-const USE_UGLIFYJS_PLUGIN = boolean(process.env.USE_UGLIFYJS_PLUGIN);
-const USE_OPTIMIZE_CSS_ASSETS_PLUGIN = boolean(process.env.USE_OPTIMIZE_CSS_ASSETS_PLUGIN);
+const USE_ESLINT_LOADER = Boolean(process.env.USE_ESLINT_LOADER);
+const USE_UGLIFYJS_PLUGIN = Boolean(process.env.USE_UGLIFYJS_PLUGIN);
+const USE_OPTIMIZE_CSS_ASSETS_PLUGIN = Boolean(process.env.USE_OPTIMIZE_CSS_ASSETS_PLUGIN);
 
 // Use publicPath for production
 const publicPath = ((payload) => {
