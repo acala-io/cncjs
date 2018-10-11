@@ -154,7 +154,7 @@ module.exports = {
             loader: 'fast-sass-loader',
             options: {
               errLogToConsole: true,
-              excludePaths: [path.resolve(__dirname, 'src/web/scss')],
+              exclude: [path.resolve(__dirname, 'src/web/scss')],
             },
           },
         ],
