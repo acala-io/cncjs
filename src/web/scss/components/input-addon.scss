@@ -1,0 +1,135 @@
+/*
+ * Input add-ons.
+ * Positioned inline at beginning or end of input.
+ */
+
+
+/*
+ * 1 - Restrict wrapper width to width of its content
+ * 2 - Prevent centering the input-add-on itself using text-align: center to affect its layout
+ */
+.input-add-on {
+    display: inline-block; /* 1 */
+    position: relative;
+    text-align: left; /* 2 */
+    vertical-align: top;
+
+    /*
+     * 1 - Add-ons that only consist of text need a little more space
+     */
+    &.input-add-on--text {
+
+        .input-add-on__label {
+            padding: .25em .5em; /* 1 */
+            width: 5em; /* 1 */
+
+            /*
+             * 1 - Create space on the left for label; input-add-on__label width + 0.5em
+             */
+            ~ .input-add-on__input {
+                padding-left: 5.5em; /* 1 */
+            }
+        }
+    }
+
+    /*
+     * This works well for 2-3 character strings
+     */
+    &.input-add-on--text-narrow {
+
+        .input-add-on__label {
+            padding: .25em .5em;
+            width: 2.5em;
+
+            /*
+             * 1 - Create space on the left for label; input-add-on__label width + 0.5em
+             */
+            ~ .input-add-on__input {
+                padding-left: 3em; /* 1 */
+            }
+        }
+    }
+}
+
+/*
+ * Prepended label, e.g. an icon
+ *
+ * 1 - Make sure the unchangeable -webkit-autofill background does not cover the .input-add-on__label
+ * 2 - Set height 2px less than on input (which has 2em) so it does not overlap the input border
+ * 3 - Apply margin to align label within input
+ */
+ .input-add-on__label {
+    background: $background--lighter;
+    border-radius: $border-radius 0 0 $border-radius;
+    color: $text--lighter;
+    display: inline-block;
+    height: calc(2em - 2px); /* 2 */
+    line-height: 1.5;
+    margin-left: 1px; /* 3 */
+    margin-top: 1px; /* 3 */
+    padding: .5em;
+    position: absolute;
+    text-align: center;
+    width: 4em;
+    z-index: $z--elevated-3; /* 1 */
+
+    /*
+     * 1 - Create space on the left for label; input-add-on__label width + 0.5em
+     */
+    ~ .input-add-on__input {
+        padding-left: 4.5em; /* 1 */
+        position: relative;
+    }
+
+    &.input-add-on__icon {
+        width: 2.5em;
+
+        /*
+         * 1 - Create space on the left for icon; input-add-on__label width + 0.5em
+         */
+        ~ .input-add-on__input {
+            padding-left: 3em; /* 1 */
+        }
+    }
+}
+
+/*
+ * 1 - Position link on top of input on z-axis
+ */
+.input-add-on__function {
+    z-index: $z--elevated-2; /* 1 */
+}
+
+.input-add-on__input {
+    position: relative;
+}
+
+/*
+ * Appended label, e.g. unit or functions like masking / unmasking of password input
+ */
+.input-add-on__label--apended,
+.input-add-on__function {
+    @include pin(right, absolute);
+
+    background: $background--lighter;
+    border: 1px solid $transparent;
+    color: $text--lighter;
+    display: inline-block;
+    height: calc(2em + 2px);
+    line-height: 1.5;
+    padding: .5em;
+    text-align: center;
+    width: 2.5em;
+
+    svg {
+        height: 1em;
+        width: 1em;
+    }
+
+    /*
+     * 1 - Create space on the left for label; input-add-on__label width + 0.5em
+     */
+    ~ .input-add-on__input {
+        padding-right: 3em; /* 1 */
+    }
+}

@@ -1,0 +1,125 @@
+/*
+ * Hyperlinks.
+ */
+
+/* stylelint-disable declaration-colon-space-after, function-parentheses-space-inside, function-comma-space-after */
+/* Because stylelint does not understand SCSS variable definitions */
+$inuit-global-spacing-unit:   14px !default;
+
+$clickable:                 hsl(201,  87%,  68%) !default;
+$clickable--highlight:      hsl(201,  92%,  74%) !default;
+$text--lightest:            hsl( 83,   2%,  78%) !default;
+/* stylelint-enable */
+
+
+a,
+.link,
+%link-base-behaviour {
+    color: $clickable;
+    /* stylelint-disable no-unsupported-browser-features */
+    /* nobody cares, if the cursor is not changed in bad browsers */
+    cursor: pointer;
+    /* stylelint-enable */
+    display: inline-block;
+    text-decoration: none;
+
+    /*
+     * 1 - Inherit the color value of the parent element
+     */
+    svg {
+        fill: currentColor; /* 1 */
+    }
+
+    /*
+     * 1 - Remove box shadows
+     * 2 - Remove dotted outline
+     */
+    &:active,
+    &:focus,
+    &:visited {
+        box-shadow: none; /* 1 */
+        outline: 0 none; /* 2 */
+    }
+
+    &:visited {
+        color: $clickable;
+    }
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:visited:hover {
+        color: $clickable--highlight;
+
+        svg {
+            fill: currentColor;
+        }
+    }
+
+    &.is-disabled,
+    &.is-disabled:hover {
+        color: $text--lightest;
+        /* stylelint-disable no-unsupported-browser-features */
+        /* nobody cares, if the cursor is not changed in bad browsers */
+        cursor: not-allowed;
+        /* stylelint-enable */
+        font-style: italic;
+    }
+}
+
+
+// Variants ------------------------------------------------------------------------------------------------------------
+.link--cta {
+    border: 1px solid $clickable;
+    border-radius: $border-radius--pill;
+    color: $clickable;
+    padding: $inuit-global-spacing-unit-small $inuit-global-spacing-unit;
+
+    &,
+    &:visited {
+        color: $clickable;
+    }
+
+    &:hover {
+        border-color: $clickable--highlight;
+        color: $clickable--highlight;
+    }
+}
+
+.link--app-store {
+    @extend %link-base-behaviour;
+
+    &,
+    > img,
+    > svg {
+        height: 40px;
+        width: 135px;
+    }
+
+    &,
+    &:active,
+    &:focus,
+    &:hover,
+    &:visited,
+    &:visited:hover {
+        color: #000;
+    }
+}
+
+.link--social {
+    border-radius: $border-radius\+;
+
+    &,
+    &:visited {
+        background: $background--darker;
+        color: $text--inverse;
+    }
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:visited:hover {
+        background: $clickable--highlight;
+        color: $text--inverse;
+    }
+}

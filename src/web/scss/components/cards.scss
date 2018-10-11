@@ -1,0 +1,72 @@
+/*
+ * Cards.
+ *
+ * Usage:
+ *
+ * <div class="card">
+ *     Some content
+ * </div>
+ *
+ * <div class="card">
+ *     <div class="card__header">
+ *         <h2>Heading</h2>
+ *     </div>
+ *     Some content
+ * </div>
+ */
+
+
+.card,
+%card {
+    background: $background--white;
+    border-radius: $border-radius\+;
+
+    &:not(.card--shadow) {
+        border: 1px solid $border--lighter;
+    }
+
+    &:not(.card--no-padding) {
+        padding: $inuit-global-spacing-unit-small;
+    }
+}
+
+.card--shadow {
+    box-shadow: 1px 1px 3px hsla(0, 0%, 0%, .21);
+}
+
+/*
+ * 1 - Fallback value for calculated min-height using vh
+ * 2 - 100% - 2 * 14px margin top / bottom
+ */
+.card--fit-to-vh {
+    min-height: 772px; /* 1 */
+    min-height: calc(100vh - 28px); /* 2 */ /* stylelint-disable-line plugin/no-unsupported-browser-features */
+}
+
+/*
+ * 1 - Enabled absolute positioning of children
+ */
+.card__header {
+    padding: $inuit-global-spacing-unit-small;
+    position: relative; /* 1 */
+    text-align: center;
+
+    h2 {
+        line-height: 1.5;
+        margin: 0;
+    }
+}
+
+/*
+ * 1 - Pull up + left + right to reclaim the padding of the card
+ */
+.card__header--wo-card-padding {
+    margin-left: - $inuit-global-spacing-unit; /* 1 */
+    margin-right: - $inuit-global-spacing-unit; /* 1 */
+    margin-top: - $inuit-global-spacing-unit; /* 1 */
+}
+
+
+@mixin card() {
+    @extend %card;
+}

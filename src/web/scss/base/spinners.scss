@@ -1,0 +1,89 @@
+/*
+ * Spinners for indicating activity.
+ * To be used when progress and end are not known.
+ *
+ * Usage:
+ *
+ * <div class="spinner">
+ *     <div class="spinner__item"></div><div class="spinner__item"></div><div class="spinner__item"></div>
+ * </div>
+ *
+ * No spaces between .spinner__item, because they use display:inline-block!
+ */
+
+/* stylelint-disable declaration-colon-space-after, function-parentheses-space-inside, function-comma-space-after */
+/* Because stylelint does not understand SCSS variable definitions */
+$inuit-global-spacing-unit:   14px !default;
+
+$border-radius--circle:     50% !default;
+
+$text--lightest:            hsl( 83,   2%,  78%) !default;
+
+$background--white:         hsl(  0,   0%, 100%) !default;
+/* stylelint-enable */
+
+
+/*
+ * 1 - Allow .spinner__message to be positioned absolute
+ */
+.spinner {
+    @include animation--fade-in;
+    @include center--mx;
+
+    animation-delay: $transition-time--slow;
+    animation-duration: $transition-time--very-slow;
+    padding: $inuit-global-spacing-unit 0;
+    position: relative; /* 1 */
+    text-align: center;
+    width: quadruple($inuit-global-spacing-unit);
+
+    &__item {
+        @include animation--pulsate;
+
+        background-color: $background--white;
+        border-radius: $border-radius--circle;
+        display: inline-block;
+        height: $inuit-global-spacing-unit;
+        width: $inuit-global-spacing-unit;
+
+        &:first-of-type {
+            animation-delay: 320ms;
+        }
+
+        &:nth-of-type(2) {
+            animation-delay: 160ms;
+        }
+
+        + .spinner__item {
+            margin-left: halve($inuit-global-spacing-unit);
+        }
+
+        .spinner--dark & {
+            background-color: $text--lightest;
+        }
+
+        /*
+         * 1 - Change background-color of spinner__item depending on page background color
+         */
+        .spinner--auto-color & {
+            mix-blend-mode: difference; /* 1 */
+        }
+
+        /*
+         * 1 - Center vertically
+         */
+        .spinner--full-screen & {
+            margin-bottom: 0;
+            margin-top: 33vh; /* 1 */
+        }
+    }
+
+    &__message {
+        @include center--x;
+
+        color: $text--lighter;
+        display: block;
+        margin-top: halve($inuit-global-spacing-unit);
+        white-space: nowrap;
+    }
+}

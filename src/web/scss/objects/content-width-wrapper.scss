@@ -1,0 +1,35 @@
+.o-content-width-wrapper {
+    @include max-width-centered(map-get($mq-breakpoints, desktop));
+
+    padding-left: $inuit-global-spacing-unit-small;
+    padding-right: $inuit-global-spacing-unit-small;
+
+    @include mq($from: desktop) {
+        padding-left: $inuit-global-spacing-unit;
+        padding-right: $inuit-global-spacing-unit;
+    }
+}
+
+.o-content-width-wrapper--wide {
+    @include max-width-centered(map-get($mq-breakpoints, wide));
+
+    padding-left: $inuit-global-spacing-unit-small;
+    padding-right: $inuit-global-spacing-unit-small;
+
+    @include mq($from: desktop) {
+        padding-left: $inuit-global-spacing-unit;
+        padding-right: $inuit-global-spacing-unit;
+    }
+}
+
+.o-content-width-wrapper--mobile {
+    @include max-width-centered(map-get($mq-breakpoints, mobile));
+
+    padding-left: $inuit-global-spacing-unit-small;
+    padding-right: $inuit-global-spacing-unit-small;
+
+    @include mq($from: desktop) {
+        padding-left: $inuit-global-spacing-unit;
+        padding-right: $inuit-global-spacing-unit;
+    }
+}

@@ -63,7 +63,6 @@
     "Are you sure you want to delete this item?": "本当にこの項目を削除しますか？",
     "Exception": "例外",
     "Continue execution when an error is detected in the G-code program": "Gコードにエラーが検出されても動作を継続する",
-    "Enabling this option may cause machine damage if you don't have an Emergency Stop button to prevent a dangerous situation.": "このオプションを有効にした場合、危険な状況が発生した場合に緊急停止ボタンがないと、マシンが損傷する可能性があります。",
     "Save Changes": "変更を保存",
     "Events": "イベント",
     "Event": "イベント",
@@ -520,5 +519,6 @@
     "Apply": "",
     "Add": "",
     "Custom Jog Distance (mm)": "",
-    "Custom Jog Distance (inches)": ""
+    "Custom Jog Distance (inches)": "",
+    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": ""
 }

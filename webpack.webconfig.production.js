@@ -68,6 +68,9 @@ module.exports = {
         loader: 'eslint-loader',
         enforce: 'pre',
         exclude: /node_modules/,
+        options: {
+          quiet: true,
+        },
       },
       {
         test: /\.jsx?$/,

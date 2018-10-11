@@ -1,0 +1,160 @@
+.footer {
+    background: $primary--darker;
+    color: $primary--lightest;
+
+    .footer__fine-print {
+        font-size: $font-size--small;
+        text-align: center;
+
+        a {
+            color: $primary--lighter;
+            display: inline-block;
+            padding: $inuit-global-spacing-unit-small;
+            transition: color $transition-time--fast;
+
+            &:hover {
+                color: $primary--lightest;
+            }
+        }
+    }
+
+    .labeled-divider {
+
+        hr {
+            background: $primary;
+        }
+
+        .labeled-divider__label {
+            background: $primary--darker;
+        }
+
+        .icon--logo__frame,
+        .icon--logo__letter {
+            fill: $primary--lighter;
+        }
+    }
+
+    strong {
+        color: $primary--lightest;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+
+    .footer-link,
+    .link--social {
+        color: $primary--lighter;
+        transition: color $transition-time--fast;
+
+        &:hover {
+            color: $primary--lightest;
+        }
+    }
+
+    /*
+     * 1 - Hide parts of icon that stick out of the box
+     */
+    .link--social {
+        background: $transparent;
+        border: 1px solid $primary--lighter;
+        margin-bottom: $inuit-global-spacing-unit;
+        overflow: hidden; /* 1 */
+        transition: background, color $transition-time--medium;
+
+        &:hover {
+            border-color: $primary--lightest;
+        }
+
+        + .link--social {
+            margin-left: $inuit-global-spacing-unit;
+        }
+    }
+}
+
+
+.layout--marketing {
+    background: $background--white;
+
+    .header {
+        background: $transparent;
+
+        &.is-stuck {
+            background: transparentize($background--white, .03);
+            box-shadow: 0 0 $inuit-global-spacing-unit-small transparentize($background--darkest, .55);
+            color: $text--inverse;
+        }
+
+        .nav-link {
+
+            &,
+            &:visited {
+                color: $text--lighter;
+            }
+
+            &:hover {
+                color: $clickable--highlight;
+            }
+
+            &.link--cta {
+                color: $clickable;
+
+                &:hover {
+                    color: $clickable--highlight;
+                }
+            }
+        }
+    }
+
+    .main {
+
+    }
+
+    /*
+     * 1 - Reset default margin-top applied to <section>
+     */
+    .hero-section {
+        margin-top: 0; /* 1 */
+        min-height: 20 * $inuit-global-spacing-unit;
+        padding-bottom: $inuit-global-spacing-unit-huge;
+        padding-top: $inuit-global-spacing-unit-huge;
+
+        h1 {
+            font-size: $font-size--page-title;
+            margin: 0 0 $inuit-global-spacing-unit-huge;
+            text-align: center;
+        }
+    }
+
+    /*
+     * 1 - Reset default margin-top applied to <section>
+     */
+    .benefit-section {
+        padding-bottom: $inuit-global-spacing-unit-huge;
+        padding-top: $inuit-global-spacing-unit-huge;
+        margin-top: 0; /* 1 */
+        text-align: center;
+
+        h2 {
+            font-size: $font-size--huge;
+            margin: 0 0 $inuit-global-spacing-unit-huge;
+        }
+    }
+}
+
+
+.layout--document {
+    background: $background--darker;
+
+    .document {
+        background: $background--white;
+        box-shadow: 1px 1px 6px hsla(0, 0%, 0%, .21);
+    }
+
+    .minimap__content {
+
+    }
+}
+
+
+.layout--blank {
+    min-height: 100vh;
+}

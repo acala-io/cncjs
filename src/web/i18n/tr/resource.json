@@ -63,7 +63,6 @@
     "Are you sure you want to delete this item?": "Bu öğeyi silmek istediğinizden emin misiniz?",
     "Exception": "İstisna",
     "Continue execution when an error is detected in the G-code program": "G-kod programında bir hata tespit edildiğinde yürütmeye devam edin",
-    "Enabling this option may cause machine damage if you don't have an Emergency Stop button to prevent a dangerous situation.": "Tehlikeli bir durumu önlemek için acil durdurma düğmesi yoksa, bu seçeneğin etkinleştirilmesi makinenin hasar görmesine neden olabilir.",
     "Save Changes": "Değişiklikleri Kaydet",
     "Events": "Etkinlikler",
     "Event": "Etkinlik",
@@ -520,5 +519,6 @@
     "Apply": "",
     "Add": "",
     "Custom Jog Distance (mm)": "",
-    "Custom Jog Distance (inches)": ""
+    "Custom Jog Distance (inches)": "",
+    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": ""
 }

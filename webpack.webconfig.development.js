@@ -54,6 +54,9 @@ module.exports = {
         loader: 'eslint-loader',
         enforce: 'pre',
         exclude: /node_modules/,
+        options: {
+          quiet: true,
+        },
       },
       {
         test: /\.jsx?$/,
@@ -74,47 +77,47 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader?camelCase', 'stylus-loader'],
         include: [path.resolve(__dirname, 'src/web/styles')],
       },
-      {
-        test: /\.scss$/,
-        use: [
-          require.resolve('style-loader'),
-          {
-            loader: 'css-loader',
-            options: {
-              // TODO:
-              // camelCase
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: [
-                autoprefixer({
-                  browsers: browserslist(),
-                  flexbox: 'no-2009',
-                }),
-                cssnano({
-                  discardComments: {
-                    removeAll: true,
-                  },
-                  options: {
-                    safe: true,
-                    sourcemap: false,
-                  },
-                  svgo: false, // trying to run svgo breaks for unknown reasons and we don't need it anyway, so just switch it off
-                }),
-              ],
-            },
-          },
-          {
-            loader: 'fast-sass-loader',
-            options: {
-              errLogToConsole: true,
-              includePaths: [path.resolve(__dirname, 'src/web/scss'), path.resolve(__dirname, 'node_modules')],
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.scss$/,
+      //   use: [
+      //     require.resolve('style-loader'),
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         // TODO:
+      //         // camelCase
+      //       },
+      //     },
+      //     {
+      //       loader: 'postcss-loader',
+      //       options: {
+      //         plugins: [
+      //           autoprefixer({
+      //             browsers: browserslist(),
+      //             flexbox: 'no-2009',
+      //           }),
+      //           cssnano({
+      //             discardComments: {
+      //               removeAll: true,
+      //             },
+      //             options: {
+      //               safe: true,
+      //               sourcemap: false,
+      //             },
+      //             svgo: false, // trying to run svgo breaks for unknown reasons and we don't need it anyway, so just switch it off
+      //           }),
+      //         ],
+      //       },
+      //     },
+      //     {
+      //       loader: 'fast-sass-loader',
+      //       options: {
+      //         errLogToConsole: true,
+      //         includePaths: [path.resolve(__dirname, 'src/web/scss'), path.resolve(__dirname, 'node_modules')],
+      //       },
+      //     },
+      //   ],
+      // },
       {
         test: /\.scss$/,
         use: [
@@ -198,9 +201,6 @@ module.exports = {
         LANGUAGES: JSON.stringify(buildConfig.languages),
         TRACKING_ID: JSON.stringify(buildConfig.analytics.trackingId),
       },
-    }),
-    new webpack.LoaderOptionsPlugin({
-      debug: true,
     }),
     new stylusLoader.OptionsPlugin({
       default: {

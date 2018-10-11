@@ -1,0 +1,276 @@
+/*
+ * Inputs.
+ *
+ * A lot of form styles were taken from https://github.com/ireade/formhack
+ * in so far as they are not already part of
+ * https://github.com/necolas/normalize.css/blob/master/normalize.css
+ */
+input,
+textarea,
+button,
+legend,
+fieldset {
+    display: inline-block;
+    font: inherit;
+
+    /*
+     * 1 - Prevent weird spacing at bottom
+     */
+    &:not([type=range]) {
+        vertical-align: top; /* 1 */
+    }
+}
+
+/*
+ * Inputs with standard width.
+ */
+input:not([type]),
+input[list],
+input[type=color],
+input[type=date],
+input[type=datetime-local],
+input[type=email],
+input[type=file],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+select,
+textarea {
+    background: transparentize($background--white, .92);
+    border: 1px solid $border;
+    border-radius: $border-radius;
+    box-shadow: none;
+    max-width: 19em;
+    padding: .5em;
+    transition: border-color $transition-time--fast ease-in-out;
+    width: 100%;
+}
+
+
+/*
+ * Inputs with standard height.
+ *
+ * 1 - Most reliable way to set line-height for all browsers,
+ *     see discussion at http://joshnh.com/weblog/line-height-doesnt-work-as-expected-on-inputs/
+ * 2 - Remove clear input link in IE; make sure space reserved for link is also removed
+ * 3 - Hide 'show password' link in IE; this should be handled uniformly for all browsers
+ */
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=search],
+input[type=color],
+input[type=date],
+input[type=datetime-local],
+input[type=month],
+input[type=number],
+input[type=tel],
+input[type=time],
+input[type=url],
+input[type=week],
+input[list] {
+    appearance: none; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+    height: 2em; /* 1 */
+
+    &::-ms-clear {
+        display: none; /* 2 */
+        height: 0; /* 2 */
+        width: 0; /* 2 */
+    }
+
+
+    &::-ms-reveal {
+        display: none; /* 3 */
+    }
+}
+
+/*
+ * 1 - Limit width to some 13 words, for optimal readability
+ */
+textarea {
+    appearance: none; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+    max-width: 44em; /* 1 */
+    resize: vertical; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+
+    &:not(.textarea--slim) {
+        min-height: 10em;
+    }
+
+    &.textarea--slim {
+        min-height: 7em;
+    }
+}
+
+/*
+ * 1 - Align text with rounding of input
+ */
+input[type=search] {
+    border: 0;
+    border-radius: $border-radius--pill;
+    box-sizing: border-box !important;
+    padding-left: 1.25 * $inuit-global-spacing-unit; /* 1 */
+    padding-right: 1.25 * $inuit-global-spacing-unit; /* 1 */
+}
+
+.input--search {
+    position: relative;
+
+    .icon--search {
+        fill: $text--lighter;
+        height: round(1.33 * $inuit-global-spacing-unit);
+        left: 1.33em;
+        position: absolute;
+        top: .5em;
+        width: round(1.33 * $inuit-global-spacing-unit);
+    }
+
+    /*
+     * 1 - Give space for icon
+     */
+    input[type=search] {
+        height: 2em;
+        padding-left: 2.75 * $inuit-global-spacing-unit; /* 1 */
+        width: 17em;
+    }
+}
+
+/*
+ * 1 - Checkboxes and radiobuttons have their labels on the right, so add one character width of margin there
+ */
+input[type=checkbox],
+input[type=radio] {
+    display: inline-block;
+    margin-right: 1ch; /* 1 */
+    vertical-align: middle;
+}
+
+/*
+ * 1 - Fix unchangeable border-radius in webkit
+ * 2 - Fix weird vertical alignment in webkit
+ * 3 - Remove vendor styling to apply custom arrows using a CSS triangle
+ * 4 - Remove outline in Firefox
+ * 5 - Remove arrows in IE
+ */
+select {
+    appearance: none; /* 1, 3 */ /* stylelint-disable-line plugin/no-unsupported-browser-features */
+    border-radius: 3px; /* 1 */
+    cursor: pointer;
+    min-width: 5em;
+    padding: .33em 1.66em .33em .66em; /* 2 */
+
+    &:-moz-focusring {
+        color: $transparent; /* 4 */
+        text-shadow: 0 0 0 transparent; /* 4 */
+    }
+
+    &::-ms-expand {
+        display: none; /* 5 */
+    }
+
+    /**
+     * Style a select option to behave like a placeholder in an input.
+     *
+     * Usage:
+     *
+     * <option class="select-placeholder" disabled selected>
+     *     Placeholder text
+     * </option>
+     */
+    .select-placeholder {
+        color: $text--lighter;
+        display: none;
+        font-style: italic;
+    }
+}
+
+select[multiple] {
+    height: auto;
+    min-height: calc(2em + 2px);
+    padding: 0;
+
+    option {
+        margin: 0;
+        padding: .5em .66em;
+    }
+}
+
+input,
+textarea,
+select,
+option,
+optgroup,
+button,
+legend,
+fieldset {
+
+    &:hover,
+    &:active,
+    &:focus {
+        outline: none; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+    }
+}
+
+input,
+textarea,
+select {
+
+    &:hover,
+    &:active,
+    &:focus {
+        border-color: $clickable--highlight;
+    }
+}
+
+input[disabled],
+textarea[disabled],
+select[disabled],
+option[disabled],
+button[disabled] {
+    cursor: not-allowed; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+}
+
+input[type=text] {
+
+    &.is-disabled {
+        border-color: $transparent;
+        cursor: text; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+        padding-left: 0;
+        padding-right: 0;
+
+        &:hover,
+        &:focus,
+        &:active {
+            border-color: $transparent;
+        }
+    }
+}
+
+
+// Variants ------------------------------------------------------------------------------------------------------------
+.input--large {
+    font-size: $font-size--large;
+}
+
+.input--huge {
+    font-size: $font-size--huge;
+    padding: .5em;
+}
+
+.input--long,
+input:not([type]).input--long,
+input[type=text].input--long,
+input[type=search].input--long,
+input[type=email].input--long,
+input[type=password].input--long,
+input[type=url].input--long,
+input[type=tel].input--long,
+textarea.input--long,
+select.input--long {
+    max-width: none;
+}

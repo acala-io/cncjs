@@ -1,0 +1,73 @@
+/*
+ * SVG icons.
+ *
+ * Usage:
+ *
+ * <svg role="img" viewBox="0 0 84 84" class="icon icon--small">
+ *     <path d="..."></path>
+ * </svg>
+ */
+
+
+.icon {
+    display: inline-block;
+    fill: currentColor;
+    height: $inuit-global-spacing-unit-large;
+    position: relative;
+    transition: $transition-time--fast transform;
+    vertical-align: middle;
+    width: $inuit-global-spacing-unit-large;
+
+    &--tiny {
+        height: $inuit-global-spacing-unit-small;
+        width: $inuit-global-spacing-unit-small;
+    }
+
+    &--small {
+        height: $inuit-global-spacing-unit;
+        width: $inuit-global-spacing-unit;
+    }
+
+    &--large {
+        height: $inuit-global-spacing-unit-huge;
+        width: $inuit-global-spacing-unit-huge;
+    }
+
+    &--light {
+        fill: $text--lightest;
+    }
+}
+
+
+// Alignment fixes -----------------------------------------------------------------------------------------------------
+.icon--company {
+    top: -3px;
+}
+
+.icon--credit-card {
+    top: -2px;
+}
+
+.icon--logout {
+    left: -3px;
+}
+
+.icon--profile {
+    top: -3px;
+}
+
+.icon--templates {
+    top: -2px;
+}
+
+// Special icons -------------------------------------------------------------------------------------------------------
+.icon--logo {
+
+    .icon--logo__frame {
+        fill: #f7b11a;
+    }
+
+    .icon--logo__letter {
+        fill: #868d93;
+    }
+}

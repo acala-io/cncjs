@@ -1,0 +1,17 @@
+/*
+ * Sections.
+ * Just for creating margins to structure a page.
+ */
+
+
+section,
+.section {
+
+    &:not(:first-of-type) {
+        margin-top: $inuit-global-spacing-unit-huge;
+    }
+
+    &:empty {
+        margin-top: 0;
+    }
+}

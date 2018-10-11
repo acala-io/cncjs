@@ -1,0 +1,90 @@
+/*
+ * Create a stacked group for related inputs or selects.
+ * The inputs can be stacked vertically (iOS-like) or horizontally.
+ * The inputs can be wrapped, if required.
+ *
+ * <div class="input-stack stacked--vertically">
+ *     <div class="input-stack__item">
+ *         <input>
+ *     </div>
+ *     <div class="input-stack__item">
+ *         <input>
+ *     </div>
+ * </div>
+ *
+ * or
+ *
+ * <div class="input-stack stacked--horizontally">
+ *     <input class="input-stack__item">
+ *     <input class="input-stack__item">
+ *     <input class="input-stack__item">
+ * </div>
+ */
+
+
+.input-stack {
+    display: inline-block;
+    vertical-align: top;
+
+    .input-stack__item,
+    .input-stack__item > input,
+    .input-stack__item > select {
+        border-radius: 0;
+        margin: 0;
+        position: relative;
+
+        &:hover,
+        &:focus,
+        &:active {
+            z-index: $z--elevated-2;
+        }
+    }
+
+    &.stacked--vertically {
+
+        input.input-stack__item:first-of-type,
+        select.input-stack__item:first-of-type,
+        .input-stack__item:first-of-type,
+        .input-stack__item:first-of-type > input,
+        .input-stack__item:first-of-type > select {
+            border-radius: $border-radius $border-radius 0 0;
+            margin-top: 0;
+        }
+
+        .input-stack__item {
+            margin-top: -1px;
+        }
+
+        input.input-stack__item:last-of-type,
+        select.input-stack__item:last-of-type,
+        .input-stack__item:last-of-type,
+        .input-stack__item:last-of-type > input,
+        .input-stack__item:last-of-type > select {
+            border-radius: 0 0 $border-radius $border-radius;
+        }
+    }
+
+    &.stacked--horizontally {
+
+        input.input-stack__item:first-of-type,
+        select.input-stack__item:first-of-type,
+        .input-stack__item:first-of-type,
+        .input-stack__item:first-of-type > input,
+        .input-stack__item:first-of-type > select {
+            border-radius: $border-radius 0 0 $border-radius;
+            margin-left: 0;
+        }
+
+        .input-stack__item {
+            margin-left: -1px;
+        }
+
+        input.input-stack__item:last-of-type,
+        select.input-stack__item:last-of-type,
+        .input-stack__item:last-of-type,
+        .input-stack__item:last-of-type > input,
+        .input-stack__item:last-of-type > select {
+            border-radius: 0 $border-radius $border-radius 0;
+        }
+    }
+}

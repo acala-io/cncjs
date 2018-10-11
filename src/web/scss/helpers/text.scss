@@ -1,0 +1,83 @@
+/*
+ * Text helper classes
+ */
+
+
+// Standard text styles ------------------------------------------------------------------------------------------------
+.number {
+    text-align: right;
+}
+
+.unit {
+    color: $text--lighter;
+    padding-left: .5ch;
+}
+
+/*
+ * 1 - Allow sign to be aligned vertically with text / input
+ * 2 - Separate sign from following number with half a character width
+ */
+.number-sign {
+    display: inline-block; /* 1 */
+    padding-right: .5ch; /* 2 */
+    vertical-align: middle; /* 1 */
+}
+
+
+// Color ---------------------------------------------------------------------------------------------------------------
+.text--lighter {
+    color: $text--lighter;
+}
+
+.text--lightest {
+    color: $text--lightest;
+}
+
+
+// Font-weight ---------------------------------------------------------------------------------------------------------
+.text--bold {
+    font-weight: bold;
+}
+
+.text--normal {
+    font-weight: normal;
+}
+
+
+// Alignment -----------------------------------------------------------------------------------------------------------
+.text--left {
+    text-align: left;
+}
+
+.text--right {
+    text-align: right;
+}
+
+.text--centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center !important;
+}
+
+
+// Wrapping ------------------------------------------------------------------------------------------------------------
+.nowrap {
+    white-space: nowrap;
+}
+
+@mixin truncate-text() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* see https://justmarkup.com/log/2015/07/dealing-with-long-words-in-css/ */
+@mixin hyphenate() {
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.hyphenate {
+    @include hyphenate;
+}

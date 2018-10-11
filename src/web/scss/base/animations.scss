@@ -1,0 +1,340 @@
+/*
+ * Predefined animations.
+ *
+ * Usage: Apply class to the element to be animated.
+ */
+
+/* stylelint-disable declaration-colon-space-after, function-parentheses-space-inside, function-comma-space-after */
+/* Because stylelint does not understand SCSS variable definitions */
+$inuit-global-spacing-unit:   14px !default;
+
+$transition-time--slow:     400ms !default;
+$transition-time--fast:     150ms !default;
+/* stylelint-enable */
+
+
+/*
+ * for shaking dialogs, we need to take into account that they are already translated by (-50%, -50%)
+ */
+@keyframes shakeDialog {
+
+    from,
+    to {
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    20%,
+    60% {
+        transform: translate3d(-55%, -50%, 0);
+    }
+
+    40%,
+    80% {
+        transform: translate3d(-45%, -50%, 0);
+    }
+}
+
+@keyframes shake {
+
+    from,
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+
+    20%,
+    60% {
+        transform: translate3d(-$inuit-global-spacing-unit, 0, 0);
+    }
+
+    40%,
+    80% {
+        transform: translate3d($inuit-global-spacing-unit, 0, 0);
+    }
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+
+    from {
+        opacity: 1 !important;
+    }
+
+    to {
+        opacity: 0 !important;
+    }
+}
+
+@keyframes slideUpIn {
+
+    from {
+        transform: translate3d(-50%, 2000px, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+@keyframes slideDownIn {
+
+    from {
+        transform: translate3d(-50%, -2000px, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+@keyframes slideLeftIn {
+
+    from {
+        transform: translate3d(4000px, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideDownOut {
+
+    from {
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 2000px, 0);
+    }
+}
+
+@keyframes slideUpOut {
+
+    from {
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, -2000px, 0);
+    }
+}
+
+@keyframes pulsate {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulseIn {
+
+    0% {
+        transform: scale(0);
+    }
+
+    80% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes vanishIn {
+
+    0% {
+        filter: blur(double($inuit-global-spacing-unit));
+        opacity: 0;
+        transform: scale(2);
+        transform-origin: center;
+    }
+
+    100% {
+        filter: blur(0);
+        opacity: 1;
+        transform: scale(1);
+        transform-origin: center;
+    }
+}
+
+@keyframes floatUpDown {
+
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(0, 10%, 0);
+    }
+
+    100% {
+        transform: translate3d(0, -5%, 0);
+    }
+}
+
+
+.animation,
+%animation {
+
+    &--pulsate {
+        animation: 1700ms pulsate infinite ease-in-out;
+        animation-fill-mode: both;
+    }
+
+    &--shake-dialog {
+        animation: $transition-time--slow shakeDialog;
+        animation-fill-mode: both;
+    }
+
+    &--shake {
+        animation: $transition-time--slow shake;
+        animation-fill-mode: both;
+    }
+
+    &--pulse-in {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--fast pulseIn $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: both;
+    }
+
+    &--fade-in {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--fast fadeIn $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: both;
+    }
+
+    /*
+     * 1 - Keep appearance of last keyframe
+     */
+    &--slide-up-in {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--medium slideUpIn $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: forwards; /* 1 */
+    }
+
+    /*
+     * 1 - Keep appearance of last keyframe
+     */
+    &--slide-down-in {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--medium slideDownIn $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: forwards; /* 1 */
+    }
+
+    /*
+     * 1 - Keep appearance of last keyframe
+     */
+    &--slide-left-in {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--medium slideLeftIn $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: forwards; /* 1 */
+    }
+
+    /*
+     * 1 - Keep appearance of last keyframe
+     */
+    &--slide-down-out {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--medium slideDownOut $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: forwards; /* 1 */
+    }
+
+    /*
+     * 1 - Keep appearance of last keyframe
+     */
+    &--slide-up-out {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--medium slideUpOut $transition-style--dynamic;
+        /* stylelint-enable */
+        animation-fill-mode: forwards; /* 1 */
+    }
+
+    &--vanish-in {
+        /* stylelint-disable value-keyword-case */
+        /* fadeIn is a false positive imo */
+        animation: $transition-time--fast vanishIn $transition-style--dynamic;
+        /* stylelint-enable */
+    }
+
+    &--float-up-down {
+        animation: $transition-time--very-slow floatUpDown infinite;
+    }
+}
+
+@mixin animation--pulsate {
+    @extend %animation--pulsate;
+}
+
+@mixin animation--shake-dialog {
+    @extend %animation--shake-dialog;
+}
+
+@mixin animation--shake {
+    @extend %animation--shake;
+}
+
+@mixin animation--fade-in {
+    @extend %animation--fade-in;
+}
+
+@mixin animation--pulse-in {
+    @extend %animation--pulse-in;
+}
+
+@mixin animation--slide-up-in {
+    @extend %animation--slide-up-in;
+}
+
+@mixin animation--slide-down-in {
+    @extend %animation--slide-down-in;
+}
+
+@mixin animation--slide-left-in {
+    @extend %animation--slide-left-in;
+}
+
+@mixin animation--slide-down-out {
+    @extend %animation--slide-down-out;
+}
+
+@mixin animation--slide-up-out {
+    @extend %animation--slide-up-out;
+}
+
+@mixin animation--vanish-in {
+    @extend %animation--vanish-in;
+}
+
+@mixin animation--float-up-down {
+    @extend %animation--float-up-down;
+}

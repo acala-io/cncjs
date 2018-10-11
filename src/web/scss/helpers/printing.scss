@@ -1,0 +1,35 @@
+/*
+ * Printing helper classes
+ */
+
+
+/* stylelint-disable declaration-no-important */
+@mixin dont-print {
+    @media print {
+        display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+@mixin do-print {
+    @media print {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+@mixin do-print-only {
+    @media screen {
+        display: none !important;
+    }
+
+    @media print {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+/* stylelint-enable declaration-no-important */

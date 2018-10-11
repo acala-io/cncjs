@@ -1,0 +1,100 @@
+/**
+ *  Default styles for xterm.js
+ */
+
+.xterm {
+    font-family: courier-new, courier, monospace;
+    font-feature-settings: 'liga' 0;
+    position: relative;
+    user-select: none;
+
+    &.focus,
+    &:focus {
+        outline: none;
+    }
+
+    &.enable-mouse-events {
+        /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
+        cursor: default;
+    }
+
+    &:not(.enable-mouse-events) {
+        cursor: text;
+    }
+
+    canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .composition-view {
+        /* TODO: Composition position got messed up somewhere */
+        background: #000;
+        color: #fff;
+        display: none;
+        position: absolute;
+        white-space: nowrap;
+        z-index: 1;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    .xterm-helpers {
+        position: absolute;
+        top: 0;
+        /**
+         * The z-index of the helpers must be higher than the canvases in order for
+         * IMEs to appear on top.
+         */
+        z-index: 10;
+    }
+
+    .xterm-helper-textarea {
+        /*
+         * HACK: to fix IE's blinking cursor
+         * Move textarea out of the screen to the far left, so that the cursor is not visible.
+         */
+        position: absolute;
+        opacity: 0;
+        left: -9999em;
+        top: 0;
+        width: 0;
+        height: 0;
+        z-index: -10;
+        /** Prevent wrapping so the IME appears against the textarea at the correct position */
+        white-space: nowrap;
+        overflow: hidden;
+        resize: none;
+    }
+
+    .terminal {
+        font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+            Bitstream Vera Sans Mono, Courier New, monospace, serif;
+        background-color: #000;
+        color: #fff;
+
+        > .xterm-viewport {
+            position: relative;
+        }
+    }
+
+    .xterm-viewport {
+        /* On OS X this is required in order for the scroll bar to appear fully opaque */
+        background-color: #000;
+        overflow-y: scroll;
+    }
+
+    .xterm-scroll-area {
+        visibility: hidden;
+    }
+
+    .xterm-char-measure-element {
+        display: inline-block;
+        visibility: hidden;
+        position: absolute;
+        left: -9999em;
+    }
+}

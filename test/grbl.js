@@ -297,7 +297,7 @@ test('GrblLineParserResultFeedback', t => {
     // Sent after an alarm message to tell the user to reset Grbl as an acknowledgement that an alarm has happened.
     '[Reset to continue]',
     // After an alarm and the user has sent a reset,
-    "['$H'|'$X' to unlock]",
+    '[\'$H\'|\'$X\' to unlock]',
     // This feedback message is sent when the user overrides the alarm.
     '[Caution: Unlocked]',
     // $C - Check gcode mode
@@ -384,42 +384,42 @@ test('GrblLineParserResultStartup', t => {
   test('Grbl 0.9j', t => {
     const runner = new GrblRunner();
     runner.on('startup', ({raw, firmware, version, message}) => {
-      t.equal(raw, "Grbl 0.9j ['$' for help]");
+      t.equal(raw, 'Grbl 0.9j [\'$\' for help]');
       t.equal(firmware, 'Grbl');
       t.equal(version, '0.9j');
-      t.equal(message, "['$' for help]");
+      t.equal(message, '[\'$\' for help]');
       t.end();
     });
 
-    const line = "Grbl 0.9j ['$' for help]";
+    const line = 'Grbl 0.9j [\'$\' for help]';
     runner.parse(line);
   });
 
   test('Grbl 1.1f', t => {
     const runner = new GrblRunner();
     runner.on('startup', ({raw, firmware, version, message}) => {
-      t.equal(raw, "Grbl 1.1f ['$' for help]");
+      t.equal(raw, 'Grbl 1.1f [\'$\' for help]');
       t.equal(firmware, 'Grbl');
       t.equal(version, '1.1f');
-      t.equal(message, "['$' for help]");
+      t.equal(message, '[\'$\' for help]');
       t.end();
     });
 
-    const line = "Grbl 1.1f ['$' for help]";
+    const line = 'Grbl 1.1f [\'$\' for help]';
     runner.parse(line);
   });
 
   test('vCarvin 2.0.0', t => {
     const runner = new GrblRunner();
     runner.on('startup', ({raw, firmware, version, message}) => {
-      t.equal(raw, "vCarvin 2.0.0 ['$' for help]");
+      t.equal(raw, 'vCarvin 2.0.0 [\'$\' for help]');
       t.equal(firmware, 'vCarvin');
       t.equal(version, '2.0.0');
-      t.equal(message, "['$' for help]");
+      t.equal(message, '[\'$\' for help]');
       t.end();
     });
 
-    const line = "vCarvin 2.0.0 ['$' for help]";
+    const line = 'vCarvin 2.0.0 [\'$\' for help]';
     runner.parse(line);
   });
 

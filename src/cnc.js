@@ -62,7 +62,7 @@ program
   .option('--allow-remote-access', 'Allow remote access to the server (default: false)')
   .option(
     '--controller <type>',
-    "Specify CNC controller: Grbl|Marlin|Smoothie|TinyG|g2core (default: '')",
+    'Specify CNC controller: Grbl|Marlin|Smoothie|TinyG|g2core (default: \'\')',
     parseController,
     ''
   );

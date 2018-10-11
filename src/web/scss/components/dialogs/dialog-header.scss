@@ -1,0 +1,25 @@
+/*
+ * Dialog section for title of dialog.
+ *
+ * Usage:
+ *
+ * <div class="dialog__header">
+ *     <h2 class="dialog__heading">
+ *         Create Account
+ *     </h2>
+ * </div>
+ */
+
+
+.dialog__header {
+    padding: $inuit-global-spacing-unit $inuit-global-spacing-unit 0;
+}
+
+/*
+ * 1 - Very large typography needs smaller line-height to look good
+ */
+.dialog__heading {
+    font-size: $font-size--large;
+    margin: 0;
+    text-align: center;
+}

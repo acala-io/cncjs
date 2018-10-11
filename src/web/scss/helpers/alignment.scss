@@ -1,0 +1,80 @@
+/*
+ * Alignment helper classes
+ */
+
+
+// Floating ------------------------------------------------------------------------------------------------------------
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+
+// Position ------------------------------------------------------------------------------------------------------------
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.fixed {
+    position: fixed;
+}
+
+
+// Centering -----------------------------------------------------------------------------------------------------------
+.center--mx,
+%center--mx {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin center--mx {
+    @extend %center--mx;
+}
+
+.center--x,
+%center--x {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+@mixin center--x {
+    @extend %center--x;
+}
+
+.center--y,
+%center--y {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin center--y {
+    @extend %center--y;
+}
+
+.center--xy,
+%center--xy {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin center--xy {
+    @extend %center--xy;
+}
+
+@mixin max-width-centered($maxWidth: 70 * $inuit-global-spacing-unit) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $maxWidth;
+    width: 100%;
+}

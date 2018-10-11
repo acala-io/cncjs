@@ -1,0 +1,174 @@
+/*
+ * Badges for displaying numbers or text.
+ *
+ * Usage:
+ *
+ * <span class="badge">
+ *     0
+ * </span>
+ *
+ * <span class="badge badge--alert">
+ *     99
+ * </span>
+ */
+
+
+.badge {
+    background: $background--darker;
+    border-radius: $border-radius;
+    color: $text--inverse;
+    cursor: default;
+    display: inline-block;
+    font-weight: normal;
+    height: 1.5em;
+    min-width: 1.5em;
+    padding-left: .35em;
+    padding-right: .35em;
+    position: relative;
+    text-align: center;
+    text-shadow: none;
+
+    a & {
+        cursor: pointer;
+    }
+}
+
+
+// Variants ------------------------------------------------------------------------------------------------------------
+.badge--space-left {
+    margin-left: $inuit-global-spacing-unit-small;
+}
+
+.badge--space-right {
+    margin-right: $inuit-global-spacing-unit-small;
+}
+
+/*
+ * 1 - Icon provides background, so we don't want the box to have a background color
+ * 2 - Use same width as icon
+ * 3 - Icon provides background, so we don't need padding to create background-colored space around content
+ */
+.badge--icon {
+    background: none; /* 1 */
+    min-width: 2em; /* 2 */
+    padding: 0; /* 3 */
+
+    /*
+     * 1 - Position content above icon on z-axis
+     */
+    span {
+        position: relative; /* 1 */
+        z-index: $z--elevated-1; /* 1 */
+    }
+
+    /*
+     * 1 - Adjust icon size to text size of badge
+     * 2 - Allow badge content to be rendered on top of icon background
+     */
+    .icon,
+    .badge__content {
+        height: 2em; /* 1 */
+        left: 0;
+        position: absolute; /* 2 */
+        width: 2em; /* 1 */
+    }
+
+    /*
+     * 1 - Apply badge color
+     */
+    .icon {
+        fill: $text--lightest; /* 1 */
+    }
+
+    /*
+     * 1 - Center vertically
+     */
+    .badge__content {
+        color: $text--inverse;
+        line-height: 2; /* 1 */
+    }
+}
+
+.badge--highlighted {
+    background: $primary;
+    color: $text--inverse;
+
+    .icon {
+        fill: $primary;
+    }
+}
+
+.badge--alert {
+    background: $danger;
+    color: $text--inverse;
+
+    .icon {
+        fill: $danger;
+    }
+}
+
+.badge--pill {
+    border-radius: $border-radius--pill;
+    padding-left: .5em;
+    padding-right: .5em;
+}
+
+.badge--clickable {
+    background: $clickable;
+    cursor: pointer;
+
+    .icon {
+        fill: $clickable;
+    }
+
+    &:hover {
+        background: $clickable--highlight;
+
+        .icon {
+            fill: $clickable--highlight;
+        }
+    }
+}
+
+.badge--multi {
+
+    > .badge {
+        border-radius: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+
+        &:first-child {
+            border-bottom-left-radius: $border-radius;
+            border-top-left-radius: $border-radius;
+        }
+
+        &:last-child {
+            border-bottom-right-radius: $border-radius;
+            border-top-right-radius: $border-radius;
+        }
+
+        + .badge {
+            border-left: 1px solid $border--lighter;
+        }
+    }
+
+    &.badge--pill {
+        border-radius: $border-radius--pill;
+        padding: 0;
+
+        > .badge {
+            &:first-child {
+                border-radius: $border-radius--pill 0 0 $border-radius--pill;
+                padding-left: .5em;
+                padding-right: .25em;
+            }
+
+            &:last-child {
+                border-radius: 0 $border-radius--pill $border-radius--pill 0;
+                padding-left: .25em;
+                padding-right: .5em;
+            }
+        }
+    }
+}

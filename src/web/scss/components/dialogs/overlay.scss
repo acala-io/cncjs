@@ -1,0 +1,27 @@
+/*
+ * Overlay to cover the entire screen for rendering a dialog
+ * while reducing the distraction by the background.
+ *
+ * Usage:
+ *
+ * <div class="overlay"></div>
+ */
+
+
+/*
+ * 1 - Cover entire viewport
+ */
+.overlay {
+    @include pin(top-left, fixed);
+
+    animation-duration: $transition-time--slow;
+    background: transparentize(darken($text, 21%), .21);
+    height: 100%; /* 1 */
+    width: 100%; /* 1 */
+    z-index: $z--topmost-1;
+}
+
+*.has-overlay {
+    filter: blur(5px); /* stylelint-disable-line plugin/no-unsupported-browser-features */
+    transition: blur $transition-time--medium;
+}

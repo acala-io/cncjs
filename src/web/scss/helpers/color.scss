@@ -1,0 +1,32 @@
+/**
+ * Colors helper classes.
+ * Generates a set of similar colors to be uses as backgrounds, border colors, or text colors.
+ */
+
+$baseColor: $secondary !default;
+$hueShift:  31% !default;
+
+// This is a nice set of matching colors:
+// $colorsList: #f29249, #ebc446, #8fdf68, #75cff0, #475dcc, #e6e3df, #000, #000, #000, #000;
+
+
+@for $i from 1 through 10 {
+    $color: adjust-hue($baseColor, $i * $hueShift);
+    // $color: nth($colorsList, $i);
+
+    .u-background-color--#{$i} {
+        background-color: $color;
+    }
+
+    .u-background-gradient--#{$i} {
+        background: linear-gradient(5deg, $color 0%, lighten(desaturate($color, 3%), 5%) 100%);
+    }
+
+    .u-border-color--#{$i} {
+        border-color: $color;
+    }
+
+    .u-color--#{$i} {
+        color: $color;
+    }
+}

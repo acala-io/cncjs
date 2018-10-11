@@ -35,9 +35,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Space from './components/Space';
 import {Button} from './components/Buttons';
 
-import './styles/vendor.styl';
-import './styles/app.styl';
-
 import './scss/app.scss';
 
 const renderPage = () => {

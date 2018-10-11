@@ -1,0 +1,116 @@
+/*
+ * Global variables.
+ */
+
+
+// colors ------------------------------------------------------------------------------------------
+// Darker color variations:*
+// - Brightness
+// + Saturation
+// Hue (often) shifts towards a luminosity minimum (red, green, or blue)
+
+// Lighter color variations:*
+// + Brightness
+// - Saturation
+// Hue (often) shifts towards a luminosity maximum
+
+// primary color
+$primary:                           hsl(248,  67%,  64%);
+$primary--darker:                   darken(saturate($primary, 3%), 8%);
+$primary--darkest:                  darken(saturate($primary, 5%), 42%);
+$primary--lighter:                  lighten(desaturate($primary, 8%), 8%);
+$primary--lightest:                 lighten(desaturate($primary, 13%), 34%);
+
+// secondary color
+$secondary:                         hsl(100,  67%,  64%);
+$secondary--darker:                 darken(saturate($secondary, 3%), 13%);
+$secondary--darkest:                darken(saturate($secondary, 5%), 34%);
+$secondary--lighter:                lighten(desaturate($secondary, 8%), 13%);
+$secondary--lightest:               lighten(desaturate($secondary, 13%), 34%);
+
+// colors for clickable items (links, buttons, etc.)
+$clickable:                         hsl(207,  67%,  64%);
+$clickable--highlight:              lighten(saturate($clickable, 13%), 5%);
+$clickable-background:              transparentize($clickable--highlight, .72);
+
+// text colors
+$text:                              hsl( 38,  13%,  21%);
+$text--lighter:                     lighten(desaturate($text, 5%), 55%);
+$text--lightest:                    lighten(desaturate($text, 5%), 68%);
+$text--inverse:                     hsl(  0,   0%, 100%);
+
+// background colors
+$background:                        hsl( 38,   2%,  92%);
+$background--darker:                darken(saturate($background, 3%), 16%);
+$background--darkest:               darken(saturate($background, 3%), 50%);
+$background--lighter:               hsl( 38,   2%,  94%);
+$background--slightly-off-white:    hsl( 38,   1%,  97%);
+$background--white:                 hsl(  0,   0%, 100%);
+$background--highlight:             hsl(201, 100%,  94%);
+$background--warning:               hsl(  4,  90%,  94%);
+$black:                             hsl( 38, 100%,   0%);
+
+// border colors
+$border:                            hsl( 38,  13%,  79%);
+$border--darker:                    darken($border, 8%);
+$border--lighter:                   lighten($border,  8%);
+$border--lightest:                  lighten($border, 13%);
+
+// state colors
+$danger:                            hsl(  0,  88%,  66%);
+$error:                             hsl(  1,  62%,  58%);
+$success:                           hsl(121,  38%,  55%);
+$attention:                         hsl( 34,  82%,  64%);
+
+$transparent:                       transparent;
+
+
+// border radii ------------------------------------------------------------------------------------
+$border-radius:                     3px;
+$border-radius-:                    2px;
+$border-radius--:                   1px;
+$border-radius\+:                   $border-radius * 2;
+$border-radius\+\+:                 $border-radius * 3;
+$border-radius--circle:             50%;
+$border-radius--pill:               999px;
+
+
+// transition times --------------------------------------------------------------------------------
+$transition-time-multiplier:        1; // scaling factor for development / debugging
+
+$transition-time--very-fast:        75ms * $transition-time-multiplier;
+$transition-time--fast:             150ms * $transition-time-multiplier;
+$transition-time--medium:           250ms * $transition-time-multiplier;
+$transition-time--slow:             400ms * $transition-time-multiplier;
+$transition-time--very-slow:        1000ms * $transition-time-multiplier;
+
+$transition-style--dynamic:         cubic-bezier(.73, .01, 0, 1);
+
+
+// z-indexes ---------------------------------------------------------------------------------------
+$z--recessed:                       -1;
+$z--base:                           0;
+
+// elements on the base layer that need to stick out
+$z--elevated-1:                     10;
+$z--elevated-2:                     11;
+$z--elevated-3:                     12;
+
+// elements that float over the base layer
+$z--overlayed-1:                    100;
+$z--overlayed-2:                    110;
+$z--overlayed-3:                    120;
+
+// elements that must never be covered
+$z--topmost-1:                      1000000;
+$z--topmost-2:                      1000010;
+$z--topmost-3:                      1000020;
+
+
+// font sizes --------------------------------------------------------------------------------------
+$font-size:                         1rem; // = 14px $inuit-base-font-size
+$font-size--tiny:                   .714rem;
+$font-size--small:                  .857rem;
+$font-size--large:                  1.5rem;
+$font-size--huge:                   2rem;
+$font-size--page-title:             4rem;

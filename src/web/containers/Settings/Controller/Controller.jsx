@@ -65,7 +65,7 @@ class Controller extends PureComponent {
                 <Space width="4" />
                 <span>
                   {i18n._(
-                    'Enabling this option may cause machine damage if you don\'t have an Emergency Stop button to prevent a dangerous situation.'
+                    'Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.'
                   )}
                 </span>
               </p>

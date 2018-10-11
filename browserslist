@@ -1,0 +1,9 @@
+# Config file for browserslist (https://github.com/ai/browserslist).
+# Browsers we support:
+
+> 3% in DE
+last 3 Chrome versions
+last 3 Firefox versions
+last 3 Edge versions
+not ie < 10
+ie >= 10

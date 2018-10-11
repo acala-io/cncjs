@@ -1,0 +1,220 @@
+/*------------------------------------*\
+    #ROUNDED CORNERS
+\*------------------------------------*/
+
+/**
+ * Rounded corner helper classes.
+ *
+ * `.(rounded--)(t|r|b|l|tl|tr|br|bl)(+|++|0) {}` = rounded top/right/bottom/left/top-left/top-right/bottom-right/bottom-left large/huge/none
+ */
+
+// Predefine the variables below in order to alter and enable specific features.
+$border-radius:                         3px !default;
+$border-radius--large:                  ($border-radius * 2) !default;
+$border-radius--huge:                   ($border-radius * 3) !default;
+
+$enable-rounded-corners:                false !default;
+$enable-rounded-corners--large:         false !default;
+$enable-rounded-corners--huge:          false !default;
+
+$enable-rounded-corners--none:          false !default;
+
+$enable-rounded-corners--circle:        false !default;
+$enable-rounded-corners--pill:          false !default;
+
+
+
+
+@if ($enable-rounded-corners == true) {
+    /**
+     * Rounded corner helper classes.
+     *
+     * Add rounded corners.
+     */
+
+    .rounded {
+        border-radius: $border-radius !important;
+    }
+    .rounded--t {
+        border-top-left-radius: $border-radius !important;
+        border-top-right-radius: $border-radius !important;
+    }
+    .rounded--r {
+        border-top-right-radius: $border-radius !important;
+        border-bottom-right-radius: $border-radius !important;
+    }
+    .rounded--b {
+        border-bottom-right-radius: $border-radius !important;
+        border-bottom-left-radius: $border-radius !important;
+    }
+    .rounded--l {
+        border-bottom-left-radius: $border-radius !important;
+        border-top-left-radius: $border-radius !important;
+    }
+    .rounded--tl {
+        border-top-left-radius: $border-radius !important;
+    }
+    .rounded--tr {
+        border-top-right-radius: $border-radius !important;
+    }
+    .rounded--br {
+        border-bottom-right-radius: $border-radius !important;
+    }
+    .rounded--bl {
+        border-bottom-left-radius: $border-radius !important;
+    }
+}
+
+
+@if ($enable-rounded-corners--large == true) {
+
+    /**
+     * Add large rounded corners.
+     */
+
+     .rounded\+ {
+         border-radius: $border-radius--large !important;
+     }
+     .rounded--t\+ {
+         border-top-left-radius: $border-radius--large !important;
+         border-top-right-radius: $border-radius--large !important;
+     }
+     .rounded--r\+ {
+         border-top-right-radius: $border-radius--large !important;
+         border-bottom-right-radius: $border-radius--large !important;
+     }
+     .rounded--b\+ {
+         border-bottom-right-radius: $border-radius--large !important;
+         border-bottom-left-radius: $border-radius--large !important;
+     }
+     .rounded--l\+ {
+         border-bottom-left-radius: $border-radius--large !important;
+         border-top-left-radius: $border-radius--large !important;
+     }
+     .rounded--tl\+ {
+         border-top-left-radius: $border-radius--large !important;
+     }
+     .rounded--tr\+ {
+         border-top-right-radius: $border-radius--large !important;
+     }
+     .rounded--br\+ {
+         border-bottom-right-radius: $border-radius--large !important;
+     }
+     .rounded--bl\+ {
+         border-bottom-left-radius: $border-radius--large !important;
+     }
+}
+
+
+@if ($enable-rounded-corners--huge == true) {
+
+    /**
+     * Add huge rounded corners.
+     */
+
+    .rounded\+\+ {
+        border-radius: $border-radius--huge !important;
+    }
+    .rounded--t\+\+ {
+        border-top-left-radius: $border-radius--huge !important;
+        border-top-right-radius: $border-radius--huge !important;
+    }
+    .rounded--r\+\+ {
+        border-top-right-radius: $border-radius--huge !important;
+        border-bottom-right-radius: $border-radius--huge !important;
+    }
+    .rounded--b\+\+ {
+        border-bottom-right-radius: $border-radius--huge !important;
+        border-bottom-left-radius: $border-radius--huge !important;
+    }
+    .rounded--l\+\+ {
+        border-bottom-left-radius: $border-radius--huge !important;
+        border-top-left-radius: $border-radius--huge !important;
+    }
+    .rounded--tl\+\+ {
+        border-top-left-radius: $border-radius--huge !important;
+    }
+    .rounded--tr\+\+ {
+        border-top-right-radius: $border-radius--huge !important;
+    }
+    .rounded--br\+\+ {
+        border-bottom-right-radius: $border-radius--huge !important;
+    }
+    .rounded--bl\+\+ {
+        border-bottom-left-radius: $border-radius--huge !important;
+    }
+}
+
+
+@if ($enable-rounded-corners--none == true) {
+
+    /**
+     * Remove rounded corners.
+     */
+
+     .rounded0 {
+         border-radius: 0 !important;
+     }
+     .rounded--t0 {
+         border-top-left-radius: 0 !important;
+         border-top-right-radius: 0 !important;
+     }
+     .rounded--r0 {
+         border-top-right-radius: 0 !important;
+         border-bottom-right-radius: 0 !important;
+     }
+     .rounded--b0 {
+         border-bottom-right-radius: 0 !important;
+         border-bottom-left-radius: 0 !important;
+     }
+     .rounded--l0 {
+         border-bottom-left-radius: 0 !important;
+         border-top-left-radius: 0 !important;
+     }
+     .rounded--tl0 {
+         border-top-left-radius: 0 !important;
+     }
+     .rounded--tr0 {
+         border-top-right-radius: 0 !important;
+     }
+     .rounded--br0 {
+         border-bottom-right-radius: 0 !important;
+     }
+     .rounded--bl0 {
+         border-bottom-left-radius: 0 !important;
+     }
+}
+
+
+@if ($enable-rounded-corners--circle == true) {
+
+    /**
+     * Round object.
+     */
+
+     .rounded--circle,
+     %rounded--circle {
+         border-radius: 50% !important;
+     }
+
+     @mixin rounded--pill() {
+        @extend %rounded--circle;
+     }
+}
+
+
+@if ($enable-rounded-corners--pill == true) {
+
+    /**
+     * Long object with rounded sides.
+     */
+
+     .rounded--pill,
+     %rounded--pill {
+         border-radius: 999px !important;
+     }
+
+     @mixin rounded--pill() {
+        @extend %rounded--pill;
+     }
+}

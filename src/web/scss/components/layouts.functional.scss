@@ -1,0 +1,51 @@
+.footer {
+    padding-bottom: $inuit-global-spacing-unit-small;
+
+    .labeled-divider {
+        margin-bottom: $inuit-global-spacing-unit-small;
+        margin-top: $inuit-global-spacing-unit-small;
+
+        .labeled-divider__label {
+            padding: 0 $inuit-global-spacing-unit-small;
+        }
+    }
+
+    strong {
+        cursor: default;
+        display: block;
+        padding: $inuit-global-spacing-unit-small 0;
+        user-select: none;
+    }
+
+    .footer-link {
+        @include truncate-text;
+
+        display: block;
+        padding: $inuit-global-spacing-unit-small 0;
+    }
+}
+
+.layout--app {
+    .header {
+        padding-bottom: $inuit-global-spacing-unit;
+        padding-top: $inuit-global-spacing-unit;
+    }
+}
+
+.layout--marketing {
+    .header {
+        padding-bottom: $inuit-global-spacing-unit-small;
+        padding-top: $inuit-global-spacing-unit-small;
+    }
+
+    .nav-link {
+        font-size: $font-size;
+    }
+
+    .main {
+        min-height: 66vh; /* 1 */
+    }
+}
+
+.layout--blank {
+}

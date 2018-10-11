@@ -1,0 +1,48 @@
+/*
+ * Divider line with a horizontally centered label.
+ *
+ * Usage:
+ *
+ * <div class="labeled-divider">
+ *     <hr/>
+ *     <span class="labeled-divider__label">
+ *         This is the label text
+ *     </span>
+ * </div>
+ */
+
+
+.labeled-divider {
+    padding: $inuit-global-spacing-unit $inuit-global-spacing-unit-small;
+    text-align: center;
+
+    hr {
+        margin-bottom: 0;
+    }
+}
+
+/*
+ * 1 - Cover divider line; use background color to make it look like the hr has a gap
+ * 2 - Pull up over divider line; since the center--x mixing also uses translate, we have to defined all three valus
+ * 3 - Don't wrap
+ */
+.labeled-divider__label {
+    @include center--x;
+
+    background: $background--white; /* 1 */
+    display: inline-block; /* 1 */
+    transform: translate3d(-50%, -50%, 0); /* 2 */
+    padding: $inuit-global-spacing-unit-small; /* 1 */
+    white-space: nowrap; /* 3 */
+}
+
+.labeled-divider--red {
+
+    hr {
+        background: $danger;
+    }
+
+    .labeled-divider__label {
+        color: $danger;
+    }
+}

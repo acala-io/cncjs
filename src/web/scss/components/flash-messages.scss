@@ -1,0 +1,51 @@
+.flash-messages {
+    position: fixed;
+    right: $inuit-global-spacing-unit-small;
+    top: $inuit-global-spacing-unit-small;
+    z-index: $z--topmost-1;
+}
+
+.flash-message {
+    @include animation--slide-left-in;
+
+    background: transparentize($background--lighter, .03);
+    border-radius: $border-radius;
+    box-shadow: 1px 1px $inuit-global-spacing-unit-tiny transparentize($background--darkest, .76);
+    color: $text;
+    width: 20em;
+    padding: $inuit-global-spacing-unit-small;
+
+    + .flash-message {
+        margin-top: $inuit-global-spacing-unit-small;
+    }
+
+    p {
+        margin: 0;
+
+        &:not(:last-child) {
+            padding-bottom: $inuit-global-spacing-unit-tiny;
+        }
+    }
+
+    /*
+     * 1 - Create big click target for undo link by making it full width and adding vertical padding
+     * 2 - Pull undo link over padding-bottom of flash-message to preserve the normal appearance of the flash-message padding
+     */
+    .pseudo-link {
+        display: block; /* 1 */
+        margin-bottom: -$inuit-global-spacing-unit-tiny; /* 2 */
+        padding: $inuit-global-spacing-unit-tiny 0; /* 1 */
+    }
+}
+
+.flash-message--success {
+    background: transparentize(lighten(saturate($success, 8%), 34%), .05);
+}
+
+.flash-message--error {
+    background: transparentize($error, .03);
+}
+
+.flash-message--info {
+    background: transparentize($background--lighter, .03);
+}

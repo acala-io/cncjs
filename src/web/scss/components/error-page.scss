@@ -1,0 +1,29 @@
+.error-page {
+
+}
+
+.error-page--404 {
+    text-align: center;
+
+    h1 {
+        color: $text--lightest;
+        font-size: 200px;
+        line-height: 1;
+        margin: 0;
+    }
+
+    .mirrored-letter {
+        display: inline-block;
+        transform: scaleX(-1);
+    }
+
+    p {
+        color: $text--lighter;
+    }
+
+    a {
+        display: block;
+        font-size: $font-size--large;
+        padding: $inuit-global-spacing-unit;
+    }
+}

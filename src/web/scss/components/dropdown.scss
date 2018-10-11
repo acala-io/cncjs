@@ -1,0 +1,99 @@
+/*
+ * Wrapper component for showing additional (secondary) buttons when hovering a (primary) button.
+ *
+ * Usage:
+ *
+ * <div class="dropdown">
+ *     <a href="#" class="button">
+ *         Button 1 - visible by default
+ *     </a>
+ *     <div class="dropdown__items">
+ *         <a href="#" class="button">
+ *             Button 2 - visible when hovering Button 1
+ *         </a>
+ *     </div>
+ * </div>
+ */
+
+
+.dropdown {
+    background: transparentize($background--white, .87);
+    border: 1px solid $transparent;
+    border-radius: $border-radius\+;
+    position: absolute;
+    right: 0;
+    z-index: $z--overlayed-1;
+
+    &:hover {
+        background: transparentize($background--white, .05);
+    }
+
+    .icon--show-hide {
+        color: $text;
+    }
+
+    /*
+     * 1 - Hide elements visually but keep them in the document flow thus stretching the dropdown
+     *     to the width of its widest child elements
+     * 2 - Make the hidden elements zero height so they don't cover anything and drive someone crazy,
+     *     because he cannot click a covered element
+     */
+    .dropdown__items {
+        height: 0; /* 2 */
+        margin: 0;
+        overflow: hidden;
+        opacity: 0; /* 1 */
+        transition: opacity $transition-time--fast ease-out;
+
+        li {
+
+            /*
+             * 1 - Round lower corners, because otherwise the item sticks out over the rounded corners of its container;
+             *     Reduce border-radius by 1px because otherwise the background bleeds through when
+             *     nesting a rounded corner inside a rounded corner
+             */
+            &:last-child a {
+                border-bottom-left-radius: $border-radius\+ - 1px; /* 1 */
+                border-bottom-right-radius: $border-radius\+ - 1px; /* 1 */
+            }
+
+            &:hover {
+
+                /*
+                 * 1 - Hide border-top of hovered element because it doesn't look nice with a background
+                 */
+                a {
+                    background: $clickable-background;
+                    border-top-color: $transparent; /* 1 */
+                }
+
+                /*
+                 * 1 - Hide border-top of element after hovered element, to completely remove the borders from the hovered element
+                 */
+                + li a {
+                    border-top-color: $transparent; /* 1 */
+                }
+            }
+        }
+
+        a {
+            border-top: 1px solid $border--lightest;
+            display: block;
+            padding: $inuit-global-spacing-unit-small;
+
+            .icon {
+                margin-left: $inuit-global-spacing-unit-tiny;
+                margin-right: $inuit-global-spacing-unit-small;
+            }
+        }
+    }
+
+    &:hover {
+        border-color: $border--lighter;
+
+        .dropdown__items {
+            height: auto;
+            opacity: 1;
+        }
+    }
+}
