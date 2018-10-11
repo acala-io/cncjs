@@ -40,6 +40,9 @@ module.exports = {
         },
       },
     },
+    react: {
+      version: '16.5.2', // React version, default to the latest React stable release
+    },
   },
   rules: {
     // errors
