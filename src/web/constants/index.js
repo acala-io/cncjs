@@ -1,4 +1,4 @@
-// AXIS
+// AXES
 export const AXIS_E = 'e';
 export const AXIS_X = 'x';
 export const AXIS_Y = 'y';
@@ -6,6 +6,8 @@ export const AXIS_Z = 'z';
 export const AXIS_A = 'a';
 export const AXIS_B = 'b';
 export const AXIS_C = 'c';
+
+export const MM_PER_INCH = 25.4;
 
 // Imperial System
 export const IMPERIAL_UNITS = 'in';

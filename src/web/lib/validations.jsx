@@ -1,10 +1,12 @@
-/* eslint react/prop-types: 0 */
+/* eslint-disable react/prop-types */
+
 import React from 'react';
+
 import i18n from './i18n';
 
 const Error = props => <div {...props} style={{color: '#A94442'}} />;
 
-const required = (value, props, components) => {
+export const required = (value, props, components) => {
   if (props.type === 'radio') {
     const name = props.name;
 
@@ -45,7 +47,7 @@ const required = (value, props, components) => {
   return null;
 };
 
-const password = (value, props, components) => {
+export const password = (value, props, components) => {
   const bothBlurred = components.password[0].blurred && components.confirm[0].blurred;
   const bothChanged = components.password[0].changed && components.confirm[0].changed;
 
@@ -55,5 +57,3 @@ const password = (value, props, components) => {
 
   return null;
 };
-
-export {password, required};

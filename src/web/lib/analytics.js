@@ -1,4 +1,5 @@
 import GoogleAnalytics from 'react-ga';
+
 import settings from '../config/settings';
 
 // https://github.com/ReactTraining/react-router/issues/4278#issuecomment-299692502

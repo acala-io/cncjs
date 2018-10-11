@@ -4,15 +4,13 @@ import store from '../store';
 let authenticated = false;
 
 module.exports = {
-  authenticated: () => {
-    return authenticated;
-  },
-  signin: ({token, name, password}) =>
+  authenticated: () => authenticated,
+  signin: ({name, password, token}) =>
     new Promise((resolve, reject) => {
       api
         .signin({name, password, token})
         .then(res => {
-          const {enabled = false, token = '', name = ''} = {...res.body};
+          const {enabled = false, name = '', token = ''} = {...res.body};
 
           store.set('session.enabled', enabled);
           store.set('session.token', token);
@@ -22,18 +20,28 @@ module.exports = {
           store.persist();
 
           authenticated = true;
-          resolve({authenticated: true, token: token});
+
+          resolve({
+            authenticated,
+            token,
+          });
         })
         .catch(res => {
           // Do not unset session token so it won't trigger an update to the store
           authenticated = false;
-          resolve({authenticated: false, token: null});
+
+          resolve({
+            authenticated,
+            token: null,
+          });
         });
     }),
   signout: () =>
     new Promise((resolve, reject) => {
       store.unset('session.token');
+
       authenticated = false;
+
       resolve();
     }),
 };
