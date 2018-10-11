@@ -5,6 +5,10 @@
  * github.com/inuitcss | inuitcss.com
  */
 
+html {
+    background: orange;
+}
+
 // SETTINGS
 @import 'settings/settings.config.scss';
 @import 'settings/settings.core.scss';

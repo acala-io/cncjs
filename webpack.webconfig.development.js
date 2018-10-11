@@ -70,12 +70,6 @@ module.exports = {
           'css-loader?camelCase&modules&importLoaders=1&localIdentName=[path][name]__[local]--[hash:base64:5]',
           'stylus-loader',
         ],
-        exclude: [path.resolve(__dirname, 'src/web/styles')],
-      },
-      {
-        test: /\.styl$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader?camelCase', 'stylus-loader'],
-        include: [path.resolve(__dirname, 'src/web/styles')],
       },
       // {
       //   test: /\.scss$/,
