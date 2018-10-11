@@ -339,10 +339,10 @@ class ProbeWidget extends PureComponent {
       },
       probeCommand: this.config.get('probeCommand', 'G38.2'),
       useTLO: this.config.get('useTLO'),
-      probeDepth: Number(this.config.get('probeDepth') || 0).toFixed(3) * 1,
-      probeFeedrate: Number(this.config.get('probeFeedrate') || 0).toFixed(3) * 1,
-      touchPlateHeight: Number(this.config.get('touchPlateHeight') || 0).toFixed(3) * 1,
-      retractionDistance: Number(this.config.get('retractionDistance') || 0).toFixed(3) * 1,
+      probeDepth: Number(Number(this.config.get('probeDepth') || 0).toFixed(3)),
+      probeFeedrate: Number(Number(this.config.get('probeFeedrate') || 0).toFixed(3)),
+      touchPlateHeight: Number(Number(this.config.get('touchPlateHeight') || 0).toFixed(3)),
+      retractionDistance: Number(Number(this.config.get('retractionDistance') || 0).toFixed(3)),
     };
   }
   addControllerEvents() {

@@ -57,13 +57,13 @@ class Webcam extends PureComponent {
         this.stream.stop();
       } else {
         if (this.stream.getVideoTracks) {
-          for (let track of this.stream.getVideoTracks()) {
+          for (const track of this.stream.getVideoTracks()) {
             track.stop();
           }
         }
 
         if (this.stream.getAudioTracks) {
-          for (let track of this.stream.getAudioTracks()) {
+          for (const track of this.stream.getAudioTracks()) {
             track.stop();
           }
         }
@@ -106,8 +106,8 @@ class Webcam extends PureComponent {
 
     const {audio, video} = this.props;
     const constraints = {
-      audio: !!audio,
-      video: !!video,
+      audio: Boolean(audio),
+      video: Boolean(video),
     };
     if (typeof video === 'string' && video.length > 0) {
       constraints.video = {
@@ -167,6 +167,7 @@ class Webcam extends PureComponent {
       return null;
     }
 
+    // eslint-disable-next-line react/no-find-dom-node
     const video = findDOMNode(this);
     if (!this.ctx) {
       const canvas = document.createElement('canvas');

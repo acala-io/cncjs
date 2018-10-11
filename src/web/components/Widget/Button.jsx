@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-foreign-prop-types */
+
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -21,7 +23,7 @@ class Button extends PureComponent {
       <Anchor
         {...props}
         className={classNames(className, styles.widgetButton, {
-          [styles.disabled]: !!props.disabled,
+          [styles.disabled]: Boolean(props.disabled),
           [styles.inverted]: inverted,
         })}
       />

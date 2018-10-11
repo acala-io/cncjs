@@ -58,7 +58,7 @@ class Marlin extends PureComponent {
       showExtruderPower,
       showHeatedBedTemperature,
       showHeatedBedPower,
-    ].some(x => !!x);
+    ].some(x => Boolean(x));
     const canSetExtruderTemperature = isNumber(state.heater.extruder);
     const canSetHeatedBedTemperature = isNumber(state.heater.heatedBed);
     const modal = mapValues(controllerState.modal || {}, mapGCodeToText);

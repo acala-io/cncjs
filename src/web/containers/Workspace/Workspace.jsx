@@ -244,8 +244,8 @@ class Workspace extends PureComponent {
       return;
     }
 
-    let file = files[0];
-    let reader = new FileReader();
+    const file = files[0];
+    const reader = new FileReader();
 
     reader.onloadend = event => {
       const {result, error} = event.target;
@@ -421,8 +421,8 @@ class Workspace extends PureComponent {
         <Dropzone
           className={styles.dropzone}
           disabled={controller.workflow.state !== WORKFLOW_STATE_IDLE}
-          disableClick={true}
-          disablePreview={true}
+          disableClick
+          disablePreview
           multiple={false}
           onDragStart={event => {}}
           onDragEnter={event => {

@@ -80,7 +80,7 @@ class Webcam extends PureComponent {
               width={(100 * scale).toFixed(0) + '%'}
               height="auto"
               muted={muted}
-              video={!!deviceId ? deviceId : true}
+              video={deviceId ? deviceId : true}
             />
           </div>
         )}

@@ -23,7 +23,7 @@ class TableRecords extends PureComponent {
         justified={false}
         hoverable={false}
         maxHeight={300}
-        useFixedHeader={true}
+        useFixedHeader
         data={state.api.err || state.api.fetching ? [] : state.records}
         rowKey={record => {
           return record.id;
@@ -117,7 +117,7 @@ class TableRecords extends PureComponent {
                 padding: 0,
               };
               const {command} = row;
-              const lines = ('' + row.command).split('\n');
+              const lines = String(row.command).split('\n');
               const limit = 4;
 
               if (lines.length > limit) {

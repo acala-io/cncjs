@@ -19,7 +19,7 @@ class Connection extends PureComponent {
 
   isPortOpen(path) {
     const port = find(this.props.state.ports, {comName: path}) || {};
-    return !!port.isOpen;
+    return Boolean(port.isOpen);
   }
   renderPortOption = option => {
     const {label, isOpen, manufacturer} = option;
@@ -89,7 +89,7 @@ class Connection extends PureComponent {
   render() {
     const {state, actions} = this.props;
     const {connection, loading, connecting, connected, ports, baudRates, autoReconnect, alertMessage} = state;
-    const enableHardwareFlowControl = !!connection.serial.rtscts;
+    const enableHardwareFlowControl = Boolean(connection.serial.rtscts);
     const controllerType = state.controller.type;
     const canSelectControllers = controller.availableControllers.length > 1;
     const hasGrblController = includes(controller.availableControllers, GRBL);

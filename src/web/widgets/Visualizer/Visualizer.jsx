@@ -105,7 +105,7 @@ class Visualizer extends Component {
     const nextState = nextProps.state;
 
     // Enable or disable 3D view
-    if (this.props.show !== nextProps.show && !!nextProps.show === true) {
+    if (this.props.show !== nextProps.show && Boolean(nextProps.show) === true) {
       this.viewport.update();
 
       // Set forceUpdate to true when enabling or disabling 3D view
@@ -970,7 +970,7 @@ class Visualizer extends Component {
   // http://stackoverflow.com/questions/18581225/orbitcontrol-or-trackballcontrol
   panUp() {
     const {noPan, panSpeed} = this.controls;
-    !noPan && this.pan(0, 1 * panSpeed);
+    !noPan && this.pan(0, Number(panSpeed));
   }
   panDown() {
     const {noPan, panSpeed} = this.controls;
@@ -978,7 +978,7 @@ class Visualizer extends Component {
   }
   panLeft() {
     const {noPan, panSpeed} = this.controls;
-    !noPan && this.pan(1 * panSpeed, 0);
+    !noPan && this.pan(Number(panSpeed), 0);
   }
   panRight() {
     const {noPan, panSpeed} = this.controls;

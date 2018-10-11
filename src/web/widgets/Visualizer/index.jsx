@@ -232,7 +232,7 @@ class VisualizerWidget extends PureComponent {
     },
     loadGCode: (name, gcode) => {
       const capable = {
-        view3D: !!this.visualizer,
+        view3D: Boolean(this.visualizer),
       };
 
       const updater = state => ({
@@ -948,7 +948,7 @@ class VisualizerWidget extends PureComponent {
     };
     const showDashboard = !capable.view3D && !showLoader;
     const showVisualizer = capable.view3D && !showLoader;
-    const showNotifications = showVisualizer && !!state.notification.type;
+    const showNotifications = showVisualizer && Boolean(state.notification.type);
 
     return (
       <Widget borderless>

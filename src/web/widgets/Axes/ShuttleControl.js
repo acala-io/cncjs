@@ -18,7 +18,7 @@ class ShuttleControl extends events.EventEmitter {
 
   accumulate(zone = 0, {axis = '', distance = 1, feedrateMin, feedrateMax, hertz, overshoot}) {
     zone = Number(zone) || 0;
-    axis = ('' + axis).toUpperCase();
+    axis = String(axis).toUpperCase();
     feedrateMin = Number(feedrateMin) || DEFAULT_FEEDRATE_MIN;
     feedrateMax = Number(feedrateMax) || DEFAULT_FEEDRATE_MAX;
     hertz = Number(hertz) || DEFAULT_HERTZ;

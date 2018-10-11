@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 
 const buildToolHead = (color, texture) => {
-  let object = new THREE.Object3D();
-  let geometry, materialFront, materialBack;
+  const object = new THREE.Object3D();
+  let geometry;
+  let materialBack;
+  let materialFront;
 
   const radiusTop = 2.0;
   const radiusBottom = 0.1;
@@ -48,11 +50,11 @@ const buildToolHead = (color, texture) => {
   });
 
   // http://stackoverflow.com/questions/15514274/three-js-how-to-control-rendering-order
-  let meshFront = new THREE.Mesh(geometry, materialFront);
+  const meshFront = new THREE.Mesh(geometry, materialFront);
   meshFront.renderOrder = 2;
   object.add(meshFront);
 
-  let meshBack = new THREE.Mesh(geometry, materialBack);
+  const meshBack = new THREE.Mesh(geometry, materialBack);
   object.add(meshBack);
 
   return object;

@@ -182,7 +182,7 @@ series([
       const filename = `${settings.name}-${settings.version}.json`;
 
       await portal(({onClose}) => (
-        <Modal onClose={onClose} disableOverlay={true} showCloseButton={false}>
+        <Modal onClose={onClose} disableOverlay showCloseButton={false}>
           <Modal.Body>
             <ModalTemplate type="error">
               <h5>{i18n._('Corrupted workspace settings')}</h5>

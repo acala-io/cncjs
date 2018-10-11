@@ -35,7 +35,7 @@ const parseMountPoint = (val, acc) => {
 };
 
 const parseController = val => {
-  val = val ? (val + '').toLowerCase() : '';
+  val = val ? String(val).toLowerCase() : '';
 
   if (['grbl', 'marlin', 'smoothie', 'tinyg', 'g2core'].includes(val)) {
     return val;
@@ -84,7 +84,7 @@ program.on('--help', () => {
 // Commander assumes that the first two values in argv are 'node' and appname, and then followed by the args.
 // This is not the case when running from a packaged Electron app. Here you have the first value appname and then args.
 const normalizedArgv =
-  ('' + process.argv[0]).indexOf(pkg.name) >= 0 ? ['node', pkg.name, ...process.argv.slice(1)] : process.argv;
+  String(process.argv[0]).indexOf(pkg.name) >= 0 ? ['node', pkg.name, ...process.argv.slice(1)] : process.argv;
 if (normalizedArgv.length > 1) {
   program.parse(normalizedArgv);
 }
@@ -104,7 +104,7 @@ const cnc = () =>
         mountPoints: program.mount,
         watchDirectory: program.watchDirectory,
         accessTokenLifetime: program.accessTokenLifetime,
-        allowRemoteAccess: !!program.allowRemoteAccess,
+        allowRemoteAccess: Boolean(program.allowRemoteAccess),
         controller: program.controller,
       },
       (err, data) => {

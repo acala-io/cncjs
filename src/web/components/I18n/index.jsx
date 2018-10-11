@@ -43,8 +43,8 @@ class I18n extends Component {
     }
 
     let props = omit(this.props, ['t', '_', 'options', 'parent', 'replacement']);
-    let matches = [];
-    let children = [];
+    const matches = [];
+    const children = [];
 
     // "AAA {{foo}} BBB {{bar}}".split(REGEXP)
     // ["AAA ", "foo", " BBB ", "bar", ""]

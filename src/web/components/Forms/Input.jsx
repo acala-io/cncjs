@@ -20,6 +20,7 @@ class Input extends Component {
       return null;
     }
 
+    // eslint-disable-next-line react/no-find-dom-node
     const node = ReactDOM.findDOMNode(this.ref);
 
     return node ? node.value : null;

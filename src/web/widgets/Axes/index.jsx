@@ -141,13 +141,13 @@ class AxesWidget extends PureComponent {
       controller.command('gcode', gcode);
     },
     jog: (params = {}) => {
-      const s = map(params, (value, letter) => '' + letter.toUpperCase() + value).join(' ');
+      const s = map(params, (value, letter) => String(letter.toUpperCase()) + value).join(' ');
       controller.command('gcode', 'G91'); // relative
       controller.command('gcode', 'G0 ' + s);
       controller.command('gcode', 'G90'); // absolute
     },
     move: (params = {}) => {
-      const s = map(params, (value, letter) => '' + letter.toUpperCase() + value).join(' ');
+      const s = map(params, (value, letter) => String(letter.toUpperCase()) + value).join(' ');
       controller.command('gcode', 'G0 ' + s);
     },
     toggleMDIMode: () => {
@@ -683,8 +683,8 @@ class AxesWidget extends PureComponent {
     // Shuttle Zone
     this.shuttleControl = new ShuttleControl();
     this.shuttleControl.on('flush', ({axis, feedrate, relativeDistance}) => {
-      feedrate = feedrate.toFixed(3) * 1;
-      relativeDistance = relativeDistance.toFixed(4) * 1;
+      feedrate = Number(feedrate.toFixed(3));
+      relativeDistance = Number(relativeDistance.toFixed(4));
 
       controller.command('gcode', 'G91'); // relative
       controller.command('gcode', 'G1 F' + feedrate + ' ' + axis + relativeDistance);

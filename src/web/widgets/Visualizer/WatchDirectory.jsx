@@ -136,7 +136,7 @@ class WatchDirectory extends PureComponent {
             }}
             noDataClass={styles.noData}
             togglerClass={styles.treeToggler}
-            autoOpen={true}
+            autoOpen
             layout="table"
             loadNodes={(parentNode, done) => {
               api.watch

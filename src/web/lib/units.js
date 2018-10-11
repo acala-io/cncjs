@@ -9,13 +9,13 @@ export const in2mm = (val = 0) => val * 25.4;
 // Maps value to imperial units
 export const mapValueToImperialUnits = val => {
   val = Number(val) || 0;
-  return mm2in(val).toFixed(4) * 1;
+  return Number(mm2in(val).toFixed(4));
 };
 
 // Maps value to metric units
 export const mapValueToMetricUnits = val => {
   val = Number(val) || 0;
-  return val.toFixed(3) * 1;
+  return Number(val.toFixed(3));
 };
 
 // Maps value to the specified units

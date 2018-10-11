@@ -10,7 +10,7 @@ const reloadPage = (forcedReload = true) => {
 };
 
 const ServerDisconnected = props => (
-  <Modal size="xs" disableOverlay={true} showCloseButton={false}>
+  <Modal size="xs" disableOverlay showCloseButton={false}>
     <Modal.Body>
       <ModalTemplate type="error">
         <h5>{i18n._('Server has stopped working')}</h5>

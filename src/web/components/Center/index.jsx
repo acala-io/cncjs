@@ -7,9 +7,9 @@ const Center = ({className, horizontal, vertical, stretched, ...props}) => (
   <div
     {...props}
     className={cx(className, {
-      [styles.horizontal]: !!horizontal,
-      [styles.vertical]: !!vertical,
-      [styles.stretched]: !!stretched,
+      [styles.horizontal]: Boolean(horizontal),
+      [styles.vertical]: Boolean(vertical),
+      [styles.stretched]: Boolean(stretched),
     })}
   />
 );

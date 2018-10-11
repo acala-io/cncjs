@@ -128,7 +128,7 @@ class TableRecords extends PureComponent {
                 padding: 0,
               };
               const {commands} = row;
-              const lines = ('' + row.commands).split('\n');
+              const lines = String(row.commands).split('\n');
               const limit = 4;
 
               if (lines.length > limit) {

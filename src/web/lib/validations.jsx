@@ -37,7 +37,7 @@ const required = (value, props, components) => {
     return <Error>{i18n._('This field is required.')}</Error>;
   }
 
-  value = ('' + value).trim();
+  value = String(value).trim();
   if (!value) {
     return <Error>{i18n._('This field is required.')}</Error>;
   }

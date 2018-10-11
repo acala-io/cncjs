@@ -105,7 +105,7 @@ class Settings extends PureComponent {
                 loading: false,
               },
               // followed by data
-              checkForUpdates: !!checkForUpdates,
+              checkForUpdates: Boolean(checkForUpdates),
               lang: i18next.language,
             };
 
@@ -261,7 +261,7 @@ class Settings extends PureComponent {
                 loading: false,
               },
               // followed by data
-              ignoreErrors: !!ignoreErrors,
+              ignoreErrors: Boolean(ignoreErrors),
             };
 
             this.initialState.controller = nextState;

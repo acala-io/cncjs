@@ -42,7 +42,7 @@ class PositionInput extends PureComponent {
           style={{borderRight: 'none'}}
           value={this.state.value}
           onChange={event => {
-            let value = event.target.value;
+            const value = event.target.value;
 
             if (value === '') {
               this.setState({value: ''});

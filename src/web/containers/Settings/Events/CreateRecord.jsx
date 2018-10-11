@@ -36,7 +36,7 @@ class CreateRecord extends PureComponent {
     const {event, trigger, commands} = this.form.getValues();
 
     return {
-      enabled: !!get(this.fields.enabled, 'state.checked'),
+      enabled: Boolean(get(this.fields.enabled, 'state.checked')),
       event: event,
       trigger: trigger,
       commands: commands,
@@ -97,7 +97,7 @@ class CreateRecord extends PureComponent {
                       this.fields.enabled = node;
                     }}
                     size="sm"
-                    checked={true}
+                    checked
                   />
                 </div>
               </div>

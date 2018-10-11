@@ -104,7 +104,7 @@ class WorkflowControl extends PureComponent {
   render() {
     const {state, actions} = this.props;
     const {connection, gcode, workflow} = state;
-    const canClick = !!connection.ident;
+    const canClick = Boolean(connection.ident);
     const isReady = canClick && gcode.ready;
     const canRun = this.canRun();
     const canPause = isReady && includes([WORKFLOW_STATE_RUNNING], workflow.state);

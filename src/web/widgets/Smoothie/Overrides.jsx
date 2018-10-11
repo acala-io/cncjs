@@ -14,7 +14,7 @@ const Overrides = props => {
 
   return (
     <div className={styles.overrides}>
-      {!!ovF && (
+      {Boolean(ovF) && (
         <DigitalReadout label="F" value={ovF + '%'}>
           <RepeatButton
             className="btn btn-default"
@@ -68,7 +68,7 @@ const Overrides = props => {
           </button>
         </DigitalReadout>
       )}
-      {!!ovS && (
+      {Boolean(ovS) && (
         <DigitalReadout label="S" value={ovS + '%'}>
           <RepeatButton
             className="btn btn-default"

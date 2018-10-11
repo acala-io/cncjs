@@ -7,8 +7,8 @@ const AXIS_X = 'x';
 const AXIS_Y = 'y';
 const AXIS_Z = 'z';
 const AXIS_A = 'a';
-//const AXIS_B = 'b';
-//const AXIS_C = 'c';
+// const AXIS_B = 'b';
+// const AXIS_C = 'c';
 const FORWARD = 1;
 const BACKWARD = -1;
 const OVERSHOOT_FACTOR = 10; // 10x
@@ -607,7 +607,7 @@ class Combokeys extends events.EventEmitter {
       const {keys, cmd, payload = {}} = o;
       const callback = event => {
         log.debug(`combokeys: keys=${keys} cmd=${cmd} payload=${JSON.stringify(payload)}`);
-        if (!!o.preventDefault) {
+        if (o.preventDefault) {
           preventDefault(event);
         }
         this.emit(cmd, event, payload);

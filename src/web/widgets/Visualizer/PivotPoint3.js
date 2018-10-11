@@ -27,7 +27,7 @@ export default class PivotPoint3 {
   // @param {number} y The pivot point on the y-axis
   // @param {number} z The pivot point on the z-axis
   set(x, y, z) {
-    let {pivotPoint} = this;
+    const {pivotPoint} = this;
 
     x = Number(x) || 0;
     y = Number(y) || 0;
@@ -45,7 +45,7 @@ export default class PivotPoint3 {
   }
   // Sets the pivot point to the origin point (0, 0, 0)
   clear() {
-    let {pivotPoint} = this;
+    const {pivotPoint} = this;
 
     this.callback(pivotPoint.x, pivotPoint.y, pivotPoint.z);
 

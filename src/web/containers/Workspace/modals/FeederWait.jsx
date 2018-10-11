@@ -8,7 +8,7 @@ import controller from '../../../lib/controller';
 import i18n from '../../../lib/i18n';
 
 const FeederWait = props => (
-  <Modal size="xs" disableOverlay={true} showCloseButton={false}>
+  <Modal size="xs" disableOverlay showCloseButton={false}>
     <Modal.Body>
       <ModalTemplate type="warning">
         <h5>{props.title}</h5>
