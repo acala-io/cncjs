@@ -78,8 +78,7 @@ module.exports = {
       //     {
       //       loader: 'css-loader',
       //       options: {
-      //         // TODO:
-      //         // camelCase
+      //         camelCase: true,
       //       },
       //     },
       //     {
@@ -119,11 +118,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 1,
-              // TODO:
-              // camelCase
-              // modules
-              // localIdentName=[path][name]__[local]--[hash:base64:5]
+              camelCase: true,
+              // importLoaders: 1,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              modules: true,
             },
           },
           {
@@ -190,9 +188,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
         BUILD_VERSION: JSON.stringify(buildVersion),
         LANGUAGES: JSON.stringify(buildConfig.languages),
+        NODE_ENV: JSON.stringify('development'),
         TRACKING_ID: JSON.stringify(buildConfig.analytics.trackingId),
       },
     }),
@@ -233,6 +231,6 @@ module.exports = {
   ],
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss'],
   },
 };

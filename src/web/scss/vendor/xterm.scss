@@ -57,17 +57,17 @@
          * HACK: to fix IE's blinking cursor
          * Move textarea out of the screen to the far left, so that the cursor is not visible.
          */
-        position: absolute;
-        opacity: 0;
+        height: 0;
         left: -9999em;
+        opacity: 0;
+        position: absolute;
         top: 0;
         width: 0;
-        height: 0;
         z-index: -10;
         /** Prevent wrapping so the IME appears against the textarea at the correct position */
-        white-space: nowrap;
         overflow: hidden;
         resize: none;
+        white-space: nowrap;
     }
 
     .terminal {
@@ -81,10 +81,12 @@
         }
     }
 
+    /*
+        1 - Make scrollbar fully opaque on OS X
+    */
     .xterm-viewport {
-        /* On OS X this is required in order for the scroll bar to appear fully opaque */
-        background-color: #000;
-        overflow-y: scroll;
+        background-color: #000; /* 1 */
+        overflow-y: scroll; /* 1 */
     }
 
     .xterm-scroll-area {
@@ -93,8 +95,8 @@
 
     .xterm-char-measure-element {
         display: inline-block;
-        visibility: hidden;
-        position: absolute;
         left: -9999em;
+        position: absolute;
+        visibility: hidden;
     }
 }

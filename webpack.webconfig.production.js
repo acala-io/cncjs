@@ -98,8 +98,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              // TODO:
-              // camelCase
+              camelCase: true,
             },
           },
           {
@@ -139,11 +138,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
+              camelCase: true,
               importLoaders: 1,
-              // TODO:
-              // camelCase
-              // modules
-              // localIdentName=[path][name]__[local]--[hash:base64:5]
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              modules: true,
             },
           },
           {

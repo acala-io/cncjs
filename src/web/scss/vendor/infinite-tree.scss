@@ -1,16 +1,12 @@
-.infinite-tree {
-}
-
 .infinite-tree-scroll {
-  overflow: auto;
+    overflow: auto;
 }
 
 .infinite-tree-table {
-  width: 100%;
+    width: 100%;
 }
 
 .infinite-tree-content {
-  // Outline removes default browser's borders for focused element.
-  outline: 0;
-  position: relative;
+    outline: none;
+    position: relative;
 }
