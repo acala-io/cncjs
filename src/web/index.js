@@ -6,7 +6,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import moment from 'moment';
 import pubsub from 'pubsub-js';
 import qs from 'qs';
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import XHR from 'i18next-xhr-backend';
 import {HashRouter as Router, Route} from 'react-router-dom';
@@ -38,10 +38,7 @@ import {Button} from './components/Buttons';
 import './scss/app.scss';
 
 const renderPage = () => {
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-
-  ReactDOM.render(
+  const routes = (
     <GridSystemProvider
       breakpoints={[576, 768, 992, 1200]}
       containerWidths={[540, 720, 960, 1140]}
@@ -50,14 +47,16 @@ const renderPage = () => {
       layout="floats"
     >
       <Router>
-        <div>
+        <Fragment>
           <Route path="/login" component={Login} />
           <ProtectedRoute path="/" component={App} />
-        </div>
+        </Fragment>
       </Router>
-    </GridSystemProvider>,
-    container
+    </GridSystemProvider>
   );
+  const container = document.getElementById('app');
+
+  ReactDOM.render(routes, container);
 };
 
 series([
