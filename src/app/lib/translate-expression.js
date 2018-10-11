@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import {parse} from 'esprima';
 import evaluate from 'static-eval';
 import logger from './logger';

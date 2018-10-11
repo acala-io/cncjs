@@ -1,6 +1,7 @@
-import ensureArray from 'ensure-array';
 import _ from 'lodash';
+import ensureArray from 'ensure-array';
 import rangeCheck from 'range_check';
+
 import settings from './config/settings';
 import config from './services/configstore';
 
@@ -26,7 +27,7 @@ const whitelist = [
 
 export const authorizeIPAddress = ipaddr =>
   new Promise((resolve, reject) => {
-    let pass = !!settings.allowRemoteAccess;
+    let pass = Boolean(settings.allowRemoteAccess);
     pass = pass || whitelist.some(test => rangeCheck.inRange(ipaddr, test));
 
     if (pass) {

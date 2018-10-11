@@ -86,7 +86,7 @@ export const GRBL_ERRORS = [
   {
     code: 3,
     message: 'Invalid statement',
-    description: "Grbl $' system command was not recognized or supported.",
+    description: 'Grbl $ system command was not recognized or supported.',
   },
   {
     code: 4,
@@ -111,7 +111,7 @@ export const GRBL_ERRORS = [
   {
     code: 8,
     message: 'Not idle',
-    description: "Grbl '$' command cannot be used unless Grbl is IDLE. Ensures smooth operation during a job.",
+    description: 'Grbl $ command cannot be used unless Grbl is IDLE. Ensures smooth operation during a job.',
   },
   {
     code: 9,
@@ -131,7 +131,7 @@ export const GRBL_ERRORS = [
   {
     code: 12,
     message: 'Step rate > 30kHz',
-    description: "Grbl '$' setting value cause the step rate to exceed the maximum supported.",
+    description: 'Grbl $ setting value cause the step rate to exceed the maximum supported.',
   },
   {
     code: 13,
@@ -151,7 +151,7 @@ export const GRBL_ERRORS = [
   {
     code: 16,
     message: 'Invalid jog command',
-    description: "Jog command has no '=' or contains prohibited g-code.",
+    description: 'Jog command has no = or contains prohibited g-code.',
   },
   {
     code: 17,
@@ -429,7 +429,7 @@ export const GRBL_SETTINGS = [
     setting: '$27',
     message: 'Homing switch pull-off distance',
     units: 'millimeters',
-    description: "Retract distance after triggering switch to disengage it. Homing will fail if switch isn't cleared.",
+    description: 'Retract distance after triggering switch to disengage it. Homing will fail if switch isn´t cleared.',
   },
   {
     setting: '$30',

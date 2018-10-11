@@ -6,7 +6,7 @@ const normalize = str =>
     .replace(/:\//g, '://');
 
 const urljoin = function(...args) {
-  let joined = [].slice.call(args, 0).join('/');
+  const joined = [].slice.call(args, 0).join('/');
   return normalize(joined);
 };
 

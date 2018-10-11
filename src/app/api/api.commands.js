@@ -1,13 +1,16 @@
-import find from 'lodash/find';
+/* eslint-disable import/default */
+
 import castArray from 'lodash/castArray';
+import find from 'lodash/find';
 import isPlainObject from 'lodash/isPlainObject';
 import uuid from 'uuid';
-import settings from '../config/settings';
-import logger from '../lib/logger';
-import taskRunner from '../services/taskrunner';
+
 import config from '../services/configstore';
-import {getPagingRange} from './paging';
+import logger from '../lib/logger';
+import settings from '../config/settings';
+import taskRunner from '../services/taskrunner';
 import {ERR_BAD_REQUEST, ERR_NOT_FOUND, ERR_INTERNAL_SERVER_ERROR} from '../constants';
+import {getPagingRange} from './paging';
 
 const log = logger('api:commands');
 const CONFIG_KEY = 'commands';
@@ -52,7 +55,7 @@ const getSanitizedRecords = () => {
 
 export const fetch = (req, res) => {
   const records = getSanitizedRecords();
-  const paging = !!req.query.paging;
+  const paging = Boolean(req.query.paging);
 
   if (paging) {
     const {page = 1, pageLength = 10} = req.query;
@@ -103,9 +106,9 @@ export const create = (req, res) => {
     const record = {
       id: uuid.v4(),
       mtime: new Date().getTime(),
-      enabled: !!enabled,
-      title: title,
-      commands: commands,
+      enabled: Boolean(enabled),
+      title,
+      commands,
     };
 
     records.push(record);

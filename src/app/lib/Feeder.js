@@ -83,7 +83,8 @@ class Feeder extends events.EventEmitter {
     }
 
     while (!this.state.hold && this.state.queue.length > 0) {
-      let {command, context} = this.state.queue.shift();
+      const {context} = this.state.queue.shift();
+      let {command} = this.state.queue.shift();
 
       if (this.dataFilter) {
         command = this.dataFilter(command, context) || '';

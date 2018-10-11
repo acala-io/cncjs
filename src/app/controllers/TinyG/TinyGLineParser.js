@@ -19,7 +19,7 @@ class TinyGLineParser {
       TinyGLineParserResultReceiveReports,
     ];
 
-    for (let parser of parsers) {
+    for (const parser of parsers) {
       const result = parser.parse(data);
       if (result) {
         _.set(result, 'payload.raw', data);

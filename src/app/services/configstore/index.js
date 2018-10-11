@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import events from 'events';
 import fs from 'fs';
 import _ from 'lodash';

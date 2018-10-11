@@ -1,12 +1,15 @@
-import find from 'lodash/find';
+/* eslint-disable import/default */
+
 import castArray from 'lodash/castArray';
+import find from 'lodash/find';
 import isPlainObject from 'lodash/isPlainObject';
 import uuid from 'uuid';
-import settings from '../config/settings';
-import logger from '../lib/logger';
+
 import config from '../services/configstore';
-import {getPagingRange} from './paging';
+import logger from '../lib/logger';
+import settings from '../config/settings';
 import {ERR_BAD_REQUEST, ERR_NOT_FOUND, ERR_INTERNAL_SERVER_ERROR} from '../constants';
+import {getPagingRange} from './paging';
 
 const log = logger('api:events');
 const CONFIG_KEY = 'events';
@@ -51,7 +54,7 @@ const getSanitizedRecords = () => {
 
 export const fetch = (req, res) => {
   const records = getSanitizedRecords();
-  const paging = !!req.query.paging;
+  const paging = Boolean(req.query.paging);
 
   if (paging) {
     const {page = 1, pageLength = 10} = req.query;
@@ -67,14 +70,30 @@ export const fetch = (req, res) => {
       },
       records: pagedRecords.map(record => {
         const {id, mtime, enabled, event, trigger, commands} = {...record};
-        return {id, mtime, enabled, event, trigger, commands};
+
+        return {
+          commands,
+          enabled,
+          event,
+          id,
+          mtime,
+          trigger,
+        };
       }),
     });
   } else {
     res.send({
       records: records.map(record => {
         const {id, mtime, enabled, event, trigger, commands} = {...record};
-        return {id, mtime, enabled, event, trigger, commands};
+
+        return {
+          commands,
+          enabled,
+          event,
+          id,
+          mtime,
+          trigger,
+        };
       }),
     });
   }
@@ -109,10 +128,10 @@ export const create = (req, res) => {
     const record = {
       id: uuid.v4(),
       mtime: new Date().getTime(),
-      enabled: !!enabled,
-      event: event,
-      trigger: trigger,
-      commands: commands,
+      enabled: Boolean(enabled),
+      event,
+      trigger,
+      commands,
     };
 
     records.push(record);

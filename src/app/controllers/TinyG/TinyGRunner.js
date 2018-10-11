@@ -112,7 +112,7 @@ class TinyGRunner extends events.EventEmitter {
   parser = new TinyGLineParser();
 
   parse(data) {
-    data = ('' + data).replace(/\s+$/, '');
+    data = String(data).replace(/\s+$/, '');
     if (!data) {
       return;
     }
@@ -405,7 +405,7 @@ class TinyGRunner extends events.EventEmitter {
         this.emit('ov', {mfo, mto, sso});
       } else if (type === TinyGLineParserResultReceiveReports) {
         const settings = {};
-        for (let key in payload.r) {
+        for (const key in payload.r) {
           if (key in this.settings) {
             settings[key] = payload.r[key];
           }

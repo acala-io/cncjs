@@ -42,7 +42,7 @@ class SmoothieLineParser {
       SmoothieLineParserResultVersion,
     ];
 
-    for (let parser of parsers) {
+    for (const parser of parsers) {
       const result = parser.parse(line);
       if (result) {
         _.set(result, 'payload.raw', line);

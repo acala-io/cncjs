@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import ensureArray from 'ensure-array';
 import noop from 'lodash/noop';
 import reverse from 'lodash/reverse';
@@ -28,8 +30,8 @@ const log = logger('service:cncengine');
 // @param {string} str2 Second string to check.
 // @return {boolean} True if str1 and str2 are the same string, ignoring case.
 const caseInsensitiveEquals = (str1, str2) => {
-  str1 = str1 ? (str1 + '').toUpperCase() : '';
-  str2 = str2 ? (str2 + '').toUpperCase() : '';
+  str1 = str1 ? String(str1).toUpperCase() : '';
+  str2 = str2 ? String(str2).toUpperCase() : '';
   return str1 === str2;
 };
 
@@ -208,7 +210,7 @@ class CNCEngine {
                 isOpen: activeControllers.indexOf(comName) >= 0,
               };
             })
-            .filter(port => !!port.comName);
+            .filter(port => Boolean(port.comName));
 
           callback(null, ports);
         } catch (err) {

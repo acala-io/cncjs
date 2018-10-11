@@ -1,21 +1,24 @@
-import jwt from 'jsonwebtoken';
+/* eslint-disable import/default */
+
 import bcrypt from 'bcrypt-nodejs';
 import ensureArray from 'ensure-array';
-import isPlainObject from 'lodash/isPlainObject';
 import find from 'lodash/find';
+import isPlainObject from 'lodash/isPlainObject';
+import jwt from 'jsonwebtoken';
 import some from 'lodash/some';
 import uuid from 'uuid';
+
 import settings from '../config/settings';
 import logger from '../lib/logger';
 import config from '../services/configstore';
 import {getPagingRange} from './paging';
 import {
   ERR_BAD_REQUEST,
-  ERR_UNAUTHORIZED,
-  ERR_NOT_FOUND,
   ERR_CONFLICT,
-  ERR_PRECONDITION_FAILED,
   ERR_INTERNAL_SERVER_ERROR,
+  ERR_NOT_FOUND,
+  ERR_PRECONDITION_FAILED,
+  ERR_UNAUTHORIZED,
 } from '../constants';
 
 const log = logger('api:users');
@@ -137,7 +140,7 @@ export const signin = (req, res) => {
 
 export const fetch = (req, res) => {
   const records = getSanitizedRecords();
-  const paging = !!req.query.paging;
+  const paging = Boolean(req.query.paging);
 
   if (paging) {
     const {page = 1, pageLength = 10} = req.query;

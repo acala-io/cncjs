@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import {EventEmitter} from 'events';
 import net from 'net';
 import SerialPort from 'serialport';

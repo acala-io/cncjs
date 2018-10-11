@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import get from 'lodash/get';
 import {parse} from 'esprima';
 import evaluate from 'static-eval';

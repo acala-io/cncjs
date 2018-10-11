@@ -41,7 +41,7 @@ class MarlinRunner extends events.EventEmitter {
   parser = new MarlinLineParser();
 
   parse(data) {
-    data = ('' + data).replace(/\s+$/, '');
+    data = String(data).replace(/\s+$/, '');
     if (!data) {
       return;
     }

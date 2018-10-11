@@ -34,11 +34,11 @@ class SmoothieLineParserResultStatus {
       payload.subState = Number(states[1] || '');
     }
 
-    for (let param of params) {
+    for (const param of params) {
       const nv = param.match(/^(.+):(.+)/);
       if (nv) {
-        let type = nv[1];
-        let value = nv[2].split(',');
+        const type = nv[1];
+        const value = nv[2].split(',');
         result[type] = value;
       }
     }
@@ -104,7 +104,7 @@ class SmoothieLineParserResultStatus {
 
     return {
       type: SmoothieLineParserResultStatus,
-      payload: payload,
+      payload,
     };
   }
 }

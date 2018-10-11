@@ -14,7 +14,7 @@ class MarlinLineParserResultPosition {
     const pattern = /((X|Y|Z|E):[0-9\.\-]+)+/gi;
     const params = r[0].match(pattern);
 
-    for (let param of params) {
+    for (const param of params) {
       const nv = param.match(/^(.+):(.+)/);
       if (nv) {
         const axis = nv[1].toLowerCase();
@@ -26,7 +26,7 @@ class MarlinLineParserResultPosition {
 
     return {
       type: MarlinLineParserResultPosition,
-      payload: payload,
+      payload,
     };
   }
 }

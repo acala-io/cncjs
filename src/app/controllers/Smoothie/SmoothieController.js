@@ -1,24 +1,26 @@
-import ensureArray from 'ensure-array';
+/* eslint-disable import/default */
+
 import * as parser from 'gcode-parser';
 import _ from 'lodash';
-import EventTrigger from '../../lib/EventTrigger';
-import Feeder from '../../lib/Feeder';
-import Sender, {SP_TYPE_CHAR_COUNTING} from '../../lib/Sender';
-import SerialConnection from '../../lib/SerialConnection';
-import SocketConnection from '../../lib/SocketConnection';
-import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
+import config from '../../services/configstore';
+import controllers from '../../store/controllers';
 import delay from '../../lib/delay';
+import ensureArray from 'ensure-array';
 import ensurePositiveNumber from '../../lib/ensure-positive-number';
 import evaluateExpression from '../../lib/evaluate-expression';
+import EventTrigger from '../../lib/EventTrigger';
+import Feeder from '../../lib/Feeder';
 import logger from '../../lib/logger';
-import translateExpression from '../../lib/translate-expression';
-import config from '../../services/configstore';
 import monitor from '../../services/monitor';
-import taskRunner from '../../services/taskrunner';
-import controllers from '../../store/controllers';
-import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
+import Sender, {SP_TYPE_CHAR_COUNTING} from '../../lib/Sender';
+import SerialConnection from '../../lib/SerialConnection';
 import SmoothieRunner from './SmoothieRunner';
+import SocketConnection from '../../lib/SocketConnection';
+import taskRunner from '../../services/taskrunner';
+import translateExpression from '../../lib/translate-expression';
+import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
 import {SMOOTHIE, SMOOTHIE_MACHINE_STATE_HOLD, SMOOTHIE_REALTIME_COMMANDS} from './constants';
+import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
 
 // % commands
 const WAIT = '%wait';
@@ -40,7 +42,7 @@ class SmoothieController {
   connectionEventListener = {
     data: data => {
       log.silly(`< ${data}`);
-      this.runner.parse('' + data);
+      this.runner.parse(String(data));
     },
     close: err => {
       this.ready = false;
@@ -855,8 +857,8 @@ class SmoothieController {
         socket.emit(
           'sender:load',
           {
-            name: name,
-            content: content,
+            content,
+            name,
           },
           context
         );
@@ -887,6 +889,7 @@ class SmoothieController {
   command(cmd, ...args) {
     const handler = {
       'sender:load': () => {
+        // eslint-disable-next-line prefer-const
         let [name, content, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;
@@ -907,8 +910,8 @@ class SmoothieController {
         this.emit(
           'sender:load',
           {
-            name: name,
-            content: content,
+            content,
+            name,
           },
           context
         );
@@ -1113,6 +1116,7 @@ class SmoothieController {
         }
       },
       'macro:run': () => {
+        // eslint-disable-next-line prefer-const
         let [id, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;
@@ -1133,6 +1137,7 @@ class SmoothieController {
         callback(null);
       },
       'macro:load': () => {
+        // eslint-disable-next-line prefer-const
         let [id, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;

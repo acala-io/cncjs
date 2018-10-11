@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import ensureArray from 'ensure-array';
 import * as parser from 'gcode-parser';
 import _ from 'lodash';
@@ -50,7 +52,7 @@ class TinyGController {
   connectionEventListener = {
     data: data => {
       log.silly(`< ${data}`);
-      this.runner.parse('' + data);
+      this.runner.parse(String(data));
     },
     close: err => {
       this.ready = false;
@@ -370,7 +372,7 @@ class TinyGController {
 
       // Replace line numbers with the number of lines sent
       const n = this.sender.state.sent;
-      line = ('' + line).replace(/^N[0-9]*/, '');
+      line = String(line).replace(/^N[0-9]*/, '');
       line = 'N' + n + line;
 
       this.connection.write(line + '\n');
@@ -765,7 +767,7 @@ class TinyGController {
       relaxedJSON({
         // Returns an object composed of the picked properties
         sr: _.pickBy(this.sr, (value, key) => {
-          return !!value;
+          return Boolean(value);
         }),
       })
     );
@@ -1023,6 +1025,7 @@ class TinyGController {
   command(cmd, ...args) {
     const handler = {
       'sender:load': () => {
+        // eslint-disable-next-line prefer-const
         let [name, content, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;
@@ -1270,6 +1273,7 @@ class TinyGController {
         }
       },
       'macro:run': () => {
+        // eslint-disable-next-line prefer-const
         let [id, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;
@@ -1290,6 +1294,7 @@ class TinyGController {
         callback(null);
       },
       'macro:load': () => {
+        // eslint-disable-next-line prefer-const
         let [id, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;

@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import events from 'events';
 import defaultShell from 'spawn-default-shell';
 import without from 'lodash/without';

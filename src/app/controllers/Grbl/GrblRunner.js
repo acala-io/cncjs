@@ -55,7 +55,7 @@ class GrblRunner extends events.EventEmitter {
   parser = new GrblLineParser();
 
   parse(data) {
-    data = ('' + data).replace(/\s+$/, '');
+    data = String(data).replace(/\s+$/, '');
     if (!data) {
       return;
     }

@@ -30,8 +30,8 @@
 const errserver = options => {
   options = options || {};
 
-  let view = options.view || '500',
-    error = options.error || '';
+  const view = options.view || '500';
+  const error = options.error || '';
 
   return (err, req, res, next) => {
     // we may use properties of the error object

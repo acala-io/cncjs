@@ -1,39 +1,41 @@
+/* eslint-disable import/default, no-catch-shadow */
 /* eslint callback-return: 0 */
-import fs from 'fs';
-import path from 'path';
+
+import 'hogan.js'; // required by consolidate
+import * as api from './api';
+import _ from 'lodash';
 import bodyParser from 'body-parser';
 import compress from 'compression';
-import cookieParser from 'cookie-parser';
-import multiparty from 'connect-multiparty';
+import config from './services/configstore';
 import connectRestreamer from 'connect-restreamer';
+import cookieParser from 'cookie-parser';
 import engines from 'consolidate';
-import errorhandler from 'errorhandler';
-import express from 'express';
-import expressJwt from 'express-jwt';
-import session from 'express-session';
-import 'hogan.js'; // required by consolidate
-import i18next from 'i18next';
-import i18nextBackend from 'i18next-node-fs-backend';
-import jwt from 'jsonwebtoken';
-import methodOverride from 'method-override';
-import morgan from 'morgan';
-import favicon from 'serve-favicon';
-import serveStatic from 'serve-static';
-import sessionFileStore from 'session-file-store';
-import _ from 'lodash';
-import rimraf from 'rimraf';
-import {LanguageDetector as i18nextLanguageDetector, handle as i18nextHandle} from 'i18next-express-middleware';
-import urljoin from './lib/urljoin';
-import logger from './lib/logger';
-import settings from './config/settings';
-import * as api from './api';
 import errclient from './lib/middleware/errclient';
 import errlog from './lib/middleware/errlog';
 import errnotfound from './lib/middleware/errnotfound';
+import errorhandler from 'errorhandler';
 import errserver from './lib/middleware/errserver';
-import config from './services/configstore';
+import express from 'express';
+import expressJwt from 'express-jwt';
+import favicon from 'serve-favicon';
+import fs from 'fs';
+import i18next from 'i18next';
+import i18nextBackend from 'i18next-node-fs-backend';
+import jwt from 'jsonwebtoken';
+import logger from './lib/logger';
+import methodOverride from 'method-override';
+import morgan from 'morgan';
+import multiparty from 'connect-multiparty';
+import path from 'path';
+import rimraf from 'rimraf';
+import serveStatic from 'serve-static';
+import session from 'express-session';
+import sessionFileStore from 'session-file-store';
+import settings from './config/settings';
+import urljoin from './lib/urljoin';
 import {authorizeIPAddress, validateUser} from './access-control';
 import {ERR_FORBIDDEN} from './constants';
+import {LanguageDetector as i18nextLanguageDetector, handle as i18nextHandle} from 'i18next-express-middleware';
 
 const log = logger('app');
 

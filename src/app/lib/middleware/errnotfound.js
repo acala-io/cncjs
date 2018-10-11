@@ -18,8 +18,8 @@
 const errnotfound = options => {
   options = options || {};
 
-  let view = options.view || '404',
-    error = options.error || '';
+  const view = options.view || '404';
+  const error = options.error || '';
 
   return (req, res, next) => {
     res.status(404);
@@ -32,7 +32,7 @@ const errnotfound = options => {
 
     // respond with json
     if (req.accepts('json')) {
-      res.send({error: error});
+      res.send({error});
       return;
     }
 

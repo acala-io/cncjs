@@ -1,22 +1,23 @@
-import ensureArray from 'ensure-array';
+/* eslint-disable import/default */
+
 import * as parser from 'gcode-parser';
 import _ from 'lodash';
+import config from '../../services/configstore';
+import controllers from '../../store/controllers';
+import ensureArray from 'ensure-array';
+import ensurePositiveNumber from '../../lib/ensure-positive-number';
+import evaluateExpression from '../../lib/evaluate-expression';
 import EventTrigger from '../../lib/EventTrigger';
 import Feeder from '../../lib/Feeder';
+import GrblRunner from './GrblRunner';
+import logger from '../../lib/logger';
+import monitor from '../../services/monitor';
 import Sender, {SP_TYPE_CHAR_COUNTING} from '../../lib/Sender';
 import SerialConnection from '../../lib/SerialConnection';
 import SocketConnection from '../../lib/SocketConnection';
-import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
-import ensurePositiveNumber from '../../lib/ensure-positive-number';
-import evaluateExpression from '../../lib/evaluate-expression';
-import logger from '../../lib/logger';
-import translateExpression from '../../lib/translate-expression';
-import config from '../../services/configstore';
-import monitor from '../../services/monitor';
 import taskRunner from '../../services/taskrunner';
-import controllers from '../../store/controllers';
-import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
-import GrblRunner from './GrblRunner';
+import translateExpression from '../../lib/translate-expression';
+import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
 import {
   GRBL,
   GRBL_MACHINE_STATE_RUN,
@@ -26,6 +27,7 @@ import {
   GRBL_ERRORS,
   GRBL_SETTINGS,
 } from './constants';
+import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
 
 // % commands
 const WAIT = '%wait';
@@ -47,7 +49,7 @@ class GrblController {
   connectionEventListener = {
     data: data => {
       log.silly(`< ${data}`);
-      this.runner.parse('' + data);
+      this.runner.parse(String(data));
     },
     close: err => {
       this.ready = false;
@@ -947,8 +949,8 @@ class GrblController {
         socket.emit(
           'sender:load',
           {
-            name: name,
-            content: content,
+            content,
+            name,
           },
           context
         );
@@ -979,6 +981,7 @@ class GrblController {
   command(cmd, ...args) {
     const handler = {
       'sender:load': () => {
+        // eslint-disable-next-line prefer-const
         let [name, content, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;
@@ -999,8 +1002,8 @@ class GrblController {
         this.emit(
           'sender:load',
           {
-            name: name,
-            content: content,
+            content,
+            name,
           },
           context
         );
@@ -1212,6 +1215,7 @@ class GrblController {
         }
       },
       'macro:run': () => {
+        // eslint-disable-next-line prefer-const
         let [id, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;
@@ -1232,6 +1236,7 @@ class GrblController {
         callback(null);
       },
       'macro:load': () => {
+        // eslint-disable-next-line prefer-const
         let [id, context = {}, callback = noop] = args;
         if (typeof context === 'function') {
           callback = context;

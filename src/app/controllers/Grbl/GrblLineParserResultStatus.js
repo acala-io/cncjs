@@ -1,7 +1,7 @@
 /* eslint no-bitwise: ["error", { "allow": ["&", "<<"] }] */
 import _ from 'lodash';
 
-//https://github.com/grbl/grbl/blob/master/grbl/report.c
+// https://github.com/grbl/grbl/blob/master/grbl/report.c
 class GrblLineParserResultStatus {
   // * Grbl v0.9
   //   <Idle>
@@ -42,11 +42,11 @@ class GrblLineParserResultStatus {
       payload.subState = Number(states[1] || '');
     }
 
-    for (let param of params) {
+    for (const param of params) {
       const nv = param.match(/^(.+):(.+)/);
       if (nv) {
-        let type = nv[1];
-        let value = nv[2].split(',');
+        const type = nv[1];
+        const value = nv[2].split(',');
         result[type] = value;
       }
     }

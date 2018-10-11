@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import dns from 'dns';
 import fs from 'fs';
 import os from 'os';
@@ -98,7 +100,7 @@ const createServer = (options, callback) => {
     if (allowRemoteAccess) {
       if (size(config.get('users')) === 0) {
         log.warn(
-          "You've enabled remote access to the server. It's recommended to create an user account to protect against malicious attacks."
+          'You´ve enabled remote access to the server. It´s recommended to create an user account to protect against malicious attacks.'
         );
       }
 
@@ -156,7 +158,7 @@ const createServer = (options, callback) => {
             changeOrigin: true,
 
             // Do not verify the SSL certificate for self-signed certs
-            //secure: false,
+            // secure: false,
 
             target: target,
           });
@@ -274,7 +276,7 @@ const createServer = (options, callback) => {
 
       dns.lookup(os.hostname(), {family: 4, all: true}, (err, addresses) => {
         if (err) {
-          log.error("Can't resolve host name:", err);
+          log.error('Can´t resolve host name:', err);
           return;
         }
 

@@ -1,3 +1,5 @@
+/* eslint-disable import/default */
+
 import ensureArray from 'ensure-array';
 import find from 'lodash/find';
 import isPlainObject from 'lodash/isPlainObject';
@@ -40,7 +42,7 @@ const getSanitizedRecords = () => {
 
 export const fetch = (req, res) => {
   const records = getSanitizedRecords();
-  const paging = !!req.query.paging;
+  const paging = Boolean(req.query.paging);
 
   if (paging) {
     const {page = 1, pageLength = 10} = req.query;
@@ -56,21 +58,33 @@ export const fetch = (req, res) => {
       },
       records: pagedRecords.map(record => {
         const {id, name, command, grid = {}} = {...record};
-        return {id, name, command, grid};
+
+        return {
+          command,
+          grid,
+          id,
+          name,
+        };
       }),
     });
   } else {
     res.send({
       records: records.map(record => {
         const {id, name, command, grid = {}} = {...record};
-        return {id, name, command, grid};
+
+        return {
+          command,
+          grid,
+          id,
+          name,
+        };
       }),
     });
   }
 };
 
 export const create = (req, res) => {
-  const {name, command, grid = {}} = {...req.body};
+  const {command, grid = {}, name} = {...req.body};
 
   if (!name) {
     res.status(ERR_BAD_REQUEST).send({
@@ -89,10 +103,10 @@ export const create = (req, res) => {
   try {
     const records = getSanitizedRecords();
     const record = {
+      command,
+      grid,
       id: uuid.v4(),
-      name: name,
-      command: command,
-      grid: grid,
+      name,
     };
 
     records.push(record);
@@ -119,7 +133,13 @@ export const read = (req, res) => {
   }
 
   const {name, command, grid = {}} = {...record};
-  res.send({id, name, command, grid});
+
+  res.send({
+    command,
+    grid,
+    id,
+    name,
+  });
 };
 
 export const update = (req, res) => {

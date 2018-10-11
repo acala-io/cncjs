@@ -33,10 +33,16 @@ export const getLatestVersion = (req, res) => {
       data['dist-tags'] = data['dist-tags'] || {};
       data.versions = data.versions || {};
 
-      const time = data.time[latest];
       const latest = data['dist-tags'].latest;
+      const time = data.time[latest];
       const {name, version, description, homepage} = {...data.versions[latest]};
 
-      res.send({time, name, version, description, homepage});
+      res.send({
+        description,
+        homepage,
+        name,
+        time,
+        version,
+      });
     });
 };

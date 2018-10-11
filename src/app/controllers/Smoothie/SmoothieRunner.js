@@ -60,7 +60,7 @@ class SmoothieRunner extends events.EventEmitter {
   parser = new SmoothieLineParser();
 
   parse(data) {
-    data = ('' + data).replace(/\s+$/, '');
+    data = String(data).replace(/\s+$/, '');
     if (!data) {
       return;
     }
