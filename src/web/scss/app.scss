@@ -1,0 +1,145 @@
+/**
+ * CNCJS master file.
+ *
+ * This project follows the rules of inuitcss
+ * github.com/inuitcss | inuitcss.com
+ */
+
+html {
+    background: red;
+}
+
+// SETTINGS
+// @import 'settings/settings.config.scss';
+// @import 'settings/settings.core.scss';
+// @import 'settings/settings.global';
+// @import 'settings/variables';
+
+// $page-width: 48.666 * $inuit-global-spacing-unit;
+// $page-height: round(
+//     1.4142 * $page-width
+// ); // DIN proportions: 1 / sqrt(2) /* stylelint-disable-line number-max-precision */
+
+// // TOOLS
+// @import 'inuitcss/tools/tools.font-size';
+// @import 'inuitcss/tools/tools.clearfix';
+// @import 'inuitcss/tools/tools.hidden';
+// $mq-breakpoints: (
+//     mobile: 320px,
+//     tablet: 600px,
+//     desktop: 1024px,
+//     wide: 1440px
+// );
+// @import 'sass-mq/mq';
+// @import 'helpers/alignment';
+// @import 'helpers/color';
+// @import 'helpers/display';
+// @import 'helpers/pin';
+// @import 'helpers/printing';
+// @import 'helpers/text';
+// @import 'helpers/triangles';
+
+// // GENERIC
+// @import 'inuitcss/generic/generic.box-sizing';
+// @import 'inuitcss/generic/generic.normalize';
+// @import 'inuitcss/generic/generic.reset';
+// @import 'inuitcss/generic/generic.shared';
+
+// // ELEMENTS
+// @import 'inuitcss/elements/elements.page';
+// @import 'inuitcss/elements/elements.headings';
+// @import 'inuitcss/elements/elements.images';
+// @import 'inuitcss/elements/elements.tables';
+// @import 'base/animations';
+// @import 'base/hr';
+// @import 'base/icons';
+// @import 'base/labels';
+// @import 'base/links';
+// @import 'base/placeholders';
+// @import 'base/sections';
+// @import 'base/tables';
+// @import 'base/text';
+// @import 'helpers/pseudo-elements';
+// @import 'helpers/sticky-header';
+// @import 'base/numbered-headings';
+
+// // OBJECTS
+// // @import 'inuitcss/objects/objects.wrapper';
+// @import 'inuitcss/objects/objects.layout';
+// @import 'inuitcss/objects/objects.media';
+// // @import 'inuitcss/objects/objects.flag';
+// @import 'inuitcss/objects/objects.list-bare';
+// // @import 'inuitcss/objects/objects.list-inline';
+// // @import 'inuitcss/objects/objects.box';
+// // @import 'inuitcss/objects/objects.block';
+// // @import 'inuitcss/objects/objects.ratio';
+// // @import 'inuitcss/objects/objects.crop';
+// // @import 'inuitcss/objects/objects.table';
+// // @import 'inuitcss/objects/objects.pack';
+
+// @import 'objects/content-width-wrapper';
+
+// // COMPONENTS
+// @import 'components/animated-waves';
+// @import 'components/avatars';
+// @import 'components/badges';
+// @import 'components/buttons';
+// @import 'components/button-groups';
+// @import 'components/cards';
+// @import 'components/checkbox';
+// @import 'components/dropdown';
+// @import 'components/error-page';
+// @import 'components/feature-section';
+// @import 'components/flash-messages';
+// @import 'components/inputs';
+// @import 'components/input-addon';
+// @import 'components/input-stack';
+// @import 'components/kpi';
+// @import 'components/labeled-divider';
+// @import 'components/layouts';
+// @import 'components/minimap';
+// @import 'components/nav';
+// @import 'components/offers-list';
+// @import 'components/offer-template-editor';
+// @import 'components/pricing-table';
+// @import 'components/scroll-down-cta';
+// @import 'components/search-form';
+// @import 'components/styled-select';
+// @import 'components/template-select';
+// @import 'components/timeline';
+
+// @import 'components/dialogs/overlay';
+// @import 'components/dialogs/dialog';
+// @import 'components/dialogs/dialog-header';
+// @import 'components/dialogs/dialog-body';
+// @import 'components/dialogs/dialog-actions';
+// @import 'components/dialogs/dialog-footer';
+// @import 'components/dialogs/dialog-login';
+
+// @import 'components/document/calculation';
+// @import 'components/document/layout';
+// @import 'components/document/recipient';
+// @import 'components/document/subject';
+// @import 'components/document/date';
+// @import 'components/document/body';
+// @import 'components/document/company-details';
+// @import 'components/document/fold-marks';
+// @import 'components/document/insert-section';
+// @import 'components/document/signatures';
+
+// @import 'medium-editor/src/sass/medium-editor';
+// @import 'components/medium-editor-theme';
+// @import 'vendor/sortable-hoc';
+
+// // UTILITIES
+// @import 'inuitcss/utilities/utilities.clearfix';
+
+// $inuit-fractions: 1 2 3 4 5 6;
+// @import 'inuitcss/utilities/utilities.widths';
+// @import 'inuitcss/utilities/utilities.headings';
+// @import 'inuitcss/utilities/utilities.spacings';
+// @import 'inuitcss/utilities/utilities.responsive-spacings';
+// @import 'inuitcss/utilities/utilities.hide';
+
+// @import 'trumps/print';
+// @import 'trumps/app-specific-print-styles';
