@@ -6,6 +6,7 @@ class ResizeObserver {
     if (typeof callback === 'function') {
       this.callback = callback;
     }
+
     return this;
   }
 
@@ -15,15 +16,19 @@ class ResizeObserver {
       this.observer = null;
     }
 
-    this.callback && this.callback();
+    if (this.callback) {
+      this.callback();
+    }
 
     this.observer = new MutationObserver(mutations => {
-      this.callback && this.callback();
+      if (this.callback) {
+        this.callback();
+      }
     });
 
     this.observer.observe(target, {
-      attributes: true,
       attributeOldValue: false,
+      attributes: true,
       characterData: true,
       characterDataOldValue: false,
       childList: true,

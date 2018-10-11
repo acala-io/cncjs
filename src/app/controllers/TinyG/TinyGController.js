@@ -593,18 +593,18 @@ class TinyGController {
             JSON.stringify({
               err: {
                 code: code,
-                msg: err.msg,
-                line: received,
                 data: line.trim(),
+                line: received,
+                msg: err.msg,
               },
             })
           );
 
           log.error('Error:', {
             code: code,
-            msg: err.msg,
-            line: received,
             data: line.trim(),
+            line: received,
+            msg: err.msg,
           });
 
           if (pauseError) {
@@ -693,6 +693,7 @@ class TinyGController {
       }
     }, 250);
   }
+
   // https://github.com/synthetos/TinyG/wiki/TinyG-Configuration-for-Firmware-Version-0.97
   async initController() {
     const send = (cmd = '') => {
@@ -789,6 +790,7 @@ class TinyGController {
 
     this.ready = true;
   }
+
   populateContext(context) {
     // Machine position
     const {x: mposx, y: mposy, z: mposz, a: mposa, b: mposb, c: mposc} = this.runner.getMachinePosition();
@@ -823,22 +825,24 @@ class TinyGController {
       posc: Number(posc) || 0,
       // Modal state
       modal: {
-        motion: modal.motion,
-        wcs: modal.wcs,
-        plane: modal.plane,
-        units: modal.units,
-        distance: modal.distance,
-        feedrate: modal.feedrate,
-        path: modal.path,
-        spindle: modal.spindle,
         // M7 and M8 may be active at the same time, but a modal group violation might occur when issuing M7 and M8 together on the same line. Using the new line character (\n) to separate lines can avoid this issue.
         coolant: ensureArray(modal.coolant).join('\n'),
+        distance: modal.distance,
+        feedrate: modal.feedrate,
+        motion: modal.motion,
+        path: modal.path,
+        plane: modal.plane,
+        spindle: modal.spindle,
+        units: modal.units,
+        wcs: modal.wcs,
       },
     });
   }
+
   clearActionValues() {
     this.actionTime.senderFinishTime = 0;
   }
+
   destroy() {
     if (this.timer.query) {
       clearInterval(this.timer.query);
@@ -877,6 +881,7 @@ class TinyGController {
       this.workflow = null;
     }
   }
+
   open(callback = noop) {
     // Assertion check
     if (this.isOpen) {
@@ -896,8 +901,13 @@ class TinyGController {
           `Cannot open connection: type=${this.connection.type}, settings=${JSON.stringify(this.connection.settings)}`
         );
         log.error(err);
+
         this.emit('connection:error', this.connectionOptions, err);
-        callback && callback(err);
+
+        if (callback) {
+          callback(err);
+        }
+
         return;
       }
 
@@ -908,7 +918,9 @@ class TinyGController {
         this.engine.io.emit('connection:change', this.connectionOptions, true);
       }
 
-      callback && callback();
+      if (callback) {
+        callback();
+      }
 
       log.debug(
         `Connection established: type=${this.connection.type}, settings=${JSON.stringify(this.connection.settings)}`
@@ -928,6 +940,7 @@ class TinyGController {
       this.initController();
     });
   }
+
   close(callback) {
     // Stop status query
     this.ready = false;
@@ -1046,8 +1059,8 @@ class TinyGController {
         this.emit(
           'sender:load',
           {
-            name: name,
-            content: content,
+            content,
+            name,
           },
           context
         );
@@ -1335,6 +1348,7 @@ class TinyGController {
 
     handler();
   }
+
   write(data, context) {
     // Assertion check
     if (this.isClose) {
@@ -1353,6 +1367,7 @@ class TinyGController {
     this.connection.write(data);
     log.silly(`> ${data}`);
   }
+
   writeln(data, context) {
     this.write(data + '\n', context);
   }

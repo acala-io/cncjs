@@ -1,4 +1,5 @@
-/* eslint max-classes-per-file: 0 */
+/* eslint-disable max-classes-per-file */
+
 import events from 'events';
 
 export const SP_TYPE_SEND_RESPONSE = 0;
@@ -14,16 +15,22 @@ class SPSendResponse {
       callback = options;
       options = {};
     }
+
     if (typeof callback === 'function') {
       this.callback = callback;
     }
   }
+
   process() {
-    this.callback && this.callback(this);
+    if (this.callback) {
+      this.callback(this);
+    }
   }
+
   clear() {
-    // Do nothing
+    // noop
   }
+
   get type() {
     return SP_TYPE_SEND_RESPONSE;
   }
@@ -31,11 +38,12 @@ class SPSendResponse {
 
 class SPCharCounting {
   callback = null;
+
   state = {
     bufferSize: 128, // Defaults to 128
     dataLength: 0,
-    queue: [],
     line: '',
+    queue: [],
   };
 
   constructor(options, callback = noop) {
@@ -54,26 +62,34 @@ class SPCharCounting {
       this.callback = callback;
     }
   }
+
   process() {
-    this.callback && this.callback(this);
+    if (this.callback) {
+      this.callback(this);
+    }
   }
+
   reset() {
     this.state.bufferSize = 128; // Defaults to 128
     this.state.dataLength = 0;
     this.state.queue = [];
     this.state.line = '';
   }
+
   clear() {
     this.state.dataLength = 0;
     this.state.queue = [];
     this.state.line = '';
   }
+
   get type() {
     return SP_TYPE_CHAR_COUNTING;
   }
+
   get bufferSize() {
     return this.state.bufferSize;
   }
+
   set bufferSize(bufferSize = 0) {
     bufferSize = Number(bufferSize);
     if (!bufferSize) {
@@ -83,21 +99,27 @@ class SPCharCounting {
     // The buffer size cannot be reduced below the size of the data within the buffer.
     this.state.bufferSize = Math.max(bufferSize, this.state.dataLength);
   }
+
   get dataLength() {
     return this.state.dataLength;
   }
+
   set dataLength(dataLength) {
     this.state.dataLength = dataLength;
   }
+
   get queue() {
     return this.state.queue;
   }
+
   set queue(queue) {
     this.state.queue = queue;
   }
+
   get line() {
     return this.state.line;
   }
+
   set line(line) {
     this.state.line = line;
   }
@@ -105,20 +127,21 @@ class SPCharCounting {
 
 class Sender extends events.EventEmitter {
   sp = null; // Streaming Protocol
+
   state = {
+    context: {},
+    elapsedTime: 0,
+    finishTime: 0,
+    gcode: '',
     hold: false,
     holdReason: null,
-    name: '',
-    gcode: '',
-    context: {},
     lines: [],
-    total: 0,
-    sent: 0,
+    name: '',
     received: 0,
-    startTime: 0,
-    finishTime: 0,
-    elapsedTime: 0,
     remainingTime: 0,
+    sent: 0,
+    startTime: 0,
+    total: 0,
   };
   stateChanged = false;
   dataFilter = null;
@@ -201,41 +224,49 @@ class Sender extends events.EventEmitter {
       this.stateChanged = true;
     });
   }
+
   toJSON() {
     return {
-      sp: this.sp.type,
+      context: this.state.context,
+      elapsedTime: this.state.elapsedTime,
+      finishTime: this.state.finishTime,
       hold: this.state.hold,
       holdReason: this.state.holdReason,
       name: this.state.name,
-      context: this.state.context,
-      size: this.state.gcode.length,
-      total: this.state.total,
-      sent: this.state.sent,
       received: this.state.received,
-      startTime: this.state.startTime,
-      finishTime: this.state.finishTime,
-      elapsedTime: this.state.elapsedTime,
       remainingTime: this.state.remainingTime,
+      sent: this.state.sent,
+      size: this.state.gcode.length,
+      sp: this.sp.type,
+      startTime: this.state.startTime,
+      total: this.state.total,
     };
   }
+
   hold(reason) {
     if (this.state.hold) {
       return;
     }
+
     this.state.hold = true;
     this.state.holdReason = reason;
+
     this.emit('hold');
     this.emit('change');
   }
+
   unhold() {
     if (!this.state.hold) {
       return;
     }
+
     this.state.hold = false;
     this.state.holdReason = null;
+
     this.emit('unhold');
     this.emit('change');
   }
+
   // @return {boolean} Returns true on success, false otherwise.
   load(name, gcode = '', context = {}) {
     if (typeof gcode !== 'string' || !gcode) {
@@ -247,6 +278,7 @@ class Sender extends events.EventEmitter {
     if (this.sp) {
       this.sp.clear();
     }
+
     this.state.hold = false;
     this.state.holdReason = null;
     this.state.name = name;
@@ -266,10 +298,12 @@ class Sender extends events.EventEmitter {
 
     return true;
   }
+
   unload() {
     if (this.sp) {
       this.sp.clear();
     }
+
     this.state.hold = false;
     this.state.holdReason = null;
     this.state.name = '';
@@ -287,7 +321,8 @@ class Sender extends events.EventEmitter {
     this.emit('unload');
     this.emit('change');
   }
-  // Tells the sender an acknowledgement has received.
+
+  // Tells the sender an acknowledgement was received.
   // @return {boolean} Returns true on success, false otherwise.
   ack() {
     if (!this.state.gcode) {
@@ -303,6 +338,7 @@ class Sender extends events.EventEmitter {
 
     return true;
   }
+
   // Tells the sender to send more data.
   // @return {boolean} Returns true on success, false otherwise.
   next() {
@@ -345,6 +381,7 @@ class Sender extends events.EventEmitter {
 
     return true;
   }
+
   // Rewinds the internal array pointer.
   // @return {boolean} Returns true on success, false otherwise.
   rewind() {
@@ -355,19 +392,24 @@ class Sender extends events.EventEmitter {
     if (this.sp) {
       this.sp.clear();
     }
+
     this.state.hold = false; // clear hold off state
     this.state.holdReason = null;
     this.state.sent = 0;
     this.state.received = 0;
+
     this.emit('change');
 
     return true;
   }
+
   // Checks if there are any state changes. It also clears the stateChanged flag.
   // @return {boolean} Returns true on state changes, false otherwise.
   peek() {
     const stateChanged = this.stateChanged;
+
     this.stateChanged = false;
+
     return stateChanged;
   }
 }

@@ -1,9 +1,10 @@
 /* eslint-disable import/default */
 
-import events from 'events';
-import fs from 'fs';
 import _ from 'lodash';
 import chalk from 'chalk';
+import events from 'events';
+import fs from 'fs';
+
 import logger from '../../lib/logger';
 
 const log = logger('service:configstore');
@@ -19,16 +20,14 @@ const defaultState = {
 };
 
 class ConfigStore extends events.EventEmitter {
-  file = '';
   config = {};
+  file = '';
   watcher = null;
 
-  // @param {string} file The path to a filename.
-  // @return {object} The config object.
   load(file) {
     this.file = file;
     this.reload();
-    this.emit('load', this.config); // emit load event
+    this.emit('load', this.config);
 
     if (this.watcher) {
       // Stop watching for changes
@@ -47,8 +46,10 @@ class ConfigStore extends events.EventEmitter {
 
         if (eventType === 'change') {
           log.debug(`"${filename}" has been changed`);
-          const ok = this.reload();
-          ok && this.emit('change', this.config); // it is ok to emit change event
+          const hasReloaded = this.reload(); // reload before making changes
+          if (hasReloaded) {
+            this.emit('change', this.config);
+          }
         }
       });
     } catch (err) {
@@ -58,6 +59,7 @@ class ConfigStore extends events.EventEmitter {
 
     return this.config;
   }
+
   reload() {
     try {
       if (fs.existsSync(this.file)) {
@@ -82,6 +84,7 @@ class ConfigStore extends events.EventEmitter {
 
     return true;
   }
+
   sync() {
     try {
       const content = JSON.stringify(this.config, null, 4);
@@ -94,9 +97,11 @@ class ConfigStore extends events.EventEmitter {
 
     return true;
   }
+
   has(key) {
     return _.has(this.config, key);
   }
+
   get(key, defaultValue) {
     if (!this.config) {
       this.reload();
@@ -104,6 +109,7 @@ class ConfigStore extends events.EventEmitter {
 
     return key !== undefined ? _.get(this.config, key, defaultValue) : this.config;
   }
+
   set(key, value, options) {
     const {silent = false} = {...options};
 
@@ -111,18 +117,23 @@ class ConfigStore extends events.EventEmitter {
       return;
     }
 
-    const ok = this.reload(); // reload before making changes
+    const hasReloaded = this.reload(); // reload before making changes
     _.set(this.config, key, value);
-    ok && !silent && this.sync(); // it is ok to write
+    if (hasReloaded && !silent) {
+      this.sync();
+    }
   }
+
   unset(key) {
     if (key === undefined) {
       return;
     }
 
-    const ok = this.reload(); // reload before making changes
+    const hasReloaded = this.reload(); // reload before making changes
     _.unset(this.config, key);
-    ok && this.sync(); // it is ok to write
+    if (hasReloaded) {
+      this.sync();
+    }
   }
 }
 

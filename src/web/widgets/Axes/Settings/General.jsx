@@ -1,17 +1,19 @@
-import ensureArray from 'ensure-array';
 import _includes from 'lodash/includes';
 import _set from 'lodash/set';
-import PropTypes from 'prop-types';
 import _uniqueId from 'lodash/uniqueId';
-import React, {PureComponent} from 'react';
+import ensureArray from 'ensure-array';
 import ForEach from 'react-foreach';
-import {Button} from 'web/components/Buttons';
-import {Checkbox} from 'web/components/Checkbox';
-import {FormGroup, Input} from 'web/components/Forms';
-import {FlexContainer, Row, Col} from 'web/components/GridSystem';
+import PropTypes from 'prop-types';
+import React, {PureComponent} from 'react';
+
+import i18n from 'web/lib/i18n';
+
 import Margin from 'web/components/Margin';
 import Space from 'web/components/Space';
-import i18n from 'web/lib/i18n';
+import {Button} from 'web/components/Buttons';
+import {Checkbox} from 'web/components/Checkbox';
+import {FlexContainer, Row, Col} from 'web/components/GridSystem';
+import {FormGroup, Input} from 'web/components/Forms';
 
 const IMPERIAL_JOG_DISTANCES_MAX = 5;
 const METRIC_JOG_DISTANCES_MAX = 5;
@@ -24,12 +26,12 @@ class General extends PureComponent {
   };
 
   field = {
-    axisX: null,
-    axisY: null,
-    axisZ: null,
     axisA: null,
     axisB: null,
     axisC: null,
+    axisX: null,
+    axisY: null,
+    axisZ: null,
   };
 
   state = {
@@ -41,11 +43,22 @@ class General extends PureComponent {
     // Axes
     const axes = [];
     axes.push('x');
-    this.field.axisY.checked && axes.push('y');
-    this.field.axisZ.checked && axes.push('z');
-    this.field.axisA.checked && axes.push('a');
-    this.field.axisB.checked && axes.push('b');
-    this.field.axisC.checked && axes.push('c');
+
+    if (this.field.axisY.checked) {
+      axes.push('y');
+    }
+    if (this.field.axisZ.checked) {
+      axes.push('z');
+    }
+    if (this.field.axisA.checked) {
+      axes.push('a');
+    }
+    if (this.field.axisB.checked) {
+      axes.push('b');
+    }
+    if (this.field.axisC.checked) {
+      axes.push('c');
+    }
 
     // Imperial Jog Distance
     const imperialJogDistances = [];
@@ -90,6 +103,7 @@ class General extends PureComponent {
         if (index === targetIndex) {
           return targetValue;
         }
+
         return value;
       }),
     }));
@@ -121,6 +135,7 @@ class General extends PureComponent {
         if (index === targetIndex) {
           return targetValue;
         }
+
         return value;
       }),
     }));

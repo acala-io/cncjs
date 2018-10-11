@@ -1,26 +1,30 @@
 /* eslint-disable import/default */
 
-import dns from 'dns';
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
-import url from 'url';
 import bcrypt from 'bcrypt-nodejs';
 import chalk from 'chalk';
+import dns from 'dns';
 import ensureArray from 'ensure-array';
+import escapeRegExp from 'lodash/escapeRegExp';
 import expandTilde from 'expand-tilde';
 import express from 'express';
+import fs from 'fs';
 import httpProxy from 'http-proxy';
-import escapeRegExp from 'lodash/escapeRegExp';
+import os from 'os';
+import path from 'path';
 import set from 'lodash/set';
 import size from 'lodash/size';
 import trimEnd from 'lodash/trimEnd';
+import url from 'url';
 import webappengine from 'webappengine';
+
 import settings from './config/settings';
+
 import app from './app';
+
 import cncengine from './services/cncengine';
 import monitor from './services/monitor';
 import config from './services/configstore';
+
 import logger from './lib/logger';
 import urljoin from './lib/urljoin';
 
@@ -34,17 +38,21 @@ const createServer = (options, callback) => {
     const verbosity = options.verbosity;
 
     // https://github.com/winstonjs/winston#logging-levels
-    if (verbosity === 1) {
-      set(settings, 'verbosity', verbosity);
-      logger.logger.level = 'verbose';
-    }
-    if (verbosity === 2) {
-      set(settings, 'verbosity', verbosity);
-      logger.logger.level = 'debug';
-    }
-    if (verbosity === 3) {
-      set(settings, 'verbosity', verbosity);
-      logger.logger.level = 'silly';
+    switch (verbosity) {
+      case 1:
+        set(settings, 'verbosity', verbosity);
+        logger.logger.level = 'verbose';
+        break;
+
+      case 2:
+        set(settings, 'verbosity', verbosity);
+        logger.logger.level = 'debug';
+        break;
+
+      case 3:
+        set(settings, 'verbosity', verbosity);
+        logger.logger.level = 'silly';
+        break;
     }
   }
 
@@ -125,8 +133,8 @@ const createServer = (options, callback) => {
       );
 
       routes.push({
-        type: 'server',
         route: mount.route,
+        type: 'server',
         server: options => {
           // route
           // > '/custom-widget/'
@@ -231,20 +239,20 @@ const createServer = (options, callback) => {
       }
 
       routes.push({
-        type: 'static',
+        directory,
         route: mount.route,
-        directory: directory,
+        type: 'static',
       });
     }
   });
 
   routes.push({
-    type: 'server',
     route: '/',
     server: () => app(),
+    type: 'server',
   });
 
-  webappengine({port, host, backlog, routes})
+  webappengine({backlog, host, port, routes})
     .on('ready', server => {
       // cncengine service
       cncengine.start(server, options.controller || config.get('controller', ''));
@@ -255,19 +263,21 @@ const createServer = (options, callback) => {
         const {type, route, directory} = r;
         if (type === 'static') {
           acc.push({
+            directory,
             path: route,
-            directory: directory,
           });
         }
+
         return acc;
       }, []);
 
-      callback &&
+      if (callback) {
         callback(null, {
-          address: address,
-          port: port,
+          address,
           routes: filteredRoutes,
+          port,
         });
+      }
 
       if (address !== '0.0.0.0') {
         log.info('Starting the server at ' + chalk.yellow(`http://${address}:${port}`));
@@ -286,7 +296,9 @@ const createServer = (options, callback) => {
       });
     })
     .on('error', err => {
-      callback && callback(err);
+      if (callback) {
+        callback(err);
+      }
       log.error(err);
     });
 };

@@ -311,7 +311,9 @@ class AxesWidget extends PureComponent {
         c: () => this.actions.jog({C: direction * distance * factor}),
       }[axis];
 
-      jogAxis && jogAxis();
+      if (jogAxis) {
+        jogAxis();
+      }
     },
     JOG_LEVER_SWITCH: (event, {key = ''}) => {
       if (key === '-') {

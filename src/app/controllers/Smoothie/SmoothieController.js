@@ -767,8 +767,13 @@ class SmoothieController {
           `Cannot open connection: type=${this.connection.type}, settings=${JSON.stringify(this.connection.settings)}`
         );
         log.error(err);
+
         this.emit('connection:error', this.connectionOptions, err);
-        callback && callback(err);
+
+        if (callback) {
+          callback(err);
+        }
+
         return;
       }
 
@@ -779,7 +784,9 @@ class SmoothieController {
         this.engine.io.emit('connection:change', this.connectionOptions, true);
       }
 
-      callback && callback();
+      if (callback) {
+        callback();
+      }
 
       log.debug(
         `Connection established: type=${this.connection.type}, settings=${JSON.stringify(this.connection.settings)}`

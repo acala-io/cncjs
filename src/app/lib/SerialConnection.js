@@ -1,7 +1,8 @@
 /* eslint-disable import/default */
 
-import {EventEmitter} from 'events';
 import SerialPort from 'serialport';
+import {EventEmitter} from 'events';
+
 import log from './logger';
 
 const Readline = SerialPort.parsers.Readline;
@@ -15,18 +16,22 @@ const FLOWCONTROLS = Object.freeze(['rtscts', 'xon', 'xoff', 'xany']);
 const defaultSettings = Object.freeze({
   baudRate: 115200,
   dataBits: 8,
-  stopBits: 1,
   parity: 'none',
   rtscts: false,
-  xon: false,
-  xoff: false,
+  stopBits: 1,
   xany: false,
+  xoff: false,
+  xon: false,
 });
 
 const toIdent = options => {
   // Only the path option is required for generating the ident property
   const {path} = {...options};
-  return JSON.stringify({type: 'serial', path: path});
+
+  return JSON.stringify({
+    path,
+    type: 'serial',
+  });
 };
 
 class SerialConnection extends EventEmitter {
@@ -36,12 +41,6 @@ class SerialConnection extends EventEmitter {
   writeFilter = data => data;
 
   eventListener = {
-    data: data => {
-      this.emit('data', data);
-    },
-    open: () => {
-      this.emit('open');
-    },
     close: err => {
       if (err) {
         log.warn(`The serial port "${this.settings.path}" was disconnected from the host`);
@@ -51,6 +50,12 @@ class SerialConnection extends EventEmitter {
     },
     error: err => {
       this.emit('error', err);
+    },
+    data: data => {
+      this.emit('data', data);
+    },
+    open: () => {
+      this.emit('open');
     },
   };
 
@@ -111,15 +116,19 @@ class SerialConnection extends EventEmitter {
       },
     });
   }
+
   get ident() {
     return toIdent(this.settings);
   }
+
   get isOpen() {
     return this.port && this.port.isOpen;
   }
+
   get isClose() {
     return !this.isOpen;
   }
+
   // @param {function} callback The error-first callback.
   open(callback) {
     if (this.port) {
@@ -143,11 +152,14 @@ class SerialConnection extends EventEmitter {
 
     this.port.open(callback);
   }
+
   // @param {function} callback The error-first callback.
   close(callback) {
     if (!this.port) {
       const err = new Error(`Cannot close serial port "${this.settings.path}"`);
-      callback && callback(err);
+      if (callback) {
+        callback(err);
+      }
       return;
     }
 
@@ -161,6 +173,7 @@ class SerialConnection extends EventEmitter {
     this.port = null;
     this.parser = null;
   }
+
   write(data, context) {
     if (!this.port) {
       return;

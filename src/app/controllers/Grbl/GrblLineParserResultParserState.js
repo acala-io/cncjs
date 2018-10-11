@@ -26,19 +26,17 @@ class GrblLineParserResultParserState {
 
       // Gx, Mx
       if (word.indexOf('G') === 0 || word.indexOf('M') === 0) {
-        const r = _.find(GRBL_MODAL_GROUPS, group => {
-          return _.includes(group.modes, word);
-        });
+        const modalGroup = _.find(GRBL_MODAL_GROUPS, group => _.includes(group.modes, word));
 
-        if (!r) {
+        if (!modalGroup) {
           continue;
         }
 
-        const prevWord = _.get(payload, 'modal.' + r.group, '');
+        const prevWord = _.get(payload, 'modal.' + modalGroup.group, '');
         if (prevWord) {
-          _.set(payload, 'modal.' + r.group, ensureArray(prevWord).concat(word));
+          _.set(payload, 'modal.' + modalGroup.group, ensureArray(prevWord).concat(word));
         } else {
-          _.set(payload, 'modal.' + r.group, word);
+          _.set(payload, 'modal.' + modalGroup.group, word);
         }
 
         continue;
@@ -64,8 +62,8 @@ class GrblLineParserResultParserState {
     }
 
     return {
-      type: GrblLineParserResultParserState,
       payload: payload,
+      type: GrblLineParserResultParserState,
     };
   }
 }

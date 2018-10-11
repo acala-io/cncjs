@@ -1,20 +1,13 @@
-/* eslint-disable import/default, no-catch-shadow */
-/* eslint callback-return: 0 */
+/* eslint-disable callback-return, import/default, no-catch-shadow */
 
 import 'hogan.js'; // required by consolidate
-import * as api from './api';
 import _ from 'lodash';
 import bodyParser from 'body-parser';
 import compress from 'compression';
-import config from './services/configstore';
 import connectRestreamer from 'connect-restreamer';
 import cookieParser from 'cookie-parser';
 import engines from 'consolidate';
-import errclient from './lib/middleware/errclient';
-import errlog from './lib/middleware/errlog';
-import errnotfound from './lib/middleware/errnotfound';
 import errorhandler from 'errorhandler';
-import errserver from './lib/middleware/errserver';
 import express from 'express';
 import expressJwt from 'express-jwt';
 import favicon from 'serve-favicon';
@@ -22,7 +15,6 @@ import fs from 'fs';
 import i18next from 'i18next';
 import i18nextBackend from 'i18next-node-fs-backend';
 import jwt from 'jsonwebtoken';
-import logger from './lib/logger';
 import methodOverride from 'method-override';
 import morgan from 'morgan';
 import multiparty from 'connect-multiparty';
@@ -31,11 +23,20 @@ import rimraf from 'rimraf';
 import serveStatic from 'serve-static';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
-import settings from './config/settings';
+import {LanguageDetector as i18nextLanguageDetector, handle as i18nextHandle} from 'i18next-express-middleware';
+
+import * as api from './api';
+import config from './services/configstore';
+import errclient from './lib/middleware/errclient';
+import errlog from './lib/middleware/errlog';
+import errnotfound from './lib/middleware/errnotfound';
+import errserver from './lib/middleware/errserver';
+import logger from './lib/logger';
 import urljoin from './lib/urljoin';
 import {authorizeIPAddress, validateUser} from './access-control';
+
+import settings from './config/settings';
 import {ERR_FORBIDDEN} from './constants';
-import {LanguageDetector as i18nextLanguageDetector, handle as i18nextHandle} from 'i18next-express-middleware';
 
 const log = logger('app');
 
@@ -118,28 +119,22 @@ const appMain = () => {
 
   try {
     // https://github.com/valery-barysok/session-file-store
-    const path = settings.middleware.session.path; // Defaults to './cncjs-sessions'
+    const cpath = settings.middleware.session.path; // Defaults to './cncjs-sessions'
 
-    rimraf.sync(path);
-    fs.mkdirSync(path);
+    rimraf.sync(cpath);
+    fs.mkdirSync(cpath);
 
     const FileStore = sessionFileStore(session);
     app.use(
       session({
-        // https://github.com/expressjs/session#secret
-        secret: settings.secret,
-
-        // https://github.com/expressjs/session#resave
-        resave: true,
-
-        // https://github.com/expressjs/session#saveuninitialized
-        saveUninitialized: true,
-
+        resave: true, // https://github.com/expressjs/session#resave
+        saveUninitialized: true, // https://github.com/expressjs/session#saveuninitialized
+        secret: settings.secret, // https://github.com/expressjs/session#secret
         store: new FileStore({
-          path: path,
           logFn: (...args) => {
             log.debug.apply(log, args);
           },
+          path: cpath,
         }),
       })
     );
@@ -157,7 +152,8 @@ const appMain = () => {
 
   // For multipart bodies, please use the following modules:
   // - [busboy](https://github.com/mscdex/busboy) and [connect-busboy](https://github.com/mscdex/connect-busboy)
-  // - [multiparty](https://github.com/andrewrk/node-multiparty) and [connect-multiparty](https://github.com/andrewrk/connect-multiparty)
+  // - [multiparty](https://github.com/andrewrk/node-multiparty) and
+  //   [connect-multiparty](https://github.com/andrewrk/connect-multiparty)
   app.use(multiparty(settings.middleware.multiparty));
 
   // https://github.com/dominictarr/connect-restreamer
@@ -189,6 +185,7 @@ const appMain = () => {
     asset.routes.forEach(assetRoute => {
       const route = urljoin(settings.route || '/', assetRoute || '');
       log.debug('> route=%s', name, route);
+
       app.use(
         route,
         serveStatic(asset.path, {
@@ -205,8 +202,8 @@ const appMain = () => {
     app.use(
       urljoin(settings.route, 'api'),
       expressJwt({
-        secret: config.get('secret'),
         credentialsRequired: true,
+        secret: config.get('secret'),
       })
     );
 
@@ -223,8 +220,8 @@ const appMain = () => {
       ];
       bypass =
         bypass ||
-        whitelist.some(path => {
-          return req.path.indexOf(path) === 0;
+        whitelist.some(cpath => {
+          return req.path.indexOf(cpath) === 0;
         });
 
       if (!bypass) {
@@ -235,8 +232,8 @@ const appMain = () => {
           const user = jwt.verify(token, settings.secret) || {};
           await validateUser(user);
           bypass = true;
-        } catch (err) {
-          log.warn(err);
+        } catch (error) {
+          log.warn(error);
         }
       }
 
@@ -325,14 +322,14 @@ const appMain = () => {
     urljoin(settings.route, '/'),
     renderPage('index.hbs', (req, res) => {
       const webroot = settings.assets.web.routes[0] || ''; // with trailing slash
-      const lng = req.language;
+      const lang = req.language;
       const t = req.t;
 
       return {
-        webroot: webroot,
-        lang: lng,
-        title: `${t('title')} ${settings.version}`,
+        lang,
         loading: t('loading'),
+        title: `${t('title')} ${settings.version}`,
+        webroot,
       };
     })
   );
@@ -347,14 +344,14 @@ const appMain = () => {
     );
     app.use(
       errnotfound({
-        view: path.join('common', '404.hogan'),
         error: 'Not found',
+        view: path.join('common', '404.hogan'),
       })
     );
     app.use(
       errserver({
-        view: path.join('common', '500.hogan'),
         error: 'Internal server error',
+        view: path.join('common', '500.hogan'),
       })
     );
   }

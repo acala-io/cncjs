@@ -8,7 +8,9 @@ export default (Component, node = null) =>
     if (!node) {
       defaultNode = document.createElement('div');
       defaultNode.setAttribute('data-portal', '');
-      document && document.body && document.body.appendChild(defaultNode);
+      if (document && document.body) {
+        document.body.appendChild(defaultNode);
+      }
     }
 
     ReactDOM.render(
@@ -19,7 +21,10 @@ export default (Component, node = null) =>
               ReactDOM.unmountComponentAtNode(node);
             } else if (defaultNode) {
               ReactDOM.unmountComponentAtNode(defaultNode);
-              document && document.body && document.body.removeChild(defaultNode);
+              if (document && document.body) {
+                document.body.removeChild(defaultNode);
+              }
+
               defaultNode = null;
             }
 

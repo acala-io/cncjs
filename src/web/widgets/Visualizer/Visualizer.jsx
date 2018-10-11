@@ -73,6 +73,26 @@ class Visualizer extends Component {
     this.resizeRenderer();
   }, 32); // 60hz
 
+  render() {
+    const {show} = this.props;
+    const style = {
+      visibility: show ? 'visible' : 'hidden',
+    };
+
+    if (!Detector.webgl) {
+      return null;
+    }
+
+    return (
+      <div
+        style={style}
+        ref={node => {
+          this.node = node;
+        }}
+      />
+    );
+  }
+
   UNSAFE_componentWillMount() {
     // Three.js
     this.renderer = null;
@@ -84,6 +104,7 @@ class Visualizer extends Component {
     this.targetPoint = null;
     this.visualizer = null;
   }
+
   componentDidMount() {
     this.subscribe();
     this.addResizeEventListener();
@@ -95,6 +116,7 @@ class Visualizer extends Component {
       this.resizeRenderer();
     }
   }
+
   componentWillUnmount() {
     this.unsubscribe();
     this.removeResizeEventListener();
@@ -227,12 +249,14 @@ class Visualizer extends Component {
       }
     }
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.show !== this.props.show) {
       return true;
     }
     return false;
   }
+
   subscribe() {
     const tokens = [
       pubsub.subscribe('resize', msg => {
@@ -241,19 +265,23 @@ class Visualizer extends Component {
     ];
     this.pubsubTokens = this.pubsubTokens.concat(tokens);
   }
+
   unsubscribe() {
     this.pubsubTokens.forEach(token => {
       pubsub.unsubscribe(token);
     });
     this.pubsubTokens = [];
   }
+
   // https://tylercipriani.com/blog/2014/07/12/crossbrowser-javascript-scrollbar-detection/
   hasVerticalScrollbar() {
     return window.innerWidth > document.documentElement.clientWidth;
   }
+
   hasHorizontalScrollbar() {
     return window.innerHeight > document.documentElement.clientHeight;
   }
+
   // http://www.alexandre-gomes.com/?p=115
   getScrollbarWidth() {
     const inner = document.createElement('p');
@@ -278,6 +306,7 @@ class Visualizer extends Component {
 
     return w1 - w2;
   }
+
   getVisibleWidth() {
     // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this.node);
@@ -285,6 +314,7 @@ class Visualizer extends Component {
 
     return visibleWidth;
   }
+
   getVisibleHeight() {
     const clientHeight = document.documentElement.clientHeight;
     const navbarHeight = 50;
@@ -294,12 +324,15 @@ class Visualizer extends Component {
 
     return visibleHeight;
   }
+
   addResizeEventListener() {
     window.addEventListener('resize', this.throttledResize);
   }
+
   removeResizeEventListener() {
     window.removeEventListener('resize', this.throttledResize);
   }
+
   resizeRenderer() {
     if (!(this.camera && this.renderer)) {
       return;
@@ -337,6 +370,7 @@ class Visualizer extends Component {
     // Update the scene
     this.updateScene();
   }
+
   createCoordinateSystem(units) {
     const axisLength = units === IMPERIAL_UNITS ? IMPERIAL_AXIS_LENGTH : METRIC_AXIS_LENGTH;
     const gridCount = units === IMPERIAL_UNITS ? IMPERIAL_GRID_COUNT : METRIC_GRID_COUNT;
@@ -403,6 +437,7 @@ class Visualizer extends Component {
 
     return group;
   }
+
   createGridLineNumbers(units) {
     const gridCount = units === IMPERIAL_UNITS ? IMPERIAL_GRID_COUNT : METRIC_GRID_COUNT;
     const gridSpacing = units === IMPERIAL_UNITS ? IMPERIAL_GRID_SPACING : METRIC_GRID_SPACING;
@@ -426,6 +461,7 @@ class Visualizer extends Component {
         group.add(textLabel);
       }
     }
+
     for (let i = -gridCount; i <= gridCount; ++i) {
       if (i !== 0) {
         const textLabel = new TextSprite({
@@ -445,6 +481,7 @@ class Visualizer extends Component {
 
     return group;
   }
+
   //
   // Creating a scene
   // http://threejs.org/docs/#Manual/Introduction/Creating_a_scene
@@ -455,7 +492,7 @@ class Visualizer extends Component {
     }
 
     const {state} = this.props;
-    const {units, objects} = state;
+    const {objects, units} = state;
     const width = this.getVisibleWidth();
     const height = this.getVisibleHeight();
 
@@ -519,6 +556,7 @@ class Visualizer extends Component {
       const imperialCoordinateSystem = this.createCoordinateSystem(IMPERIAL_UNITS);
       imperialCoordinateSystem.name = 'ImperialCoordinateSystem';
       imperialCoordinateSystem.visible = visible && units === IMPERIAL_UNITS;
+
       this.group.add(imperialCoordinateSystem);
     }
 
@@ -528,6 +566,7 @@ class Visualizer extends Component {
       const metricCoordinateSystem = this.createCoordinateSystem(METRIC_UNITS);
       metricCoordinateSystem.name = 'MetricCoordinateSystem';
       metricCoordinateSystem.visible = visible && units === METRIC_UNITS;
+
       this.group.add(metricCoordinateSystem);
     }
 
@@ -537,6 +576,7 @@ class Visualizer extends Component {
       const imperialGridLineNumbers = this.createGridLineNumbers(IMPERIAL_UNITS);
       imperialGridLineNumbers.name = 'ImperialGridLineNumbers';
       imperialGridLineNumbers.visible = visible && units === IMPERIAL_UNITS;
+
       this.group.add(imperialGridLineNumbers);
     }
 
@@ -546,6 +586,7 @@ class Visualizer extends Component {
       const metricGridLineNumbers = this.createGridLineNumbers(METRIC_UNITS);
       metricGridLineNumbers.name = 'MetricGridLineNumbers';
       metricGridLineNumbers.visible = visible && units === METRIC_UNITS;
+
       this.group.add(metricGridLineNumbers);
     }
 
@@ -553,6 +594,7 @@ class Visualizer extends Component {
       // Tool Head
       const color = colornames('silver');
       const url = 'textures/brushed-steel-texture.jpg';
+
       loadTexture(url, (err, texture) => {
         this.toolhead = new ToolHead(color, texture);
         this.toolhead.name = 'ToolHead';
@@ -572,11 +614,13 @@ class Visualizer extends Component {
       });
       this.targetPoint.name = 'TargetPoint';
       this.targetPoint.visible = true;
+
       this.group.add(this.targetPoint);
     }
 
     this.scene.add(this.group);
   }
+
   // @param [options] The options object.
   // @param [options.forceUpdate] Force rendering
   updateScene(options) {
@@ -587,6 +631,7 @@ class Visualizer extends Component {
       this.renderer.render(this.scene, this.camera);
     }
   }
+
   clearScene() {
     // to iterrate over all children (except the first) in a scene
     const objsToRemove = tail(this.scene.children);
@@ -601,6 +646,7 @@ class Visualizer extends Component {
     // Update the scene
     this.updateScene();
   }
+
   renderAnimationLoop() {
     if (this.isAgitated) {
       // Call the render() function up to 60 times per second (i.e. 60fps)
@@ -648,6 +694,7 @@ class Visualizer extends Component {
 
     return camera;
   }
+
   createOrthographicCamera(width, height) {
     const left = -width / 2;
     const right = width / 2;
@@ -717,7 +764,7 @@ class Visualizer extends Component {
     const degrees = 360 * ((delta * Math.PI) / 180); // Rotates 360 degrees per second
     this.toolhead.rotateZ(-((rpm / 60) * degrees)); // rotate in clockwise direction
   }
-  // Set work position
+
   setWorkPosition(workPosition) {
     const pivotPoint = this.pivotPoint.get();
 
@@ -736,6 +783,7 @@ class Visualizer extends Component {
       this.targetPoint.position.set(x, y, z);
     }
   }
+
   // Make the controls look at the specified position
   lookAt(x, y, z) {
     this.controls.target.x = x;
@@ -743,6 +791,7 @@ class Visualizer extends Component {
     this.controls.target.z = z;
     this.controls.update();
   }
+
   // Make the controls look at the center position
   lookAtCenter() {
     if (this.viewport) {
@@ -753,6 +802,7 @@ class Visualizer extends Component {
     }
     this.updateScene();
   }
+
   load(name, gcode, callback) {
     // Remove previous G-code object
     this.unload();
@@ -808,8 +858,11 @@ class Visualizer extends Component {
     // Update the scene
     this.updateScene();
 
-    typeof callback === 'function' && callback({bbox: bbox});
+    if (typeof callback === 'function') {
+      callback({bbox: bbox});
+    }
   }
+
   unload() {
     const visualizerObject = this.group.getObjectByName('Visualizer');
 
@@ -833,6 +886,7 @@ class Visualizer extends Component {
     // Update the scene
     this.updateScene();
   }
+
   setCameraMode(mode) {
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
     // A number representing a given button:
@@ -841,13 +895,15 @@ class Visualizer extends Component {
     const ROTATE = 0;
     const PAN = 2;
 
-    if (mode === CAMERA_MODE_ROTATE) {
-      this.controls && this.controls.setMouseButtonState(MAIN_BUTTON, ROTATE);
-    }
-    if (mode === CAMERA_MODE_PAN) {
-      this.controls && this.controls.setMouseButtonState(MAIN_BUTTON, PAN);
+    if (this.controls) {
+      if (mode === CAMERA_MODE_ROTATE) {
+        this.controls.setMouseButtonState(MAIN_BUTTON, ROTATE);
+      } else if (mode === CAMERA_MODE_PAN) {
+        this.controls.setMouseButtonState(MAIN_BUTTON, PAN);
+      }
     }
   }
+
   toTopView() {
     if (this.controls) {
       this.controls.reset();
@@ -859,11 +915,14 @@ class Visualizer extends Component {
     if (this.viewport) {
       this.viewport.update();
     }
+
     if (this.controls) {
       this.controls.update();
     }
+
     this.updateScene();
   }
+
   to3DView() {
     if (this.controls) {
       this.controls.reset();
@@ -875,11 +934,14 @@ class Visualizer extends Component {
     if (this.viewport) {
       this.viewport.update();
     }
+
     if (this.controls) {
       this.controls.update();
     }
+
     this.updateScene();
   }
+
   toFrontView() {
     if (this.controls) {
       this.controls.reset();
@@ -891,11 +953,14 @@ class Visualizer extends Component {
     if (this.viewport) {
       this.viewport.update();
     }
+
     if (this.controls) {
       this.controls.update();
     }
+
     this.updateScene();
   }
+
   toLeftSideView() {
     if (this.controls) {
       this.controls.reset();
@@ -907,10 +972,12 @@ class Visualizer extends Component {
     if (this.viewport) {
       this.viewport.update();
     }
+
     if (this.controls) {
       this.controls.update();
     }
   }
+
   toRightSideView() {
     if (this.controls) {
       this.controls.reset();
@@ -922,17 +989,22 @@ class Visualizer extends Component {
     if (this.viewport) {
       this.viewport.update();
     }
+
     if (this.controls) {
       this.controls.update();
     }
+
     this.updateScene();
   }
+
   zoomFit() {
     if (this.viewport) {
       this.viewport.update();
     }
+
     this.updateScene();
   }
+
   zoomIn(delta = 0.1) {
     const {noZoom} = this.controls;
     if (noZoom) {
@@ -942,9 +1014,9 @@ class Visualizer extends Component {
     this.controls.zoomIn(delta);
     this.controls.update();
 
-    // Update the scene
     this.updateScene();
   }
+
   zoomOut(delta = 0.1) {
     const {noZoom} = this.controls;
     if (noZoom) {
@@ -954,9 +1026,9 @@ class Visualizer extends Component {
     this.controls.zoomOut(delta);
     this.controls.update();
 
-    // Update the scene
     this.updateScene();
   }
+
   // deltaX and deltaY are in pixels; right and down are positive
   pan(deltaX, deltaY) {
     const eye = new THREE.Vector3();
@@ -976,41 +1048,38 @@ class Visualizer extends Component {
     this.controls.target.add(pan);
     this.controls.update();
   }
+
   // http://stackoverflow.com/questions/18581225/orbitcontrol-or-trackballcontrol
   panUp() {
     const {noPan, panSpeed} = this.controls;
-    !noPan && this.pan(0, Number(panSpeed));
+
+    if (!noPan) {
+      this.pan(0, Number(panSpeed));
+    }
   }
+
   panDown() {
     const {noPan, panSpeed} = this.controls;
-    !noPan && this.pan(0, -1 * panSpeed);
+
+    if (!noPan) {
+      this.pan(0, -1 * panSpeed);
+    }
   }
+
   panLeft() {
     const {noPan, panSpeed} = this.controls;
-    !noPan && this.pan(Number(panSpeed), 0);
+
+    if (!noPan) {
+      this.pan(Number(panSpeed), 0);
+    }
   }
+
   panRight() {
     const {noPan, panSpeed} = this.controls;
-    !noPan && this.pan(-1 * panSpeed, 0);
-  }
-  render() {
-    const {show} = this.props;
-    const style = {
-      visibility: show ? 'visible' : 'hidden',
-    };
 
-    if (!Detector.webgl) {
-      return null;
+    if (!noPan) {
+      this.pan(-1 * panSpeed, 0);
     }
-
-    return (
-      <div
-        style={style}
-        ref={node => {
-          this.node = node;
-        }}
-      />
-    );
   }
 }
 

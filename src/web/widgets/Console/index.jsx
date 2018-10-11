@@ -1,16 +1,18 @@
-import cx from 'classnames';
 import color from 'cli-color';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
 import uuid from 'uuid';
+
+import Console from './Console';
+import controller from '../../lib/controller';
+import i18n from '../../lib/i18n';
 import settings from '../../config/settings';
 import Space from '../../components/Space';
 import Widget from '../../components/Widget';
-import controller from '../../lib/controller';
-import i18n from '../../lib/i18n';
 import WidgetConfig from '../WidgetConfig';
-import Console from './Console';
+
 import styles from './index.styl';
 
 const appName = settings.productName;
@@ -22,10 +24,10 @@ const TERMINAL_ROWS = 15;
 
 class ConsoleWidget extends PureComponent {
   static propTypes = {
-    widgetId: PropTypes.string.isRequired,
     onFork: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     sortable: PropTypes.object,
+    widgetId: PropTypes.string.isRequired,
   };
 
   senderId = uuid.v4();
@@ -34,6 +36,7 @@ class ConsoleWidget extends PureComponent {
   collapse = () => {
     this.setState({minimized: true});
   };
+
   expand = () => {
     this.setState({minimized: false});
   };
@@ -41,11 +44,22 @@ class ConsoleWidget extends PureComponent {
   config = new WidgetConfig(this.props.widgetId);
   state = this.getInitialState();
   actions = {
+    clearAll: () => {
+      if (this.terminal) {
+        this.terminal.clear();
+      }
+    },
+    onTerminalData: data => {
+      const context = {
+        __sender__: this.senderId,
+      };
+      controller.write(data, context);
+    },
     toggleFullscreen: () => {
       this.setState(
         state => ({
-          minimized: state.isFullscreen ? state.minimized : false,
           isFullscreen: !state.isFullscreen,
+          minimized: state.isFullscreen ? state.minimized : false,
           terminal: {
             ...state.terminal,
             rows: state.isFullscreen ? TERMINAL_ROWS : 'auto',
@@ -66,23 +80,21 @@ class ConsoleWidget extends PureComponent {
         }
       );
     },
-    clearAll: () => {
-      this.terminal && this.terminal.clear();
-    },
-    onTerminalData: data => {
-      const context = {
-        __sender__: this.senderId,
-      };
-      controller.write(data, context);
-    },
   };
+
   controllerEvents = {
+    'connection:close': options => {
+      const initialState = this.getInitialState();
+
+      this.setState({...initialState});
+      this.actions.clearAll();
+    },
     'connection:open': options => {
       const {ident} = options;
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
 
@@ -92,19 +104,22 @@ class ConsoleWidget extends PureComponent {
 
       this.terminal.writeln(color.white.bold(`${appName} ${appVersion} [${controller.type}]`));
 
-      const {type, settings} = options;
+      const {settings, type} = options;
+
       if (type === 'serial') {
         const {path, baudRate} = {...settings};
+
         this.terminal.writeln(
           color.white(
             i18n._('Connected to {{-path}} with a baud rate of {{baudRate}}', {
-              path: color.yellowBright(path),
               baudRate: color.blueBright(baudRate),
+              path: color.yellowBright(path),
             })
           )
         );
       } else if (type === 'socket') {
         const {host, port} = {...settings};
+
         this.terminal.writeln(
           color.white(
             i18n._('Connected to {{host}}:{{port}}', {
@@ -115,10 +130,12 @@ class ConsoleWidget extends PureComponent {
         );
       }
     },
-    'connection:close': options => {
-      const initialState = this.getInitialState();
-      this.setState({...initialState});
-      this.actions.clearAll();
+    'connection:read': (options, data) => {
+      if (!this.terminal) {
+        return;
+      }
+
+      this.terminal.writeln(data);
     },
     'connection:write': (options, data, context) => {
       const {source, __sender__} = {...context};
@@ -140,80 +157,13 @@ class ConsoleWidget extends PureComponent {
         this.terminal.writeln(color.white(this.terminal.prompt + data));
       }
     },
-    'connection:read': (options, data) => {
-      if (!this.terminal) {
-        return;
-      }
-
-      this.terminal.writeln(data);
-    },
   };
   terminal = null;
   pubsubTokens = [];
 
-  componentDidMount() {
-    this.addControllerEvents();
-    this.subscribe();
-  }
-  componentWillUnmount() {
-    this.removeControllerEvents();
-    this.unsubscribe();
-  }
-  componentDidUpdate(prevProps, prevState) {
-    const {minimized} = this.state;
-
-    this.config.set('minimized', minimized);
-  }
-  getInitialState() {
-    return {
-      minimized: this.config.get('minimized', false),
-      isFullscreen: false,
-      connection: {
-        ident: controller.connection.ident,
-      },
-
-      // Terminal
-      terminal: {
-        cols: TERMINAL_COLS,
-        rows: TERMINAL_ROWS,
-        cursorBlink: true,
-        scrollback: 1000,
-        tabStopWidth: 4,
-      },
-    };
-  }
-  subscribe() {
-    const tokens = [
-      pubsub.subscribe('resize', msg => {
-        this.resizeTerminal();
-      }),
-    ];
-    this.pubsubTokens = this.pubsubTokens.concat(tokens);
-  }
-  unsubscribe() {
-    this.pubsubTokens.forEach(token => {
-      pubsub.unsubscribe(token);
-    });
-    this.pubsubTokens = [];
-  }
-  addControllerEvents() {
-    Object.keys(this.controllerEvents).forEach(eventName => {
-      const callback = this.controllerEvents[eventName];
-      controller.addListener(eventName, callback);
-    });
-  }
-  removeControllerEvents() {
-    Object.keys(this.controllerEvents).forEach(eventName => {
-      const callback = this.controllerEvents[eventName];
-      controller.removeListener(eventName, callback);
-    });
-  }
-  resizeTerminal() {
-    this.terminal && this.terminal.resize();
-  }
   render() {
     const {widgetId} = this.props;
-    const {minimized, isFullscreen} = this.state;
+    const {isFullscreen, minimized} = this.state;
     const isForkedWidget = widgetId.match(/\w+:[\w\-]+/);
     const state = {
       ...this.state,
@@ -304,6 +254,77 @@ class ConsoleWidget extends PureComponent {
         </Widget.Content>
       </Widget>
     );
+  }
+
+  componentDidMount() {
+    this.addControllerEvents();
+    this.subscribe();
+  }
+
+  componentWillUnmount() {
+    this.removeControllerEvents();
+    this.unsubscribe();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {minimized} = this.state;
+
+    this.config.set('minimized', minimized);
+  }
+
+  getInitialState() {
+    return {
+      connection: {
+        ident: controller.connection.ident,
+      },
+      isFullscreen: false,
+      minimized: this.config.get('minimized', false),
+
+      // Terminal
+      terminal: {
+        cols: TERMINAL_COLS,
+        cursorBlink: true,
+        rows: TERMINAL_ROWS,
+        scrollback: 1000,
+        tabStopWidth: 4,
+      },
+    };
+  }
+
+  subscribe() {
+    const tokens = [
+      pubsub.subscribe('resize', msg => {
+        this.resizeTerminal();
+      }),
+    ];
+    this.pubsubTokens = this.pubsubTokens.concat(tokens);
+  }
+
+  unsubscribe() {
+    this.pubsubTokens.forEach(token => {
+      pubsub.unsubscribe(token);
+    });
+    this.pubsubTokens = [];
+  }
+
+  addControllerEvents() {
+    Object.keys(this.controllerEvents).forEach(eventName => {
+      const callback = this.controllerEvents[eventName];
+      controller.addListener(eventName, callback);
+    });
+  }
+
+  removeControllerEvents() {
+    Object.keys(this.controllerEvents).forEach(eventName => {
+      const callback = this.controllerEvents[eventName];
+      controller.removeListener(eventName, callback);
+    });
+  }
+
+  resizeTerminal() {
+    if (this.terminal) {
+      this.terminal.resize();
+    }
   }
 }
 

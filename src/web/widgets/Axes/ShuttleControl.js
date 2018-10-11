@@ -38,8 +38,8 @@ class ShuttleControl extends events.EventEmitter {
     this.zone = zone;
     this.axis = axis;
     this.queue.push({
-      feedrate: feedrate,
-      relativeDistance: relativeDistance,
+      feedrate,
+      relativeDistance,
     });
 
     if (!this.timer) {
@@ -48,13 +48,16 @@ class ShuttleControl extends events.EventEmitter {
       }, FLUSH_INTERVAL);
     }
   }
+
   clear() {
     if (this.timer) {
       clearTimeout(this.timer);
       this.timer = null;
     }
+
     this.queue = [];
   }
+
   flush(callback) {
     if (this.queue.length === 0) {
       return;
@@ -70,7 +73,9 @@ class ShuttleControl extends events.EventEmitter {
     this.timer = null;
     this.queue = [];
     this.emit('flush', accumulatedResult);
-    typeof callback === 'function' && callback(accumulatedResult);
+    if (typeof callback === 'function') {
+      callback(accumulatedResult);
+    }
   }
 }
 

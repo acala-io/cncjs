@@ -1,23 +1,27 @@
 /* eslint-disable import/default, react/forbid-foreign-prop-types */
 
 import classNames from 'classnames';
+import Push from 'push.js';
 import React, {PureComponent} from 'react';
-import {Nav, Navbar, NavDropdown, MenuItem, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {withRouter} from 'react-router-dom';
 import semver from 'semver';
 import without from 'lodash/without';
-import Push from 'push.js';
+import {Nav, Navbar, NavDropdown, MenuItem, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {withRouter} from 'react-router-dom';
+
 import api from '../../api';
-import Anchor from '../../components/Anchor';
-import Space from '../../components/Space';
 import settings from '../../config/settings';
 import combokeys from '../../lib/combokeys';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import user from '../../lib/user';
+
 import store from '../../store';
+
+import Anchor from '../../components/Anchor';
 import QuickAccessToolbar from './QuickAccessToolbar';
+import Space from '../../components/Space';
+
 import styles from './index.styl';
 
 const releases = 'https://github.com/cncjs/cncjs/releases';
@@ -37,6 +41,40 @@ class Header extends PureComponent {
 
   state = this.getInitialState();
   actions = {
+    checkForUpdates: async () => {
+      try {
+        const res = await api.getState();
+        const {checkForUpdates} = res.body;
+
+        if (checkForUpdates) {
+          const res = await api.getLatestVersion();
+          const {time, version} = res.body;
+
+          if (this._isMounted) {
+            this.setState({
+              latestTime: time,
+              latestVersion: version,
+            });
+          }
+        }
+      } catch (res) {
+        // Ignore error
+      }
+    },
+    fetchCommands: async () => {
+      try {
+        const res = await api.commands.fetch({paging: false});
+        const {records: commands} = res.body;
+
+        if (this._isMounted) {
+          this.setState({
+            commands: commands.filter(command => command.enabled),
+          });
+        }
+      } catch (res) {
+        // Ignore error
+      }
+    },
     requestPushPermission: () => {
       const onGranted = () => {
         this.setState({pushPermission: Push.Permission.GRANTED});
@@ -48,38 +86,6 @@ class Header extends PureComponent {
       const permission = Push.Permission.request(onGranted, onDenied);
       if (permission === Push.Permission.DEFAULT) {
         this.setState({pushPermission: Push.Permission.DEFAULT});
-      }
-    },
-    checkForUpdates: async () => {
-      try {
-        const res = await api.getState();
-        const {checkForUpdates} = res.body;
-
-        if (checkForUpdates) {
-          const res = await api.getLatestVersion();
-          const {time, version} = res.body;
-
-          this._isMounted &&
-            this.setState({
-              latestVersion: version,
-              latestTime: time,
-            });
-        }
-      } catch (res) {
-        // Ignore error
-      }
-    },
-    fetchCommands: async () => {
-      try {
-        const res = await api.commands.fetch({paging: false});
-        const {records: commands} = res.body;
-
-        this._isMounted &&
-          this.setState({
-            commands: commands.filter(command => command.enabled),
-          });
-      } catch (res) {
-        // Ignore error
       }
     },
     runCommand: async cmd => {
@@ -97,12 +103,14 @@ class Header extends PureComponent {
       }
     },
   };
+
   actionHandlers = {
     CONTROLLER_COMMAND: (event, {command}) => {
       // feedhold, cyclestart, homing, unlock, reset
       controller.command(command);
     },
   };
+
   controllerEvents = {
     'config:change': () => {
       this.actions.fetchCommands();
@@ -121,11 +129,13 @@ class Header extends PureComponent {
           if (c.taskId !== taskId) {
             return c;
           }
+
           cmd = c;
+
           return {
             ...c,
+            err,
             taskId: null,
-            err: err,
           };
         }),
         runningTasks: without(this.state.runningTasks, taskId),
@@ -135,11 +145,11 @@ class Header extends PureComponent {
         Push.create(cmd.title, {
           body: code === 0 ? i18n._('Command succeeded') : i18n._('Command failed ({{err}})', {err: err}),
           icon: 'images/logo-badge-32x32.png',
-          timeout: 10 * 1000,
           onClick: function() {
             window.focus();
             this.close();
           },
+          timeout: 10 * 1000,
         });
       }
     },
@@ -151,11 +161,13 @@ class Header extends PureComponent {
           if (c.taskId !== taskId) {
             return c;
           }
+
           cmd = c;
+
           return {
             ...c,
+            err,
             taskId: null,
-            err: err,
           };
         }),
         runningTasks: without(this.state.runningTasks, taskId),
@@ -165,11 +177,11 @@ class Header extends PureComponent {
         Push.create(cmd.title, {
           body: i18n._('Command failed ({{err}})', {err: err}),
           icon: 'images/logo-badge-32x32.png',
-          timeout: 10 * 1000,
           onClick: function() {
             window.focus();
             this.close();
           },
+          timeout: 10 * 1000,
         });
       }
     },
@@ -186,13 +198,14 @@ class Header extends PureComponent {
     }
 
     return {
-      pushPermission: pushPermission,
       commands: [],
-      runningTasks: [],
       currentVersion: settings.version,
       latestVersion: settings.version,
+      pushPermission: pushPermission,
+      runningTasks: [],
     };
   }
+
   componentDidMount() {
     this._isMounted = true;
 
@@ -203,6 +216,7 @@ class Header extends PureComponent {
     this.actions.checkForUpdates();
     this.actions.fetchCommands();
   }
+
   componentWillUnmount() {
     this._isMounted = false;
 
@@ -211,30 +225,35 @@ class Header extends PureComponent {
 
     this.runningTasks = [];
   }
+
   addActionHandlers() {
     Object.keys(this.actionHandlers).forEach(eventName => {
       const callback = this.actionHandlers[eventName];
       combokeys.on(eventName, callback);
     });
   }
+
   removeActionHandlers() {
     Object.keys(this.actionHandlers).forEach(eventName => {
       const callback = this.actionHandlers[eventName];
       combokeys.removeListener(eventName, callback);
     });
   }
+
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.addListener(eventName, callback);
     });
   }
+
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.removeListener(eventName, callback);
     });
   }
+
   render() {
     const {history, location} = this.props;
     const {pushPermission, commands, runningTasks, currentVersion, latestVersion} = this.state;

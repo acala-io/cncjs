@@ -2,22 +2,25 @@
 
 import * as parser from 'gcode-parser';
 import _ from 'lodash';
-import config from '../../services/configstore';
-import controllers from '../../store/controllers';
 import ensureArray from 'ensure-array';
+
+import controllers from '../../store/controllers';
 import ensurePositiveNumber from '../../lib/ensure-positive-number';
 import evaluateExpression from '../../lib/evaluate-expression';
 import EventTrigger from '../../lib/EventTrigger';
 import Feeder from '../../lib/Feeder';
 import GrblRunner from './GrblRunner';
 import logger from '../../lib/logger';
-import monitor from '../../services/monitor';
 import Sender, {SP_TYPE_CHAR_COUNTING} from '../../lib/Sender';
 import SerialConnection from '../../lib/SerialConnection';
 import SocketConnection from '../../lib/SocketConnection';
-import taskRunner from '../../services/taskrunner';
 import translateExpression from '../../lib/translate-expression';
 import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
+
+import config from '../../services/configstore';
+import monitor from '../../services/monitor';
+import taskRunner from '../../services/taskrunner';
+
 import {
   GRBL,
   GRBL_MACHINE_STATE_RUN,
@@ -47,10 +50,6 @@ class GrblController {
   // Connection
   connection = null;
   connectionEventListener = {
-    data: data => {
-      log.silly(`< ${data}`);
-      this.runner.parse(String(data));
-    },
     close: err => {
       this.ready = false;
       if (err) {
@@ -62,7 +61,7 @@ class GrblController {
         log.error(err);
       }
 
-      this.close(err => {
+      this.close(() => {
         // Remove controller
         const ident = this.connection.ident;
         delete controllers[ident];
@@ -71,6 +70,10 @@ class GrblController {
         // Destroy controller
         this.destroy();
       });
+    },
+    data: data => {
+      log.silly(`< ${data}`);
+      this.runner.parse(String(data));
     },
     error: err => {
       this.ready = false;
@@ -94,8 +97,8 @@ class GrblController {
   queryTimer = null;
   actionMask = {
     queryParserState: {
-      state: false, // wait for a message containing the current G-code parser modal state
       reply: false, // wait for an `ok` or `error` response
+      state: false, // wait for a message containing the current G-code parser modal state
     },
     queryStatusReport: false,
 
@@ -124,29 +127,32 @@ class GrblController {
   get connectionOptions() {
     return {
       ident: this.connection.ident,
-      type: this.connection.type,
       settings: this.connection.settings,
+      type: this.connection.type,
     };
   }
+
   get isOpen() {
     return this.connection && this.connection.isOpen;
   }
+
   get isClose() {
     return !this.isOpen;
   }
+
   get status() {
     return {
-      type: this.type,
       connection: {
-        type: _.get(this.connection, 'type', ''),
         settings: _.get(this.connection, 'settings', {}),
+        type: _.get(this.connection, 'type', ''),
       },
-      sockets: Object.keys(this.sockets).length,
-      ready: this.ready,
-      settings: this.settings,
-      state: this.state,
       feeder: this.feeder.toJSON(),
+      ready: this.ready,
       sender: this.sender.toJSON(),
+      settings: this.settings,
+      sockets: Object.keys(this.sockets).length,
+      state: this.state,
+      type: this.type,
       workflow: {
         state: this.workflow.state,
       },
@@ -180,6 +186,7 @@ class GrblController {
           if (r) {
             const name = r[1];
             const value = Number(r[2]);
+
             if (name === '$13' && value >= 0 && value <= 65535) {
               const nextSettings = {
                 ...this.runner.settings,
@@ -264,6 +271,7 @@ class GrblController {
         return line;
       },
     });
+
     this.feeder.on('data', (line = '', context = {}) => {
       if (this.isClose) {
         log.error(
@@ -351,6 +359,7 @@ class GrblController {
         return line;
       },
     });
+
     this.sender.on('data', (line = '', context = {}) => {
       if (this.isClose) {
         log.error(
@@ -375,25 +384,32 @@ class GrblController {
       this.connection.write(line + '\n');
       log.silly(`> ${line}`);
     });
+
     this.sender.on('hold', noop);
+
     this.sender.on('unhold', noop);
+
     this.sender.on('start', startTime => {
       this.actionTime.senderFinishTime = 0;
     });
+
     this.sender.on('end', finishTime => {
       this.actionTime.senderFinishTime = finishTime;
     });
 
     // Workflow
     this.workflow = new Workflow();
+
     this.workflow.on('start', (...args) => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
+
     this.workflow.on('stop', (...args) => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
+
     this.workflow.on('pause', (...args) => {
       this.emit('workflow:state', this.workflow.state);
 
@@ -404,6 +420,7 @@ class GrblController {
         this.sender.hold();
       }
     });
+
     this.workflow.on('resume', (...args) => {
       this.emit('workflow:state', this.workflow.state);
 
@@ -448,7 +465,7 @@ class GrblController {
           return;
         }
 
-        // Deduct the receive buffer length to prevent from buffer overrun
+        // Deduct the receive buffer length to prevent buffer overruns
         const bufferSize = rx - 8; // TODO
         if (bufferSize > this.sender.sp.bufferSize) {
           this.sender.sp.bufferSize = bufferSize;
@@ -466,7 +483,7 @@ class GrblController {
         return;
       }
 
-      const {hold, sent, received} = this.sender.state;
+      const {hold, received, sent} = this.sender.state;
 
       if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
         if (hold && received + 1 >= sent) {
@@ -750,6 +767,7 @@ class GrblController {
       }
     }, 250);
   }
+
   populateContext(context) {
     // Machine position
     const {x: mposx, y: mposy, z: mposz, a: mposa, b: mposb, c: mposc} = this.runner.getMachinePosition();
@@ -784,19 +802,20 @@ class GrblController {
       posc: Number(posc) || 0,
       // Modal state
       modal: {
-        motion: modal.motion,
-        wcs: modal.wcs,
-        plane: modal.plane,
-        units: modal.units,
-        distance: modal.distance,
-        feedrate: modal.feedrate,
-        program: modal.program,
-        spindle: modal.spindle,
         // M7 and M8 may be active at the same time, but a modal group violation might occur when issuing M7 and M8 together on the same line. Using the new line character (\n) to separate lines can avoid this issue.
         coolant: ensureArray(modal.coolant).join('\n'),
+        distance: modal.distance,
+        feedrate: modal.feedrate,
+        motion: modal.motion,
+        plane: modal.plane,
+        program: modal.program,
+        spindle: modal.spindle,
+        units: modal.units,
+        wcs: modal.wcs,
       },
     });
   }
+
   clearActionValues() {
     this.actionMask.queryParserState.state = false;
     this.actionMask.queryParserState.reply = false;
@@ -807,6 +826,7 @@ class GrblController {
     this.actionTime.queryStatusReport = 0;
     this.actionTime.senderFinishTime = 0;
   }
+
   destroy() {
     if (this.queryTimer) {
       clearInterval(this.queryTimer);
@@ -840,6 +860,7 @@ class GrblController {
       this.workflow = null;
     }
   }
+
   open(callback = noop) {
     // Assertion check
     if (this.isOpen) {
@@ -859,8 +880,13 @@ class GrblController {
           `Cannot open connection: type=${this.connection.type}, settings=${JSON.stringify(this.connection.settings)}`
         );
         log.error(err);
+
         this.emit('connection:error', this.connectionOptions, err);
-        callback && callback(err);
+
+        if (callback) {
+          callback(err);
+        }
+
         return;
       }
 
@@ -871,7 +897,9 @@ class GrblController {
         this.engine.io.emit('connection:change', this.connectionOptions, true);
       }
 
-      callback && callback();
+      if (callback) {
+        callback();
+      }
 
       log.debug(
         `Connection established: type=${this.connection.type}, settings=${JSON.stringify(this.connection.settings)}`
@@ -888,6 +916,7 @@ class GrblController {
       }
     });
   }
+
   close(callback) {
     // Stop status query
     this.ready = false;
@@ -905,6 +934,7 @@ class GrblController {
     this.connection.removeAllListeners();
     this.connection.close(callback);
   }
+
   addSocket(socket) {
     if (!socket) {
       log.error('The socket parameter is not specified');
@@ -962,6 +992,7 @@ class GrblController {
       socket.emit('workflow:state', this.workflow.state);
     }
   }
+
   removeSocket(socket) {
     if (!socket) {
       log.error('The socket parameter is not specified');
@@ -972,12 +1003,14 @@ class GrblController {
     this.sockets[socket.id] = undefined;
     delete this.sockets[socket.id];
   }
+
   emit(eventName, ...args) {
     Object.keys(this.sockets).forEach(id => {
       const socket = this.sockets[id];
       socket.emit(eventName, ...args);
     });
   }
+
   command(cmd, ...args) {
     const handler = {
       'sender:load': () => {
@@ -1050,12 +1083,15 @@ class GrblController {
         this.workflow.stop();
 
         if (force) {
-          const machineState = _.get(this.state, 'machineState', '');
+          const getMachineState = () => _.get(this.state, 'machineState', '');
+          let machineState = getMachineState();
+
           if (machineState === GRBL_MACHINE_STATE_RUN) {
             this.write('!'); // hold
           }
+
           setTimeout(() => {
-            const machineState = _.get(this.state, 'machineState', '');
+            machineState = getMachineState();
             if (machineState === GRBL_MACHINE_STATE_HOLD) {
               this.write('\x18'); // ctrl-x
             }
@@ -1080,6 +1116,7 @@ class GrblController {
         if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
           return;
         }
+
         this.write('~');
         this.feeder.unhold();
         this.feeder.next();
@@ -1277,6 +1314,7 @@ class GrblController {
 
     handler();
   }
+
   write(data, context) {
     // Assertion check
     if (this.isClose) {
@@ -1299,6 +1337,7 @@ class GrblController {
     this.connection.write(data);
     log.silly(`> ${data}`);
   }
+
   writeln(data, context) {
     if (_.includes(GRBL_REALTIME_COMMANDS, data)) {
       this.write(data, context);

@@ -1,14 +1,5 @@
-/**
- *    @author zz85 / http://twitter.com/blurspline / http://www.lab4games.net/zz85/blog
- *
- *    A general purpose camera, for setting FOV, Lens Focal Length,
- *        and switching between perspective and orthographic views easily.
- *        Use this only if you do not wish to manage
- *        both a Orthographic and Perspective Camera
- *
- */
-
 /* eslint-disable */
+
 import * as THREE from 'three';
 
 THREE.CombinedCamera = function(width, height, fov, near, far, orthoNear, orthoFar) {

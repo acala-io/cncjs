@@ -2,30 +2,34 @@ import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Select from 'react-select';
-import Modal from '../../components/Modal';
+
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
+
 import {MEDIA_SOURCE_LOCAL, MEDIA_SOURCE_MJPEG} from './constants';
+
+import Modal from '../../components/Modal';
 
 class Settings extends PureComponent {
   static propTypes = {
-    mediaSource: PropTypes.string,
     deviceId: PropTypes.string,
-    url: PropTypes.string,
-    onSave: PropTypes.func,
+    mediaSource: PropTypes.string,
     onCancel: PropTypes.func,
+    onSave: PropTypes.func,
+    url: PropTypes.string,
   };
+
   static defaultProps = {
-    mediaSource: MEDIA_SOURCE_LOCAL,
     deviceId: '',
-    url: '',
-    onSave: noop,
+    mediaSource: MEDIA_SOURCE_LOCAL,
     onCancel: noop,
+    onSave: noop,
+    url: '',
   };
 
   state = {
-    mediaSource: this.props.mediaSource,
     deviceId: this.props.deviceId,
+    mediaSource: this.props.mediaSource,
     url: this.props.url,
     videoDevices: [],
   };
@@ -41,16 +45,19 @@ class Settings extends PureComponent {
   };
 
   handleSave = () => {
-    this.props.onSave &&
+    if (this.props.onSave) {
       this.props.onSave({
-        mediaSource: this.state.mediaSource,
         deviceId: this.state.deviceId,
+        mediaSource: this.state.mediaSource,
         url: this.state.url,
       });
+    }
   };
 
   handleCancel = () => {
-    this.props.onCancel && this.props.onCancel();
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    }
   };
 
   enumerateDevices = async () => {
@@ -62,6 +69,7 @@ class Settings extends PureComponent {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
       this.setState({videoDevices: videoDevices});
     } catch (err) {
       log.error(err.name + ': ' + err.message);
@@ -76,12 +84,12 @@ class Settings extends PureComponent {
     const {mediaSource, deviceId, url, videoDevices} = this.state;
 
     const videoDeviceOptions = videoDevices.map(device => ({
-      value: device.deviceId,
       label: device.label,
+      value: device.deviceId,
     }));
     videoDeviceOptions.unshift({
-      value: '',
       label: i18n._('Automatic detection'),
+      value: '',
     });
 
     return (

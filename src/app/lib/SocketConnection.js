@@ -78,19 +78,25 @@ class SocketConnection extends EventEmitter {
       },
     });
   }
+
   get ident() {
     return toIdent(this.settings);
   }
+
   get isOpen() {
     return this.socket && !this.socket.destroyed;
   }
+
   get isClose() {
     return !this.isOpen;
   }
+
   open(callback) {
     if (this.socket) {
       const err = new Error(`Cannot open socket connection: ${this.settings.host}:${this.settings.port}`);
-      callback && callback(err);
+      if (callback) {
+        callback(err);
+      }
       return;
     }
 
@@ -124,11 +130,14 @@ class SocketConnection extends EventEmitter {
     this.parser = this.socket.pipe(new Readline({delimiter: '\n'}));
     this.parser.on('data', this.eventListener.data);
   }
+
   // @param {function} callback The error-first callback.
   close(callback) {
     if (!this.socket) {
       const err = new Error(`Cannot close socket connection: ${this.options.host}:${this.options.port}`);
-      callback && callback(err);
+      if (callback) {
+        callback(err);
+      }
       return;
     }
 
@@ -138,11 +147,15 @@ class SocketConnection extends EventEmitter {
     this.parser.removeListener('data', this.eventListener.data);
 
     this.socket.end();
-    callback && callback(null);
+
+    if (callback) {
+      callback(null);
+    }
 
     this.socket = null;
     this.parser = null;
   }
+
   write(data, context) {
     if (!this.socket) {
       return;

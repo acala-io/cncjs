@@ -1,5 +1,5 @@
-/* eslint import/no-dynamic-require: 0 */
-/* eslint-disable import/default */
+/* eslint-disable import/default, import/no-dynamic-require */
+
 import chainedFunction from 'chained-function';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -96,8 +96,9 @@ series([
     })(),
   () =>
     promisify(next => {
-      const token = store.get('session.token');
-      user.signin({token: token}).then(({authenticated, token}) => {
+      const sessionToken = store.get('session.token');
+
+      user.signin({token: sessionToken}).then(({authenticated, token}) => {
         if (authenticated) {
           log.debug('Create and establish a WebSocket connection');
 
@@ -169,7 +170,9 @@ series([
 
     // Hide loading state
     const loading = document.getElementById('loading');
-    loading && loading.remove();
+    if (loading) {
+      loading.remove();
+    }
 
     if (settings.error.corruptedWorkspaceSettings) {
       const text = store.getConfig();
