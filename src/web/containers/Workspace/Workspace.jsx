@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-foreign-prop-types, react/no-find-dom-node */
+
 import _ from 'lodash';
 import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
@@ -5,6 +7,7 @@ import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
+
 import {Button, ButtonGroup, ButtonToolbar} from '../../components/Buttons';
 import api from '../../api';
 import controller from '../../lib/controller';

@@ -1,11 +1,14 @@
+/* eslint-disable react/forbid-foreign-prop-types */
+
 import React, {PureComponent} from 'react';
 import {Redirect, withRouter} from 'react-router-dom';
-import {trackPage} from '../lib/analytics';
+
 import Header from './Header';
-import Sidebar from './Sidebar';
-import Workspace from './Workspace';
 import Settings from './Settings';
+import Sidebar from './Sidebar';
 import styles from './App.styl';
+import Workspace from './Workspace';
+import {trackPage} from '../lib/analytics';
 
 class App extends PureComponent {
   static propTypes = {

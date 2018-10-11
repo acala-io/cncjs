@@ -1,28 +1,29 @@
+import * as THREE from 'three';
+import colornames from 'colornames';
+import Detector from 'three/examples/js/Detector';
 import each from 'lodash/each';
 import isEqual from 'lodash/isEqual';
-import tail from 'lodash/tail';
-import throttle from 'lodash/throttle';
-import colornames from 'colornames';
-import pubsub from 'pubsub-js';
 import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import * as THREE from 'three';
-import Detector from 'three/examples/js/Detector';
-import log from '../../lib/log';
-import {getBoundingBox, loadTexture} from './helpers';
+import tail from 'lodash/tail';
+import throttle from 'lodash/throttle';
+
 import './CombinedCamera';
 import './TrackballControls';
-import Viewport from './Viewport';
 import CoordinateAxes from './CoordinateAxes';
-import ToolHead from './ToolHead';
-import TargetPoint from './TargetPoint';
-import GridLine from './GridLine';
-import PivotPoint3 from './PivotPoint3';
-import TextSprite from './TextSprite';
 import GCodeVisualizer from './GCodeVisualizer';
-import {IMPERIAL_UNITS, METRIC_UNITS} from '../../constants';
+import GridLine from './GridLine';
+import log from '../../lib/log';
+import PivotPoint3 from './PivotPoint3';
+import TargetPoint from './TargetPoint';
+import TextSprite from './TextSprite';
+import ToolHead from './ToolHead';
+import Viewport from './Viewport';
 import {CAMERA_MODE_PAN, CAMERA_MODE_ROTATE} from './constants';
+import {getBoundingBox, loadTexture} from './helpers';
+import {IMPERIAL_UNITS, METRIC_UNITS} from '../../constants';
 
 const IMPERIAL_GRID_COUNT = 32; // 32 in
 const IMPERIAL_GRID_SPACING = 25.4; // 1 in
@@ -72,7 +73,7 @@ class Visualizer extends Component {
     this.resizeRenderer();
   }, 32); // 60hz
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // Three.js
     this.renderer = null;
     this.scene = null;
@@ -88,6 +89,7 @@ class Visualizer extends Component {
     this.addResizeEventListener();
 
     if (this.node) {
+      // eslint-disable-next-line react/no-find-dom-node
       const el = ReactDOM.findDOMNode(this.node);
       this.createScene(el);
       this.resizeRenderer();
@@ -98,7 +100,8 @@ class Visualizer extends Component {
     this.removeResizeEventListener();
     this.clearScene();
   }
-  componentWillReceiveProps(nextProps) {
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     let forceUpdate = false;
     let needUpdateScene = false;
     const state = this.props.state;
@@ -276,6 +279,7 @@ class Visualizer extends Component {
     return w1 - w2;
   }
   getVisibleWidth() {
+    // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this.node);
     const visibleWidth = Math.max(Number(el && el.parentNode && el.parentNode.clientWidth) || 0, 360);
 
@@ -473,8 +477,10 @@ class Visualizer extends Component {
     // A scene, a camera, and a renderer so we can render the scene with the camera.
     this.scene = new THREE.Scene();
 
-    this.camera = this.createCombinedCamera(width, height);
-    this.controls = this.createTrackballControls(this.camera, this.renderer.domElement);
+    // FIXME: 'CombinedCamera' and 'TrackballControls' not found in imported namespace 'THREE'                                                                                                                                      import/namespace
+    // this.camera = this.createCombinedCamera(width, height);
+
+    // this.controls = this.createTrackballControls(this.camera, this.renderer.domElement);
 
     this.setCameraMode(state.cameraMode);
 
@@ -611,23 +617,25 @@ class Visualizer extends Component {
     // Update the scene
     this.updateScene();
   }
-  createCombinedCamera(width, height) {
-    const frustumWidth = width / 2;
-    const frustumHeight = (height || width) / 2; // same to width if height is 0
-    const fov = PERSPECTIVE_FOV;
-    const near = PERSPECTIVE_NEAR;
-    const far = PERSPECTIVE_FAR;
-    const orthoNear = ORTHOGRAPHIC_NEAR;
-    const orthoFar = ORTHOGRAPHIC_FAR;
 
-    const camera = new THREE.CombinedCamera(frustumWidth, frustumHeight, fov, near, far, orthoNear, orthoFar);
+  // createCombinedCamera(width, height) {
+  //   const frustumWidth = width / 2;
+  //   const frustumHeight = (height || width) / 2; // same to width if height is 0
+  //   const fov = PERSPECTIVE_FOV;
+  //   const near = PERSPECTIVE_NEAR;
+  //   const far = PERSPECTIVE_FAR;
+  //   const orthoNear = ORTHOGRAPHIC_NEAR;
+  //   const orthoFar = ORTHOGRAPHIC_FAR;
 
-    camera.position.x = 0;
-    camera.position.y = 0;
-    camera.position.z = CAMERA_DISTANCE;
+  //   const camera = new THREE.CombinedCamera(frustumWidth, frustumHeight, fov, near, far, orthoNear, orthoFar);
 
-    return camera;
-  }
+  //   camera.position.x = 0;
+  //   camera.position.y = 0;
+  //   camera.position.z = CAMERA_DISTANCE;
+
+  //   return camera;
+  // }
+
   createPerspectiveCamera(width, height) {
     const fov = PERSPECTIVE_FOV;
     const aspect = width > 0 && height > 0 ? Number(width) / Number(height) : 1;
@@ -652,50 +660,52 @@ class Visualizer extends Component {
 
     return camera;
   }
-  createTrackballControls(object, domElement) {
-    const controls = new THREE.TrackballControls(object, domElement);
 
-    controls.rotateSpeed = 1.0;
-    controls.zoomSpeed = 1.2;
-    controls.panSpeed = 0.8;
-    controls.noZoom = false;
-    controls.noPan = false;
+  // createTrackballControls(object, domElement) {
+  //   const controls = new THREE.TrackballControls(object, domElement);
 
-    controls.staticMoving = true;
-    controls.dynamicDampingFactor = 0.3;
+  //   controls.rotateSpeed = 1.0;
+  //   controls.zoomSpeed = 1.2;
+  //   controls.panSpeed = 0.8;
+  //   controls.noZoom = false;
+  //   controls.noPan = false;
 
-    controls.keys = [65, 83, 68];
+  //   controls.staticMoving = true;
+  //   controls.dynamicDampingFactor = 0.3;
 
-    controls.minDistance = TRACKBALL_CONTROLS_MIN_DISTANCE;
-    controls.maxDistance = TRACKBALL_CONTROLS_MAX_DISTANCE;
+  //   controls.keys = [65, 83, 68];
 
-    let shouldAnimate = false;
-    const animate = () => {
-      controls.update();
+  //   controls.minDistance = TRACKBALL_CONTROLS_MIN_DISTANCE;
+  //   controls.maxDistance = TRACKBALL_CONTROLS_MAX_DISTANCE;
 
-      // Update the scene
-      this.updateScene();
+  //   let shouldAnimate = false;
+  //   const animate = () => {
+  //     controls.update();
 
-      if (shouldAnimate) {
-        requestAnimationFrame(animate);
-      }
-    };
+  //     // Update the scene
+  //     this.updateScene();
 
-    controls.addEventListener('start', () => {
-      shouldAnimate = true;
-      animate();
-    });
-    controls.addEventListener('end', () => {
-      shouldAnimate = false;
-      this.updateScene();
-    });
-    controls.addEventListener('change', () => {
-      // Update the scene
-      this.updateScene();
-    });
+  //     if (shouldAnimate) {
+  //       requestAnimationFrame(animate);
+  //     }
+  //   };
 
-    return controls;
-  }
+  //   controls.addEventListener('start', () => {
+  //     shouldAnimate = true;
+  //     animate();
+  //   });
+  //   controls.addEventListener('end', () => {
+  //     shouldAnimate = false;
+  //     this.updateScene();
+  //   });
+  //   controls.addEventListener('change', () => {
+  //     // Update the scene
+  //     this.updateScene();
+  //   });
+
+  //   return controls;
+  // }
+
   // Rotates the tool head around the z axis with a given rpm and an optional fps
   // @param {number} rpm The rounds per minutes
   // @param {number} [fps] The frame rate (Defaults to 60 frames per second)

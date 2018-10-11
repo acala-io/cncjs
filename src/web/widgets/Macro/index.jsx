@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import api from '../../api';
 import Space from '../../components/Space';
 import Widget from '../../components/Widget';
@@ -115,7 +116,7 @@ class MacroWidget extends PureComponent {
     updateMacro: async (id, {name, content}) => {
       try {
         let res;
-        res = await api.macros.update(id, {name, content});
+        res = await api.macros.update(id, {content, name});
         res = await api.macros.fetch();
         const {records: macros} = res.body;
         this.setState({macros: macros});
@@ -133,8 +134,7 @@ class MacroWidget extends PureComponent {
     },
     loadMacro: async (id, {name}) => {
       try {
-        let res;
-        res = await api.macros.read(id);
+        const res = await api.macros.read(id);
         const {name} = res.body;
         controller.command('macro:load', id, controller.context, (err, data) => {
           if (err) {
@@ -188,7 +188,7 @@ class MacroWidget extends PureComponent {
       this.setState(state => ({
         controller: {
           ...state.controller,
-          type: type,
+          type,
           state: controllerState,
         },
       }));
@@ -204,10 +204,10 @@ class MacroWidget extends PureComponent {
 
   fetchMacros = async () => {
     try {
-      let res;
-      res = await api.macros.fetch();
+      const res = await api.macros.fetch();
       const {records: macros} = res.body;
-      this.setState({macros: macros});
+
+      this.setState({macros});
     } catch (err) {
       // Ignore error
     }

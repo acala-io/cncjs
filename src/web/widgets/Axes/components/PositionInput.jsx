@@ -5,11 +5,13 @@ import React, {PureComponent} from 'react';
 
 class PositionInput extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     defaultValue: PropTypes.string,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    min: PropTypes.number,
     max: PropTypes.number,
+    min: PropTypes.number,
+    onCancel: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    style: PropTypes.string,
   };
   static defaultProps = {
     defaultValue: '',

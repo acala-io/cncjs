@@ -4,28 +4,30 @@ import ensureArray from 'ensure-array';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import isEqual from 'lodash/isEqual';
-import pubsub from 'pubsub-js';
 import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
 import React, {Component} from 'react';
 import Sortable from 'react-sortablejs';
 import uuid from 'uuid';
-import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
-import {Button} from '../../components/Buttons';
-import Modal from '../../components/Modal';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
+import Modal from '../../components/Modal';
 import portal from '../../lib/portal';
 import store from '../../store';
-import Widget from './Widget';
 import styles from './widgets.styl';
+import Widget from './Widget';
+import {Button} from '../../components/Buttons';
+import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 
 class PrimaryWidgets extends Component {
   static propTypes = {
+    className: PropTypes.string,
+    onDragEnd: PropTypes.func.isRequired,
+    onDragStart: PropTypes.func.isRequired,
     onForkWidget: PropTypes.func.isRequired,
     onRemoveWidget: PropTypes.func.isRequired,
-    onDragStart: PropTypes.func.isRequired,
-    onDragEnd: PropTypes.func.isRequired,
   };
 
   state = {

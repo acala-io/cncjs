@@ -28,8 +28,8 @@ class AddMacro extends PureComponent {
     const {name, content} = this.form.getValues();
 
     return {
-      name: name,
-      content: content,
+      content,
+      name,
     };
   }
 
@@ -71,6 +71,7 @@ class AddMacro extends PureComponent {
                   id="add-macro-dropdown"
                   className="pull-right"
                   onSelect={eventKey => {
+                    // eslint-disable-next-line react/no-find-dom-node
                     const textarea = ReactDOM.findDOMNode(this.fields.content).querySelector('textarea');
                     if (textarea) {
                       insertAtCaret(textarea, eventKey);

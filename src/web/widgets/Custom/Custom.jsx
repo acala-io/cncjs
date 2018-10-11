@@ -15,10 +15,9 @@ import styles from './index.styl';
 
 class Custom extends PureComponent {
   static propTypes = {
-    config: PropTypes.object,
+    connection: PropTypes.object,
     disabled: PropTypes.bool,
     url: PropTypes.string,
-    connection: PropTypes.object,
   };
 
   pubsubTokens = [];
@@ -31,15 +30,15 @@ class Custom extends PureComponent {
   componentWillUnmount() {
     this.unsubscribe();
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.url !== this.props.url) {
       this.reload();
     }
     if (nextProps.connection.ident !== this.props.connection.ident) {
       // Post a message to the iframe window
       this.postMessage('change', {
-        controller: controller.type,
         connection: {...controller.connection},
+        controller: controller.type,
       });
     }
   }
@@ -53,13 +52,14 @@ class Custom extends PureComponent {
           },
           connection: {
             ident: controller.connection.ident,
-            type: controller.connection.type,
             settings: controller.connection.settings,
+            type: controller.connection.type,
           },
         });
       }),
       pubsub.subscribe('message:resize', (type, payload) => {
         const {scrollHeight} = {...payload};
+
         this.resize({height: scrollHeight});
       }),
     ];
@@ -162,6 +162,7 @@ class Custom extends PureComponent {
             return;
           }
 
+          // eslint-disable-next-line react/no-find-dom-node
           this.iframe = ReactDOM.findDOMNode(node);
 
           // Use ResizeObserver to detect DOM changes within the iframe window

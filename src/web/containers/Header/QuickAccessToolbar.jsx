@@ -6,11 +6,6 @@ import i18n from '../../lib/i18n';
 import styles from './index.styl';
 
 class QuickAccessToolbar extends PureComponent {
-  static propTypes = {
-    state: PropTypes.object,
-    actions: PropTypes.object,
-  };
-
   command = {
     cyclestart: () => {
       controller.command('cyclestart');

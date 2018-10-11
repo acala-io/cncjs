@@ -1,8 +1,9 @@
 import React from 'react';
+
 import i18n from '../../lib/i18n';
 import styles from './loader.styl';
 
-export default () => (
+const Rendering = () => (
   <div className={styles.loader}>
     <div className={styles.loaderIcon}>
       <i className="fa fa-cube fa-spin" />
@@ -10,3 +11,5 @@ export default () => (
     <div className={styles.loaderText}>{i18n._('3D rendering')}</div>
   </div>
 );
+
+export default Rendering;

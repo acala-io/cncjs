@@ -1,3 +1,5 @@
+/* eslint-disable import/default, react/forbid-foreign-prop-types */
+
 import classNames from 'classnames';
 import React, {PureComponent} from 'react';
 import {Nav, Navbar, NavDropdown, MenuItem, OverlayTrigger, Tooltip} from 'react-bootstrap';

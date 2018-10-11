@@ -1,12 +1,13 @@
+import * as fit from 'xterm/lib/addons/fit/fit';
 import classNames from 'classnames';
 import color from 'cli-color';
-import trimEnd from 'lodash/trimEnd';
 import PerfectScrollbar from 'perfect-scrollbar';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
+import trimEnd from 'lodash/trimEnd';
 import {Terminal} from 'xterm';
-import * as fit from 'xterm/lib/addons/fit/fit';
+
 import log from '../../lib/log';
 import History from './History';
 import styles from './index.styl';
@@ -15,20 +16,23 @@ Terminal.applyAddon(fit);
 
 class TerminalWrapper extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     cols: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    rows: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     cursorBlink: PropTypes.bool,
-    scrollback: PropTypes.number,
-    tabStopWidth: PropTypes.number,
     onData: PropTypes.func,
+    rows: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    scrollback: PropTypes.number,
+    style: PropTypes.string,
+    tabStopWidth: PropTypes.number,
   };
+
   static defaultProps = {
     cols: 'auto',
-    rows: 'auto',
     cursorBlink: true,
+    onData: () => {},
+    rows: 'auto',
     scrollback: 1000,
     tabStopWidth: 4,
-    onData: () => {},
   };
 
   prompt = '> ';
@@ -255,6 +259,7 @@ class TerminalWrapper extends PureComponent {
     this.term.on('key', this.eventHandler.onKey);
     this.term.on('paste', this.eventHandler.onPaste);
 
+    // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this.terminalContainer);
     this.term.open(el);
     this.term.fit();
@@ -285,7 +290,8 @@ class TerminalWrapper extends PureComponent {
       this.term = null;
     }
   }
-  componentWillReceiveProps(nextProps) {
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.cursorBlink !== this.props.cursorBlink) {
       this.term.setOption('cursorBlink', nextProps.cursorBlink);
     }

@@ -1,4 +1,5 @@
 /* eslint import/no-dynamic-require: 0 */
+/* eslint-disable import/default */
 import chainedFunction from 'chained-function';
 import moment from 'moment';
 import pubsub from 'pubsub-js';

@@ -9,7 +9,6 @@ import defaultState from '../../../store/defaultState';
 
 class RestoreDefaults extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
   };
 

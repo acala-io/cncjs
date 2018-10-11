@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 class Blink extends PureComponent {
   static propTypes = {
-    children: PropTypes.node.isRequired,
-
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
     // Half-period in milliseconds used for blinking. The default blink rate is 530ms. By setting this to zero, blinking can be disabled.
     rate: PropTypes.number,
   };

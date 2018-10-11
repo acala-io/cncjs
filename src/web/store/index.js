@@ -68,6 +68,11 @@ const persist = data => {
   }
 };
 
+const cnc = {
+  state: {},
+  version: settings.version,
+};
+
 const normalizeState = state => {
   // Keep default widgets unchanged
   const defaultList = get(defaultState, 'workspace.container.default.widgets');
@@ -100,11 +105,6 @@ const normalizeState = state => {
   set(state, 'workspace.container.secondary.widgets', secondaryList);
 
   return state;
-};
-
-const cnc = {
-  version: settings.version,
-  state: {},
 };
 
 try {

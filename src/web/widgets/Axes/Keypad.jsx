@@ -40,9 +40,8 @@ const KeypadSubscriptText = styled(KeypadText)`
 
 class Keypad extends PureComponent {
   static propTypes = {
-    config: PropTypes.object,
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   handleSelect = eventKey => {

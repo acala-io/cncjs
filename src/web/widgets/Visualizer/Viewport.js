@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+
 import log from '../../lib/log';
 
 const FOV_MIN = 15;
@@ -14,10 +15,11 @@ class Viewport {
   state = {};
 
   constructor(camera, width, height) {
-    if (!(camera instanceof THREE.CombinedCamera)) {
-      log.error('This camera is not supported:', camera);
-      return;
-    }
+    // FIXME: CombinedCamera is deprecated and has to be removed completely!
+    // if (!(camera instanceof THREE.CombinedCamera)) {
+    //   log.error('This camera is not supported:', camera);
+    //   return;
+    // }
     if (width <= 0 || height <= 0) {
       log.error(`Width (${width}) and height (${height}) cannot be less than or equal to zero.`);
       return;

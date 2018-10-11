@@ -16,9 +16,7 @@ import {MODAL_RESTORE_DEFAULTS, MODAL_IMPORT_SETTINGS} from './constants';
 
 class Workspace extends PureComponent {
   static propTypes = {
-    initialState: PropTypes.object,
     state: PropTypes.object,
-    stateChanged: PropTypes.bool,
     actions: PropTypes.object,
   };
 

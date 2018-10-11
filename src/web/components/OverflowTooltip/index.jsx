@@ -18,6 +18,7 @@ class OverflowTooltip extends React.Component {
   }
 
   detectOverflow = () => {
+    // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this);
     const overflow = el.clientWidth < el.scrollWidth;
     if (overflow !== this.state.overflow) {

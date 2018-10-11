@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+
 import Space from '../../components/Space';
 import i18n from '../../lib/i18n';
 
@@ -124,9 +126,7 @@ const keypadTooltip = () => {
   );
 };
 
-export default props => {
-  const {show, children} = {...props};
-
+const KeypadOverlay = ({children, show}) => {
   if (!show) {
     return children;
   }
@@ -137,3 +137,10 @@ export default props => {
     </OverlayTrigger>
   );
 };
+
+KeypadOverlay.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  show: PropTypes.bool,
+};
+
+export default KeypadOverlay;

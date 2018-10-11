@@ -1,7 +1,7 @@
 /**
  *    @author zz85 / http://twitter.com/blurspline / http://www.lab4games.net/zz85/blog
  *
- *    A general perpose camera, for setting FOV, Lens Focal Length,
+ *    A general purpose camera, for setting FOV, Lens Focal Length,
  *        and switching between perspective and orthographic views easily.
  *        Use this only if you do not wish to manage
  *        both a Orthographic and Perspective Camera

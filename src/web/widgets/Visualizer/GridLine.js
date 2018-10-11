@@ -6,6 +6,7 @@ class GridLine {
   colorCenterLine = new THREE.Color(0x444444);
   colorGrid = new THREE.Color(0x888888);
 
+  // eslint-disable-next-line max-params
   constructor(sizeX, stepX, sizeY, stepY, colorCenterLine, colorGrid) {
     colorCenterLine = new THREE.Color(colorCenterLine) || this.colorCenterLine;
     colorGrid = new THREE.Color(colorGrid) || this.colorGrid;

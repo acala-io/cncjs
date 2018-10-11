@@ -46,6 +46,7 @@ class Dashboard extends PureComponent {
       return;
     }
 
+    // eslint-disable-next-line react/no-find-dom-node
     const el = ReactDOM.findDOMNode(this.node.virtualList);
     const clientHeight = Number(el.clientHeight) || 0;
 
@@ -66,7 +67,7 @@ class Dashboard extends PureComponent {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeVirtualList);
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.state.gcode.content !== this.props.state.gcode.content) {
       this.lines = get(nextProps, 'state.gcode.content', '')
         .split('\n')

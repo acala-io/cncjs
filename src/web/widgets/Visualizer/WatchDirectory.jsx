@@ -78,6 +78,7 @@ class WatchDirectory extends PureComponent {
       return;
     }
 
+    // eslint-disable-next-line react/no-find-dom-node
     const elTable = ReactDOM.findDOMNode(this.tableNode);
     const elTree = this.treeNode.tree.options.el;
     const tableHeaders = elTable.querySelectorAll('tr > th');

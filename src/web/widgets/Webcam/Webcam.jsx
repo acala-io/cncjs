@@ -15,8 +15,8 @@ import {MEDIA_SOURCE_LOCAL, MEDIA_SOURCE_MJPEG} from './constants';
 
 class Webcam extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   mediaSource = null;
@@ -26,6 +26,7 @@ class Webcam extends PureComponent {
     const {mediaSource} = state;
 
     if (mediaSource === MEDIA_SOURCE_MJPEG) {
+      // eslint-disable-next-line react/no-find-dom-node
       const el = ReactDOM.findDOMNode(this.mediaSource);
       el.src = '';
 

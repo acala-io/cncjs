@@ -1,3 +1,5 @@
+/* eslint-disable import/default, react/forbid-foreign-prop-types */
+
 import cx from 'classnames';
 import qs from 'qs';
 import React, {PureComponent} from 'react';

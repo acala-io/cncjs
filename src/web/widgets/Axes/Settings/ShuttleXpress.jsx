@@ -45,14 +45,19 @@ class ShuttleXpress extends PureComponent {
     return {feedrateMin, feedrateMax, hertz, overshoot};
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {feedrateMin, feedrateMax, hertz, overshoot} = nextProps;
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const {feedrateMax, feedrateMin, hertz, overshoot} = nextProps;
 
-    this.setState({feedrateMin, feedrateMax, hertz, overshoot});
+    this.setState({
+      feedrateMax,
+      feedrateMin,
+      hertz,
+      overshoot,
+    });
   }
 
   render() {
-    const {feedrateMin, feedrateMax, hertz, overshoot} = this.state;
+    const {feedrateMax, feedrateMin, hertz, overshoot} = this.state;
 
     return (
       <div>

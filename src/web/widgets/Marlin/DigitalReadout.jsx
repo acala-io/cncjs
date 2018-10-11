@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import styles from './index.styl';
 
 const DigitalReadout = props => {
-  const {label, value, children} = props;
+  const {children, label, value} = props;
 
   return (
     <div className={classNames('row', 'no-gutters', styles.dro)}>
@@ -26,6 +27,7 @@ const DigitalReadout = props => {
 };
 
 DigitalReadout.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   label: PropTypes.string,
   value: PropTypes.string,
 };

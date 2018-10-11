@@ -74,6 +74,7 @@ class EditMacro extends PureComponent {
                   id="edit-macro-dropdown"
                   className="pull-right"
                   onSelect={eventKey => {
+                    // eslint-disable-next-line react/no-find-dom-node
                     const textarea = ReactDOM.findDOMNode(this.fields.content).querySelector('textarea');
                     if (textarea) {
                       insertAtCaret(textarea, eventKey);

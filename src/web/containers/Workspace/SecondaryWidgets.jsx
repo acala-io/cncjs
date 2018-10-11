@@ -22,6 +22,7 @@ import styles from './widgets.styl';
 
 class SecondaryWidgets extends Component {
   static propTypes = {
+    className: PropTypes.string,
     onForkWidget: PropTypes.func.isRequired,
     onRemoveWidget: PropTypes.func.isRequired,
     onDragStart: PropTypes.func.isRequired,

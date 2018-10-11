@@ -2,9 +2,6 @@ import * as THREE from 'three';
 
 const buildToolHead = (color, texture) => {
   const object = new THREE.Object3D();
-  let geometry;
-  let materialBack;
-  let materialFront;
 
   const radiusTop = 2.0;
   const radiusBottom = 0.1;
@@ -16,7 +13,7 @@ const buildToolHead = (color, texture) => {
   const thetaLength = 2 * Math.PI;
 
   // Geometry
-  geometry = new THREE.CylinderGeometry(
+  const geometry = new THREE.CylinderGeometry(
     radiusTop,
     radiusBottom,
     height,
@@ -32,7 +29,7 @@ const buildToolHead = (color, texture) => {
   geometry.translate(0, 0, height / 2);
 
   // Material
-  materialFront = new THREE.MeshBasicMaterial({
+  const materialFront = new THREE.MeshBasicMaterial({
     color: color,
     map: texture,
     opacity: 0.5,
@@ -40,7 +37,8 @@ const buildToolHead = (color, texture) => {
     side: THREE.FrontSide,
     transparent: true,
   });
-  materialBack = new THREE.MeshBasicMaterial({
+
+  const materialBack = new THREE.MeshBasicMaterial({
     color: color,
     map: texture,
     opacity: 0.5,

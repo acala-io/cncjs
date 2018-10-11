@@ -1,8 +1,11 @@
+/* eslint-disable react/forbid-foreign-prop-types */
+
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Button} from '../Buttons';
+
 import Dropdown from '../Dropdown';
 import styles from './index.styl';
+import {Button} from '../Buttons';
 
 class DropdownButton extends PureComponent {
   static propTypes = {

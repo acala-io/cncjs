@@ -9,10 +9,9 @@ import styles from './index.styl';
 
 class General extends PureComponent {
   static propTypes = {
-    initialState: PropTypes.object,
+    actions: PropTypes.object,
     state: PropTypes.object,
     stateChanged: PropTypes.bool,
-    actions: PropTypes.object,
   };
 
   fields = {

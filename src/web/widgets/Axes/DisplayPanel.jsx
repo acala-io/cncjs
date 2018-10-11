@@ -5,6 +5,7 @@ import includes from 'lodash/includes';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Image from '../../components/Image';
 import {Tooltip} from '../../components/Tooltip';
@@ -27,7 +28,6 @@ import iconPencil from './images/pencil.svg';
 
 class DisplayPanel extends PureComponent {
   static propTypes = {
-    config: PropTypes.object,
     state: PropTypes.object,
     actions: PropTypes.object,
   };

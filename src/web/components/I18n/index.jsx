@@ -7,16 +7,17 @@ const REGEXP = /{{(.+?)}}/;
 
 class I18n extends Component {
   static propTypes = {
-    t: PropTypes.string,
     _: PropTypes.string,
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
     options: PropTypes.object,
     parent: PropTypes.string,
     replacement: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    t: PropTypes.string,
   };
   static defaultProps = {
-    t: '',
     _: '',
     parent: 'span',
+    t: '',
   };
 
   render() {

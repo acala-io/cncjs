@@ -7,9 +7,7 @@ import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
 
 class Commands extends PureComponent {
   static propTypes = {
-    initialState: PropTypes.object,
     state: PropTypes.object,
-    stateChanged: PropTypes.bool,
     actions: PropTypes.object,
   };
 

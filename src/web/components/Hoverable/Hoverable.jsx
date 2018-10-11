@@ -1,6 +1,11 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 class Hoverable extends Component {
+  static propTypes = {
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  };
+
   state = {
     hovered: false,
   };
