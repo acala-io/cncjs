@@ -50,7 +50,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)?$/,
         loader: 'eslint-loader',
         enforce: 'pre',
         exclude: /node_modules/,
