@@ -1,12 +1,14 @@
-import util from 'util';
 import chalk from 'chalk';
+import util from 'util';
 import winston from 'winston';
+
 import settings from '../config/settings';
 
 // https://code.google.com/p/v8/wiki/JavaScriptStackTraceApi
 const getStackTrace = () => {
   const obj = {};
   Error.captureStackTrace(obj, getStackTrace);
+
   return (obj.stack || '').split('\n');
 };
 
@@ -46,10 +48,12 @@ module.exports = (namespace = '') => {
       if (settings.verbosity >= VERBOSITY_MAX && level !== 'silly') {
         args = args.concat(getStackTrace()[2]);
       }
+
       return namespace.length > 0
         ? logger[level](chalk.cyan(namespace) + ' ' + util.format(...args))
         : logger[level](util.format(...args));
     };
+
     return acc;
   }, {});
 };
@@ -61,6 +65,7 @@ levels.forEach(level => {
     if (settings.verbosity >= VERBOSITY_MAX && level !== 'silly') {
       args = args.concat(getStackTrace()[2]);
     }
+
     return logger[level](util.format(...args));
   };
 });

@@ -1,8 +1,9 @@
 /* eslint-disable import/default */
 
-import {EventEmitter} from 'events';
 import net from 'net';
 import SerialPort from 'serialport';
+import {EventEmitter} from 'events';
+
 import log from './logger';
 
 const Readline = SerialPort.parsers.Readline;
@@ -13,7 +14,12 @@ const defaultSettings = Object.freeze({
 
 const toIdent = options => {
   const {host, port} = {...options};
-  return JSON.stringify({type: 'socket', host: host, port: port});
+
+  return JSON.stringify({
+    host,
+    port,
+    type: 'socket',
+  });
 };
 
 class SocketConnection extends EventEmitter {
@@ -94,9 +100,11 @@ class SocketConnection extends EventEmitter {
   open(callback) {
     if (this.socket) {
       const err = new Error(`Cannot open socket connection: ${this.settings.host}:${this.settings.port}`);
+
       if (callback) {
         callback(err);
       }
+
       return;
     }
 
@@ -108,6 +116,7 @@ class SocketConnection extends EventEmitter {
           callback(err);
         }
       };
+
       const connectCallback = () => {
         this.socket.removeListener('error', errorCallback);
 
@@ -123,6 +132,7 @@ class SocketConnection extends EventEmitter {
       this.settings.port,
       this.settings.host
     );
+
     this.socket.on('connect', this.eventListener.open);
     this.socket.on('close', this.eventListener.close);
     this.socket.on('error', this.eventListener.error);
@@ -135,9 +145,11 @@ class SocketConnection extends EventEmitter {
   close(callback) {
     if (!this.socket) {
       const err = new Error(`Cannot close socket connection: ${this.options.host}:${this.options.port}`);
+
       if (callback) {
         callback(err);
       }
+
       return;
     }
 

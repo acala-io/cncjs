@@ -1,8 +1,9 @@
 /* eslint-disable import/default */
 
+import evaluate from 'static-eval';
 import get from 'lodash/get';
 import {parse} from 'esprima';
-import evaluate from 'static-eval';
+
 import logger from './logger';
 
 const log = logger('evaluateExpression');

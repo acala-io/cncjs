@@ -1,7 +1,8 @@
 /* eslint-disable import/default */
 
-import {parse} from 'esprima';
 import evaluate from 'static-eval';
+import {parse} from 'esprima';
+
 import logger from './logger';
 
 const log = logger('translateExpression');
@@ -17,6 +18,7 @@ const translateExpression = (data, context = {}) => {
       const expr = match.slice(1, -1);
       const ast = parse(expr).body[0].expression;
       const value = evaluate(ast, context);
+
       return value !== undefined ? value : match;
     });
   } catch (e) {

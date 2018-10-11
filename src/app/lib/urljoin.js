@@ -7,6 +7,7 @@ const normalize = str =>
 
 const urljoin = function(...args) {
   const joined = [].slice.call(args, 0).join('/');
+
   return normalize(joined);
 };
 

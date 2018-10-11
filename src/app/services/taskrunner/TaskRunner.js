@@ -1,9 +1,10 @@
 /* eslint-disable import/default */
 
-import events from 'events';
 import defaultShell from 'spawn-default-shell';
-import without from 'lodash/without';
+import events from 'events';
 import shortid from 'shortid';
+import without from 'lodash/without';
+
 import logger from '../../lib/logger';
 
 const log = logger('service:taskrunner');
@@ -30,9 +31,11 @@ class TaskRunner extends events.EventEmitter {
     child.stdout.on('data', data => {
       process.stdout.write(`PID:${child.pid}> ${data}`);
     });
+
     child.stderr.on('data', data => {
       process.stderr.write(`PID:${child.pid}> ${data}`);
     });
+
     child.on('error', err => {
       // Listen for error event can prevent from throwing an unhandled exception
       log.error(`Failed to start a child process: err=${JSON.stringify(err)}`);
@@ -40,6 +43,7 @@ class TaskRunner extends events.EventEmitter {
       this.tasks = without(this.tasks, taskId);
       this.emit('error', taskId, err);
     });
+
     // The 'exit' event is emitted after the child process ends.
     // Note that the 'exit' event may or may not fire after an error has occurred.
     // It is important to guard against accidentally invoking handler functions multiple times.
@@ -52,6 +56,7 @@ class TaskRunner extends events.EventEmitter {
 
     return taskId;
   }
+
   contains(taskId) {
     return this.tasks.indexOf(taskId) >= 0;
   }

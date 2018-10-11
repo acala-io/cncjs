@@ -143,6 +143,7 @@ class Sender extends events.EventEmitter {
     startTime: 0,
     total: 0,
   };
+
   stateChanged = false;
   dataFilter = null;
 
@@ -304,19 +305,19 @@ class Sender extends events.EventEmitter {
       this.sp.clear();
     }
 
+    this.state.context = {};
+    this.state.elapsedTime = 0;
+    this.state.finishTime = 0;
+    this.state.gcode = '';
     this.state.hold = false;
     this.state.holdReason = null;
-    this.state.name = '';
-    this.state.gcode = '';
-    this.state.context = {};
     this.state.lines = [];
-    this.state.total = 0;
-    this.state.sent = 0;
+    this.state.name = '';
     this.state.received = 0;
-    this.state.startTime = 0;
-    this.state.finishTime = 0;
-    this.state.elapsedTime = 0;
     this.state.remainingTime = 0;
+    this.state.sent = 0;
+    this.state.startTime = 0;
+    this.state.total = 0;
 
     this.emit('unload');
     this.emit('change');
@@ -334,6 +335,7 @@ class Sender extends events.EventEmitter {
     }
 
     this.state.received++;
+
     this.emit('change');
 
     return true;
@@ -353,6 +355,7 @@ class Sender extends events.EventEmitter {
       this.state.finishTime = 0;
       this.state.elapsedTime = 0;
       this.state.remainingTime = 0;
+
       this.emit('start', this.state.startTime);
       this.emit('change');
     }
@@ -374,6 +377,7 @@ class Sender extends events.EventEmitter {
       if (this.state.finishTime === 0) {
         // avoid issue 'end' multiple times
         this.state.finishTime = now;
+
         this.emit('end', this.state.finishTime);
         this.emit('change');
       }

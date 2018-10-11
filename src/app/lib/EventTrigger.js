@@ -6,6 +6,7 @@ class EventTrigger {
   constructor(callback = noop) {
     this.callback = callback || noop;
   }
+
   trigger(eventKey, callback = null) {
     if (!eventKey) {
       return;
@@ -14,7 +15,7 @@ class EventTrigger {
     const events = config.get('events', []);
 
     events.filter(event => event && event.event === eventKey).forEach(options => {
-      const {enabled = false, event, trigger, commands} = {...options};
+      const {commands, enabled = false, event, trigger} = {...options};
 
       if (!enabled) {
         return;

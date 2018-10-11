@@ -31,24 +31,31 @@ const getFiles = searchPath => {
         if (stat.isFile()) {
           return 'f';
         }
+
         if (stat.isDirectory()) {
           return 'd';
         }
+
         if (stat.isBlockDevice()) {
           return 'b';
         }
+
         if (stat.isCharacterDevice()) {
           return 'c';
         }
+
         if (stat.isSymbolicLink()) {
           return 'l';
         }
+
         if (stat.isFIFO()) {
           return 'p';
         }
+
         if (stat.isSocket()) {
           return 's';
         }
+
         return '';
       })(),
       size: stat.size,
@@ -67,8 +74,8 @@ const readFile = (file, callback) => {
 };
 
 export default {
-  start,
-  stop,
   getFiles,
   readFile,
+  start,
+  stop,
 };

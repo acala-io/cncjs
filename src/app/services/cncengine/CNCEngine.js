@@ -3,25 +3,26 @@
 import ensureArray from 'ensure-array';
 import noop from 'lodash/noop';
 import reverse from 'lodash/reverse';
-import sortBy from 'lodash/sortBy';
-import uniq from 'lodash/uniq';
 import SerialPort from 'serialport';
 import socketIO from 'socket.io';
 import socketioJwt from 'socketio-jwt';
-import settings from '../../config/settings';
+import sortBy from 'lodash/sortBy';
+import uniq from 'lodash/uniq';
+
+import config from '../configstore';
+import controllers from '../../store/controllers';
 import EventTrigger from '../../lib/EventTrigger';
 import logger from '../../lib/logger';
-import {toIdent as toSerialIdent} from '../../lib/SerialConnection';
-import {toIdent as toSocketIdent} from '../../lib/SocketConnection';
+import settings from '../../config/settings';
+import taskRunner from '../taskrunner';
+import {authorizeIPAddress, validateUser} from '../../access-control';
+import {G2CORE, TINYG} from '../../controllers/TinyG/constants';
 import {GrblController, MarlinController, SmoothieController, TinyGController} from '../../controllers';
 import {GRBL} from '../../controllers/Grbl/constants';
 import {MARLIN} from '../../controllers/Marlin/constants';
 import {SMOOTHIE} from '../../controllers/Smoothie/constants';
-import {G2CORE, TINYG} from '../../controllers/TinyG/constants';
-import controllers from '../../store/controllers';
-import config from '../configstore';
-import taskRunner from '../taskrunner';
-import {authorizeIPAddress, validateUser} from '../../access-control';
+import {toIdent as toSerialIdent} from '../../lib/SerialConnection';
+import {toIdent as toSocketIdent} from '../../lib/SocketConnection';
 
 const log = logger('service:cncengine');
 
@@ -32,6 +33,7 @@ const log = logger('service:cncengine');
 const caseInsensitiveEquals = (str1, str2) => {
   str1 = str1 ? String(str1).toUpperCase() : '';
   str2 = str2 ? String(str2).toUpperCase() : '';
+
   return str1 === str2;
 };
 
@@ -95,14 +97,17 @@ class CNCEngine {
     if (!controller || caseInsensitiveEquals(GRBL, controller)) {
       this.controllerClass[GRBL] = GrblController;
     }
+
     // Marlin
     if (!controller || caseInsensitiveEquals(MARLIN, controller)) {
       this.controllerClass[MARLIN] = MarlinController;
     }
+
     // Smoothie
     if (!controller || caseInsensitiveEquals(SMOOTHIE, controller)) {
       this.controllerClass[SMOOTHIE] = SmoothieController;
     }
+
     // TinyG / G2core
     if (!controller || caseInsensitiveEquals(G2CORE, controller) || caseInsensitiveEquals(TINYG, controller)) {
       this.controllerClass[TINYG] = TinyGController;
@@ -127,14 +132,14 @@ class CNCEngine {
 
     this.server = server;
     this.io = socketIO(this.server, {
-      serveClient: true,
       path: '/socket.io',
+      serveClient: true,
     });
 
     this.io.use(
       socketioJwt.authorize({
-        secret: settings.secret,
         handshake: true,
+        secret: settings.secret,
       })
     );
 
@@ -204,10 +209,11 @@ class CNCEngine {
             .concat(customPorts)
             .map(port => {
               const {comName, manufacturer} = {...port};
+
               return {
-                comName: comName,
-                manufacturer: manufacturer,
+                comName,
                 isOpen: activeControllers.indexOf(comName) >= 0,
+                manufacturer,
               };
             })
             .filter(port => Boolean(port.comName));
@@ -229,6 +235,7 @@ class CNCEngine {
         const defaultBaudRates = [250000, 115200, 57600, 38400, 19200, 9600, 2400];
         const customBaudRates = ensureArray(config.get('baudRates', []));
         const baudRates = reverse(sortBy(uniq(customBaudRates.concat(defaultBaudRates))));
+
         callback(null, baudRates);
       });
 
@@ -376,6 +383,7 @@ class CNCEngine {
       });
     });
   }
+
   stop() {
     if (this.io) {
       this.io.close();
