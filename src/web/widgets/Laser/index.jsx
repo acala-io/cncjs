@@ -1,8 +1,9 @@
+import classNames from 'classnames';
 import includes from 'lodash/includes';
 import isNumber from 'lodash/isNumber';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import controller from '../../lib/controller';
@@ -27,14 +28,15 @@ import {
   // Workflow
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
+
 import styles from './index.styl';
 
 class LaserWidget extends PureComponent {
   static propTypes = {
-    widgetId: PropTypes.string.isRequired,
     onFork: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     sortable: PropTypes.object,
+    widgetId: PropTypes.string.isRequired,
   };
 
   // Public methods
@@ -51,8 +53,8 @@ class LaserWidget extends PureComponent {
     toggleFullscreen: () => {
       const {minimized, isFullscreen} = this.state;
       this.setState({
-        minimized: isFullscreen ? minimized : false,
         isFullscreen: !isFullscreen,
+        minimized: isFullscreen ? minimized : false,
       });
     },
     toggleMinimized: () => {
@@ -135,7 +137,7 @@ class LaserWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
@@ -143,8 +145,8 @@ class LaserWidget extends PureComponent {
       this.setState(state => ({
         controller: {
           ...state.controller,
-          type: type,
           settings: controllerSettings,
+          type: type,
         },
       }));
     },
@@ -152,8 +154,8 @@ class LaserWidget extends PureComponent {
       this.setState(state => ({
         controller: {
           ...state.controller,
-          type: type,
           state: controllerState,
+          type: type,
         },
       }));
     },
@@ -162,24 +164,30 @@ class LaserWidget extends PureComponent {
   componentDidMount() {
     this.addControllerEvents();
   }
+
   componentWillUnmount() {
     this.removeControllerEvents();
   }
+
   componentDidUpdate(prevProps, prevState) {
     const {minimized, panel, test} = this.state;
 
     this.config.set('minimized', minimized);
     this.config.set('panel.laserTest.expanded', panel.laserTest.expanded);
+
     if (isNumber(test.power)) {
       this.config.set('test.power', test.power);
     }
+
     if (isNumber(test.duration)) {
       this.config.set('test.duration', test.duration);
     }
+
     if (isNumber(test.maxS)) {
       this.config.set('test.maxS', test.maxS);
     }
   }
+
   getInitialState() {
     return {
       minimized: this.config.get('minimized', false),
@@ -199,24 +207,27 @@ class LaserWidget extends PureComponent {
         },
       },
       test: {
-        power: this.config.get('test.power', 0),
         duration: this.config.get('test.duration', 0),
         maxS: this.config.get('test.maxS', 1000),
+        power: this.config.get('test.power', 0),
       },
     };
   }
+
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.addListener(eventName, callback);
     });
   }
+
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.removeListener(eventName, callback);
     });
   }
+
   canClick() {
     const machineState = controller.getMachineState();
     const state = this.state;
@@ -307,7 +318,7 @@ class LaserWidget extends PureComponent {
               <Widget.DropdownMenuItem eventKey="fullscreen">
                 <i className={classNames('fa', 'fa-fw', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen})} />
                 <Space width="4" />
-                {!isFullscreen ? i18n._('Enter Full Screen') : i18n._('Exit Full Screen')}
+                {isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
               </Widget.DropdownMenuItem>
               <Widget.DropdownMenuItem eventKey="fork">
                 <i className="fa fa-fw fa-code-fork" />
