@@ -53,7 +53,7 @@ module.exports = {
     'guard-for-in': 2,
     'handle-callback-err': [2, 'error'],
     'import/no-absolute-path': 2,
-    'import/extensions': [2, 'always', {js: 'never'}],
+    'import/extensions': [2, 'always', {js: 'never', jsx: 'never'}],
     'max-params': [2, 5],
     'new-parens': 2,
     'no-array-constructor': 2,
