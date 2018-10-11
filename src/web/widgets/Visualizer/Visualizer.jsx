@@ -10,8 +10,8 @@ import ReactDOM from 'react-dom';
 import tail from 'lodash/tail';
 import throttle from 'lodash/throttle';
 
-import './CombinedCamera';
-import './TrackballControls';
+import CombinedCamera from './CombinedCamera';
+import TrackballControls from './TrackballControls';
 import CoordinateAxes from './CoordinateAxes';
 import GCodeVisualizer from './GCodeVisualizer';
 import GridLine from './GridLine';
@@ -477,23 +477,22 @@ class Visualizer extends Component {
     // A scene, a camera, and a renderer so we can render the scene with the camera.
     this.scene = new THREE.Scene();
 
-    // FIXME: 'CombinedCamera' and 'TrackballControls' not found in imported namespace 'THREE'                                                                                                                                      import/namespace
-    // this.camera = this.createCombinedCamera(width, height);
+    this.camera = this.createCombinedCamera(width, height);
 
-    // this.controls = this.createTrackballControls(this.camera, this.renderer.domElement);
+    this.controls = this.createTrackballControls(this.camera, this.renderer.domElement);
 
-    this.setCameraMode(state.cameraMode);
+    // this.setCameraMode(state.cameraMode);
 
-    // Projection
-    if (state.projection === 'orthographic') {
-      this.camera.toOrthographic();
-      this.camera.setZoom(1);
-      this.camera.setFov(ORTHOGRAPHIC_FOV);
-    } else {
-      this.camera.toPerspective();
-      this.camera.setZoom(1);
-      this.camera.setFov(PERSPECTIVE_FOV);
-    }
+    // // Projection
+    // if (state.projection === 'orthographic') {
+    //   this.camera.toOrthographic();
+    //   this.camera.setZoom(1);
+    //   this.camera.setFov(ORTHOGRAPHIC_FOV);
+    // } else {
+    //   this.camera.toPerspective();
+    //   this.camera.setZoom(1);
+    //   this.camera.setFov(PERSPECTIVE_FOV);
+    // }
 
     {
       // Lights
@@ -618,23 +617,23 @@ class Visualizer extends Component {
     this.updateScene();
   }
 
-  // createCombinedCamera(width, height) {
-  //   const frustumWidth = width / 2;
-  //   const frustumHeight = (height || width) / 2; // same to width if height is 0
-  //   const fov = PERSPECTIVE_FOV;
-  //   const near = PERSPECTIVE_NEAR;
-  //   const far = PERSPECTIVE_FAR;
-  //   const orthoNear = ORTHOGRAPHIC_NEAR;
-  //   const orthoFar = ORTHOGRAPHIC_FAR;
+  createCombinedCamera(width, height) {
+    const frustumWidth = width / 2;
+    const frustumHeight = (height || width) / 2; // same to width if height is 0
+    const fov = PERSPECTIVE_FOV;
+    const near = PERSPECTIVE_NEAR;
+    const far = PERSPECTIVE_FAR;
+    const orthoNear = ORTHOGRAPHIC_NEAR;
+    const orthoFar = ORTHOGRAPHIC_FAR;
 
-  //   const camera = new THREE.CombinedCamera(frustumWidth, frustumHeight, fov, near, far, orthoNear, orthoFar);
+    const camera = new CombinedCamera(frustumWidth, frustumHeight, fov, near, far, orthoNear, orthoFar);
 
-  //   camera.position.x = 0;
-  //   camera.position.y = 0;
-  //   camera.position.z = CAMERA_DISTANCE;
+    camera.position.x = 0;
+    camera.position.y = 0;
+    camera.position.z = CAMERA_DISTANCE;
 
-  //   return camera;
-  // }
+    return camera;
+  }
 
   createPerspectiveCamera(width, height) {
     const fov = PERSPECTIVE_FOV;
@@ -661,50 +660,50 @@ class Visualizer extends Component {
     return camera;
   }
 
-  // createTrackballControls(object, domElement) {
-  //   const controls = new THREE.TrackballControls(object, domElement);
+  createTrackballControls(object, domElement) {
+    const controls = new TrackballControls(object, domElement);
 
-  //   controls.rotateSpeed = 1.0;
-  //   controls.zoomSpeed = 1.2;
-  //   controls.panSpeed = 0.8;
-  //   controls.noZoom = false;
-  //   controls.noPan = false;
+    controls.rotateSpeed = 1.0;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
+    controls.noZoom = false;
+    controls.noPan = false;
 
-  //   controls.staticMoving = true;
-  //   controls.dynamicDampingFactor = 0.3;
+    controls.staticMoving = true;
+    controls.dynamicDampingFactor = 0.3;
 
-  //   controls.keys = [65, 83, 68];
+    controls.keys = [65, 83, 68];
 
-  //   controls.minDistance = TRACKBALL_CONTROLS_MIN_DISTANCE;
-  //   controls.maxDistance = TRACKBALL_CONTROLS_MAX_DISTANCE;
+    controls.minDistance = TRACKBALL_CONTROLS_MIN_DISTANCE;
+    controls.maxDistance = TRACKBALL_CONTROLS_MAX_DISTANCE;
 
-  //   let shouldAnimate = false;
-  //   const animate = () => {
-  //     controls.update();
+    let shouldAnimate = false;
+    const animate = () => {
+      controls.update();
 
-  //     // Update the scene
-  //     this.updateScene();
+      // Update the scene
+      this.updateScene();
 
-  //     if (shouldAnimate) {
-  //       requestAnimationFrame(animate);
-  //     }
-  //   };
+      if (shouldAnimate) {
+        requestAnimationFrame(animate);
+      }
+    };
 
-  //   controls.addEventListener('start', () => {
-  //     shouldAnimate = true;
-  //     animate();
-  //   });
-  //   controls.addEventListener('end', () => {
-  //     shouldAnimate = false;
-  //     this.updateScene();
-  //   });
-  //   controls.addEventListener('change', () => {
-  //     // Update the scene
-  //     this.updateScene();
-  //   });
+    controls.addEventListener('start', () => {
+      shouldAnimate = true;
+      animate();
+    });
+    controls.addEventListener('end', () => {
+      shouldAnimate = false;
+      this.updateScene();
+    });
+    controls.addEventListener('change', () => {
+      // Update the scene
+      this.updateScene();
+    });
 
-  //   return controls;
-  // }
+    return controls;
+  }
 
   // Rotates the tool head around the z axis with a given rpm and an optional fps
   // @param {number} rpm The rounds per minutes
