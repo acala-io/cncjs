@@ -85,7 +85,7 @@ TreeNodeLoader.propTypes = {
 
 const renderer = (node, treeOptions) => {
   const {id, loadOnDemand = false} = node;
-  const {depth, open, loading = false, selected = false, filtered} = node.state;
+  const {depth, filtered, loading = false, open, selected = false} = node.state;
   const more = node.hasChildren();
   const paddingLeft = more || loadOnDemand ? depth * 18 : (depth + 1) * 18;
 
@@ -105,8 +105,9 @@ const renderer = (node, treeOptions) => {
       }
       node = node.parent;
     }
+
     return disabled;
-  }(node));
+  })(node);
   const dateModified = moment(node.props.mtime).format('lll');
   const size = includes(['f', 'l'], node.props.type) ? formatBytes(node.props.size, 0) : '';
   const type = (function(node) {
@@ -128,7 +129,7 @@ const renderer = (node, treeOptions) => {
     }
 
     return '';
-  }(node));
+  })(node);
 
   return (
     <TreeNode id={id} selected={selected} disabled={disabled}>

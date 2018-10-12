@@ -57,7 +57,7 @@ const getFiles = searchPath => {
         }
 
         return '';
-      }()),
+      })(),
       size: stat.size,
       atime: stat.atime,
       mtime: stat.mtime,

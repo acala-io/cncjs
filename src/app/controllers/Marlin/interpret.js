@@ -63,6 +63,6 @@ const interpret = (function() {
       }
     }
   };
-}());
+})();
 
 export default interpret;

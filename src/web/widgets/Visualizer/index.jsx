@@ -93,7 +93,7 @@ const translateExpression = (function() {
       })
       .join('\n');
   };
-}());
+})();
 
 const displayWebGLErrorMessage = () => {
   portal(({onClose}) => (
