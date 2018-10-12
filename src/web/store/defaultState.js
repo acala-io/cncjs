@@ -5,65 +5,49 @@ const defaultState = {
     name: '',
     token: '',
   },
-  workspace: {
-    container: {
-      default: {
-        widgets: ['visualizer'],
-      },
-      primary: {
-        show: true,
-        widgets: ['connection', 'console', 'grbl', 'marlin', 'smoothie', 'tinyg', 'webcam'],
-      },
-      secondary: {
-        show: true,
-        widgets: ['axes', 'gcode', 'macro', 'probe', 'spindle', 'laser'],
-      },
-    },
-  },
   widgets: {
     axes: {
-      minimized: false,
       axes: ['x', 'y', 'z'],
       jog: {
-        keypad: false,
         imperial: {
+          distances: [],
           step: IMPERIAL_STEPS.indexOf(1), // Defaults to 1 inch
-          distances: [],
         },
+        keypad: false,
         metric: {
-          step: METRIC_STEPS.indexOf(1), // Defaults to 1 mm
           distances: [],
+          step: METRIC_STEPS.indexOf(1), // Defaults to 1 mm
         },
       },
       mdi: {
         disabled: false,
       },
+      minimized: false,
       shuttle: {
-        feedrateMin: 500,
         feedrateMax: 2000,
+        feedrateMin: 500,
         hertz: 10,
         overshoot: 1,
       },
     },
     connection: {
-      minimized: false,
-      controller: {
-        type: 'Grbl', // Grbl|Smoothie|TinyG
-      },
+      autoReconnect: true,
       connection: {
-        type: 'serial', // serial|socket
         serial: {
-          path: '',
           baudRate: 115200,
-          // Hardware flow control (RTS/CTS)
-          rtscts: false,
+          path: '',
+          rtscts: false, // Hardware flow control (RTS/CTS)
         },
         socket: {
           host: '',
           port: 23,
         },
+        type: 'serial', // serial|socket
       },
-      autoReconnect: true,
+      controller: {
+        type: 'Grbl', // Grbl|Smoothie|TinyG
+      },
+      minimized: false,
     },
     console: {
       minimized: false,
@@ -80,13 +64,13 @@ const defaultState = {
     grbl: {
       minimized: false,
       panel: {
+        modalGroups: {
+          expanded: true,
+        },
         queueReports: {
           expanded: true,
         },
         statusReports: {
-          expanded: true,
-        },
-        modalGroups: {
           expanded: true,
         },
       },
@@ -99,27 +83,15 @@ const defaultState = {
         },
       },
       test: {
-        power: 0,
         duration: 0,
         maxS: 1000,
+        power: 0,
       },
     },
     macro: {
       minimized: false,
     },
     marlin: {
-      minimized: false,
-      panel: {
-        heaterControl: {
-          expanded: true,
-        },
-        statusReports: {
-          expanded: false,
-        },
-        modalGroups: {
-          expanded: false,
-        },
-      },
       heater: {
         // Filament          | PLA                | ABS
         // ----------------- | ------------------ | --------------------
@@ -132,23 +104,35 @@ const defaultState = {
         extruder: 180,
         heatedBed: 60,
       },
+      minimized: false,
+      panel: {
+        heaterControl: {
+          expanded: true,
+        },
+        modalGroups: {
+          expanded: false,
+        },
+        statusReports: {
+          expanded: false,
+        },
+      },
     },
     probe: {
       minimized: false,
       probeCommand: 'G38.2',
-      useTLO: false,
       probeDepth: 10,
       probeFeedrate: 20,
-      touchPlateHeight: 10,
       retractionDistance: 4,
+      touchPlateHeight: 10,
+      useTLO: false,
     },
     smoothie: {
       minimized: false,
       panel: {
-        statusReports: {
+        modalGroups: {
           expanded: true,
         },
-        modalGroups: {
+        statusReports: {
           expanded: true,
         },
       },
@@ -160,6 +144,9 @@ const defaultState = {
     tinyg: {
       minimized: false,
       panel: {
+        modalGroups: {
+          expanded: true,
+        },
         powerManagement: {
           expanded: false,
         },
@@ -169,21 +156,15 @@ const defaultState = {
         statusReports: {
           expanded: true,
         },
-        modalGroups: {
-          expanded: true,
-        },
       },
     },
     visualizer: {
-      minimized: false,
-
-      // 3D View
+      cameraMode: 'pan', // pan|rotate
       disabled: false,
-      projection: 'orthographic', // 'perspective' or 'orthographic'
-      cameraMode: 'pan', // 'pan' or 'rotate'
       gcode: {
         displayName: true,
       },
+      minimized: false,
       objects: {
         coordinateSystem: {
           visible: true,
@@ -195,29 +176,37 @@ const defaultState = {
           visible: true,
         },
       },
+      projection: 'orthographic', // perspective|orthographic
     },
     webcam: {
-      disabled: true,
-      minimized: false,
-
-      // local - Use a built-in camera or a connected webcam
-      // mjpeg - M-JPEG stream over HTTP
-      mediaSource: 'local',
-
-      // The device id
+      crosshair: false,
       deviceId: '',
-
-      // The URL field is required for the M-JPEG stream
-      url: '',
-
+      disabled: true,
       geometry: {
-        scale: 1.0,
-        rotation: 0, // 0: 0, 1: 90, 2: 180, 3: 270
         flipHorizontally: false,
         flipVertically: false,
+        rotation: 0, // 0: 0, 1: 90, 2: 180, 3: 270
+        scale: 1.0,
       },
-      crosshair: false,
+      mediaSource: 'local', // local (built-in camera or connected webcam)|mjpeg (M-JPEG stream over HTTP)
+      minimized: false,
       muted: false,
+      url: '', // required for M-JPEG streams
+    },
+  },
+  workspace: {
+    container: {
+      default: {
+        widgets: ['visualizer'],
+      },
+      primary: {
+        show: true,
+        widgets: ['connection', 'console', 'grbl', 'marlin', 'smoothie', 'tinyg', 'webcam'],
+      },
+      secondary: {
+        show: true,
+        widgets: ['axes', 'gcode', 'macro', 'probe', 'spindle', 'laser'],
+      },
     },
   },
 };
