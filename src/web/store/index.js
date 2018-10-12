@@ -8,11 +8,10 @@ import semver from 'semver';
 import set from 'lodash/set';
 import uniq from 'lodash/uniq';
 
-import settings from '../config/settings';
-
 import ImmutableStore from '../lib/immutable-store';
 import log from '../lib/log';
 
+import settings from '../config/settings';
 import defaultState from './defaultState';
 
 const store = new ImmutableStore(defaultState);
@@ -46,7 +45,7 @@ const getConfig = () => {
 };
 
 const persist = data => {
-  const {version, state} = {...data};
+  const {state, version} = {...data};
 
   data = {
     state: {

@@ -1,212 +1,223 @@
 import {IMPERIAL_STEPS, METRIC_STEPS} from '../constants';
 
 const defaultState = {
-  connection: {
-    connection: {
-      autoReconnect: true,
-      serial: {
-        baudRate: 115200,
-        path: '',
-        rtscts: false, // Hardware flow control (RTS/CTS)
-      },
-      socket: {
-        host: '',
-        port: 23,
-      },
-      type: 'serial', // serial|socket
-    },
-    controller: {
-      type: 'Grbl', // Grbl|Smoothie|TinyG
-    },
-    minimized: false,
-  },
-  console: {
-    minimized: false,
-  },
-  custom: {
-    disabled: true,
-    minimized: false,
-    title: '',
-    url: '',
-  },
-  gcode: {
-    minimized: false,
-  },
-  grbl: {
-    minimized: false,
-    panel: {
-      modalGroups: {
-        expanded: true,
-      },
-      queueReports: {
-        expanded: true,
-      },
-      statusReports: {
-        expanded: true,
-      },
-    },
-  },
-  laser: {
-    minimized: false,
-    panel: {
-      laserTest: {
-        expanded: true,
-      },
-    },
-    test: {
-      duration: 0,
-      maxS: 1000,
-      power: 0,
-    },
-  },
-  macro: {
-    minimized: false,
-  },
-  marlin: {
-    heater: {
-      // Filament          | PLA                | ABS
-      // ----------------- | ------------------ | --------------------
-      // Uses              | Consumer Products  | Functional Parts
-      // Strength          | Medium             | Medium
-      // Flexibility       | Low                | Medium
-      // Durability        | Medium             | High
-      // Print Temperature | 180-230°C          | 210-250°C
-      // Bed Temperature   | 20-60°C (optional) | 80-110°C (mandatory)
-      extruder: 180,
-      heatedBed: 60,
-    },
-    minimized: false,
-    panel: {
-      heaterControl: {
-        expanded: true,
-      },
-      modalGroups: {
-        expanded: false,
-      },
-      statusReports: {
-        expanded: false,
-      },
-    },
-  },
-  probe: {
-    minimized: false,
-    probeCommand: 'G38.2',
-    probeDepth: 10,
-    probeFeedrate: 20,
-    retractionDistance: 4,
-    touchPlateHeight: 10,
-    useTLO: false,
-  },
   session: {
     name: '',
     token: '',
   },
-  smoothie: {
-    minimized: false,
-    panel: {
-      modalGroups: {
-        expanded: true,
+  workspace: {
+    container: {
+      default: {
+        widgets: ['visualizer'],
       },
-      statusReports: {
-        expanded: true,
+      primary: {
+        show: true,
+        widgets: ['connection', 'console', 'grbl', 'marlin', 'smoothie', 'tinyg', 'webcam'],
       },
-    },
-  },
-  spindle: {
-    minimized: false,
-    speed: 1000,
-  },
-  tinyg: {
-    minimized: false,
-    panel: {
-      modalGroups: {
-        expanded: true,
-      },
-      powerManagement: {
-        expanded: false,
-      },
-      queueReports: {
-        expanded: true,
-      },
-      statusReports: {
-        expanded: true,
+      secondary: {
+        show: true,
+        widgets: ['axes', 'gcode', 'macro', 'probe', 'spindle', 'laser'],
       },
     },
-  },
-  visualizer: {
-    cameraMode: 'pan', // pan|rotate
-    disabled: false,
-    gcode: {
-      displayName: true,
-    },
-    minimized: false,
-    objects: {
-      coordinateSystem: {
-        visible: true,
-      },
-      gridLineNumbers: {
-        visible: true,
-      },
-      toolhead: {
-        visible: true,
-      },
-    },
-    projection: 'orthographic', // perspective|orthographic
-  },
-  webcam: {
-    crosshair: false,
-    deviceId: '',
-    disabled: true,
-    geometry: {
-      flipHorizontally: false,
-      flipVertically: false,
-      rotation: 0, // 0: 0, 1: 90, 2: 180, 3: 270
-      scale: 1.0,
-    },
-    mediaSource: 'local', // local (use built-in camera or connected webcam) | mjpeg (M-JPEG stream over HTTP)
-    minimized: false,
-    muted: false,
-    url: '', // required for the M-JPEG stream
   },
   widgets: {
     axes: {
+      minimized: false,
       axes: ['x', 'y', 'z'],
       jog: {
-        imperial: {
-          distances: [],
-          step: IMPERIAL_STEPS.indexOf(1), // Defaults to 1 inch
-        },
         keypad: false,
-        metric: {
+        imperial: {
+          step: IMPERIAL_STEPS.indexOf(1), // Defaults to 1 inch
           distances: [],
+        },
+        metric: {
           step: METRIC_STEPS.indexOf(1), // Defaults to 1 mm
+          distances: [],
         },
       },
       mdi: {
         disabled: false,
       },
-      minimized: false,
       shuttle: {
-        feedrateMax: 2000,
         feedrateMin: 500,
+        feedrateMax: 2000,
         hertz: 10,
         overshoot: 1,
       },
     },
-    workspace: {
-      container: {
-        default: {
-          widgets: ['visualizer'],
+    connection: {
+      minimized: false,
+      controller: {
+        type: 'Grbl', // Grbl|Smoothie|TinyG
+      },
+      connection: {
+        type: 'serial', // serial|socket
+        serial: {
+          path: '',
+          baudRate: 115200,
+          // Hardware flow control (RTS/CTS)
+          rtscts: false,
         },
-        primary: {
-          show: true,
-          widgets: ['connection', 'console', 'grbl', 'marlin', 'smoothie', 'tinyg', 'webcam'],
-        },
-        secondary: {
-          show: true,
-          widgets: ['axes', 'gcode', 'macro', 'probe', 'spindle', 'laser'],
+        socket: {
+          host: '',
+          port: 23,
         },
       },
+      autoReconnect: true,
+    },
+    console: {
+      minimized: false,
+    },
+    custom: {
+      disabled: true,
+      minimized: false,
+      title: '',
+      url: '',
+    },
+    gcode: {
+      minimized: false,
+    },
+    grbl: {
+      minimized: false,
+      panel: {
+        queueReports: {
+          expanded: true,
+        },
+        statusReports: {
+          expanded: true,
+        },
+        modalGroups: {
+          expanded: true,
+        },
+      },
+    },
+    laser: {
+      minimized: false,
+      panel: {
+        laserTest: {
+          expanded: true,
+        },
+      },
+      test: {
+        power: 0,
+        duration: 0,
+        maxS: 1000,
+      },
+    },
+    macro: {
+      minimized: false,
+    },
+    marlin: {
+      minimized: false,
+      panel: {
+        heaterControl: {
+          expanded: true,
+        },
+        statusReports: {
+          expanded: false,
+        },
+        modalGroups: {
+          expanded: false,
+        },
+      },
+      heater: {
+        // Filament          | PLA                | ABS
+        // ----------------- | ------------------ | --------------------
+        // Uses              | Consumer Products  | Functional Parts
+        // Strength          | Medium             | Medium
+        // Flexibility       | Low                | Medium
+        // Durability        | Medium             | High
+        // Print Temperature | 180-230°C          | 210-250°C
+        // Bed Temperature   | 20-60°C (optional) | 80-110°C (mandatory)
+        extruder: 180,
+        heatedBed: 60,
+      },
+    },
+    probe: {
+      minimized: false,
+      probeCommand: 'G38.2',
+      useTLO: false,
+      probeDepth: 10,
+      probeFeedrate: 20,
+      touchPlateHeight: 10,
+      retractionDistance: 4,
+    },
+    smoothie: {
+      minimized: false,
+      panel: {
+        statusReports: {
+          expanded: true,
+        },
+        modalGroups: {
+          expanded: true,
+        },
+      },
+    },
+    spindle: {
+      minimized: false,
+      speed: 1000,
+    },
+    tinyg: {
+      minimized: false,
+      panel: {
+        powerManagement: {
+          expanded: false,
+        },
+        queueReports: {
+          expanded: true,
+        },
+        statusReports: {
+          expanded: true,
+        },
+        modalGroups: {
+          expanded: true,
+        },
+      },
+    },
+    visualizer: {
+      minimized: false,
+
+      // 3D View
+      disabled: false,
+      projection: 'orthographic', // 'perspective' or 'orthographic'
+      cameraMode: 'pan', // 'pan' or 'rotate'
+      gcode: {
+        displayName: true,
+      },
+      objects: {
+        coordinateSystem: {
+          visible: true,
+        },
+        gridLineNumbers: {
+          visible: true,
+        },
+        toolhead: {
+          visible: true,
+        },
+      },
+    },
+    webcam: {
+      disabled: true,
+      minimized: false,
+
+      // local - Use a built-in camera or a connected webcam
+      // mjpeg - M-JPEG stream over HTTP
+      mediaSource: 'local',
+
+      // The device id
+      deviceId: '',
+
+      // The URL field is required for the M-JPEG stream
+      url: '',
+
+      geometry: {
+        scale: 1.0,
+        rotation: 0, // 0: 0, 1: 90, 2: 180, 3: 270
+        flipHorizontally: false,
+        flipVertically: false,
+      },
+      crosshair: false,
+      muted: false,
     },
   },
 };
