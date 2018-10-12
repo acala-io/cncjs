@@ -121,7 +121,7 @@ module.exports = {
               camelCase: true,
               // importLoaders: 1,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              modules: true,
+              // modules: true, // generate locally scoped css modules
             },
           },
           {
