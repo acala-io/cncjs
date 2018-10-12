@@ -39,20 +39,14 @@ import './scss/app.scss';
 
 const renderPage = () => {
   const routes = (
-    <GridSystemProvider
-      breakpoints={[576, 768, 992, 1200]}
-      containerWidths={[540, 720, 960, 1140]}
-      columns={12}
-      gutterWidth={0}
-      layout="floats"
-    >
+    <div className="layout layout--app">
       <Router>
         <Fragment>
           <Route path="/login" component={Login} />
           <ProtectedRoute path="/" component={App} />
         </Fragment>
       </Router>
-    </GridSystemProvider>
+    </div>
   );
   const container = document.getElementById('app');
 

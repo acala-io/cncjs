@@ -19,7 +19,6 @@
     }
 
     .labeled-divider {
-
         hr {
             background: $primary;
         }
@@ -70,7 +69,6 @@
     }
 }
 
-
 .layout--marketing {
     background: $background--white;
 
@@ -78,13 +76,12 @@
         background: $transparent;
 
         &.is-stuck {
-            background: transparentize($background--white, .03);
-            box-shadow: 0 0 $inuit-global-spacing-unit-small transparentize($background--darkest, .55);
+            background: transparentize($background--white, 0.03);
+            box-shadow: 0 0 $inuit-global-spacing-unit-small transparentize($background--darkest, 0.55);
             color: $text--inverse;
         }
 
         .nav-link {
-
             &,
             &:visited {
                 color: $text--lighter;
@@ -105,7 +102,6 @@
     }
 
     .main {
-
     }
 
     /*
@@ -139,21 +135,6 @@
         }
     }
 }
-
-
-.layout--document {
-    background: $background--darker;
-
-    .document {
-        background: $background--white;
-        box-shadow: 1px 1px 6px hsla(0, 0%, 0%, .21);
-    }
-
-    .minimap__content {
-
-    }
-}
-
 
 .layout--blank {
     min-height: 100vh;

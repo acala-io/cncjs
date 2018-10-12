@@ -1,3 +1,7 @@
+.layout {
+    display: grid;
+}
+
 .footer {
     padding-bottom: $inuit-global-spacing-unit-small;
 
@@ -29,6 +33,12 @@
     .header {
         padding-bottom: $inuit-global-spacing-unit;
         padding-top: $inuit-global-spacing-unit;
+    }
+
+    .main {
+    }
+
+    .sidebar {
     }
 }
 
