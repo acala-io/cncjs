@@ -2,18 +2,21 @@
 
 import _ from 'lodash';
 import classNames from 'classnames';
+import ensureArray from 'ensure-array';
 import Dropzone from 'react-dropzone';
 import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 
-import {Button, ButtonGroup, ButtonToolbar} from '../../components/Buttons';
 import api from '../../api';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
+
 import store from '../../store';
+
+import {Button, ButtonGroup, ButtonToolbar} from '../../components/Buttons';
 import * as widgetManager from './WidgetManager';
 import DefaultWidgets from './DefaultWidgets';
 import PrimaryWidgets from './PrimaryWidgets';
@@ -410,6 +413,7 @@ class Workspace extends PureComponent {
     } = this.state;
     const hidePrimaryContainer = !showPrimaryContainer;
     const hideSecondaryContainer = !showSecondaryContainer;
+    const defaultWidgets = ensureArray(store.get('workspace.container.default.widgets'));
 
     return (
       <div style={style} className={classNames(className, styles.workspace)}>
@@ -466,8 +470,8 @@ class Workspace extends PureComponent {
           <div className={styles.workspaceTable}>
             <div className={styles.workspaceTableRow}>
               <div
-                ref={node => {
-                  this.primaryContainer = node;
+                ref={ref => {
+                  this.primaryContainer = ref;
                 }}
                 className={classNames(styles.primaryContainer, {[styles.hidden]: hidePrimaryContainer})}
               >
@@ -533,17 +537,17 @@ class Workspace extends PureComponent {
                 </div>
               )}
               <div
-                ref={node => {
-                  this.defaultContainer = node;
+                ref={ref => {
+                  this.defaultContainer = ref;
                 }}
                 className={classNames(styles.defaultContainer, styles.fixed)}
               >
-                <DefaultWidgets />
+                <DefaultWidgets defaultWidgets={defaultWidgets} />
               </div>
               {hideSecondaryContainer && (
                 <div
-                  ref={node => {
-                    this.secondaryToggler = node;
+                  ref={ref => {
+                    this.secondaryToggler = ref;
                   }}
                   className={styles.secondaryToggler}
                 >
@@ -555,8 +559,8 @@ class Workspace extends PureComponent {
                 </div>
               )}
               <div
-                ref={node => {
-                  this.secondaryContainer = node;
+                ref={ref => {
+                  this.secondaryContainer = ref;
                 }}
                 className={classNames(styles.secondaryContainer, {[styles.hidden]: hideSecondaryContainer})}
               >
