@@ -18,7 +18,7 @@ const mapStateToProps = state => {
   return {};
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (state, dispatch, ownProps) => ({
   showAlert: () => {
     dispatch(
       dialogs.alert({

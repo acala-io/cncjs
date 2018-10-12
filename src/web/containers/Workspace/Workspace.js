@@ -243,17 +243,17 @@ class Workspace extends PureComponent {
       }
     }
 
-    if (showPrimaryContainer) {
-      defaultContainer.style.left = primaryContainer.offsetWidth + sidebar.offsetWidth + 'px';
-    } else {
-      defaultContainer.style.left = primaryToggler.offsetWidth + sidebar.offsetWidth + 'px';
-    }
+    // if (showPrimaryContainer) {
+    //   defaultContainer.style.left = primaryContainer.offsetWidth + sidebar.offsetWidth + 'px';
+    // } else {
+    //   defaultContainer.style.left = primaryToggler.offsetWidth + sidebar.offsetWidth + 'px';
+    // }
 
-    if (showSecondaryContainer) {
-      defaultContainer.style.right = secondaryContainer.offsetWidth + 'px';
-    } else {
-      defaultContainer.style.right = secondaryToggler.offsetWidth + 'px';
-    }
+    // if (showSecondaryContainer) {
+    //   defaultContainer.style.right = secondaryContainer.offsetWidth + 'px';
+    // } else {
+    //   defaultContainer.style.right = secondaryToggler.offsetWidth + 'px';
+    // }
 
     pubsub.publish('resize'); // Also see "widgets/Visualizer"
   };

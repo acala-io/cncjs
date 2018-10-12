@@ -42,14 +42,12 @@ import './scss/app.scss';
 const renderPage = () => {
   const app = (
     <Provider store={store}>
-      <div className="layout layout--app">
-        <Router>
-          <Fragment>
-            <Route path="/login" component={Login} />
-            <ProtectedRoute path="/" component={App} />
-          </Fragment>
-        </Router>
-      </div>
+      <Router>
+        <Fragment>
+          <Route path="/login" component={Login} />
+          <ProtectedRoute path="/" component={App} />
+        </Fragment>
+      </Router>
     </Provider>
   );
 

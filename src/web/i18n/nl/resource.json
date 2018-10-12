@@ -156,7 +156,6 @@
     "Collapse All": "Alles Inklappen",
     "Expand All": "Alles Uitklappen",
     "Corrupted workspace settings": "Incorrecte werkplaats instellingen",
-    "The workspace settings have become corrupted or invalid. Click Restore Defaults to restore default settings and continue.": "De werkplaats instellingen zijn corrupt of verkeerd. Klik Herstel Standaard om de standaard instellingen te herstellen en om verder te gaan.",
     "Download workspace settings": "Download werkplaats instellingen",
     "This field is required.": "Dit veld is nodig of verplicht.",
     "Passwords should be equal.": "Paswoorden moeten gelijk zijn.",
@@ -520,5 +519,7 @@
     "Add": "",
     "Custom Jog Distance (mm)": "",
     "Custom Jog Distance (inches)": "",
-    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": ""
+    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": "",
+    "The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.": "",
+    "store Defaults": ""
 }

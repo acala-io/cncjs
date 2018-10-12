@@ -156,7 +156,6 @@
     "Collapse All": "",
     "Expand All": "",
     "Corrupted workspace settings": "",
-    "The workspace settings have become corrupted or invalid. Click Restore Defaults to restore default settings and continue.": "",
     "Download workspace settings": "",
     "This field is required.": "Toto pole je vyžadováno.",
     "Passwords should be equal.": "",
@@ -520,5 +519,7 @@
     "Add": "",
     "Custom Jog Distance (mm)": "",
     "Custom Jog Distance (inches)": "",
-    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": ""
+    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": "",
+    "The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.": "",
+    "store Defaults": ""
 }

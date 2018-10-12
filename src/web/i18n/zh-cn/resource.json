@@ -156,7 +156,6 @@
     "Collapse All": "折叠全部",
     "Expand All": "打开全部",
     "Corrupted workspace settings": "",
-    "The workspace settings have become corrupted or invalid. Click Restore Defaults to restore default settings and continue.": "",
     "Download workspace settings": "下载工作区设置",
     "This field is required.": "这个字段是必填项。",
     "Passwords should be equal.": "两次密码需一致。",
@@ -520,5 +519,7 @@
     "Add": "",
     "Custom Jog Distance (mm)": "",
     "Custom Jog Distance (inches)": "",
-    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": ""
+    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": "",
+    "The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.": "",
+    "store Defaults": ""
 }

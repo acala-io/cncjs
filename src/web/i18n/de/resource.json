@@ -156,7 +156,6 @@
     "Collapse All": "Alle einklappen",
     "Expand All": "Alle ausklappen",
     "Corrupted workspace settings": "Workspace-Einstellungen beschädigt",
-    "The workspace settings have become corrupted or invalid. Click Restore Defaults to restore default settings and continue.": "Die Arbeitsbereichs-Einstellungen sind beschädigt oder ungültig geworden. Klicken Sie auf Standard Wiederherstellen um die Standardeinstellungen Wiederherzustellen und fort zu fahren.",
     "Download workspace settings": "Arbeitsbereichs-Einstellungen herunterladen",
     "This field is required.": "Dieses Feld ist erforderlich.",
     "Passwords should be equal.": "Die Passwörter sollten gleich sein.",
@@ -520,5 +519,7 @@
     "Add": "",
     "Custom Jog Distance (mm)": "",
     "Custom Jog Distance (inches)": "",
-    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": ""
+    "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": "",
+    "The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.": "",
+    "store Defaults": ""
 }

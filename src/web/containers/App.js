@@ -8,9 +8,12 @@ import {trackPage} from '../lib/analytics';
 
 import routes, {defaultRouteLoggedIn, isAuthorizedRoute, isDefinedRoute} from '../routes';
 
+import AppLayout from '../layouts/AppLayout';
 import Dialogs from '../dialogs';
+import FlashMessages from '../components_new/FlashMessages';
 import Error404 from './Errors/Error404';
-import Header from './Header';
+import Header from '../machine-control/Header';
+import HeaderOLD from './Header';
 import Settings from './Settings';
 import Sidebar from './Sidebar';
 import Workspace from './Workspace';
@@ -44,34 +47,26 @@ class App extends PureComponent {
 
     trackPage(location.pathname);
 
-    const currentPage = this.getPage(location, this.props);
-
-    // TODO: connect this prop
-    const hasOverlay = false;
-
-    return (
-      <Fragment>
-        <Dialogs />
-        <div className={classcat([{'has-overlay': hasOverlay}])}>
-          <Header {...this.props} />
-          <aside className={styles.sidebar} id="sidebar">
-            <Sidebar {...this.props} />
-          </aside>
-          <div className={styles.main}>
-            <div className={styles.content}>{currentPage}</div>
-          </div>
-        </div>
-      </Fragment>
-    );
+    return this.getPage(location, this.props);
   }
 
   getPage(location, props) {
     if (location.pathname === '/workspace') {
-      return <Workspace {...this.props} />;
+      return (
+        <AppLayout>
+          <Header />
+          <HeaderOLD />
+          <Workspace {...this.props} />;
+        </AppLayout>
+      );
     }
 
     if (location.pathname.startsWith('/settings')) {
-      return <Settings {...this.props} />;
+      return (
+        <AppLayout>
+          <Settings {...this.props} />
+        </AppLayout>
+      );
     }
 
     return <Error404 />;
