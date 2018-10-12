@@ -4,33 +4,40 @@ import ensureArray from 'ensure-array';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import isEqual from 'lodash/isEqual';
-import pubsub from 'pubsub-js';
 import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
 import React, {Component} from 'react';
 import Sortable from 'react-sortablejs';
 import uuid from 'uuid';
-import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
-import {Button} from '../../components/Buttons';
-import Modal from '../../components/Modal';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import portal from '../../lib/portal';
+
 import store from '../../store';
+
+import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
+
+import Modal from '../../components/Modal';
 import Widget from './Widget';
+import {Button} from '../../components/Buttons';
+
 import styles from './widgets.styl';
 
-class SecondaryWidgets extends Component {
+class PrimaryWidgets extends Component {
   static propTypes = {
     className: PropTypes.string,
+    onDragEnd: PropTypes.func.isRequired,
+    onDragStart: PropTypes.func.isRequired,
     onForkWidget: PropTypes.func.isRequired,
     onRemoveWidget: PropTypes.func.isRequired,
-    onDragStart: PropTypes.func.isRequired,
-    onDragEnd: PropTypes.func.isRequired,
   };
+
   state = {
-    widgets: store.get('workspace.container.secondary.widgets'),
+    widgets: store.get('workspace.container.primary.widgets'),
   };
+
   forkWidget = widgetId => () => {
     portal(({onClose}) => (
       <Modal size="xs" onClose={onClose}>
@@ -67,6 +74,7 @@ class SecondaryWidgets extends Component {
       </Modal>
     ));
   };
+
   removeWidget = widgetId => () => {
     portal(({onClose}) => (
       <Modal size="xs" onClose={onClose}>
@@ -102,35 +110,41 @@ class SecondaryWidgets extends Component {
   componentDidMount() {
     this.subscribe();
   }
+
   componentWillUnmount() {
     this.unsubscribe();
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     // Do not compare props for performance considerations
     return !isEqual(nextState, this.state);
   }
+
   componentDidUpdate() {
     const {widgets} = this.state;
 
     // Calling store.set() will merge two different arrays into one.
     // Remove the property first to avoid duplication.
-    store.replace('workspace.container.secondary.widgets', widgets);
+    store.replace('workspace.container.primary.widgets', widgets);
   }
+
   subscribe() {
     {
-      // updateSecondaryWidgets
-      const token = pubsub.subscribe('updateSecondaryWidgets', (msg, widgets) => {
+      // updatePrimaryWidgets
+      const token = pubsub.subscribe('updatePrimaryWidgets', (msg, widgets) => {
         this.setState({widgets: widgets});
       });
       this.pubsubTokens.push(token);
     }
   }
+
   unsubscribe() {
     this.pubsubTokens.forEach(token => {
       pubsub.unsubscribe(token);
     });
     this.pubsubTokens = [];
   }
+
   expandAll() {
     const len = this.state.widgets.length;
     for (let i = 0; i < len; ++i) {
@@ -141,6 +155,7 @@ class SecondaryWidgets extends Component {
       }
     }
   }
+
   collapseAll() {
     const len = this.state.widgets.length;
     for (let i = 0; i < len; ++i) {
@@ -151,6 +166,7 @@ class SecondaryWidgets extends Component {
       }
     }
   }
+
   render() {
     const {className} = this.props;
     const widgets = this.state.widgets
@@ -183,8 +199,8 @@ class SecondaryWidgets extends Component {
             onFork={this.forkWidget(widgetId)}
             onRemove={this.removeWidget(widgetId)}
             sortable={{
-              handleClassName: 'sortable-handle',
               filterClassName: 'sortable-filter',
+              handleClassName: 'sortable-handle',
             }}
           />
         </div>
@@ -200,9 +216,9 @@ class SecondaryWidgets extends Component {
           animation: 150,
           delay: 0, // Touch and hold delay
           group: {
-            name: 'secondary',
+            name: 'primary',
             pull: true,
-            put: ['primary'],
+            put: ['secondary'],
           },
           handle: '.sortable-handle', // Drag handle selector within list items
           filter: '.sortable-filter', // Selectors that do not lead to dragging
@@ -222,4 +238,4 @@ class SecondaryWidgets extends Component {
   }
 }
 
-export default SecondaryWidgets;
+export default PrimaryWidgets;
