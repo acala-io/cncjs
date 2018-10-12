@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import settings from '../../config/settings';
-import store from '../../store';
+import store from '../../store_old';
 import Iframe from '../../components/Iframe';
 import ResizeObserver from '../../lib/ResizeObserver';
 import controller from '../../lib/controller';

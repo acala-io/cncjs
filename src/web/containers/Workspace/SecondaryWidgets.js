@@ -15,7 +15,7 @@ import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import portal from '../../lib/portal';
 
-import store from '../../store';
+import store from '../../store_old';
 
 import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 

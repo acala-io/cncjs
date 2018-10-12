@@ -8,7 +8,7 @@ import settings from '../../../config/settings';
 import i18n from '../../../lib/i18n';
 import log from '../../../lib/log';
 import portal from '../../../lib/portal';
-import store from '../../../store';
+import store from '../../../store_old';
 import RestoreDefaults from './RestoreDefaults';
 import ImportSettings from './ImportSettings';
 import styles from './index.styl';

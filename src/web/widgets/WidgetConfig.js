@@ -1,4 +1,4 @@
-import store from '../store';
+import store from '../store_old';
 
 class WidgetConfig {
   widgetId = '';

@@ -1,5 +1,5 @@
 import api from '../api';
-import store from '../store';
+import store from '../store_old';
 
 let authenticated = false;
 

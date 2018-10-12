@@ -5,8 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../../constants';
 import controller from '../../../lib/controller';
-import store from '../../../store';
-import defaultState from '../../../store/defaultState';
+import store from '../../../store_old';
+import defaultState from '../../../store_old/defaultState';
 import WidgetManager from './WidgetManager';
 
 export const getActiveWidgets = () => {

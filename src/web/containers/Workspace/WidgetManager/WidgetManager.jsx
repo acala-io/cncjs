@@ -8,7 +8,7 @@ import Modal from '../../../components/Modal';
 import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../../constants';
 import controller from '../../../lib/controller';
 import i18n from '../../../lib/i18n';
-import store from '../../../store';
+import store from '../../../store_old';
 import WidgetList from './WidgetList';
 
 class WidgetManager extends PureComponent {

@@ -16,7 +16,7 @@ import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import user from '../../lib/user';
 
-import store from '../../store';
+import store from '../../store_old';
 
 import Anchor from '../../components/Anchor';
 import QuickAccessToolbar from './QuickAccessToolbar';

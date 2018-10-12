@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom';
 import XHR from 'i18next-xhr-backend';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import {Provider as GridSystemProvider} from 'web/components/GridSystem';
+import {Provider} from 'react-redux';
 import {TRACE, DEBUG, INFO, WARN, ERROR} from 'universal-logger';
 
 import controller from './lib/controller';
@@ -21,7 +22,8 @@ import promisify from './lib/promisify';
 import series from './lib/promise-series';
 import user from './lib/user';
 
-import defaultState from './store/defaultState';
+import defaultState from './store_old/defaultState';
+import store_old from './store_old';
 import store from './store';
 
 import settings from './config/settings';
@@ -38,19 +40,20 @@ import {Button} from './components/Buttons';
 import './scss/app.scss';
 
 const renderPage = () => {
-  const routes = (
-    <div className="layout layout--app">
-      <Router>
-        <Fragment>
-          <Route path="/login" component={Login} />
-          <ProtectedRoute path="/" component={App} />
-        </Fragment>
-      </Router>
-    </div>
+  const app = (
+    <Provider store={store}>
+      <div className="layout layout--app">
+        <Router>
+          <Fragment>
+            <Route path="/login" component={Login} />
+            <ProtectedRoute path="/" component={App} />
+          </Fragment>
+        </Router>
+      </div>
+    </Provider>
   );
-  const container = document.getElementById('app');
 
-  ReactDOM.render(routes, container);
+  ReactDOM.render(app, document.getElementById('app'));
 };
 
 series([
@@ -90,7 +93,7 @@ series([
     })(),
   () =>
     promisify(next => {
-      const sessionToken = store.get('session.token');
+      const sessionToken = store_old.get('session.token');
 
       user.signin({token: sessionToken}).then(({authenticated, token}) => {
         if (authenticated) {
@@ -126,7 +129,7 @@ series([
         const {action, token = ''} = {...event.data};
 
         // Token authentication
-        if (token !== store.get('session.token')) {
+        if (token !== store_old.get('session.token')) {
           log.warn(`Received a message with an unauthorized token (${token}).`);
           return;
         }
@@ -169,7 +172,7 @@ series([
     }
 
     if (settings.error.corruptedWorkspaceSettings) {
-      const text = store.getConfig();
+      const text = store_old.getConfig();
       const url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
       const filename = `${settings.name}-${settings.version}.json`;
 
@@ -180,7 +183,7 @@ series([
               <h5>{i18n._('Corrupted workspace settings')}</h5>
               <p>
                 {i18n._(
-                  'The workspace settings have become corrupted or invalid. Click Restore Defaults to restore default settings and continue.'
+                  'The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.'
                 )}
               </p>
               <div>
@@ -197,13 +200,13 @@ series([
               btnStyle="danger"
               onClick={chainedFunction(() => {
                 // Reset to default state
-                store.state = defaultState;
+                store_old.state = defaultState;
 
                 // Persist data locally
-                store.persist();
+                store_old.persist();
               }, onClose)}
             >
-              {i18n._('Restore Defaults')}
+              {i18n._('store Defaults')}
             </Button>
           </Modal.Footer>
         </Modal>

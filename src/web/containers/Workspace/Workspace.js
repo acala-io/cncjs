@@ -14,7 +14,7 @@ import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 
-import store from '../../store';
+import store from '../../store_old';
 
 import * as widgetManager from './WidgetManager';
 import DefaultWidgets from './DefaultWidgets';

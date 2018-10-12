@@ -4,7 +4,7 @@ import {Button} from '../../../components/Buttons';
 import Modal from '../../../components/Modal';
 import Space from '../../../components/Space';
 import i18n from '../../../lib/i18n';
-import store from '../../../store';
+import store from '../../../store_old';
 
 class ImportSettings extends PureComponent {
   static propTypes = {

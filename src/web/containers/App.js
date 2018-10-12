@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
+import classcat from 'classcat';
 import React, {Fragment, PureComponent} from 'react';
 import {Redirect, withRouter} from 'react-router-dom';
 
@@ -7,6 +8,7 @@ import {trackPage} from '../lib/analytics';
 
 import routes, {defaultRouteLoggedIn, isAuthorizedRoute, isDefinedRoute} from '../routes';
 
+import Dialogs from '../dialogs';
 import Error404 from './Errors/Error404';
 import Header from './Header';
 import Settings from './Settings';
@@ -44,14 +46,20 @@ class App extends PureComponent {
 
     const currentPage = this.getPage(location, this.props);
 
+    // TODO: connect this prop
+    const hasOverlay = false;
+
     return (
       <Fragment>
-        <Header {...this.props} />
-        <aside className={styles.sidebar} id="sidebar">
-          <Sidebar {...this.props} />
-        </aside>
-        <div className={styles.main}>
-          <div className={styles.content}>{currentPage}</div>
+        <Dialogs />
+        <div className={classcat([{'has-overlay': hasOverlay}])}>
+          <Header {...this.props} />
+          <aside className={styles.sidebar} id="sidebar">
+            <Sidebar {...this.props} />
+          </aside>
+          <div className={styles.main}>
+            <div className={styles.content}>{currentPage}</div>
+          </div>
         </div>
       </Fragment>
     );

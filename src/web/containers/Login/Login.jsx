@@ -12,7 +12,7 @@ import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import user from '../../lib/user';
-import store from '../../store';
+import store from '../../store_old';
 import styles from './index.styl';
 
 class Login extends PureComponent {

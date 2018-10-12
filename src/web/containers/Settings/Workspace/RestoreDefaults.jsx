@@ -4,8 +4,8 @@ import {Button} from '../../../components/Buttons';
 import Modal from '../../../components/Modal';
 import Space from '../../../components/Space';
 import i18n from '../../../lib/i18n';
-import store from '../../../store';
-import defaultState from '../../../store/defaultState';
+import store from '../../../store_old';
+import defaultState from '../../../store_old/defaultState';
 
 class RestoreDefaults extends PureComponent {
   static propTypes = {
