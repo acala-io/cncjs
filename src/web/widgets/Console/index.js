@@ -1,14 +1,16 @@
+import classcat from 'classcat';
 import color from 'cli-color';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
 import uuid from 'uuid';
 
-import Console from './Console';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
+
 import settings from '../../config/settings';
+
+import Console from './Console';
 import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
@@ -24,8 +26,6 @@ const TERMINAL_ROWS = 15;
 
 class ConsoleWidget extends PureComponent {
   static propTypes = {
-    onFork: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
     sortable: PropTypes.object,
     widgetId: PropTypes.string.isRequired,
   };
@@ -42,7 +42,9 @@ class ConsoleWidget extends PureComponent {
   };
 
   config = new WidgetConfig(this.props.widgetId);
+
   state = this.getInitialState();
+
   actions = {
     clearAll: () => {
       if (this.terminal) {
@@ -164,26 +166,20 @@ class ConsoleWidget extends PureComponent {
   render() {
     const {widgetId} = this.props;
     const {isFullscreen, minimized} = this.state;
-    const isForkedWidget = widgetId.match(/\w+:[\w\-]+/);
-    const state = {
-      ...this.state,
-    };
-    const actions = {
-      ...this.actions,
-    };
+    const state = {...this.state};
+    const actions = {...this.actions};
 
     return (
       <Widget fullscreen={isFullscreen}>
         <Widget.Header>
-          <Widget.Title>
-            <Widget.Sortable className={this.props.sortable.handleClassName}>
-              <i className="fa fa-bars" />
-              <Space width="8" />
-            </Widget.Sortable>
-            {isForkedWidget && <i className="fa fa-code-fork" style={{marginRight: 5}} />}
-            {i18n._('Console')}
-          </Widget.Title>
+          <Widget.Title>{i18n._('Console')}</Widget.Title>
           <Widget.Controls className={this.props.sortable.filterClassName}>
+            <Widget.Button title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
+              <i className={classcat([styles.icon, styles.selectAll])} />
+            </Widget.Button>
+            <Widget.Button title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
+              <i className="fa fa-fw fa-window-close-o" />
+            </Widget.Button>
             <Widget.Button title={i18n._('Clear all')} onClick={actions.clearAll}>
               <i className="fa fa-trash" />
             </Widget.Button>
@@ -192,55 +188,22 @@ class ConsoleWidget extends PureComponent {
               title={minimized ? i18n._('Expand') : i18n._('Collapse')}
               onClick={actions.toggleMinimized}
             >
-              <i className={cx('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
+              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
             </Widget.Button>
             <Widget.Button
               title={!isFullscreen ? i18n._('Enter Full Screen') : i18n._('Exit Full Screen')}
               onClick={actions.toggleFullscreen}
             >
-              <i className={cx('fa', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen})} />
+              <i className={classcat(['fa', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen}])} />
             </Widget.Button>
-            <Widget.DropdownButton
-              title={i18n._('More')}
-              toggle={<i className="fa fa-ellipsis-v" />}
-              onSelect={eventKey => {
-                if (eventKey === 'selectAll') {
-                  this.terminal.selectAll();
-                } else if (eventKey === 'clearSelection') {
-                  this.terminal.clearSelection();
-                }
-                if (eventKey === 'fork') {
-                  this.props.onFork();
-                } else if (eventKey === 'remove') {
-                  this.props.onRemove();
-                }
-              }}
-            >
-              <Widget.DropdownMenuItem eventKey="selectAll">
-                <i className={cx(styles.icon, styles.selectAll)} />
-                <Space width="4" />
-                {i18n._('Select All')}
-              </Widget.DropdownMenuItem>
-              <Widget.DropdownMenuItem eventKey="clearSelection">
-                <i className="fa fa-fw fa-window-close-o" />
-                <Space width="4" />
-                {i18n._('Clear Selection')}
-              </Widget.DropdownMenuItem>
-              <Widget.DropdownMenuItem eventKey="fork">
-                <i className="fa fa-fw fa-code-fork" />
-                <Space width="4" />
-                {i18n._('Fork Widget')}
-              </Widget.DropdownMenuItem>
-              <Widget.DropdownMenuItem eventKey="remove">
-                <i className="fa fa-fw fa-times" />
-                <Space width="4" />
-                {i18n._('Remove Widget')}
-              </Widget.DropdownMenuItem>
-            </Widget.DropdownButton>
           </Widget.Controls>
         </Widget.Header>
         <Widget.Content
-          className={cx(styles.widgetContent, {[styles.hidden]: minimized}, {[styles.fullscreen]: isFullscreen})}
+          className={classcat([
+            styles.widgetContent,
+            {[styles.hidden]: minimized},
+            {[styles.fullscreen]: isFullscreen},
+          ])}
         >
           <Console
             ref={node => {

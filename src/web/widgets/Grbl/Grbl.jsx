@@ -1,19 +1,22 @@
-import ensureArray from 'ensure-array';
 import _ from 'lodash';
+import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {ProgressBar} from 'react-bootstrap';
-import mapGCodeToText from '../../lib/gcode-text';
+
 import i18n from '../../lib/i18n';
+import mapGCodeToText from '../../lib/gcode-text';
+
+import Overrides from './Overrides';
 import Panel from '../../components/Panel';
 import Toggler from '../../components/Toggler';
-import Overrides from './Overrides';
+
 import styles from './index.styl';
 
 class Grbl extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   // https://github.com/grbl/grbl/wiki/Interfacing-with-Grbl
@@ -26,6 +29,7 @@ class Grbl extends PureComponent {
 
   render() {
     const {state, actions} = this.props;
+
     const none = '–';
     const panel = state.panel;
     const controllerState = state.controller.state || {};

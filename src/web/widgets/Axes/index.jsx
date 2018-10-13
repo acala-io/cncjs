@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import ensureArray from 'ensure-array';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
@@ -48,9 +47,6 @@ import styles from './index.styl';
 class AxesWidget extends PureComponent {
   static propTypes = {
     widgetId: PropTypes.string.isRequired,
-    onFork: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    sortable: PropTypes.object,
   };
 
   // Public methods
@@ -587,10 +583,12 @@ class AxesWidget extends PureComponent {
     this.addControllerEvents();
     this.addShuttleControlEvents();
   }
+
   componentWillUnmount() {
     this.removeControllerEvents();
     this.removeShuttleControlEvents();
   }
+
   componentDidUpdate(prevProps, prevState) {
     const {units, minimized, axes, jog, mdi} = this.state;
 
@@ -605,10 +603,10 @@ class AxesWidget extends PureComponent {
     }
     this.config.set('mdi.disabled', mdi.disabled);
   }
+
   getInitialState() {
     return {
       minimized: this.config.get('minimized', false),
-      isFullscreen: false,
       canClick: false,
       units: METRIC_UNITS,
       controller: {
@@ -647,34 +645,37 @@ class AxesWidget extends PureComponent {
       },
       jog: {
         axis: '', // Defaults to empty
-        keypad: this.config.get('jog.keypad'),
         imperial: {
-          step: this.config.get('jog.imperial.step'),
           distances: ensureArray(this.config.get('jog.imperial.distances', [])),
+          step: this.config.get('jog.imperial.step'),
         },
+        keypad: this.config.get('jog.keypad'),
         metric: {
-          step: this.config.get('jog.metric.step'),
           distances: ensureArray(this.config.get('jog.metric.distances', [])),
+          step: this.config.get('jog.metric.step'),
         },
       },
       mdi: {
-        disabled: this.config.get('mdi.disabled'),
         commands: [],
+        disabled: this.config.get('mdi.disabled'),
       },
     };
   }
+
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.addListener(eventName, callback);
     });
   }
+
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.removeListener(eventName, callback);
     });
   }
+
   addShuttleControlEvents() {
     Object.keys(this.shuttleControlEvents).forEach(eventName => {
       const callback = this.shuttleControlEvents[eventName];
@@ -692,6 +693,7 @@ class AxesWidget extends PureComponent {
       controller.command('gcode', 'G90'); // absolute
     });
   }
+
   removeShuttleControlEvents() {
     Object.keys(this.shuttleControlEvents).forEach(eventName => {
       const callback = this.shuttleControlEvents[eventName];
@@ -701,6 +703,7 @@ class AxesWidget extends PureComponent {
     this.shuttleControl.removeAllListeners('flush');
     this.shuttleControl = null;
   }
+
   canClick() {
     const machineState = controller.getMachineState();
 
@@ -739,11 +742,10 @@ class AxesWidget extends PureComponent {
 
     return true;
   }
+
   render() {
     const {widgetId} = this.props;
-    const {minimized, isFullscreen} = this.state;
     const {units, machinePosition, workPosition} = this.state;
-    const isForkedWidget = widgetId.match(/\w+:[\w\-]+/);
     const config = this.config;
     const state = {
       ...this.state,
@@ -758,22 +760,14 @@ class AxesWidget extends PureComponent {
         return String(mapPositionToUnits(pos, units));
       }),
     };
-    const actions = {
-      ...this.actions,
-    };
+
+    const actions = {...this.actions};
 
     return (
-      <Widget fullscreen={isFullscreen}>
+      <Widget>
         <Widget.Header>
-          <Widget.Title>
-            <Widget.Sortable className={this.props.sortable.handleClassName}>
-              <i className="fa fa-bars" />
-              <Space width="8" />
-            </Widget.Sortable>
-            {isForkedWidget && <i className="fa fa-code-fork" style={{marginRight: 5}} />}
-            {i18n._('Axes')}
-          </Widget.Title>
-          <Widget.Controls className={this.props.sortable.filterClassName}>
+          <Widget.Title>{i18n._('Axes')}</Widget.Title>
+          <Widget.Controls>
             <KeypadOverlay show={state.canClick && state.jog.keypad}>
               <Widget.Button
                 title={i18n._('Keypad jogging')}
@@ -801,45 +795,9 @@ class AxesWidget extends PureComponent {
             >
               <i className="fa fa-cog" />
             </Widget.Button>
-            <Widget.Button
-              disabled={isFullscreen}
-              title={minimized ? i18n._('Expand') : i18n._('Collapse')}
-              onClick={actions.toggleMinimized}
-            >
-              <i className={cx('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
-            </Widget.Button>
-            <Widget.DropdownButton
-              title={i18n._('More')}
-              toggle={<i className="fa fa-ellipsis-v" />}
-              onSelect={eventKey => {
-                if (eventKey === 'fullscreen') {
-                  actions.toggleFullscreen();
-                } else if (eventKey === 'fork') {
-                  this.props.onFork();
-                } else if (eventKey === 'remove') {
-                  this.props.onRemove();
-                }
-              }}
-            >
-              <Widget.DropdownMenuItem eventKey="fullscreen">
-                <i className={cx('fa', 'fa-fw', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen})} />
-                <Space width="4" />
-                {!isFullscreen ? i18n._('Enter Full Screen') : i18n._('Exit Full Screen')}
-              </Widget.DropdownMenuItem>
-              <Widget.DropdownMenuItem eventKey="fork">
-                <i className="fa fa-fw fa-code-fork" />
-                <Space width="4" />
-                {i18n._('Fork Widget')}
-              </Widget.DropdownMenuItem>
-              <Widget.DropdownMenuItem eventKey="remove">
-                <i className="fa fa-fw fa-times" />
-                <Space width="4" />
-                {i18n._('Remove Widget')}
-              </Widget.DropdownMenuItem>
-            </Widget.DropdownButton>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={cx(styles['widget-content'], {[styles.hidden]: minimized})}>
+        <Widget.Content className={styles['widget-content']}>
           {state.modal.name === MODAL_SETTINGS && (
             <Settings
               config={config}
