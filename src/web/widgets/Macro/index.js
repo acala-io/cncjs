@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -91,15 +91,17 @@ class MacroWidget extends PureComponent {
         <Widget.Header>
           <Widget.Title>{i18n._('Macro')}</Widget.Title>
           <Widget.Controls>
-            <Widget.Button title={i18n._('New Macro')} onClick={actions.openAddMacroModal}>
-              <i className="fa fa-plus" />
-            </Widget.Button>
+            {minimized ? null : (
+              <Widget.Button title={i18n._('New Macro')} onClick={actions.openAddMacroModal}>
+                <i className="fa fa-plus" />
+              </Widget.Button>
+            )}
             <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
-              <i className={classNames('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
+              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classNames(styles['widget-content'], {[styles.hidden]: minimized})}>
+        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
           {state.modal.name === MODAL_ADD_MACRO && <AddMacro state={state} actions={actions} />}
           {state.modal.name === MODAL_EDIT_MACRO && <EditMacro state={state} actions={actions} />}
           {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}

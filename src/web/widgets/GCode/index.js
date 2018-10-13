@@ -1,15 +1,13 @@
 import classNames from 'classnames';
 import mapValues from 'lodash/mapValues';
-import pubsub from 'pubsub-js';
 import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
-import Space from '../../components/Space';
-import Widget from '../../components/Widget';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import {mapPositionToUnits} from '../../lib/units';
-import WidgetConfig from '../WidgetConfig';
-import GCode from './GCode';
+
 import {
   // Units
   IMPERIAL_UNITS,
@@ -20,6 +18,12 @@ import {
   SMOOTHIE,
   TINYG,
 } from '../../constants';
+
+import GCodeStats from './GCodeStats';
+import Space from '../../components/Space';
+import Widget from '../../components/Widget';
+import WidgetConfig from '../WidgetConfig';
+
 import styles from './index.styl';
 
 class GCodeWidget extends PureComponent {
@@ -71,6 +75,7 @@ class GCodeWidget extends PureComponent {
   render() {
     const {widgetId} = this.props;
     const {units, bbox} = this.state;
+
     const state = {
       ...this.state,
       bbox: mapValues(bbox, position => {
@@ -87,7 +92,7 @@ class GCodeWidget extends PureComponent {
           <Widget.Title>{i18n._('G-code')}</Widget.Title>
         </Widget.Header>
         <Widget.Content className={styles['widget-content']}>
-          <GCode state={state} actions={actions} />
+          <GCodeStats state={state} actions={actions} />
         </Widget.Content>
       </Widget>
     );

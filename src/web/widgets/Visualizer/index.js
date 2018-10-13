@@ -952,9 +952,6 @@ class VisualizerWidget extends PureComponent {
 
     return (
       <Widget borderless>
-        <Widget.Header className={styles.widgetHeader} fixed>
-          <PrimaryToolbar state={state} actions={actions} />
-        </Widget.Header>
         <Widget.Content
           ref={node => {
             this.widgetContent = node;
@@ -984,11 +981,10 @@ class VisualizerWidget extends PureComponent {
             />
           )}
         </Widget.Content>
-        {capable.view3D && (
-          <Widget.Footer className={styles.widgetFooter}>
-            <SecondaryToolbar state={state} actions={actions} />
-          </Widget.Footer>
-        )}
+        <Widget.Footer className={styles.widgetFooter}>
+          <PrimaryToolbar state={state} actions={actions} />
+          <SecondaryToolbar state={state} actions={actions} />
+        </Widget.Footer>
       </Widget>
     );
   }

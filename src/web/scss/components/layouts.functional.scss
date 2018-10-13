@@ -30,15 +30,13 @@
 }
 
 .layout--app {
-    background: $background--darkest;
-
     .header {
         align-content: space-between;
         align-items: center;
         display: flex;
         flex-flow: row;
         justify-content: space-between;
-        padding: $inuit-global-spacing-unit;
+        padding: $inuit-global-spacing-unit-small;
     }
 
     .main {

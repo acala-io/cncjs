@@ -24,7 +24,7 @@ class SettingsModal extends PureComponent {
 
   get content() {
     return (
-      <div className="text--centered u-p">
+      <div className="text--centered u-padding">
         <Controller
           actions={{
             load: () => {},

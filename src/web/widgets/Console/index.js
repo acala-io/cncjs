@@ -2,7 +2,7 @@ import classcat from 'classcat';
 import color from 'cli-color';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import uuid from 'uuid';
 
 import controller from '../../lib/controller';
@@ -26,13 +26,11 @@ const TERMINAL_ROWS = 15;
 
 class ConsoleWidget extends PureComponent {
   static propTypes = {
-    sortable: PropTypes.object,
     widgetId: PropTypes.string.isRequired,
   };
 
   senderId = uuid.v4();
 
-  // Public methods
   collapse = () => {
     this.setState({minimized: true});
   };
@@ -45,6 +43,70 @@ class ConsoleWidget extends PureComponent {
 
   state = this.getInitialState();
 
+  getInitialState() {
+    return {
+      connection: {
+        ident: controller.connection.ident,
+      },
+      isFullscreen: false,
+      minimized: this.config.get('minimized', false),
+
+      // Terminal
+      terminal: {
+        cols: TERMINAL_COLS,
+        cursorBlink: true,
+        rows: TERMINAL_ROWS,
+        scrollback: 1000,
+        tabStopWidth: 4,
+      },
+    };
+  }
+
+  render() {
+    const {widgetId} = this.props;
+    const {minimized} = this.state;
+
+    const state = {...this.state};
+    const actions = {...this.actions};
+
+    return (
+      <Widget>
+        <Widget.Header>
+          <Widget.Title>{i18n._('Console')}</Widget.Title>
+          <Widget.Controls>
+            {minimized ? null : (
+              <Fragment>
+                <Widget.Button title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
+                  <i className={classcat([styles.icon, styles.selectAll])} />
+                </Widget.Button>
+                <Widget.Button title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
+                  <i className="fa fa-fw fa-window-close-o" />
+                </Widget.Button>
+                <Widget.Button title={i18n._('Clear all')} onClick={actions.clearAll}>
+                  <i className="fa fa-trash" />
+                </Widget.Button>
+              </Fragment>
+            )}
+            <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
+              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
+            </Widget.Button>
+          </Widget.Controls>
+        </Widget.Header>
+        <Widget.Content className={classcat([styles.widgetContent, {[styles.hidden]: minimized}])}>
+          <Console
+            ref={node => {
+              if (node) {
+                this.terminal = node.terminal;
+              }
+            }}
+            state={state}
+            actions={actions}
+          />
+        </Widget.Content>
+      </Widget>
+    );
+  }
+
   actions = {
     clearAll: () => {
       if (this.terminal) {
@@ -56,21 +118,6 @@ class ConsoleWidget extends PureComponent {
         __sender__: this.senderId,
       };
       controller.write(data, context);
-    },
-    toggleFullscreen: () => {
-      this.setState(
-        state => ({
-          isFullscreen: !state.isFullscreen,
-          minimized: state.isFullscreen ? state.minimized : false,
-          terminal: {
-            ...state.terminal,
-            rows: state.isFullscreen ? TERMINAL_ROWS : 'auto',
-          },
-        }),
-        () => {
-          this.resizeTerminal();
-        }
-      );
     },
     toggleMinimized: () => {
       this.setState(
@@ -160,64 +207,10 @@ class ConsoleWidget extends PureComponent {
       }
     },
   };
+
   terminal = null;
+
   pubsubTokens = [];
-
-  render() {
-    const {widgetId} = this.props;
-    const {isFullscreen, minimized} = this.state;
-    const state = {...this.state};
-    const actions = {...this.actions};
-
-    return (
-      <Widget fullscreen={isFullscreen}>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Console')}</Widget.Title>
-          <Widget.Controls className={this.props.sortable.filterClassName}>
-            <Widget.Button title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
-              <i className={classcat([styles.icon, styles.selectAll])} />
-            </Widget.Button>
-            <Widget.Button title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
-              <i className="fa fa-fw fa-window-close-o" />
-            </Widget.Button>
-            <Widget.Button title={i18n._('Clear all')} onClick={actions.clearAll}>
-              <i className="fa fa-trash" />
-            </Widget.Button>
-            <Widget.Button
-              disabled={isFullscreen}
-              title={minimized ? i18n._('Expand') : i18n._('Collapse')}
-              onClick={actions.toggleMinimized}
-            >
-              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
-            </Widget.Button>
-            <Widget.Button
-              title={!isFullscreen ? i18n._('Enter Full Screen') : i18n._('Exit Full Screen')}
-              onClick={actions.toggleFullscreen}
-            >
-              <i className={classcat(['fa', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen}])} />
-            </Widget.Button>
-          </Widget.Controls>
-        </Widget.Header>
-        <Widget.Content
-          className={classcat([
-            styles.widgetContent,
-            {[styles.hidden]: minimized},
-            {[styles.fullscreen]: isFullscreen},
-          ])}
-        >
-          <Console
-            ref={node => {
-              if (node) {
-                this.terminal = node.terminal;
-              }
-            }}
-            state={state}
-            actions={actions}
-          />
-        </Widget.Content>
-      </Widget>
-    );
-  }
 
   componentDidMount() {
     this.addControllerEvents();
@@ -233,25 +226,6 @@ class ConsoleWidget extends PureComponent {
     const {minimized} = this.state;
 
     this.config.set('minimized', minimized);
-  }
-
-  getInitialState() {
-    return {
-      connection: {
-        ident: controller.connection.ident,
-      },
-      isFullscreen: false,
-      minimized: this.config.get('minimized', false),
-
-      // Terminal
-      terminal: {
-        cols: TERMINAL_COLS,
-        cursorBlink: true,
-        rows: TERMINAL_ROWS,
-        scrollback: 1000,
-        tabStopWidth: 4,
-      },
-    };
   }
 
   subscribe() {
