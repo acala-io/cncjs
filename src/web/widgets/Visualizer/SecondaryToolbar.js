@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import colornames from 'colornames';
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
@@ -122,12 +122,12 @@ class SecondaryToolbar extends PureComponent {
             <MenuItem divider />
             <MenuItem header>{i18n._('Projection')}</MenuItem>
             <MenuItem disabled={!canToggleOptions} onSelect={actions.toPerspectiveProjection}>
-              <i className={classNames('fa', 'fa-fw', {'fa-check': projection !== 'orthographic'})} />
+              <i className={classcat(['fafa-fw', {'fa-check': projection !== 'orthographic'}])} />
               <Space width="4" />
               {i18n._('Perspective Projection')}
             </MenuItem>
             <MenuItem disabled={!canToggleOptions} onSelect={actions.toOrthographicProjection}>
-              <i className={classNames('fa', 'fa-fw', {'fa-check': projection === 'orthographic'})} />
+              <i className={classcat(['fa fa-fw', {'fa-check': projection === 'orthographic'}])} />
               <Space width="4" />
               {i18n._('Orthographic Projection')}
             </MenuItem>
@@ -170,30 +170,18 @@ class SecondaryToolbar extends PureComponent {
         {canToggleOptions && (
           <ButtonToolbar className="pull-right">
             <ButtonGroup btnSize="sm">
-              <IconButton
-                className={classNames({
-                  highlight: cameraPosition === 'top',
-                })}
-                onClick={camera.toTopView}
-              >
+              <IconButton className={classcat([{highlight: cameraPosition === 'top'}])} onClick={camera.toTopView}>
                 <Tooltip placement="top" content={i18n._('Top View')} hideOnClick>
                   <Image src={iconTopView} width="20" height="20" />
                 </Tooltip>
               </IconButton>
-              <IconButton
-                className={classNames({
-                  highlight: cameraPosition === 'front',
-                })}
-                onClick={camera.toFrontView}
-              >
+              <IconButton className={classcat([{highlight: cameraPosition === 'front'}])} onClick={camera.toFrontView}>
                 <Tooltip placement="top" content={i18n._('Front View')} hideOnClick>
                   <Image src={iconFrontView} width="20" height="20" />
                 </Tooltip>
               </IconButton>
               <IconButton
-                className={classNames({
-                  highlight: cameraPosition === 'right',
-                })}
+                className={classcat([{highlight: cameraPosition === 'right'}])}
                 onClick={camera.toRightSideView}
               >
                 <Tooltip placement="top" content={i18n._('Right Side View')} hideOnClick>
@@ -201,21 +189,14 @@ class SecondaryToolbar extends PureComponent {
                 </Tooltip>
               </IconButton>
               <IconButton
-                className={classNames({
-                  highlight: cameraPosition === 'left',
-                })}
+                className={classcat([{highlight: cameraPosition === 'left'}])}
                 onClick={camera.toLeftSideView}
               >
                 <Tooltip placement="top" content={i18n._('Left Side View')} hideOnClick>
                   <Image src={iconLeftSideView} width="20" height="20" />
                 </Tooltip>
               </IconButton>
-              <IconButton
-                className={classNames({
-                  highlight: cameraPosition === '3d',
-                })}
-                onClick={camera.to3DView}
-              >
+              <IconButton className={classcat([{highlight: cameraPosition === '3d'}])} onClick={camera.to3DView}>
                 <Tooltip placement="top" content={i18n._('3D View')} hideOnClick>
                   <Image src={icon3DView} width="20" height="20" />
                 </Tooltip>

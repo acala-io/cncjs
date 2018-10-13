@@ -1,12 +1,15 @@
-import path from 'path';
+import classcat from 'classcat';
 import includes from 'lodash/includes';
 import moment from 'moment';
+import path from 'path';
 import PropTypes from 'prop-types';
 import React from 'react';
-import classNames from 'classnames';
-import Space from '../../components/Space';
+
 import i18n from '../../lib/i18n';
 import {formatBytes} from '../../lib/numeral';
+
+import Space from '../../components/Space';
+
 import styles from './renderer.styl';
 
 const TreeNode = props => {
@@ -16,7 +19,7 @@ const TreeNode = props => {
   return (
     <Component
       {...others}
-      className={classNames(className, styles.treeNode, {[styles.selected]: selected})}
+      className={classcat([className, styles.treeNode, {[styles.selected]: selected}])}
       data-id={id}
       disabled={disabled}
     >
@@ -26,9 +29,9 @@ const TreeNode = props => {
 };
 TreeNode.propTypes = {
   componentClass: PropTypes.node,
+  disabled: PropTypes.bool,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   selected: PropTypes.bool,
-  disabled: PropTypes.bool,
 };
 
 const TreeNodeColumn = props => {
@@ -36,7 +39,7 @@ const TreeNodeColumn = props => {
   const Component = componentClass || 'td';
 
   return (
-    <Component {...others} className={classNames(className, styles.treeNodeColumn, {[styles.noPadding]: !padding})}>
+    <Component {...others} className={classcat([className, styles.treeNodeColumn, {[styles.noPadding]: !padding}])}>
       {children}
     </Component>
   );
@@ -52,9 +55,9 @@ const TreeNodeToggler = ({show, expanded}) => {
   }
 
   return (
-    <span className={classNames(styles.treeToggler)}>
+    <span className={styles.treeToggler}>
       <i
-        className={classNames('fa', 'fa-fw', {'fa-chevron-down': expanded}, {'fa-chevron-right': !expanded})}
+        className={classcat(['fa fa-fw', {'fa-chevron-down': expanded}, {'fa-chevron-right': !expanded}])}
         style={{
           opacity: expanded ? 1 : 0.5,
         }}
@@ -63,8 +66,8 @@ const TreeNodeToggler = ({show, expanded}) => {
   );
 };
 TreeNodeToggler.propTypes = {
-  show: PropTypes.bool,
   expanded: PropTypes.bool,
+  show: PropTypes.bool,
 };
 
 const TreeNodeLoader = ({show}) => {
@@ -75,7 +78,7 @@ const TreeNodeLoader = ({show}) => {
   return (
     <i
       style={{marginLeft: 5}}
-      className={classNames({hidden: !show}, 'fa', 'fa-circle-o-notch', 'fa-fw', {'fa-spin': show})}
+      className={classcat([{hidden: !show}, 'fa fa-circle-o-notch fa-fw', {'fa-spin': show}])}
     />
   );
 };
@@ -137,12 +140,12 @@ const renderer = (node, treeOptions) => {
         <div style={{paddingLeft: paddingLeft}}>
           <TreeNodeToggler show={more || loadOnDemand} expanded={more && open} />
           <i
-            className={classNames(
+            className={classcat([
               'fa',
               {'fa-folder-open-o': more && open},
               {'fa-folder-o': more && !open},
-              {'fa-file-o': !more}
-            )}
+              {'fa-file-o': !more},
+            ])}
           />
           <Space width="8" />
           {node.name}

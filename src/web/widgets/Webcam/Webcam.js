@@ -1,17 +1,21 @@
-import classNames from 'classnames';
-import Slider from 'rc-slider';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
+import Slider from 'rc-slider';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
-import Anchor from '../../components/Anchor';
-import WebcamComponent from '../../components/Webcam';
+
 import i18n from '../../lib/i18n';
+
+import {MEDIA_SOURCE_LOCAL, MEDIA_SOURCE_MJPEG} from './constants';
+
+import Anchor from '../../components/Anchor';
+import Circle from './Circle';
 import Image from './Image';
 import Line from './Line';
-import Circle from './Circle';
+import WebcamComponent from '../../components/Webcam';
+
 import styles from './index.styl';
-import {MEDIA_SOURCE_LOCAL, MEDIA_SOURCE_MJPEG} from './constants';
 
 class Webcam extends PureComponent {
   static propTypes = {
@@ -100,10 +104,10 @@ class Webcam extends PureComponent {
         )}
         {crosshair && (
           <div>
-            <Line className={classNames(styles.center, styles['line-shadow'])} length="100%" />
-            <Line className={classNames(styles.center, styles['line-shadow'])} length="100%" vertical />
-            <Circle className={classNames(styles.center, styles['line-shadow'])} diameter={20} />
-            <Circle className={classNames(styles.center, styles['line-shadow'])} diameter={40} />
+            <Line className={classcat([styles.center, styles['line-shadow']])} length="100%" />
+            <Line className={classcat([styles.center, styles['line-shadow']])} length="100%" vertical />
+            <Circle className={classcat([styles.center, styles['line-shadow']])} diameter={20} />
+            <Circle className={classcat([styles.center, styles['line-shadow']])} diameter={40} />
           </div>
         )}
         <div className={styles.toolbar}>
@@ -112,23 +116,23 @@ class Webcam extends PureComponent {
             {mediaSource === MEDIA_SOURCE_LOCAL && (
               <Anchor className={styles.btnIcon} onClick={actions.toggleMute}>
                 <i
-                  className={classNames(
+                  className={classcat([
                     styles.icon,
                     styles.inverted,
                     {[styles.iconUnmute]: !muted},
-                    {[styles.iconMute]: muted}
-                  )}
+                    {[styles.iconMute]: muted},
+                  ])}
                 />
               </Anchor>
             )}
             <OverlayTrigger overlay={<Tooltip id="rotate-left">{i18n._('Rotate Left')}</Tooltip>} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.rotateLeft}>
-                <i className={classNames(styles.icon, styles.inverted, styles.iconRotateLeft)} />
+                <i className={classcat([styles.icon, styles.inverted, styles.iconRotateLeft])} />
               </Anchor>
             </OverlayTrigger>
             <OverlayTrigger overlay={<Tooltip id="rotate-right">{i18n._('Rotate Right')}</Tooltip>} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.rotateRight}>
-                <i className={classNames(styles.icon, styles.inverted, styles.iconRotateRight)} />
+                <i className={classcat([styles.icon, styles.inverted, styles.iconRotateRight])} />
               </Anchor>
             </OverlayTrigger>
             <OverlayTrigger
@@ -136,7 +140,7 @@ class Webcam extends PureComponent {
               placement="top"
             >
               <Anchor className={styles.btnIcon} onClick={actions.toggleFlipHorizontally}>
-                <i className={classNames(styles.icon, styles.inverted, styles.iconFlipHorizontally)} />
+                <i className={classcat([styles.icon, styles.inverted, styles.iconFlipHorizontally])} />
               </Anchor>
             </OverlayTrigger>
             <OverlayTrigger
@@ -144,12 +148,12 @@ class Webcam extends PureComponent {
               placement="top"
             >
               <Anchor className={styles.btnIcon} onClick={actions.toggleFlipVertically}>
-                <i className={classNames(styles.icon, styles.inverted, styles.iconFlipVertically)} />
+                <i className={classcat([styles.icon, styles.inverted, styles.iconFlipVertically])} />
               </Anchor>
             </OverlayTrigger>
             <OverlayTrigger overlay={<Tooltip id="crosshair">{i18n._('Crosshair')}</Tooltip>} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.toggleCrosshair}>
-                <i className={classNames(styles.icon, styles.inverted, styles.iconCrosshair)} />
+                <i className={classcat([styles.icon, styles.inverted, styles.iconCrosshair])} />
               </Anchor>
             </OverlayTrigger>
           </div>

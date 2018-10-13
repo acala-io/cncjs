@@ -1,35 +1,39 @@
 import chainedFunction from 'chained-function';
-import cx from 'classnames';
+import classcat from 'classcat';
 import ensureArray from 'ensure-array';
 import includes from 'lodash/includes';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import Dropdown, {MenuItem} from '../../components/Dropdown';
-import Image from '../../components/Image';
-import {Tooltip} from '../../components/Tooltip';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
+
+import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C, METRIC_UNITS} from '../../constants';
+
 import AxisLabel from './components/AxisLabel';
 import AxisSubscript from './components/AxisSubscript';
+import Dropdown, {MenuItem} from '../../components/Dropdown';
+import Image from '../../components/Image';
 import Panel from './components/Panel';
-import PositionLabel from './components/PositionLabel';
 import PositionInput from './components/PositionInput';
+import PositionLabel from './components/PositionLabel';
 import Taskbar from './components/Taskbar';
 import TaskbarButton from './components/TaskbarButton';
-import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C, METRIC_UNITS} from '../../constants';
-import styles from './index.styl';
-import iconMinus from './images/minus.svg';
-import iconPlus from './images/plus.svg';
+import {Tooltip} from '../../components/Tooltip';
+
 import iconHome from './images/home.svg';
-import iconPin from './images/pin.svg';
+import iconMinus from './images/minus.svg';
 import iconPencil from './images/pencil.svg';
+import iconPin from './images/pin.svg';
+import iconPlus from './images/plus.svg';
+
+import styles from './index.styl';
 
 class DisplayPanel extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   state = {
@@ -43,6 +47,42 @@ class DisplayPanel extends PureComponent {
       [AXIS_C]: false,
     },
   };
+
+  render() {
+    const {state} = this.props;
+    const {axes, machinePosition, workPosition} = state;
+    const hasAxisE = machinePosition.e !== undefined && workPosition.e !== undefined;
+    const hasAxisX = includes(axes, AXIS_X);
+    const hasAxisY = includes(axes, AXIS_Y);
+    const hasAxisZ = includes(axes, AXIS_Z);
+    const hasAxisA = includes(axes, AXIS_A);
+    const hasAxisB = includes(axes, AXIS_B);
+    const hasAxisC = includes(axes, AXIS_C);
+
+    return (
+      <Panel className={styles.displayPanel}>
+        <table className="table-bordered">
+          <thead>
+            <tr>
+              <th className="nowrap">{i18n._('Axis')}</th>
+              <th className="nowrap">{i18n._('Machine Position')}</th>
+              <th className="nowrap">{i18n._('Work Position')}</th>
+              <th className={classcat(['nowrap', styles.action])}>{this.renderActionDropdown()}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {hasAxisE && this.renderAxis(AXIS_E)}
+            {hasAxisX && this.renderAxis(AXIS_X)}
+            {hasAxisY && this.renderAxis(AXIS_Y)}
+            {hasAxisZ && this.renderAxis(AXIS_Z)}
+            {hasAxisA && this.renderAxis(AXIS_A)}
+            {hasAxisB && this.renderAxis(AXIS_B)}
+            {hasAxisC && this.renderAxis(AXIS_C)}
+          </tbody>
+        </table>
+      </Panel>
+    );
+  }
 
   handleSelect = eventKey => {
     const commands = ensureArray(eventKey);
@@ -586,6 +626,7 @@ class DisplayPanel extends PureComponent {
   renderAxis = axis => {
     const {canClick, units, machinePosition, workPosition, jog} = this.props.state;
     const {actions} = this.props;
+
     const lengthUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
     const degreeUnits = i18n._('deg');
     const mpos = machinePosition[axis] || '0.000';
@@ -611,12 +652,14 @@ class DisplayPanel extends PureComponent {
         [AXIS_B]: this.renderActionDropdownForAxisB,
         [AXIS_C]: this.renderActionDropdownForAxisC,
       }[axis] || noop;
+
     const canZeroOutMachine = canClick;
     const canHomeMachine = canClick;
     const canMoveBackward = canClick;
     const canMoveForward = canClick;
     const canZeroOutWorkOffsets = canClick;
     const canModifyWorkPosition = canClick && !this.state.positionInput[axis];
+
     const showPositionInput = canClick && this.state.positionInput[axis];
     const highlightAxis = canClick && (jog.keypad || jog.axis === axis);
 
@@ -733,48 +776,6 @@ class DisplayPanel extends PureComponent {
       </tr>
     );
   };
-
-  render() {
-    const {state} = this.props;
-    const {axes, machinePosition, workPosition} = state;
-    const hasAxisE = machinePosition.e !== undefined && workPosition.e !== undefined;
-    const hasAxisX = includes(axes, AXIS_X);
-    const hasAxisY = includes(axes, AXIS_Y);
-    const hasAxisZ = includes(axes, AXIS_Z);
-    const hasAxisA = includes(axes, AXIS_A);
-    const hasAxisB = includes(axes, AXIS_B);
-    const hasAxisC = includes(axes, AXIS_C);
-
-    return (
-      <Panel className={styles.displayPanel}>
-        <table className="table-bordered">
-          <thead>
-            <tr>
-              <th className="nowrap" title={i18n._('Axis')}>
-                {i18n._('Axis')}
-              </th>
-              <th className="nowrap" title={i18n._('Machine Position')}>
-                {i18n._('Machine Position')}
-              </th>
-              <th className="nowrap" title={i18n._('Work Position')}>
-                {i18n._('Work Position')}
-              </th>
-              <th className={cx('nowrap', styles.action)}>{this.renderActionDropdown()}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {hasAxisE && this.renderAxis(AXIS_E)}
-            {hasAxisX && this.renderAxis(AXIS_X)}
-            {hasAxisY && this.renderAxis(AXIS_Y)}
-            {hasAxisZ && this.renderAxis(AXIS_Z)}
-            {hasAxisA && this.renderAxis(AXIS_A)}
-            {hasAxisB && this.renderAxis(AXIS_B)}
-            {hasAxisC && this.renderAxis(AXIS_C)}
-          </tbody>
-        </table>
-      </Panel>
-    );
-  }
 }
 
 export default DisplayPanel;

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import includes from 'lodash/includes';
 import pick from 'lodash/pick';
 import PropTypes from 'prop-types';
@@ -238,7 +238,7 @@ class WorkflowControl extends PureComponent {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <MenuItem>
-            <i className={classNames(styles.icon, styles.iconPerimeterTracingSquare)} />
+            <i className={classcat([styles.icon, styles.iconPerimeterTracingSquare])} />
             <Space width="4" />
           </MenuItem>
         </Dropdown.Menu>
