@@ -11,7 +11,10 @@ import i18n from '../../lib/i18n';
 
 import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 
+import Button from '../../components_new/Button';
+import ButtonGroup from '../../components_new/ButtonGroup';
 import Space from '../../components/Space';
+import Toggle from '../../components_new/Toggle';
 import {ToastNotification} from '../../components/Notifications';
 
 class Connection extends PureComponent {
@@ -56,77 +59,25 @@ class Connection extends PureComponent {
   }
 
   get controllerSelection() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {connected, loading} = state;
-
-    const controllerType = state.controller.type;
 
     const canSelectControllers = controller.availableControllers.length > 1;
     const canChangeController = !loading && !connected;
 
-    const hasGrblController = includes(controller.availableControllers, GRBL);
-    const hasMarlinController = includes(controller.availableControllers, MARLIN);
-    const hasSmoothieController = includes(controller.availableControllers, SMOOTHIE);
-    const hasTinyGController = includes(controller.availableControllers, TINYG);
-
-    if (!canSelectControllers) {
+    if (!canSelectControllers || !canChangeController) {
       return null;
     }
 
     return (
       <div className="form-group">
-        <div className="input-group input-group-sm">
-          <div className="input-group-btn">
-            {hasGrblController && (
-              <button
-                type="button"
-                className={cx('btn', 'btn-default', {'btn-select': controllerType === GRBL})}
-                disabled={!canChangeController}
-                onClick={() => {
-                  actions.changeController(GRBL);
-                }}
-              >
-                {GRBL}
-              </button>
-            )}
-            {hasMarlinController && (
-              <button
-                type="button"
-                className={cx('btn', 'btn-default', {'btn-select': controllerType === MARLIN})}
-                disabled={!canChangeController}
-                onClick={() => {
-                  actions.changeController(MARLIN);
-                }}
-              >
-                {MARLIN}
-              </button>
-            )}
-            {hasSmoothieController && (
-              <button
-                type="button"
-                className={cx('btn', 'btn-default', {'btn-select': controllerType === SMOOTHIE})}
-                disabled={!canChangeController}
-                onClick={() => {
-                  actions.changeController(SMOOTHIE);
-                }}
-              >
-                {SMOOTHIE}
-              </button>
-            )}
-            {hasTinyGController && (
-              <button
-                type="button"
-                className={cx('btn', 'btn-default', {'btn-select': controllerType === TINYG})}
-                disabled={!canChangeController}
-                onClick={() => {
-                  actions.changeController(TINYG);
-                }}
-              >
-                {TINYG}
-              </button>
-            )}
-          </div>
-        </div>
+        <label className="control-label">{i18n._('Controller')}</label>
+        <ButtonGroup
+          optionName="selectedController"
+          options={controller.availableControllers}
+          selectedValue={state.controller.type}
+          onChange={actions.changeController}
+        />
       </div>
     );
   }
@@ -230,6 +181,10 @@ class Connection extends PureComponent {
     const notConnected = !connected;
     const canChangeBaudRate = notLoading && notConnected && !this.isPortOpen(path);
 
+    if (!canChangeBaudRate) {
+      return null;
+    }
+
     const style = {
       color: canChangeBaudRate ? '#333' : '#ccc',
       overflow: 'hidden',
@@ -245,22 +200,11 @@ class Connection extends PureComponent {
     return (
       <div className="form-group">
         <label className="control-label">{i18n._('Baud rate')}</label>
-        <Select
-          backspaceRemoves={false}
-          className="sm"
-          clearable={false}
-          disabled={!canChangeBaudRate}
-          menuContainerStyle={{zIndex: 5}}
-          name="baudRate"
+        <ButtonGroup
+          optionName="selectedBaudRate"
+          options={baudRates.map(b => ({label: `${b / 1000} k`, value: b}))}
+          selectedValue={baudRate}
           onChange={onChangeBaudRateOption}
-          options={map(baudRates, value => ({
-            label: Number(value).toString(),
-            value,
-          }))}
-          placeholder={i18n._('Choose a baud rate')}
-          searchable={false}
-          value={baudRate}
-          valueRenderer={renderBaudRateValue}
         />
       </div>
     );
@@ -273,21 +217,14 @@ class Connection extends PureComponent {
     const enableHardwareFlowControl = Boolean(connection.serial.rtscts);
     const canToggleHardwareFlowControl = !connected;
 
+    if (!canToggleHardwareFlowControl) {
+      return null;
+    }
+
     return (
-      <div
-        className={cx('checkbox', {
-          disabled: !canToggleHardwareFlowControl,
-        })}
-      >
-        <label>
-          <input
-            type="checkbox"
-            defaultChecked={enableHardwareFlowControl}
-            disabled={!canToggleHardwareFlowControl}
-            onChange={toggleHardwareFlowControl}
-          />
-          {i18n._('Enable hardware flow control')}
-        </label>
+      <div className="form-group">
+        <Toggle value={enableHardwareFlowControl} handleClick={toggleHardwareFlowControl} />
+        <label className="inline-block">{i18n._('Enable hardware flow control')}</label>
       </div>
     );
   }
@@ -297,11 +234,9 @@ class Connection extends PureComponent {
     const {autoReconnect} = this.props.state;
 
     return (
-      <div className="checkbox">
-        <label>
-          <input type="checkbox" defaultChecked={autoReconnect} onChange={toggleAutoReconnect} />
-          {i18n._('Connect automatically')}
-        </label>
+      <div className="form-group">
+        <Toggle value={autoReconnect} handleClick={toggleAutoReconnect} />
+        <label className="inline-block">{i18n._('Connect automatically')}</label>
       </div>
     );
   }
@@ -314,20 +249,18 @@ class Connection extends PureComponent {
     const canClosePort = connected;
 
     return (
-      <div className="btn-group btn-group-sm">
+      <div>
         {!connected && (
-          <button type="button" className="btn btn-primary" disabled={!canOpenPort} onClick={handleOpenPort}>
-            <i className="fa fa-toggle-off" />
-            <Space width="8" />
-            {i18n._('Open')}
-          </button>
+          <Button text={i18n._('Connect')} width="full-width" isDisabled={!canOpenPort} handleClick={handleOpenPort} />
         )}
         {connected && (
-          <button type="button" className="btn btn-danger" disabled={!canClosePort} onClick={handleClosePort}>
-            <i className="fa fa-toggle-on" />
-            <Space width="8" />
-            {i18n._('Close')}
-          </button>
+          <Button
+            text={i18n._('Disconnect')}
+            width="full-width"
+            isDisabled={!canClosePort}
+            handleClick={handleClosePort}
+            danger
+          />
         )}
       </div>
     );

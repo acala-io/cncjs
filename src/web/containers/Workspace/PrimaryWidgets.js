@@ -196,12 +196,7 @@ class PrimaryWidgets extends Component {
               }
             }}
             widgetId={widgetId}
-            onFork={this.forkWidget(widgetId)}
             onRemove={this.removeWidget(widgetId)}
-            sortable={{
-              filterClassName: 'sortable-filter',
-              handleClassName: 'sortable-handle',
-            }}
           />
         </div>
       ));

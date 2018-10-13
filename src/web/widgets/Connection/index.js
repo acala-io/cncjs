@@ -27,13 +27,14 @@ class ConnectionWidget extends PureComponent {
 
   config = new WidgetConfig(this.props.widgetId);
 
+  state = this.getInitialState();
+
   getInitialState() {
     let controllerType = this.config.get('controller.type');
     if (!includes(controller.availableControllers, controllerType)) {
       controllerType = controller.availableControllers[0];
     }
 
-    // Default baud rates
     const defaultBaudRates = [250000, 115200, 57600, 38400, 19200, 9600, 2400];
 
     return {
@@ -57,14 +58,27 @@ class ConnectionWidget extends PureComponent {
       controller: {
         type: this.config.get('controller.type'),
       },
-      isFullscreen: false,
       loading: false,
       minimized: this.config.get('minimized', false),
       ports: [],
     };
   }
 
-  state = this.getInitialState();
+  render() {
+    const state = {...this.state};
+    const actions = {...this.actions};
+
+    return (
+      <Widget>
+        <Widget.Header>
+          <Widget.Title>{i18n._('Connection')}</Widget.Title>
+        </Widget.Header>
+        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: this.state.minimized}])}>
+          <Connection state={state} actions={actions} />
+        </Widget.Content>
+      </Widget>
+    );
+  }
 
   collapse = () => {
     this.setState({minimized: true});
@@ -75,16 +89,37 @@ class ConnectionWidget extends PureComponent {
   };
 
   actions = {
-    clearAlert: () => {
-      this.setState(state => ({
-        alertMessage: '',
-      }));
-    },
     changeController: controllerType => {
       this.setState(state => ({
         controller: {
           ...state.controller,
           type: controllerType,
+        },
+      }));
+    },
+    clearAlert: () => {
+      this.setState(state => ({
+        alertMessage: '',
+      }));
+    },
+    handleClosePort: event => {
+      this.closePort();
+    },
+    handleOpenPort: event => {
+      this.openPort();
+    },
+    handleRefresh: event => {
+      this.refresh();
+    },
+    onChangeBaudRateOption: option => {
+      this.setState(state => ({
+        alertMessage: '',
+        connection: {
+          ...state.connection,
+          serial: {
+            ...state.connection.serial,
+            baudRate: option.value,
+          },
         },
       }));
     },
@@ -100,20 +135,12 @@ class ConnectionWidget extends PureComponent {
         },
       }));
     },
-    onChangeBaudRateOption: option => {
+    toggleAutoReconnect: checked => {
       this.setState(state => ({
-        alertMessage: '',
-        connection: {
-          ...state.connection,
-          serial: {
-            ...state.connection.serial,
-            baudRate: option.value,
-          },
-        },
+        autoReconnect: checked,
       }));
     },
-    toggleHardwareFlowControl: event => {
-      const checked = event.target.checked;
+    toggleHardwareFlowControl: checked => {
       this.setState(state => ({
         connection: {
           ...state.connection,
@@ -124,26 +151,11 @@ class ConnectionWidget extends PureComponent {
         },
       }));
     },
-    toggleAutoReconnect: event => {
-      const checked = event.target.checked;
-      this.setState(state => ({
-        autoReconnect: checked,
-      }));
-    },
-    handleRefresh: event => {
-      this.refresh();
-    },
-    handleOpenPort: event => {
-      this.openPort();
-    },
-    handleClosePort: event => {
-      this.closePort();
-    },
   };
 
   controllerEvents = {
     'connection:open': options => {
-      const {type, settings} = options;
+      const {settings, type} = options;
 
       if (type === 'serial') {
         log.debug(`A new connection was established: type=${type}, settings=${settings}`);
@@ -156,13 +168,14 @@ class ConnectionWidget extends PureComponent {
             if (port.comName !== settings.path) {
               return port;
             }
+
             return {...port, isOpen: true};
           }),
         }));
       }
     },
     'connection:close': options => {
-      const {type, settings} = options;
+      const {settings, type} = options;
 
       if (type === 'serial') {
         log.debug(`The connection was closed: type=${type}, settings=${settings}`);
@@ -175,6 +188,7 @@ class ConnectionWidget extends PureComponent {
             if (port.comName !== settings.path) {
               return port;
             }
+
             return {...port, isOpen: false};
           }),
         }));
@@ -183,7 +197,7 @@ class ConnectionWidget extends PureComponent {
       }
     },
     'connection:change': (options, isOpen) => {
-      const {type, settings} = options;
+      const {settings, type} = options;
 
       if (type === 'serial') {
         this.setState(state => ({
@@ -191,13 +205,14 @@ class ConnectionWidget extends PureComponent {
             if (port.comName !== settings.path) {
               return port;
             }
+
             return {...port, isOpen: isOpen};
           }),
         }));
       }
     },
     'connection:error': (options, err) => {
-      const {type, settings} = options;
+      const {settings, type} = options;
 
       if (type === 'serial') {
         log.error(`Error opening serial port: type=${type}, settings=${settings}`);
@@ -256,6 +271,7 @@ class ConnectionWidget extends PureComponent {
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
+
       controller.addListener(eventName, callback);
     });
   }
@@ -263,6 +279,7 @@ class ConnectionWidget extends PureComponent {
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
+
       controller.removeListener(eventName, callback);
     });
   }
@@ -270,22 +287,21 @@ class ConnectionWidget extends PureComponent {
   async refresh(options) {
     const {autoConnect = false} = {...options};
 
-    let loadingTimer = null;
+    let loadingTimeout = null;
 
     // Start loading
     this.setState(state => ({
       loading: true,
     }));
 
-    // Create a timer to stop loading
-    const delay = 5000; // up to 5 seconds
-    loadingTimer = setTimeout(() => {
-      loadingTimer = null;
+    // Cancel loading after 5 seconds
+    loadingTimeout = setTimeout(() => {
+      loadingTimeout = null;
 
       this.setState(state => ({
         loading: false,
       }));
-    }, delay);
+    }, 5000);
 
     const fetchBaudRates = promisify(controller.getBaudRates, {
       errorFirst: true,
@@ -334,9 +350,9 @@ class ConnectionWidget extends PureComponent {
     }
 
     // Stop loading
-    if (loadingTimer) {
-      clearTimeout(loadingTimer);
-      loadingTimer = null;
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+      loadingTimeout = null;
     }
     this.setState(state => ({
       loading: false,
@@ -383,25 +399,6 @@ class ConnectionWidget extends PureComponent {
 
       this.refresh();
     });
-  }
-
-  render() {
-    const {widgetId} = this.props;
-    const {minimized, isFullscreen} = this.state;
-
-    const state = {...this.state};
-    const actions = {...this.actions};
-
-    return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Connection')}</Widget.Title>
-        </Widget.Header>
-        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
-          <Connection state={state} actions={actions} />
-        </Widget.Content>
-      </Widget>
-    );
   }
 }
 

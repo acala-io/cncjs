@@ -170,9 +170,9 @@ series([
     }
 
     if (settings.error.corruptedWorkspaceSettings) {
+      const filename = `${settings.name}-${settings.version}.json`;
       const text = store_old.getConfig();
       const url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
-      const filename = `${settings.name}-${settings.version}.json`;
 
       await portal(({onClose}) => (
         <Modal onClose={onClose} disableOverlay showCloseButton={false}>

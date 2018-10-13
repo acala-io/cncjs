@@ -30,7 +30,7 @@ const Button = ({
   width = 'normal',
 }) => {
   const classes = classcat([
-    'button dont-print',
+    'button',
     {
       'button--danger': danger,
       'button--full-width': width === 'full-width',
