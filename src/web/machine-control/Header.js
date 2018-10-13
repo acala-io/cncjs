@@ -16,17 +16,7 @@ import SettingsModal from '../settings/SettingsModal';
 class Header extends PureComponent {
   render() {
     return (
-      <div
-        style={{
-          alignContent: 'space-between',
-          alignItems: 'center',
-          background: 'orange',
-          display: 'flex',
-          flexFlow: 'row',
-          justifyContent: 'space-between',
-          padding: 14,
-        }}
-      >
+      <div className="header">
         <div>{this.machineConnect}</div>
         <div>{this.gcodePlayer}</div>
         <div>{this.settings}</div>

@@ -30,9 +30,15 @@
 }
 
 .layout--app {
+    background: $background--darkest;
+
     .header {
-        padding-bottom: $inuit-global-spacing-unit;
-        padding-top: $inuit-global-spacing-unit;
+        align-content: space-between;
+        align-items: center;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        padding: $inuit-global-spacing-unit;
     }
 
     .main {
