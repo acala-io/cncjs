@@ -1,36 +1,30 @@
 import React, {PureComponent} from 'react';
-import {func, instanceOf, string} from 'prop-types';
+import {func} from 'prop-types';
 
-import Button from '../components_new/Button';
 import Controller from './Controller';
-import Hint from '../components_new/Hint';
-import {Dialog, DialogActions, DialogHeader} from '../components_new/Dialog';
+import {Dialog, DialogHeader} from '../components_new/Dialog';
 
 class SettingsModal extends PureComponent {
   static propTypes = {
     onClose: func,
-    // onConfirm: func,
   };
 
   closeDialog = () => {
     this.props.onClose();
   };
 
-  doSomething = () => {}; // noop
-
   render() {
     return (
       <Dialog onClose={this.closeDialog} width="extraWide">
         <DialogHeader heading={'Settings'} />
-        {this.fields}
-        {this.actions}
+        {this.content}
       </Dialog>
     );
   }
 
-  get fields() {
+  get content() {
     return (
-      <div className="text--centered u-pr+ u-pb+ u-pl+">
+      <div className="text--centered u-p">
         <Controller
           actions={{
             load: () => {},
@@ -44,14 +38,6 @@ class SettingsModal extends PureComponent {
           stateChanged={false}
         />
       </div>
-    );
-  }
-
-  get actions() {
-    return (
-      <DialogActions>
-        <Button text={'Do something'} handleClick={this.doSomething} />
-      </DialogActions>
     );
   }
 }

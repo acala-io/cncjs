@@ -67,7 +67,7 @@ class GrblWidget extends PureComponent {
   render() {
     const {widgetId} = this.props;
     const {minimized, isFullscreen, isReady} = this.state;
-    const isForkedWidget = widgetId.match(/\w+:[\w\-]+/);
+
     const state = {
       ...this.state,
       canClick: this.canClick(),

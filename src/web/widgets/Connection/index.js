@@ -388,7 +388,7 @@ class ConnectionWidget extends PureComponent {
   render() {
     const {widgetId} = this.props;
     const {minimized, isFullscreen} = this.state;
-    const isForkedWidget = widgetId.match(/\w+:[\w\-]+/);
+
     const state = {...this.state};
     const actions = {...this.actions};
 
