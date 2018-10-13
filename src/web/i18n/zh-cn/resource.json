@@ -324,7 +324,6 @@
     "Choose a port": "选择端口",
     "Refresh": "刷新",
     "Baud rate": "波特率",
-    "Choose a baud rate": "选择波特率",
     "Enable hardware flow control": "开启硬件流控制",
     "Connect automatically": "自动连接",
     "Error opening serial port: {{-path}}": "打开端口失败: {{-path}}",
@@ -524,5 +523,8 @@
     "store Defaults": "",
     "problem": "",
     "Back to Homepage": "",
-    "Connect Machine": ""
+    "Connect Machine": "",
+    "Connect": "",
+    "Disconnect": "",
+    "Reload Page": ""
 }

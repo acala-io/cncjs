@@ -324,7 +324,6 @@
     "Choose a port": "Elija un puerto",
     "Refresh": "Actualizar",
     "Baud rate": "Baud rate",
-    "Choose a baud rate": "Elija",
     "Enable hardware flow control": "",
     "Connect automatically": "Conectar automaticamente",
     "Error opening serial port: {{-path}}": "",
@@ -524,5 +523,8 @@
     "store Defaults": "",
     "problem": "",
     "Back to Homepage": "",
-    "Connect Machine": ""
+    "Connect Machine": "",
+    "Connect": "",
+    "Disconnect": "",
+    "Reload Page": ""
 }

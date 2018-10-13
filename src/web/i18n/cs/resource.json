@@ -324,7 +324,6 @@
     "Choose a port": "Zvolte port",
     "Refresh": "Obnovit",
     "Baud rate": "Rychlost",
-    "Choose a baud rate": "Zvolte rychlost",
     "Enable hardware flow control": "",
     "Connect automatically": "Automaticky připojit",
     "Error opening serial port: {{-path}}": "",
@@ -524,5 +523,8 @@
     "store Defaults": "",
     "problem": "",
     "Back to Homepage": "",
-    "Connect Machine": ""
+    "Connect Machine": "",
+    "Connect": "",
+    "Disconnect": "",
+    "Reload Page": ""
 }

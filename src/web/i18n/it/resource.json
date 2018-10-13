@@ -324,7 +324,6 @@
     "Choose a port": "Scegli una porta",
     "Refresh": "Aggiorna",
     "Baud rate": "",
-    "Choose a baud rate": "",
     "Enable hardware flow control": "",
     "Connect automatically": "Connetti automaticamente",
     "Error opening serial port: {{-path}}": "",
@@ -524,5 +523,8 @@
     "store Defaults": "",
     "problem": "",
     "Back to Homepage": "",
-    "Connect Machine": ""
+    "Connect Machine": "",
+    "Connect": "",
+    "Disconnect": "",
+    "Reload Page": ""
 }

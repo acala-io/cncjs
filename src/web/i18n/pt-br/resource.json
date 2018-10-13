@@ -324,7 +324,6 @@
     "Choose a port": "Escolha uma porta",
     "Refresh": "Atualizar",
     "Baud rate": "Taxa de transmissão",
-    "Choose a baud rate": "Escolha uma taxa de transmissão (baud rate)",
     "Enable hardware flow control": "Ativar controle de fluxo de hardware",
     "Connect automatically": "Conectar automaticamente",
     "Error opening serial port: {{-path}}": "Erro abrindo porta serial: {{-path}}",
@@ -524,5 +523,8 @@
     "store Defaults": "",
     "problem": "",
     "Back to Homepage": "",
-    "Connect Machine": ""
+    "Connect Machine": "",
+    "Connect": "",
+    "Disconnect": "",
+    "Reload Page": ""
 }
