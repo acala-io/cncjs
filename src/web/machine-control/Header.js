@@ -32,7 +32,7 @@ class Header extends PureComponent {
     return (
       <Fragment>
         <Button text={i18n._('Connect Machine')} isDisabled={isDisabled} handleClick={connectMachine} />
-        <Button text={i18n._('Homing')} isDisabled={isDisabled} handleClick={homeMachine} />
+        <Button text={i18n._('Home Machine')} isDisabled={isDisabled} handleClick={homeMachine} />
       </Fragment>
     );
   }
