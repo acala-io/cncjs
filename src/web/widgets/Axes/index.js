@@ -6,7 +6,7 @@ import mapValues from 'lodash/mapValues';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import api from '../../api';
+import API from '../../api';
 import combokeys from '../../lib/combokeys';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
@@ -567,7 +567,7 @@ class AxesWidget extends PureComponent {
 
   fetchMDICommands = async () => {
     try {
-      const res = await api.mdi.fetch();
+      const res = await API.mdi.fetch();
       const {records: commands} = res.body;
 
       this.setState(state => ({

@@ -10,7 +10,7 @@ import {downloadGCode, fetchGCode, loadGCode} from './GCode';
 import {getState, setState, unsetState} from './State';
 import {signin} from './Authentication';
 
-export default {
+const API = {
   commands: Commands,
   controllers: Controllers,
   downloadGCode,
@@ -27,3 +27,5 @@ export default {
   users: Users,
   watch: Watch,
 };
+
+export default API;
