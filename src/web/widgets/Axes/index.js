@@ -5,20 +5,15 @@ import map from 'lodash/map';
 import mapValues from 'lodash/mapValues';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import api from 'web/api';
-import Space from 'web/components/Space';
-import Widget from 'web/components/Widget';
-import combokeys from 'web/lib/combokeys';
-import controller from 'web/lib/controller';
-import {preventDefault} from 'web/lib/dom-events';
-import i18n from 'web/lib/i18n';
-import {in2mm, mapPositionToUnits} from 'web/lib/units';
-import {limit} from 'web/lib/normalize-range';
-import WidgetConfig from 'web/widgets/WidgetConfig';
-import Axes from './Axes';
-import KeypadOverlay from './KeypadOverlay';
-import Settings from './Settings';
-import ShuttleControl from './ShuttleControl';
+
+import api from '../../api';
+import combokeys from '../../lib/combokeys';
+import controller from '../../lib/controller';
+import i18n from '../../lib/i18n';
+import {in2mm, mapPositionToUnits} from '../../lib/units';
+import {limit} from '../../lib/normalize-range';
+import {preventDefault} from '../../lib/dom-events';
+
 import {
   // Units
   IMPERIAL_UNITS,
@@ -42,48 +37,178 @@ import {
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
 import {MODAL_NONE, MODAL_SETTINGS, DEFAULT_AXES} from './constants';
+
+import Axes from './Axes';
+import KeypadOverlay from './KeypadOverlay';
+import Settings from './Settings';
+import ShuttleControl from './ShuttleControl';
+import Space from '../../components/Space';
+import Widget from '../../components/Widget';
+import WidgetConfig from '../../widgets/WidgetConfig';
+
 import styles from './index.styl';
+
+const getControllerState = (type, controllerState, state) => {
+  const {machinePosition, workPosition} = state;
+  const {modal = {}} = {...controllerState};
+
+  const units =
+    {
+      G20: IMPERIAL_UNITS,
+      G21: METRIC_UNITS,
+    }[modal.units] || state.units;
+
+  const controller = {
+    ...state.controller,
+    state: controllerState,
+    type,
+  };
+
+  const commonState = {
+    controller,
+    units,
+  };
+
+  // GRBL
+  // Machine position and work position are reported in mm ($13=0) or inches ($13=1)
+  if (type === GRBL) {
+    const {mpos, wpos} = {...controllerState};
+    const $13 = Number(get(controller.settings, 'settings.$13', 0)) || 0;
+    const mapPositionGRBL = val => ($13 > 0 ? in2mm(val) : val);
+
+    return {
+      ...commonState,
+      machinePosition: mapValues({...machinePosition, ...mpos}, mapPositionGRBL),
+      workPosition: mapValues({...workPosition, ...wpos}, mapPositionGRBL),
+    };
+  }
+
+  // Marlin
+  // Machine position and work position are reported in current units
+  if (type === MARLIN) {
+    const {pos} = {...controllerState};
+    const mapPositionMARLIN = val => (units === IMPERIAL_UNITS ? in2mm(val) : val);
+
+    return {
+      ...commonState,
+      machinePosition: mapValues({...machinePosition, ...pos}, mapPositionMARLIN),
+      workPosition: mapValues({...workPosition, ...pos}, mapPositionMARLIN),
+    };
+  }
+
+  // Smoothie
+  // Machine position and work position are reported in current units
+  if (type === SMOOTHIE) {
+    const {mpos, wpos} = {...controllerState};
+    const mapPositionSMOOTHIE = val => (units === IMPERIAL_UNITS ? in2mm(val) : val);
+
+    return {
+      commonState,
+      machinePosition: mapValues({...machinePosition, ...mpos}, mapPositionSMOOTHIE),
+      workPosition: mapValues({...workPosition, ...wpos}, mapPositionSMOOTHIE),
+    };
+  }
+
+  // TinyG
+  // https://github.com/synthetos/g2/wiki/Status-Reports
+  // Canonical machine position is always reported in millimeters with no offsets.
+  // Work position is reported in current units, and also applies any offsets.
+  if (type === TINYG) {
+    const {mpos, wpos} = {...controllerState};
+    const mapPositionTINYG = val => (units === IMPERIAL_UNITS ? in2mm(val) : val);
+
+    return {
+      commonState,
+      machinePosition: {...machinePosition, ...mpos},
+      workPosition: mapValues({...workPosition, ...wpos}, mapPositionTINYG),
+    };
+  }
+
+  return {};
+};
 
 class AxesWidget extends PureComponent {
   static propTypes = {
     widgetId: PropTypes.string.isRequired,
   };
 
-  // Public methods
-  collapse = () => {
-    this.setState({minimized: true});
-  };
-  expand = () => {
-    this.setState({minimized: false});
-  };
-
   config = new WidgetConfig(this.props.widgetId);
+
   state = this.getInitialState();
+
+  getInitialState() {
+    const {settings, state, type} = controller;
+
+    return {
+      axes: this.config.get('axes', DEFAULT_AXES),
+      canClick: false,
+      connection: {
+        ident: controller.connection.ident,
+      },
+      controller: {
+        settings,
+        state,
+        type,
+      },
+      jog: {
+        axis: '', // Defaults to empty
+        imperial: {
+          distances: ensureArray(this.config.get('jog.imperial.distances', [])),
+          step: this.config.get('jog.imperial.step'),
+        },
+        keypad: this.config.get('jog.keypad'),
+        metric: {
+          distances: ensureArray(this.config.get('jog.metric.distances', [])),
+          step: this.config.get('jog.metric.step'),
+        },
+      },
+      machinePosition: {
+        // Machine position
+        x: '0.000',
+        y: '0.000',
+        z: '0.000',
+        a: '0.000',
+        b: '0.000',
+        c: '0.000',
+      },
+      mdi: {
+        commands: [],
+        disabled: this.config.get('mdi.disabled'),
+      },
+      modal: {
+        name: MODAL_NONE,
+        params: {},
+      },
+      units: METRIC_UNITS,
+      workflow: {
+        state: controller.workflow.state,
+      },
+      workPosition: {
+        // Work position
+        x: '0.000',
+        y: '0.000',
+        z: '0.000',
+        a: '0.000',
+        b: '0.000',
+        c: '0.000',
+      },
+    };
+  }
+
   actions = {
-    toggleFullscreen: () => {
-      const {minimized, isFullscreen} = this.state;
+    closeModal: () => {
       this.setState({
-        minimized: isFullscreen ? minimized : false,
-        isFullscreen: !isFullscreen,
+        modal: {
+          name: MODAL_NONE,
+          params: {},
+        },
       });
-    },
-    toggleMinimized: () => {
-      const {minimized} = this.state;
-      this.setState({minimized: !minimized});
     },
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({
         modal: {
           name: name,
           params: params,
-        },
-      });
-    },
-    closeModal: () => {
-      this.setState({
-        modal: {
-          name: MODAL_NONE,
-          params: {},
         },
       });
     },
@@ -106,6 +231,7 @@ class AxesWidget extends PureComponent {
         const imperialJogDistances = ensureArray(this.config.get('jog.imperial.distances', []));
         const imperialJogSteps = [...imperialJogDistances, ...IMPERIAL_STEPS];
         const distance = Number(imperialJogSteps[step]) || 0;
+
         return distance;
       }
 
@@ -114,6 +240,7 @@ class AxesWidget extends PureComponent {
         const metricJogDistances = ensureArray(this.config.get('jog.metric.distances', []));
         const metricJogSteps = [...metricJogDistances, ...METRIC_STEPS];
         const distance = Number(metricJogSteps[step]) || 0;
+
         return distance;
       }
 
@@ -264,7 +391,32 @@ class AxesWidget extends PureComponent {
         };
       });
     },
+    saveAxesSettings: () => {
+      const axes = this.config.get('axes', DEFAULT_AXES);
+      const imperialJogDistances = ensureArray(this.config.get('jog.imperial.distances', []));
+      const metricJogDistances = ensureArray(this.config.get('jog.metric.distances', []));
+
+      this.setState(state => ({
+        axes,
+        jog: {
+          ...this.state.jog,
+          imperial: {
+            ...this.state.jog.imperial,
+            distances: imperialJogDistances,
+          },
+          metric: {
+            ...this.state.jog.metric,
+            distances: metricJogDistances,
+          },
+        },
+        modal: {
+          name: MODAL_NONE,
+          params: {},
+        },
+      }));
+    },
   };
+
   shuttleControlEvents = {
     SELECT_AXIS: (event, {axis}) => {
       const {canClick, jog} = this.state;
@@ -349,11 +501,11 @@ class AxesWidget extends PureComponent {
 
       this.shuttleControl.accumulate(zone, {
         axis: jog.axis,
-        distance: distance,
-        feedrateMin: feedrateMin,
-        feedrateMax: feedrateMax,
-        hertz: hertz,
-        overshoot: overshoot,
+        distance,
+        feedrateMax,
+        feedrateMin,
+        hertz,
+        overshoot,
       });
     },
   };
@@ -362,11 +514,10 @@ class AxesWidget extends PureComponent {
       this.fetchMDICommands();
     },
     'connection:open': options => {
-      const {ident} = options;
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident: options.ident,
         },
       }));
     },
@@ -401,164 +552,15 @@ class AxesWidget extends PureComponent {
       this.setState(state => ({
         controller: {
           ...state.controller,
-          type: type,
           settings: controllerSettings,
+          type,
         },
       }));
     },
     'controller:state': (type, controllerState) => {
-      // Grbl
-      if (type === GRBL) {
-        const {mpos, wpos, modal = {}} = {...controllerState};
-        const units =
-          {
-            G20: IMPERIAL_UNITS,
-            G21: METRIC_UNITS,
-          }[modal.units] || this.state.units;
-        const $13 = Number(get(controller.settings, 'settings.$13', 0)) || 0;
+      const newState = getControllerState(type, controllerState, this.state);
 
-        this.setState(state => ({
-          units: units,
-          controller: {
-            ...state.controller,
-            type: type,
-            state: controllerState,
-          },
-          // Machine position are reported in mm ($13=0) or inches ($13=1)
-          machinePosition: mapValues(
-            {
-              ...state.machinePosition,
-              ...mpos,
-            },
-            val => {
-              return $13 > 0 ? in2mm(val) : val;
-            }
-          ),
-          // Work position are reported in mm ($13=0) or inches ($13=1)
-          workPosition: mapValues(
-            {
-              ...state.workPosition,
-              ...wpos,
-            },
-            val => {
-              return $13 > 0 ? in2mm(val) : val;
-            }
-          ),
-        }));
-      }
-
-      // Marlin
-      if (type === MARLIN) {
-        const {pos, modal = {}} = {...controllerState};
-        const units =
-          {
-            G20: IMPERIAL_UNITS,
-            G21: METRIC_UNITS,
-          }[modal.units] || this.state.units;
-
-        this.setState(state => ({
-          units: units,
-          controller: {
-            ...state.controller,
-            type: type,
-            state: controllerState,
-          },
-          // Machine position are reported in current units
-          machinePosition: mapValues(
-            {
-              ...state.machinePosition,
-              ...pos,
-            },
-            val => {
-              return units === IMPERIAL_UNITS ? in2mm(val) : val;
-            }
-          ),
-          // Work position are reported in current units
-          workPosition: mapValues(
-            {
-              ...state.workPosition,
-              ...pos,
-            },
-            val => {
-              return units === IMPERIAL_UNITS ? in2mm(val) : val;
-            }
-          ),
-        }));
-      }
-
-      // Smoothie
-      if (type === SMOOTHIE) {
-        const {mpos, wpos, modal = {}} = {...controllerState};
-        const units =
-          {
-            G20: IMPERIAL_UNITS,
-            G21: METRIC_UNITS,
-          }[modal.units] || this.state.units;
-
-        this.setState(state => ({
-          units: units,
-          controller: {
-            ...state.controller,
-            type: type,
-            state: controllerState,
-          },
-          // Machine position are reported in current units
-          machinePosition: mapValues(
-            {
-              ...state.machinePosition,
-              ...mpos,
-            },
-            val => {
-              return units === IMPERIAL_UNITS ? in2mm(val) : val;
-            }
-          ),
-          // Work position are reported in current units
-          workPosition: mapValues(
-            {
-              ...state.workPosition,
-              ...wpos,
-            },
-            val => {
-              return units === IMPERIAL_UNITS ? in2mm(val) : val;
-            }
-          ),
-        }));
-      }
-
-      // TinyG
-      if (type === TINYG) {
-        const {mpos, wpos, modal = {}} = {...controllerState};
-        const units =
-          {
-            G20: IMPERIAL_UNITS,
-            G21: METRIC_UNITS,
-          }[modal.units] || this.state.units;
-
-        this.setState(state => ({
-          units: units,
-          controller: {
-            ...state.controller,
-            type: type,
-            state: controllerState,
-          },
-          // https://github.com/synthetos/g2/wiki/Status-Reports
-          // Canonical machine position are always reported in millimeters with no offsets.
-          machinePosition: {
-            ...state.machinePosition,
-            ...mpos,
-          },
-          // Work position are reported in current units, and also apply any offsets.
-          workPosition: mapValues(
-            {
-              ...state.workPosition,
-              ...wpos,
-            },
-            val => {
-              return units === IMPERIAL_UNITS ? in2mm(val) : val;
-            }
-          ),
-        }));
-      }
+      this.setState(newState);
     },
   };
   shuttleControl = null;
@@ -567,6 +569,7 @@ class AxesWidget extends PureComponent {
     try {
       const res = await api.mdi.fetch();
       const {records: commands} = res.body;
+
       this.setState(state => ({
         mdi: {
           ...state.mdi,
@@ -597,69 +600,10 @@ class AxesWidget extends PureComponent {
     this.config.set('jog.keypad', jog.keypad);
     if (units === IMPERIAL_UNITS) {
       this.config.set('jog.imperial.step', Number(jog.imperial.step) || 0);
-    }
-    if (units === METRIC_UNITS) {
+    } else {
       this.config.set('jog.metric.step', Number(jog.metric.step) || 0);
     }
     this.config.set('mdi.disabled', mdi.disabled);
-  }
-
-  getInitialState() {
-    return {
-      minimized: this.config.get('minimized', false),
-      canClick: false,
-      units: METRIC_UNITS,
-      controller: {
-        type: controller.type,
-        settings: controller.settings,
-        state: controller.state,
-      },
-      connection: {
-        ident: controller.connection.ident,
-      },
-      workflow: {
-        state: controller.workflow.state,
-      },
-      modal: {
-        name: MODAL_NONE,
-        params: {},
-      },
-      axes: this.config.get('axes', DEFAULT_AXES),
-      machinePosition: {
-        // Machine position
-        x: '0.000',
-        y: '0.000',
-        z: '0.000',
-        a: '0.000',
-        b: '0.000',
-        c: '0.000',
-      },
-      workPosition: {
-        // Work position
-        x: '0.000',
-        y: '0.000',
-        z: '0.000',
-        a: '0.000',
-        b: '0.000',
-        c: '0.000',
-      },
-      jog: {
-        axis: '', // Defaults to empty
-        imperial: {
-          distances: ensureArray(this.config.get('jog.imperial.distances', [])),
-          step: this.config.get('jog.imperial.step'),
-        },
-        keypad: this.config.get('jog.keypad'),
-        metric: {
-          distances: ensureArray(this.config.get('jog.metric.distances', [])),
-          step: this.config.get('jog.metric.step'),
-        },
-      },
-      mdi: {
-        commands: [],
-        disabled: this.config.get('mdi.disabled'),
-      },
-    };
   }
 
   addControllerEvents() {
@@ -745,20 +689,16 @@ class AxesWidget extends PureComponent {
 
   render() {
     const {widgetId} = this.props;
-    const {units, machinePosition, workPosition} = this.state;
+    const {machinePosition, units, workPosition} = this.state;
     const config = this.config;
     const state = {
       ...this.state,
       // Determine if the motion button is clickable
       canClick: this.canClick(),
       // Output machine position with the display units
-      machinePosition: mapValues(machinePosition, (pos, axis) => {
-        return String(mapPositionToUnits(pos, units));
-      }),
+      machinePosition: mapValues(machinePosition, (pos, axis) => String(mapPositionToUnits(pos, units))),
       // Output work position with the display units
-      workPosition: mapValues(workPosition, (pos, axis) => {
-        return String(mapPositionToUnits(pos, units));
-      }),
+      workPosition: mapValues(workPosition, (pos, axis) => String(mapPositionToUnits(pos, units))),
     };
 
     const actions = {...this.actions};
@@ -767,69 +707,63 @@ class AxesWidget extends PureComponent {
       <Widget>
         <Widget.Header>
           <Widget.Title>{i18n._('Axes')}</Widget.Title>
-          <Widget.Controls>
-            <KeypadOverlay show={state.canClick && state.jog.keypad}>
-              <Widget.Button
-                title={i18n._('Keypad jogging')}
-                onClick={actions.toggleKeypadJogging}
-                inverted={state.jog.keypad}
-                disabled={!state.canClick}
-              >
-                <i className="fa fa-keyboard-o" />
-              </Widget.Button>
-            </KeypadOverlay>
-            <Widget.Button
-              title={i18n._('Manual Data Input')}
-              onClick={actions.toggleMDIMode}
-              inverted={!state.mdi.disabled}
-            >
-              <Space width="4" />
-              {i18n._('MDI')}
-              <Space width="4" />
-            </Widget.Button>
-            <Widget.Button
-              title={i18n._('Edit')}
-              onClick={event => {
-                actions.openModal(MODAL_SETTINGS);
-              }}
-            >
-              <i className="fa fa-cog" />
-            </Widget.Button>
-          </Widget.Controls>
+          {this.widgetControls}
         </Widget.Header>
         <Widget.Content className={styles['widget-content']}>
-          {state.modal.name === MODAL_SETTINGS && (
-            <Settings
-              config={config}
-              onSave={() => {
-                const axes = config.get('axes', DEFAULT_AXES);
-                const imperialJogDistances = ensureArray(config.get('jog.imperial.distances', []));
-                const metricJogDistances = ensureArray(config.get('jog.metric.distances', []));
-
-                this.setState(state => ({
-                  axes: axes,
-                  jog: {
-                    ...state.jog,
-                    imperial: {
-                      ...state.jog.imperial,
-                      distances: imperialJogDistances,
-                    },
-                    metric: {
-                      ...state.jog.metric,
-                      distances: metricJogDistances,
-                    },
-                  },
-                }));
-
-                actions.closeModal();
-              }}
-              onCancel={actions.closeModal}
-            />
-          )}
           <Axes config={config} state={state} actions={actions} />
         </Widget.Content>
+        {this.modalHasToBeMovedToGlobalModals}
       </Widget>
     );
+  }
+
+  get widgetControls() {
+    const state = {
+      ...this.state,
+      // Determine if the motion button is clickable
+      canClick: this.canClick(),
+      // Output machine position with the display units
+      machinePosition: mapValues(this.state.machinePosition, (pos, axis) =>
+        String(mapPositionToUnits(pos, this.state.units))
+      ),
+      // Output work position with the display units
+      workPosition: mapValues(this.state.workPosition, (pos, axis) =>
+        String(mapPositionToUnits(pos, this.state.units))
+      ),
+    };
+    const {canClick, jog, mdi} = state;
+    const {openModal, toggleKeypadJogging, toggleMDIMode} = this.actions;
+
+    return (
+      <Widget.Controls>
+        <KeypadOverlay show={canClick && jog.keypad}>
+          <Widget.Button
+            title={i18n._('Keypad jogging')}
+            onClick={toggleKeypadJogging}
+            inverted={jog.keypad}
+            disabled={!canClick}
+          >
+            <i className="fa fa-keyboard-o" />
+          </Widget.Button>
+        </KeypadOverlay>
+        <Widget.Button title={i18n._('Manual Data Input')} onClick={toggleMDIMode} inverted={!mdi.disabled}>
+          <Space width="4" />
+          {i18n._('MDI')}
+          <Space width="4" />
+        </Widget.Button>
+        <Widget.Button title={i18n._('Edit')} onClick={() => openModal(MODAL_SETTINGS)}>
+          <i className="fa fa-cog" />
+        </Widget.Button>
+      </Widget.Controls>
+    );
+  }
+
+  get modalHasToBeMovedToGlobalModals() {
+    if (!(this.state.modal.name === MODAL_SETTINGS)) {
+      return null;
+    }
+
+    return <Settings config={this.config} onSave={this.actions.saveAxesSettings} onCancel={this.actions.closeModal} />;
   }
 }
 
