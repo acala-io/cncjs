@@ -6,7 +6,7 @@ import includes from 'lodash/includes';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Sortable from 'react-sortablejs';
 import uuid from 'uuid';
 
@@ -28,8 +28,8 @@ import styles from './widgets.styl';
 class PrimaryWidgets extends Component {
   static propTypes = {
     className: PropTypes.string,
-    onDragEnd: PropTypes.func.isRequired,
-    onDragStart: PropTypes.func.isRequired,
+    // onDragEnd: PropTypes.func.isRequired,
+    // onDragStart: PropTypes.func.isRequired,
     onForkWidget: PropTypes.func.isRequired,
     onRemoveWidget: PropTypes.func.isRequired,
   };
@@ -206,35 +206,7 @@ class PrimaryWidgets extends Component {
         </div>
       ));
 
-    return (
-      <Sortable
-        className={classNames(className, styles.widgets)}
-        style={{
-          overflowX: 'hidden',
-        }}
-        options={{
-          animation: 150,
-          delay: 0, // Touch and hold delay
-          group: {
-            name: 'primary',
-            pull: true,
-            put: ['secondary'],
-          },
-          handle: '.sortable-handle', // Drag handle selector within list items
-          filter: '.sortable-filter', // Selectors that do not lead to dragging
-          chosenClass: 'sortable-chosen', // Class name for the chosen item
-          ghostClass: 'sortable-ghost', // Class name for the drop placeholder
-          dataIdAttr: 'data-widget-id',
-          onStart: this.props.onDragStart,
-          onEnd: this.props.onDragEnd,
-        }}
-        onChange={order => {
-          this.setState({widgets: ensureArray(order)});
-        }}
-      >
-        {widgets}
-      </Sortable>
-    );
+    return <Fragment>{widgets}</Fragment>;
   }
 }
 

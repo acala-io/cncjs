@@ -1,51 +1,80 @@
-import cx from 'classnames';
-import reverse from 'lodash/reverse';
-import sortBy from 'lodash/sortBy';
-import uniq from 'lodash/uniq';
+import classcat from 'classcat';
 import includes from 'lodash/includes';
 import map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Space from '../../components/Space';
-import Widget from '../../components/Widget';
+import reverse from 'lodash/reverse';
+import sortBy from 'lodash/sortBy';
+import uniq from 'lodash/uniq';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import promisify from '../../lib/promisify';
+
 import WidgetConfig from '../WidgetConfig';
+
 import Connection from './Connection';
+import Space from '../../components/Space';
+import Widget from '../../components/Widget';
+
 import styles from './index.styl';
 
 class ConnectionWidget extends PureComponent {
   static propTypes = {
     widgetId: PropTypes.string.isRequired,
-    sortable: PropTypes.object,
   };
 
-  // Public methods
+  config = new WidgetConfig(this.props.widgetId);
+
+  getInitialState() {
+    let controllerType = this.config.get('controller.type');
+    if (!includes(controller.availableControllers, controllerType)) {
+      controllerType = controller.availableControllers[0];
+    }
+
+    // Default baud rates
+    const defaultBaudRates = [250000, 115200, 57600, 38400, 19200, 9600, 2400];
+
+    return {
+      alertMessage: '',
+      autoReconnect: this.config.get('autoReconnect'),
+      baudRates: defaultBaudRates,
+      connected: false,
+      connecting: false,
+      connection: {
+        serial: {
+          baudRate: this.config.get('connection.serial.baudRate'),
+          path: this.config.get('connection.serial.path'),
+          rtscts: this.config.get('connection.serial.rtscts'),
+        },
+        socket: {
+          host: this.config.get('connection.socket.host'),
+          port: this.config.get('connection.socket.port'),
+        },
+        type: this.config.get('connection.type'),
+      },
+      controller: {
+        type: this.config.get('controller.type'),
+      },
+      isFullscreen: false,
+      loading: false,
+      minimized: this.config.get('minimized', false),
+      ports: [],
+    };
+  }
+
+  state = this.getInitialState();
+
   collapse = () => {
     this.setState({minimized: true});
   };
+
   expand = () => {
     this.setState({minimized: false});
   };
 
-  config = new WidgetConfig(this.props.widgetId);
-  state = this.getInitialState();
   actions = {
-    toggleFullscreen: () => {
-      const {minimized, isFullscreen} = this.state;
-      this.setState(state => ({
-        minimized: isFullscreen ? minimized : false,
-        isFullscreen: !isFullscreen,
-      }));
-    },
-    toggleMinimized: () => {
-      const {minimized} = this.state;
-      this.setState(state => ({
-        minimized: !minimized,
-      }));
-    },
     clearAlert: () => {
       this.setState(state => ({
         alertMessage: '',
@@ -121,8 +150,8 @@ class ConnectionWidget extends PureComponent {
 
         this.setState(state => ({
           alertMessage: '',
-          connecting: false,
           connected: true,
+          connecting: false,
           ports: state.ports.map(port => {
             if (port.comName !== settings.path) {
               return port;
@@ -140,8 +169,8 @@ class ConnectionWidget extends PureComponent {
 
         this.setState(state => ({
           alertMessage: '',
-          connecting: false,
           connected: false,
+          connecting: false,
           ports: state.ports.map(port => {
             if (port.comName !== settings.path) {
               return port;
@@ -175,8 +204,8 @@ class ConnectionWidget extends PureComponent {
 
         this.setState(state => ({
           alertMessage: i18n._('Error opening serial port: {{-path}}', {path: settings.path}),
-          connecting: false,
           connected: false,
+          connecting: false,
         }));
       }
     },
@@ -186,9 +215,11 @@ class ConnectionWidget extends PureComponent {
     this.addControllerEvents();
     this.refresh({autoConnect: true});
   }
+
   componentWillUnmount() {
     this.removeControllerEvents();
   }
+
   componentDidUpdate(prevProps, prevState) {
     this.config.set('minimized', this.state.minimized);
 
@@ -221,54 +252,21 @@ class ConnectionWidget extends PureComponent {
 
     this.config.set('autoReconnect', this.state.autoReconnect);
   }
-  getInitialState() {
-    let controllerType = this.config.get('controller.type');
-    if (!includes(controller.availableControllers, controllerType)) {
-      controllerType = controller.availableControllers[0];
-    }
 
-    // Default baud rates
-    const defaultBaudRates = [250000, 115200, 57600, 38400, 19200, 9600, 2400];
-
-    return {
-      minimized: this.config.get('minimized', false),
-      isFullscreen: false,
-      ports: [],
-      baudRates: defaultBaudRates,
-      alertMessage: '',
-      autoReconnect: this.config.get('autoReconnect'),
-      connecting: false,
-      connected: false,
-      loading: false,
-      controller: {
-        type: this.config.get('controller.type'),
-      },
-      connection: {
-        type: this.config.get('connection.type'),
-        serial: {
-          path: this.config.get('connection.serial.path'),
-          baudRate: this.config.get('connection.serial.baudRate'),
-          rtscts: this.config.get('connection.serial.rtscts'),
-        },
-        socket: {
-          host: this.config.get('connection.socket.host'),
-          port: this.config.get('connection.socket.port'),
-        },
-      },
-    };
-  }
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.addListener(eventName, callback);
     });
   }
+
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.removeListener(eventName, callback);
     });
   }
+
   async refresh(options) {
     const {autoConnect = false} = {...options};
 
@@ -293,6 +291,7 @@ class ConnectionWidget extends PureComponent {
       errorFirst: true,
       thisArg: controller,
     });
+
     const fetchPorts = promisify(controller.getPorts, {
       errorFirst: true,
       thisArg: controller,
@@ -311,14 +310,14 @@ class ConnectionWidget extends PureComponent {
       if (includes(map(ports, 'comName'), path)) {
         this.setState(state => ({
           alertMessage: '',
-          ports: ports,
           connection: {
             ...state.connection,
             serial: {
               ...state.connection.serial,
-              path: path,
+              path,
             },
           },
+          ports,
         }));
 
         if (this.state.autoReconnect && autoConnect) {
@@ -327,7 +326,7 @@ class ConnectionWidget extends PureComponent {
       } else {
         this.setState(state => ({
           alertMessage: '',
-          ports: ports,
+          ports,
         }));
       }
     } catch (err) {
@@ -343,12 +342,13 @@ class ConnectionWidget extends PureComponent {
       loading: false,
     }));
   }
+
   openPort(path, baudRate) {
     const controllerType = this.state.controller.type;
     const connectionType = this.state.connection.type;
     const options = {
-      path: path || this.state.connection.serial.path,
       baudRate: baudRate || this.state.connection.serial.baudRate,
+      path: path || this.state.connection.serial.path,
       rtscts: this.state.connection.serial.rtscts,
     };
 
@@ -361,17 +361,18 @@ class ConnectionWidget extends PureComponent {
         log.error(err);
         this.setState(state => ({
           alertMessage: i18n._('Error opening serial port: {{-path}}', {path: options.path}),
-          connecting: false,
           connected: false,
+          connecting: false,
         }));
         return;
       }
     });
   }
+
   closePort() {
     this.setState(state => ({
-      connecting: false,
       connected: false,
+      connecting: false,
     }));
 
     controller.close(err => {
@@ -383,54 +384,20 @@ class ConnectionWidget extends PureComponent {
       this.refresh();
     });
   }
+
   render() {
     const {widgetId} = this.props;
     const {minimized, isFullscreen} = this.state;
     const isForkedWidget = widgetId.match(/\w+:[\w\-]+/);
-    const state = {
-      ...this.state,
-    };
-    const actions = {
-      ...this.actions,
-    };
+    const state = {...this.state};
+    const actions = {...this.actions};
 
     return (
-      <Widget fullscreen={isFullscreen}>
+      <Widget>
         <Widget.Header>
-          <Widget.Title>
-            <Widget.Sortable className={this.props.sortable.handleClassName}>
-              <i className="fa fa-bars" />
-              <Space width="8" />
-            </Widget.Sortable>
-            {isForkedWidget && <i className="fa fa-code-fork" style={{marginRight: 5}} />}
-            {i18n._('Connection')}
-          </Widget.Title>
-          <Widget.Controls className={this.props.sortable.filterClassName}>
-            <Widget.Button
-              disabled={isFullscreen}
-              title={minimized ? i18n._('Expand') : i18n._('Collapse')}
-              onClick={actions.toggleMinimized}
-            >
-              <i className={cx('fa', 'fa-fw', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
-            </Widget.Button>
-            <Widget.DropdownButton
-              title={i18n._('More')}
-              toggle={<i className="fa fa-ellipsis-v" />}
-              onSelect={eventKey => {
-                if (eventKey === 'fullscreen') {
-                  actions.toggleFullscreen();
-                }
-              }}
-            >
-              <Widget.DropdownMenuItem eventKey="fullscreen">
-                <i className={cx('fa', 'fa-fw', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen})} />
-                <Space width="4" />
-                {!isFullscreen ? i18n._('Enter Full Screen') : i18n._('Exit Full Screen')}
-              </Widget.DropdownMenuItem>
-            </Widget.DropdownButton>
-          </Widget.Controls>
+          <Widget.Title>{i18n._('Connection')}</Widget.Title>
         </Widget.Header>
-        <Widget.Content className={cx(styles['widget-content'], {[styles.hidden]: minimized})}>
+        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
           <Connection state={state} actions={actions} />
         </Widget.Content>
       </Widget>
