@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 
+import * as controllerActions from './actions';
 import controller from '../lib/controller';
 import i18n from '../lib/i18n';
 
@@ -36,4 +38,17 @@ const MachineControlFunctions = ({}) => (
   </div>
 );
 
-export default MachineControlFunctions;
+const mapStateToProps = (state, ownProps) => ({
+  ...state.controllers,
+});
+
+const mapDispatchToProps = (dispatch, state) => ({
+  refresh: () => {
+    dispatch(controllerActions.refresh());
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MachineControlFunctions);
