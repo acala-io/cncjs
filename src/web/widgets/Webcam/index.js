@@ -8,7 +8,6 @@ import portal from '../../lib/portal';
 import {MEDIA_SOURCE_LOCAL} from './constants';
 
 import Settings from './Settings';
-import Space from '../../components/Space';
 import Webcam from './Webcam';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
@@ -50,7 +49,6 @@ class WebcamWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
     const {disabled, minimized, isFullscreen} = this.state;
     const state = {...this.state};
     const actions = {...this.actions};
@@ -80,7 +78,7 @@ class WebcamWidget extends PureComponent {
             </Widget.Button>
             <Widget.Button
               title={i18n._('Edit')}
-              onClick={event => {
+              onClick={() => {
                 const {mediaSource, deviceId, url} = this.state;
 
                 portal(({onClose}) => (
@@ -159,8 +157,8 @@ class WebcamWidget extends PureComponent {
     toggleFullscreen: () => {
       const {minimized, isFullscreen} = this.state;
       this.setState({
-        minimized: isFullscreen ? minimized : false,
         isFullscreen: !isFullscreen,
+        minimized: isFullscreen ? minimized : false,
       });
     },
     toggleMinimized: () => {
@@ -203,32 +201,32 @@ class WebcamWidget extends PureComponent {
   };
   webcam = null;
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {
-      disabled,
-      minimized,
-      mediaSource,
+      crosshair,
       deviceId,
-      url,
-      scale,
-      rotation,
+      disabled,
       flipHorizontally,
       flipVertically,
-      crosshair,
+      mediaSource,
+      minimized,
       muted,
+      rotation,
+      scale,
+      url,
     } = this.state;
 
-    this.config.set('disabled', disabled);
-    this.config.set('minimized', minimized);
-    this.config.set('mediaSource', mediaSource);
+    this.config.set('crosshair', crosshair);
     this.config.set('deviceId', deviceId);
-    this.config.set('url', url);
-    this.config.set('geometry.scale', scale);
-    this.config.set('geometry.rotation', rotation);
+    this.config.set('disabled', disabled);
     this.config.set('geometry.flipHorizontally', flipHorizontally);
     this.config.set('geometry.flipVertically', flipVertically);
-    this.config.set('crosshair', crosshair);
+    this.config.set('geometry.rotation', rotation);
+    this.config.set('geometry.scale', scale);
+    this.config.set('mediaSource', mediaSource);
+    this.config.set('minimized', minimized);
     this.config.set('muted', muted);
+    this.config.set('url', url);
   }
 }
 

@@ -86,7 +86,7 @@ TreeNodeLoader.propTypes = {
   show: PropTypes.bool,
 };
 
-const renderer = (node, treeOptions) => {
+const renderer = node => {
   const {id, loadOnDemand = false} = node;
   const {depth, filtered, loading = false, open, selected = false} = node.state;
   const more = node.hasChildren();

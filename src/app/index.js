@@ -171,7 +171,7 @@ const createServer = (options, callback) => {
             target: target,
           });
 
-          proxy.on('proxyReq', (proxyReq, req, res, options) => {
+          proxy.on('proxyReq', proxyReq => {
             const originalPath = proxyReq.path || '';
             proxyReq.path = originalPath.replace(proxyPathPattern, targetPathname).replace('//', '/');
 
@@ -182,7 +182,7 @@ const createServer = (options, callback) => {
             );
           });
 
-          proxy.on('proxyRes', (proxyRes, req, res) => {
+          proxy.on('proxyRes', proxyRes => {
             log.debug(`proxy.on('proxyRes'): headers=${JSON.stringify(proxyRes.headers, true, 2)}`);
           });
 
@@ -290,7 +290,7 @@ const createServer = (options, callback) => {
           return;
         }
 
-        addresses.forEach(({address, family}) => {
+        addresses.forEach(({address}) => {
           log.info('Starting the server at ' + chalk.yellow(`http://${address}:${port}`));
         });
       });

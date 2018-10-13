@@ -24,7 +24,6 @@ import {
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
 
-import Space from '../../components/Space';
 import Spindle from './Spindle';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
@@ -72,7 +71,6 @@ class SpindleWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
     const {minimized} = this.state;
     const state = {
       ...this.state,
@@ -117,12 +115,12 @@ class SpindleWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
     'workflow:state': workflowState => {
-      this.setState(state => ({
+      this.setState(() => ({
         workflow: {
           state: workflowState,
         },
@@ -203,7 +201,7 @@ class SpindleWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {minimized, spindleSpeed} = this.state;
 
     this.config.set('minimized', minimized);

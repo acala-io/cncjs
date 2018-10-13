@@ -70,7 +70,7 @@ class PositionInput extends PureComponent {
             type="button"
             className="btn btn-default"
             disabled={!isNumber}
-            onClick={event => {
+            onClick={() => {
               onSave(this.state.value);
             }}
           >
@@ -79,7 +79,7 @@ class PositionInput extends PureComponent {
           <button
             type="button"
             className="btn btn-default"
-            onClick={event => {
+            onClick={() => {
               onCancel();
             }}
           >

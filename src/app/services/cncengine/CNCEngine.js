@@ -67,7 +67,7 @@ class CNCEngine {
         this.io.emit('task:error', ...args);
       }
     },
-    configChange: (...args) => {
+    configChange: () => {
       if (this.io) {
         this.io.emit('config:change');
       }

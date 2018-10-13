@@ -1,6 +1,6 @@
 import React, {Fragment, PureComponent} from 'react';
 // import {connect} from 'react-redux';
-import {bool, func} from 'prop-types';
+// import {bool, func} from 'prop-types';
 // import {Link} from 'redux-json-router';
 
 // import {showModal} from './actions/dialogs';

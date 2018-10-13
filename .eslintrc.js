@@ -119,7 +119,7 @@ module.exports = {
     'no-undef': 2,
     'no-unreachable': 2,
     'no-unused-expressions': 2,
-    // 'no-unused-vars': [2, {vars: 'all', args: 'after-used', ignoreRestSiblings: false}],
+    'no-unused-vars': [2, {vars: 'all', args: 'after-used', ignoreRestSiblings: false}],
     'no-use-before-define': [2, {functions: true, classes: true}],
     'no-void': 2,
     'no-with': 2,

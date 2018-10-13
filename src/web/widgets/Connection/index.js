@@ -15,7 +15,6 @@ import promisify from '../../lib/promisify';
 import WidgetConfig from '../WidgetConfig';
 
 import Connection from './Connection';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 
 import styles from './index.styl';
@@ -98,17 +97,17 @@ class ConnectionWidget extends PureComponent {
       }));
     },
     clearAlert: () => {
-      this.setState(state => ({
+      this.setState({
         alertMessage: '',
-      }));
+      });
     },
-    handleClosePort: event => {
+    handleClosePort: () => {
       this.closePort();
     },
-    handleOpenPort: event => {
+    handleOpenPort: () => {
       this.openPort();
     },
-    handleRefresh: event => {
+    handleRefresh: () => {
       this.refresh();
     },
     onChangeBaudRateOption: option => {
@@ -136,9 +135,9 @@ class ConnectionWidget extends PureComponent {
       }));
     },
     toggleAutoReconnect: checked => {
-      this.setState(state => ({
+      this.setState({
         autoReconnect: checked,
-      }));
+      });
     },
     toggleHardwareFlowControl: checked => {
       this.setState(state => ({
@@ -211,17 +210,17 @@ class ConnectionWidget extends PureComponent {
         }));
       }
     },
-    'connection:error': (options, err) => {
+    'connection:error': options => {
       const {settings, type} = options;
 
       if (type === 'serial') {
         log.error(`Error opening serial port: type=${type}, settings=${settings}`);
 
-        this.setState(state => ({
+        this.setState({
           alertMessage: i18n._('Error opening serial port: {{-path}}', {path: settings.path}),
           connected: false,
           connecting: false,
-        }));
+        });
       }
     },
   };
@@ -290,17 +289,17 @@ class ConnectionWidget extends PureComponent {
     let loadingTimeout = null;
 
     // Start loading
-    this.setState(state => ({
+    this.setState({
       loading: true,
-    }));
+    });
 
     // Cancel loading after 5 seconds
     loadingTimeout = setTimeout(() => {
       loadingTimeout = null;
 
-      this.setState(state => ({
+      this.setState({
         loading: false,
-      }));
+      });
     }, 5000);
 
     const fetchBaudRates = promisify(controller.getBaudRates, {
@@ -340,10 +339,10 @@ class ConnectionWidget extends PureComponent {
           this.openPort(path);
         }
       } else {
-        this.setState(state => ({
+        this.setState({
           alertMessage: '',
           ports,
-        }));
+        });
       }
     } catch (err) {
       log.error(err);
@@ -354,9 +353,9 @@ class ConnectionWidget extends PureComponent {
       clearTimeout(loadingTimeout);
       loadingTimeout = null;
     }
-    this.setState(state => ({
+    this.setState({
       loading: false,
-    }));
+    });
   }
 
   openPort(path, baudRate) {
@@ -368,28 +367,28 @@ class ConnectionWidget extends PureComponent {
       rtscts: this.state.connection.serial.rtscts,
     };
 
-    this.setState(state => ({
+    this.setState({
       connecting: true,
-    }));
+    });
 
     controller.open(controllerType, connectionType, options, err => {
       if (err) {
         log.error(err);
-        this.setState(state => ({
+        this.setState({
           alertMessage: i18n._('Error opening serial port: {{-path}}', {path: options.path}),
           connected: false,
           connecting: false,
-        }));
+        });
         return;
       }
     });
   }
 
   closePort() {
-    this.setState(state => ({
+    this.setState({
       connected: false,
       connecting: false,
-    }));
+    });
 
     controller.close(err => {
       if (err) {

@@ -360,7 +360,7 @@ class GrblController {
       },
     });
 
-    this.sender.on('data', (line = '', context = {}) => {
+    this.sender.on('data', (line = '') => {
       if (this.isClose) {
         log.error(
           `Unable to write data to the connection: type=${this.connection.type}, settings=${JSON.stringify(
@@ -389,7 +389,7 @@ class GrblController {
 
     this.sender.on('unhold', noop);
 
-    this.sender.on('start', startTime => {
+    this.sender.on('start', () => {
       this.actionTime.senderFinishTime = 0;
     });
 
@@ -400,12 +400,12 @@ class GrblController {
     // Workflow
     this.workflow = new Workflow();
 
-    this.workflow.on('start', (...args) => {
+    this.workflow.on('start', () => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
 
-    this.workflow.on('stop', (...args) => {
+    this.workflow.on('stop', () => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
@@ -421,7 +421,7 @@ class GrblController {
       }
     });
 
-    this.workflow.on('resume', (...args) => {
+    this.workflow.on('resume', () => {
       this.emit('workflow:state', this.workflow.state);
 
       // Reset feeder prior to resume program execution

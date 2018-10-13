@@ -1,12 +1,16 @@
 import difference from 'lodash/difference';
 import includes from 'lodash/includes';
-import union from 'lodash/union';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../../constants';
+import union from 'lodash/union';
+
 import controller from '../../../lib/controller';
-import store from '../../../store_old';
+
+import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../../constants';
+
 import defaultState from '../../../store_old/defaultState';
+import store from '../../../store_old';
+
 import WidgetManager from './WidgetManager';
 
 export const getActiveWidgets = () => {
@@ -63,7 +67,7 @@ export const getInactiveWidgets = () => {
 // @param {string} targetContainer The target container: primary|secondary
 export const show = callback => {
   const el = document.body.appendChild(document.createElement('div'));
-  const handleClose = e => {
+  const handleClose = () => {
     ReactDOM.unmountComponentAtNode(el);
     setTimeout(() => {
       el.remove();

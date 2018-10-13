@@ -1,23 +1,28 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Button} from '../../../components/Buttons';
-import ModalTemplate from '../../../components/ModalTemplate';
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import settings from '../../../config/settings';
+
 import i18n from '../../../lib/i18n';
 import log from '../../../lib/log';
 import portal from '../../../lib/portal';
+import settings from '../../../config/settings';
+
 import store from '../../../store_old';
-import RestoreDefaults from './RestoreDefaults';
-import ImportSettings from './ImportSettings';
-import styles from './index.styl';
+
 import {MODAL_RESTORE_DEFAULTS, MODAL_IMPORT_SETTINGS} from './constants';
+
+import ImportSettings from './ImportSettings';
+import Modal from '../../../components/Modal';
+import ModalTemplate from '../../../components/ModalTemplate';
+import RestoreDefaults from './RestoreDefaults';
+import Space from '../../../components/Space';
+import {Button} from '../../../components/Buttons';
+
+import styles from './index.styl';
 
 class Workspace extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   fileInput = null;
@@ -82,15 +87,16 @@ class Workspace extends PureComponent {
       // Ignore error
     }
   };
-  handleRestoreDefaults = event => {
-    const {actions} = this.props;
-    actions.openModal(MODAL_RESTORE_DEFAULTS);
+  handleRestoreDefaults = () => {
+    this.props.actions.openModal(MODAL_RESTORE_DEFAULTS);
   };
-  handleImport = event => {
+
+  handleImport = () => {
     this.fileInput.value = null;
     this.fileInput.click();
   };
-  handleExport = event => {
+
+  handleExport = () => {
     // https://github.com/mholt/PapaParse/issues/175#issuecomment-201308792
     const text = store.getConfig();
     const data = new Blob([text], {
@@ -114,10 +120,11 @@ class Workspace extends PureComponent {
 
   render() {
     const {state, actions} = this.props;
+
     const text = JSON.stringify(
       {
-        version: settings.version,
         state: store.state,
+        version: settings.version,
       },
       null,
       2

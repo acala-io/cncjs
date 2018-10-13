@@ -230,7 +230,7 @@ class TerminalWrapper extends PureComponent {
         }
       };
     })(),
-    onPaste: (data, event) => {
+    onPaste: data => {
       const {onData} = this.props;
       const lines = String(data)
         .replace(/(\r\n|\r|\n)/g, '\n')

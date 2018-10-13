@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import WidgetListItem from './WidgetListItem';
 
 const WidgetList = props => {
@@ -13,7 +14,7 @@ const WidgetList = props => {
   return (
     <div className="container-fluid" style={style}>
       <div className="row">
-        {list.map((o, key) => (
+        {list.map(o => (
           <div className="col-xs-6 col-md-4" key={o.id}>
             <WidgetListItem
               id={o.id}

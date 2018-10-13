@@ -28,7 +28,6 @@ import {
 import {MODAL_NONE, MODAL_PREVIEW} from './constants';
 
 import Probe from './Probe';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 import ZProbe from './ZProbe';
@@ -89,13 +88,13 @@ class ProbeWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
     const {minimized} = this.state;
 
     const state = {
       ...this.state,
       canClick: this.canClick(),
     };
+
     const actions = {...this.actions};
 
     return (
@@ -189,8 +188,8 @@ class ProbeWidget extends PureComponent {
         gcode('; Z-Probe'),
         gcode('G91'),
         gcode(probeCommand, {
-          Z: towardWorkpiece ? -probeDepth : probeDepth,
           F: probeFeedrate,
+          Z: towardWorkpiece ? -probeDepth : probeDepth,
         }),
         // Use absolute distance mode
         gcode('G90'),
@@ -219,8 +218,8 @@ class ProbeWidget extends PureComponent {
         gcode('; Z-Probe'),
         gcode('G91'),
         gcode(probeCommand, {
-          Z: towardWorkpiece ? -probeDepth : probeDepth,
           F: probeFeedrate,
+          Z: towardWorkpiece ? -probeDepth : probeDepth,
         }),
         // Use absolute distance mode
         gcode('G90'),
@@ -255,7 +254,7 @@ class ProbeWidget extends PureComponent {
   };
 
   controllerEvents = {
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
@@ -330,7 +329,7 @@ class ProbeWidget extends PureComponent {
       });
     },
     'workflow:state': workflowState => {
-      this.setState(state => ({
+      this.setState(() => ({
         workflow: {
           state: workflowState,
         },
@@ -348,7 +347,7 @@ class ProbeWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {minimized} = this.state;
 
     this.config.set('minimized', minimized);

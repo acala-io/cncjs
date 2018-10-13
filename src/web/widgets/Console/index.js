@@ -11,7 +11,6 @@ import i18n from '../../lib/i18n';
 import settings from '../../config/settings';
 
 import Console from './Console';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
@@ -63,7 +62,6 @@ class ConsoleWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
     const {minimized} = this.state;
 
     const state = {...this.state};
@@ -132,7 +130,7 @@ class ConsoleWidget extends PureComponent {
   };
 
   controllerEvents = {
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
 
       this.setState({...initialState});
@@ -222,7 +220,7 @@ class ConsoleWidget extends PureComponent {
     this.unsubscribe();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {minimized} = this.state;
 
     this.config.set('minimized', minimized);
@@ -230,7 +228,7 @@ class ConsoleWidget extends PureComponent {
 
   subscribe() {
     const tokens = [
-      pubsub.subscribe('resize', msg => {
+      pubsub.subscribe('resize', () => {
         this.resizeTerminal();
       }),
     ];

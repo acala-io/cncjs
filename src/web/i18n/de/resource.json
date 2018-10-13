@@ -258,7 +258,6 @@
     "Home Machine": "",
     "Zero Out Work Offsets": "",
     "Set Work Offsets": "",
-    "Axis": "Achse",
     "Machine Position": "Maschinen-Position",
     "Work Position": "Werkstück-Position",
     "Axes": "Achsen",
@@ -449,7 +448,6 @@
     "Click the Resume button to resume program execution.": "Klicken Sie den Fortfahren-Knopf um mit dem Programm fort zu fahren.",
     "Click the Stop button to stop program execution.": "Klicken Sie den Stop-Knopf um die Ausführung des Programms anzuhalten.",
     "Run a tool change macro to change the tool and adjust the Z-axis offset. Afterwards, click the Resume button to resume program execution.": "Starten Sie ein Werkzeug-Wechsel-Marko um das Werkzeug zu wechseln und den Z-Achsten-Offset einzustellen. Danach klicken Sie auf den Fortfahren-Knopf um mit der Programmausführung fort zu fahren.",
-    "Waiting for the target temperature to be reached...": "Warte bis die Solltemperatur erreicht wurde...",
     "Work Coordinate System": "Werkstück-Koordinatensystem",
     "Enable 3D View": "3D-Ansicht aktivieren",
     "Disable 3D View": "3D-Ansicht deaktivieren",
@@ -526,5 +524,8 @@
     "Connect Machine": "",
     "Connect": "",
     "Disconnect": "",
-    "Reload Page": ""
+    "Reload Page": "",
+    "Loading": "",
+    "Work Coordinate System ({{wcs}})": "",
+    "Waiting for the target temperature to be reached ...": ""
 }

@@ -396,7 +396,7 @@ class AxesWidget extends PureComponent {
       const imperialJogDistances = ensureArray(this.config.get('jog.imperial.distances', []));
       const metricJogDistances = ensureArray(this.config.get('jog.metric.distances', []));
 
-      this.setState(state => ({
+      this.setState({
         axes,
         jog: {
           ...this.state.jog,
@@ -413,7 +413,7 @@ class AxesWidget extends PureComponent {
           name: MODAL_NONE,
           params: {},
         },
-      }));
+      });
     },
   };
 
@@ -521,8 +521,9 @@ class AxesWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
+
       this.setState(state => ({
         ...initialState,
         mdi: {
@@ -592,8 +593,8 @@ class AxesWidget extends PureComponent {
     this.removeShuttleControlEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const {units, minimized, axes, jog, mdi} = this.state;
+  componentDidUpdate() {
+    const {axes, jog, mdi, minimized, units} = this.state;
 
     this.config.set('minimized', minimized);
     this.config.set('axes', axes);
@@ -688,17 +689,17 @@ class AxesWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
     const {machinePosition, units, workPosition} = this.state;
     const config = this.config;
+
     const state = {
       ...this.state,
       // Determine if the motion button is clickable
       canClick: this.canClick(),
       // Output machine position with the display units
-      machinePosition: mapValues(machinePosition, (pos, axis) => String(mapPositionToUnits(pos, units))),
+      machinePosition: mapValues(machinePosition, pos => String(mapPositionToUnits(pos, units))),
       // Output work position with the display units
-      workPosition: mapValues(workPosition, (pos, axis) => String(mapPositionToUnits(pos, units))),
+      workPosition: mapValues(workPosition, pos => String(mapPositionToUnits(pos, units))),
     };
 
     const actions = {...this.actions};
@@ -723,13 +724,9 @@ class AxesWidget extends PureComponent {
       // Determine if the motion button is clickable
       canClick: this.canClick(),
       // Output machine position with the display units
-      machinePosition: mapValues(this.state.machinePosition, (pos, axis) =>
-        String(mapPositionToUnits(pos, this.state.units))
-      ),
+      machinePosition: mapValues(this.state.machinePosition, pos => String(mapPositionToUnits(pos, this.state.units))),
       // Output work position with the display units
-      workPosition: mapValues(this.state.workPosition, (pos, axis) =>
-        String(mapPositionToUnits(pos, this.state.units))
-      ),
+      workPosition: mapValues(this.state.workPosition, pos => String(mapPositionToUnits(pos, this.state.units))),
     };
     const {canClick, jog, mdi} = state;
     const {openModal, toggleKeypadJogging, toggleMDIMode} = this.actions;

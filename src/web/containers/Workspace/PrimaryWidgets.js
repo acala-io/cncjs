@@ -1,13 +1,10 @@
 import chainedFunction from 'chained-function';
-import classNames from 'classnames';
-import ensureArray from 'ensure-array';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {Component, Fragment} from 'react';
-import Sortable from 'react-sortablejs';
 import uuid from 'uuid';
 
 import controller from '../../lib/controller';
@@ -23,11 +20,8 @@ import Modal from '../../components/Modal';
 import Widget from './Widget';
 import {Button} from '../../components/Buttons';
 
-import styles from './widgets.styl';
-
 class PrimaryWidgets extends Component {
   static propTypes = {
-    className: PropTypes.string,
     // onDragEnd: PropTypes.func.isRequired,
     // onDragStart: PropTypes.func.isRequired,
     onForkWidget: PropTypes.func.isRequired,
@@ -168,7 +162,6 @@ class PrimaryWidgets extends Component {
   }
 
   render() {
-    const {className} = this.props;
     const widgets = this.state.widgets
       .filter(widgetId => {
         // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"

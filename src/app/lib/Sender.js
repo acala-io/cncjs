@@ -198,7 +198,7 @@ class Sender extends events.EventEmitter {
 
     // send-response
     if (type === SP_TYPE_SEND_RESPONSE) {
-      this.sp = new SPSendResponse(options, sp => {
+      this.sp = new SPSendResponse(options, () => {
         while (!this.state.hold && this.state.sent < this.state.total) {
           // Remove leading and trailing whitespace from both ends of a string
           let line = this.state.lines[this.state.sent].trim();

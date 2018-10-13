@@ -163,17 +163,17 @@ class UpdateRecord extends PureComponent {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={event => {
+            onClick={() => {
               this.form.validate(err => {
                 if (err) {
                   return;
                 }
 
                 const {id} = modal.params;
-                const {enabled, name, oldPassword, newPassword} = this.value;
+                const {enabled, name, newPassword, oldPassword} = this.value;
                 const forceReload = true;
 
-                actions.updateRecord(id, {enabled, name, oldPassword, newPassword}, forceReload);
+                actions.updateRecord(id, {enabled, name, newPassword, oldPassword}, forceReload);
               });
             }}
           >

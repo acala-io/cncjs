@@ -27,7 +27,6 @@ import {
 } from '../../constants';
 
 import Laser from './Laser';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
@@ -79,8 +78,7 @@ class LaserWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
-    const {minimized, isFullscreen} = this.state;
+    const {isFullscreen, minimized} = this.state;
 
     const state = {
       ...this.state,
@@ -221,7 +219,7 @@ class LaserWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {minimized, panel, test} = this.state;
 
     this.config.set('minimized', minimized);

@@ -2,7 +2,7 @@ import ensureArray from 'ensure-array';
 
 import i18n from './i18n';
 
-export default (word, group, object) => {
+export default word => {
   const resText = {
     // Motion
     G0: i18n._('Rapid Move (G0)', {ns: 'gcode'}),

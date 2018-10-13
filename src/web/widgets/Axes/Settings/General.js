@@ -89,7 +89,7 @@ class General extends PureComponent {
     _set(this.field, key, node);
   };
 
-  addMetricJogDistance = () => event => {
+  addMetricJogDistance = () => () => {
     this.setState(state => ({
       metricJogDistances: state.metricJogDistances.concat(''),
     }));
@@ -109,7 +109,7 @@ class General extends PureComponent {
     }));
   };
 
-  removeMetricJogDistance = index => event => {
+  removeMetricJogDistance = index => () => {
     this.setState(state => {
       const metricJogDistances = [...state.metricJogDistances];
       // Remove the array element at the index
@@ -121,7 +121,7 @@ class General extends PureComponent {
     });
   };
 
-  addImperialJogDistance = () => event => {
+  addImperialJogDistance = () => () => {
     this.setState(state => ({
       imperialJogDistances: state.imperialJogDistances.concat(''),
     }));
@@ -141,7 +141,7 @@ class General extends PureComponent {
     }));
   };
 
-  removeImperialJogDistance = index => event => {
+  removeImperialJogDistance = index => () => {
     this.setState(state => {
       const imperialJogDistances = [...state.imperialJogDistances];
       // Remove the array element at the index

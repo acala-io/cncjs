@@ -9,7 +9,6 @@ import {MODAL_NONE, MODAL_CONTROLLER} from './constants';
 import {TINYG} from '../../constants';
 
 import Controller from './Controller';
-import Space from '../../components/Space';
 import TinyG from './TinyG';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
@@ -67,8 +66,7 @@ class TinyGWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
-    const {minimized, isFullscreen, isReady} = this.state;
+    const {isFullscreen, isReady, minimized} = this.state;
 
     const state = {
       ...this.state,
@@ -85,7 +83,7 @@ class TinyGWidget extends PureComponent {
           <Widget.Controls>
             {isReady && (
               <Widget.Button
-                onClick={event => {
+                onClick={() => {
                   actions.openModal(MODAL_CONTROLLER);
                 }}
               >
@@ -244,7 +242,7 @@ class TinyGWidget extends PureComponent {
         isReady: controller.type === TINYG,
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
@@ -253,8 +251,8 @@ class TinyGWidget extends PureComponent {
         this.setState(state => ({
           controller: {
             ...state.controller,
-            type,
             settings: controllerSettings,
+            type,
           },
         }));
       }
@@ -264,8 +262,8 @@ class TinyGWidget extends PureComponent {
         this.setState(state => ({
           controller: {
             ...state.controller,
-            type,
             state: controllerState,
+            type,
           },
         }));
       }
@@ -280,7 +278,7 @@ class TinyGWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {minimized, panel} = this.state;
 
     this.config.set('minimized', minimized);

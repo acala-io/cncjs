@@ -2,10 +2,9 @@
 
 import * as parser from 'gcode-parser';
 import _ from 'lodash';
-import config from '../../services/configstore';
-import controllers from '../../store/controllers';
-import delay from '../../lib/delay';
 import ensureArray from 'ensure-array';
+
+import delay from '../../lib/delay';
 import ensurePositiveNumber from '../../lib/ensure-positive-number';
 import evaluateExpression from '../../lib/evaluate-expression';
 import EventTrigger from '../../lib/EventTrigger';
@@ -14,13 +13,19 @@ import logger from '../../lib/logger';
 import monitor from '../../services/monitor';
 import Sender, {SP_TYPE_CHAR_COUNTING} from '../../lib/Sender';
 import SerialConnection from '../../lib/SerialConnection';
-import SmoothieRunner from './SmoothieRunner';
 import SocketConnection from '../../lib/SocketConnection';
-import taskRunner from '../../services/taskrunner';
 import translateExpression from '../../lib/translate-expression';
 import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
+
+import config from '../../services/configstore';
+import taskRunner from '../../services/taskrunner';
+
+import controllers from '../../store/controllers';
+
 import {SMOOTHIE, SMOOTHIE_MACHINE_STATE_HOLD, SMOOTHIE_REALTIME_COMMANDS} from './constants';
 import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
+
+import SmoothieRunner from './SmoothieRunner';
 
 // % commands
 const WAIT = '%wait';
@@ -40,10 +45,6 @@ class SmoothieController {
   // Connection
   connection = null;
   connectionEventListener = {
-    data: data => {
-      log.silly(`< ${data}`);
-      this.runner.parse(String(data));
-    },
     close: err => {
       this.ready = false;
       if (err) {
@@ -55,7 +56,7 @@ class SmoothieController {
         log.error(err);
       }
 
-      this.close(err => {
+      this.close(() => {
         // Remove controller
         const ident = this.connection.ident;
         delete controllers[ident];
@@ -64,6 +65,10 @@ class SmoothieController {
         // Destroy controller
         this.destroy();
       });
+    },
+    data: data => {
+      log.silly(`< ${data}`);
+      this.runner.parse(String(data));
     },
     error: err => {
       this.ready = false;
@@ -86,8 +91,8 @@ class SmoothieController {
   queryTimer = null;
   actionMask = {
     queryParserState: {
-      state: false, // wait for a message containing the current G-code parser modal state
       reply: false, // wait for an `ok` or `error` response
+      state: false, // wait for a message containing the current G-code parser modal state
     },
     queryStatusReport: false,
 
@@ -118,16 +123,19 @@ class SmoothieController {
   get connectionOptions() {
     return {
       ident: this.connection.ident,
-      type: this.connection.type,
       settings: this.connection.settings,
+      type: this.connection.type,
     };
   }
+
   get isOpen() {
     return this.connection && this.connection.isOpen;
   }
+
   get isClose() {
     return !this.isOpen;
   }
+
   get status() {
     return {
       type: this.type,
@@ -313,7 +321,7 @@ class SmoothieController {
         return line;
       },
     });
-    this.sender.on('data', (line = '', context = {}) => {
+    this.sender.on('data', (line = '') => {
       if (this.isClose) {
         log.error(
           `Unable to write data to the connection: type=${this.connection.type}, settings=${JSON.stringify(
@@ -339,7 +347,7 @@ class SmoothieController {
     });
     this.sender.on('hold', noop);
     this.sender.on('unhold', noop);
-    this.sender.on('start', startTime => {
+    this.sender.on('start', () => {
       this.actionTime.senderFinishTime = 0;
     });
     this.sender.on('end', finishTime => {
@@ -348,11 +356,11 @@ class SmoothieController {
 
     // Workflow
     this.workflow = new Workflow();
-    this.workflow.on('start', (...args) => {
+    this.workflow.on('start', () => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
-    this.workflow.on('stop', (...args) => {
+    this.workflow.on('stop', () => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
@@ -366,7 +374,7 @@ class SmoothieController {
         this.sender.hold();
       }
     });
-    this.workflow.on('resume', (...args) => {
+    this.workflow.on('resume', () => {
       this.emit('workflow:state', this.workflow.state);
 
       // Reset feeder prior to resume program execution
@@ -739,6 +747,7 @@ class SmoothieController {
       this.workflow = null;
     }
   }
+
   async initController() {
     // Wait for the bootloader to complete before sending commands
     await delay(1000);
@@ -748,6 +757,7 @@ class SmoothieController {
 
     this.ready = true;
   }
+
   open(callback = noop) {
     // Assertion check
     if (this.isOpen) {
@@ -806,6 +816,7 @@ class SmoothieController {
       this.initController();
     });
   }
+
   close(callback) {
     // Stop status query
     this.ready = false;
@@ -820,6 +831,7 @@ class SmoothieController {
     this.connection.removeAllListeners();
     this.connection.close(callback);
   }
+
   addSocket(socket) {
     if (!socket) {
       log.error('The socket parameter is not specified');
@@ -877,6 +889,7 @@ class SmoothieController {
       socket.emit('workflow:state', this.workflow.state);
     }
   }
+
   removeSocket(socket) {
     if (!socket) {
       log.error('The socket parameter is not specified');
@@ -887,12 +900,14 @@ class SmoothieController {
     this.sockets[socket.id] = undefined;
     delete this.sockets[socket.id];
   }
+
   emit(eventName, ...args) {
     Object.keys(this.sockets).forEach(id => {
       const socket = this.sockets[id];
       socket.emit(eventName, ...args);
     });
   }
+
   command(cmd, ...args) {
     const handler = {
       'sender:load': () => {
@@ -1185,6 +1200,7 @@ class SmoothieController {
 
     handler();
   }
+
   write(data, context) {
     // Assertion check
     if (this.isClose) {
@@ -1207,6 +1223,7 @@ class SmoothieController {
     this.connection.write(data);
     log.silly(`> ${data}`);
   }
+
   writeln(data, context) {
     if (_.includes(SMOOTHIE_REALTIME_COMMANDS, data)) {
       this.write(data, context);

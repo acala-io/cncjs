@@ -3,30 +3,36 @@ import ensureArray from 'ensure-array';
 import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Button} from '../../components/Buttons';
-import Modal from '../../components/Modal';
-import Space from '../../components/Space';
+
 import i18n from '../../lib/i18n';
 import portal from '../../lib/portal';
+
 import {
   // Workflow
   WORKFLOW_STATE_IDLE,
   WORKFLOW_STATE_PAUSED,
 } from '../../constants';
+
+import {Button} from '../../components/Buttons';
+import Modal from '../../components/Modal';
+import Space from '../../components/Space';
+
 import styles from './index.styl';
 
 class Macro extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
-  handleRunMacro = macro => event => {
+  handleRunMacro = macro => () => {
     const {actions} = this.props;
     actions.openRunMacroModal(macro.id);
   };
-  handleLoadMacro = macro => event => {
+
+  handleLoadMacro = macro => () => {
     const {id, name} = macro;
+
     portal(({onClose}) => (
       <Modal size="xs" onClose={onClose}>
         <Modal.Header>
@@ -53,9 +59,9 @@ class Macro extends PureComponent {
       </Modal>
     ));
   };
-  handleEditMacro = macro => event => {
-    const {actions} = this.props;
-    actions.openEditMacroModal(macro.id);
+
+  handleEditMacro = macro => () => {
+    this.props.actions.openEditMacroModal(macro.id);
   };
 
   render() {
@@ -76,7 +82,7 @@ class Macro extends PureComponent {
                   </td>
                 </tr>
               )}
-              {ensureArray(macros).map((macro, index) => (
+              {ensureArray(macros).map(macro => (
                 <tr key={macro.id}>
                   <td>
                     <Button

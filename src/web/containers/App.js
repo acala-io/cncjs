@@ -1,22 +1,18 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
-import classcat from 'classcat';
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import {Redirect, withRouter} from 'react-router-dom';
 
 import {trackPage} from '../lib/analytics';
 
-import routes, {defaultRouteLoggedIn, isAuthorizedRoute, isDefinedRoute} from '../routes';
+import {defaultRouteLoggedIn, isAuthorizedRoute, isDefinedRoute} from '../routes';
 
 import AppLayout from '../layouts/AppLayout';
-import Dialogs from '../dialogs';
-import FlashMessages from '../components_new/FlashMessages';
+
 import Error404 from './Errors/Error404';
 import Header from '../machine-control/Header';
 import Settings from './Settings';
 import Workspace from './Workspace';
-
-import styles from './App.styl';
 
 class App extends PureComponent {
   static propTypes = {
@@ -48,7 +44,7 @@ class App extends PureComponent {
     return this.getPage(location, this.props);
   }
 
-  getPage(location, props) {
+  getPage(location) {
     if (location.pathname === '/workspace') {
       return (
         <AppLayout>

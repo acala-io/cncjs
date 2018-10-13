@@ -1,22 +1,26 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Space from '../../components/Space';
-import Widget from '../../components/Widget';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
-import WidgetConfig from '../WidgetConfig';
+
+import {MODAL_NONE, MODAL_SETTINGS} from './constants';
+
 import Custom from './Custom';
 import Settings from './Settings';
-import {MODAL_NONE, MODAL_SETTINGS} from './constants';
+import Space from '../../components/Space';
+import Widget from '../../components/Widget';
+import WidgetConfig from '../WidgetConfig';
+
 import styles from './index.styl';
 
 class CustomWidget extends PureComponent {
   static propTypes = {
-    widgetId: PropTypes.string.isRequired,
     onFork: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     sortable: PropTypes.object,
+    widgetId: PropTypes.string.isRequired,
   };
 
   // Public methods
@@ -80,16 +84,16 @@ class CustomWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
     'workflow:state': workflowState => {
-      this.setState(state => ({
+      this.setState({
         workflow: {
           state: workflowState,
         },
-      }));
+      });
     },
   };
   content = null;
@@ -98,10 +102,12 @@ class CustomWidget extends PureComponent {
   componentDidMount() {
     this.addControllerEvents();
   }
+
   componentWillUnmount() {
     this.removeControllerEvents();
   }
-  componentDidUpdate(prevProps, prevState) {
+
+  componentDidUpdate() {
     const {disabled, minimized, title, url} = this.state;
 
     this.config.set('disabled', disabled);
@@ -109,6 +115,7 @@ class CustomWidget extends PureComponent {
     this.config.set('title', title);
     this.config.set('url', url);
   }
+
   getInitialState() {
     return {
       minimized: this.config.get('minimized', false),
@@ -134,18 +141,21 @@ class CustomWidget extends PureComponent {
       },
     };
   }
+
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.addListener(eventName, callback);
     });
   }
+
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.removeListener(eventName, callback);
     });
   }
+
   render() {
     const {widgetId} = this.props;
     const {minimized, isFullscreen, disabled, title} = this.state;
@@ -179,10 +189,13 @@ class CustomWidget extends PureComponent {
               onClick={action.toggleDisabled}
             >
               <i
-                className={cx('fa', {
-                  'fa-toggle-on': !disabled,
-                  'fa-toggle-off': disabled,
-                })}
+                className={classcat([
+                  'fa',
+                  {
+                    'fa-toggle-on': !disabled,
+                    'fa-toggle-off': disabled,
+                  },
+                ])}
               />
             </Widget.Button>
             <Widget.Button disabled={disabled} title={i18n._('Refresh')} onClick={action.refreshContent}>
@@ -201,7 +214,7 @@ class CustomWidget extends PureComponent {
               title={minimized ? i18n._('Expand') : i18n._('Collapse')}
               onClick={action.toggleMinimized}
             >
-              <i className={cx('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
+              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
             </Widget.Button>
             <Widget.DropdownButton
               title={i18n._('More')}
@@ -217,7 +230,7 @@ class CustomWidget extends PureComponent {
               }}
             >
               <Widget.DropdownMenuItem eventKey="fullscreen">
-                <i className={cx('fa', 'fa-fw', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen})} />
+                <i className={classcat(['fa fa-fw', {'fa-expand': !isFullscreen}, {'fa-compress': isFullscreen}])} />
                 <Space width="4" />
                 {!isFullscreen ? i18n._('Enter Full Screen') : i18n._('Exit Full Screen')}
               </Widget.DropdownMenuItem>
@@ -235,10 +248,13 @@ class CustomWidget extends PureComponent {
           </Widget.Controls>
         </Widget.Header>
         <Widget.Content
-          className={cx(styles.widgetContent, {
-            [styles.hidden]: minimized,
-            [styles.fullscreen]: isFullscreen,
-          })}
+          className={classcat([
+            styles.widgetContent,
+            {
+              [styles.hidden]: minimized,
+              [styles.fullscreen]: isFullscreen,
+            },
+          ])}
         >
           {state.modal.name === MODAL_SETTINGS && (
             <Settings
@@ -246,9 +262,10 @@ class CustomWidget extends PureComponent {
               onSave={() => {
                 const title = config.get('title');
                 const url = config.get('url');
+
                 this.setState({
-                  title: title,
-                  url: url,
+                  title,
+                  url,
                 });
                 action.closeModal();
               }}

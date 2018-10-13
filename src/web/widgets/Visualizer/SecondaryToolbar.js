@@ -1,45 +1,45 @@
 import classcat from 'classcat';
 import colornames from 'colornames';
+import Detector from 'three/examples/js/Detector';
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
 import styled from 'styled-components';
-import Detector from 'three/examples/js/Detector';
 
 import i18n from '../../lib/i18n';
 
-import iconTopView from './images/camera-top-view.png';
 import icon3DView from './images/camera-3d-view.svg';
 import iconFrontView from './images/camera-front-view.png';
 import iconLeftSideView from './images/camera-left-side-view.png';
+import iconMoveCamera from './images/move-camera.svg';
 import iconRightSideView from './images/camera-right-side-view.png';
+import iconRotateCamera from './images/rotate-camera.svg';
+import iconTopView from './images/camera-top-view.png';
 import iconZoomFit from './images/zoom-fit.svg';
 import iconZoomIn from './images/zoom-in.svg';
 import iconZoomOut from './images/zoom-out.svg';
-import iconMoveCamera from './images/move-camera.svg';
-import iconRotateCamera from './images/rotate-camera.svg';
 
 import {CAMERA_MODE_PAN, CAMERA_MODE_ROTATE} from './constants';
 
-import {Button, ButtonToolbar, ButtonGroup} from '../../components/Buttons';
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Image from '../../components/Image';
 import Interpolate from '../../components/Interpolate';
 import Space from '../../components/Space';
+import {Button, ButtonToolbar, ButtonGroup} from '../../components/Buttons';
 import {Tooltip} from '../../components/Tooltip';
 
 const IconButton = styled(Button)`
-  display: inline-block;
-  padding: 8px;
-  margin-bottom: 0;
-  font-weight: normal;
-  text-align: center;
-  white-space: nowrap;
-  touch-action: manipulation;
-  cursor: pointer;
-  user-select: none;
-  background-image: none;
   background-color: inherit;
+  background-image: none;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: normal;
+  margin-bottom: 0;
+  padding: 8px;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  white-space: nowrap;
 
   && {
     border: 0;
@@ -50,25 +50,25 @@ const IconButton = styled(Button)`
 
   &.highlight,
   &:hover.highlight {
-    background-image: none;
     background-color: rgba(255, 255, 255, 0.7);
-    outline: 0;
+    background-image: none;
     color: #333;
-    text-decoration: none;
     filter: invert(100%);
+    outline: 0;
+    text-decoration: none;
   }
 
   &:hover {
-    background-image: none;
     background-color: #e6e6e6;
+    background-image: none;
     filter: invert(0%);
   }
 
   &:hover,
   &:focus,
   &:active {
-    outline: 0;
     color: #333;
+    outline: 0;
     text-decoration: none;
   }
 
@@ -88,7 +88,7 @@ class SecondaryToolbar extends PureComponent {
 
   render() {
     const {actions, state} = this.props;
-    const {cameraMode, cameraPosition, disabled, gcode, objects, projection, wcs} = state;
+    const {cameraMode, cameraPosition, disabled, gcode, objects, projection} = state;
     const {camera} = actions;
 
     const canToggleOptions = Detector.webgl && !disabled;

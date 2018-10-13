@@ -10,7 +10,6 @@ import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import XHR from 'i18next-xhr-backend';
 import {HashRouter as Router, Route} from 'react-router-dom';
-import {Provider as GridSystemProvider} from 'web/components/GridSystem';
 import {Provider} from 'react-redux';
 import {TRACE, DEBUG, INFO, WARN, ERROR} from 'universal-logger';
 
@@ -71,7 +70,7 @@ series([
       i18next
         .use(XHR)
         .use(LanguageDetector)
-        .init(settings.i18next, t => {
+        .init(settings.i18next, () => {
           next();
         });
     })(),

@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import FacebookLoading from 'react-facebook-loading';
-import Space from '../../../components/Space';
+
 import i18n from '../../../lib/i18n';
+
+import Space from '../../../components/Space';
+
 import styles from './index.styl';
 
 class Controller extends PureComponent {
@@ -15,25 +18,19 @@ class Controller extends PureComponent {
   fields = {
     ignoreErrors: null,
   };
+
   handlers = {
-    handleChangeIgnoreErrors: event => {
-      const {actions} = this.props;
-      actions.toggleIgnoreErrors();
+    cancel: () => {
+      this.props.actions.restoreSettings();
     },
-    cancel: event => {
-      const {actions} = this.props;
-      actions.restoreSettings();
+    handleChangeIgnoreErrors: () => {
+      this.props.actions.toggleIgnoreErrors();
     },
-    save: event => {
-      const {actions} = this.props;
-      actions.save();
+    save: () => {
+      this.props.actions.save();
     },
   };
 
-  componentDidMount() {
-    const {actions} = this.props;
-    actions.load();
-  }
   render() {
     const {state, stateChanged} = this.props;
 
@@ -88,6 +85,11 @@ class Controller extends PureComponent {
         </div>
       </form>
     );
+  }
+
+  componentDidMount() {
+    const {actions} = this.props;
+    actions.load();
   }
 }
 

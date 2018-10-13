@@ -40,12 +40,13 @@ import {ERR_FORBIDDEN} from './constants';
 
 const log = logger('app');
 
-const renderPage = (view = 'index', cb = _.noop) => (req, res, next) => {
+const renderPage = (view = 'index', cb = _.noop) => (req, res) => {
   // Override IE's Compatibility View Settings
   // http://stackoverflow.com/questions/6156639/x-ua-compatible-is-set-to-ie-edge-but-it-still-doesnt-stop-compatibility-mode
   res.set({'X-UA-Compatible': 'IE=edge'});
 
   const locals = {...cb(req, res)};
+
   res.render(view, locals);
 };
 
@@ -166,9 +167,7 @@ const appMain = () => {
   if (settings.verbosity > 0) {
     // https://github.com/expressjs/morgan#use-custom-token-formats
     // Add an ID to all requests and displays it using the :id token
-    morgan.token('id', (req, res) => {
-      return req.session.id;
-    });
+    morgan.token('id', req => req.session.id);
     app.use(morgan(settings.middleware.morgan.format));
   }
   app.use(compress(settings.middleware.compression));
@@ -320,7 +319,7 @@ const appMain = () => {
   // page
   app.get(
     urljoin(settings.route, '/'),
-    renderPage('index.hbs', (req, res) => {
+    renderPage('index.hbs', req => {
       const webroot = settings.assets.web.routes[0] || ''; // with trailing slash
       const lang = req.language;
       const t = req.t;

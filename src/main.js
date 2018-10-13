@@ -29,7 +29,7 @@ let windowManager = null;
 
 const main = () => {
   // https://github.com/electron/electron/blob/master/docs/api/app.md#appmakesingleinstancecallback
-  const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+  const shouldQuit = app.makeSingleInstance(() => {
     // Someone tried to run a second instance, we should focus our window.
     if (!windowManager) {
       return;

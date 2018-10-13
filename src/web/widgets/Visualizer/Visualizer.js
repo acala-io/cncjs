@@ -10,20 +10,23 @@ import ReactDOM from 'react-dom';
 import tail from 'lodash/tail';
 import throttle from 'lodash/throttle';
 
+import log from '../../lib/log';
+
+import {CAMERA_MODE_PAN, CAMERA_MODE_ROTATE} from './constants';
+import {IMPERIAL_UNITS, METRIC_UNITS} from '../../constants';
+
+import {getBoundingBox, loadTexture} from './helpers';
+
 import CombinedCamera from './CombinedCamera';
-import TrackballControls from './TrackballControls';
 import CoordinateAxes from './CoordinateAxes';
 import GCodeVisualizer from './GCodeVisualizer';
 import GridLine from './GridLine';
-import log from '../../lib/log';
 import PivotPoint3 from './PivotPoint3';
 import TargetPoint from './TargetPoint';
 import TextSprite from './TextSprite';
 import ToolHead from './ToolHead';
+import TrackballControls from './TrackballControls';
 import Viewport from './Viewport';
-import {CAMERA_MODE_PAN, CAMERA_MODE_ROTATE} from './constants';
-import {getBoundingBox, loadTexture} from './helpers';
-import {IMPERIAL_UNITS, METRIC_UNITS} from '../../constants';
 
 const IMPERIAL_GRID_COUNT = 32; // 32 in
 const IMPERIAL_GRID_SPACING = 25.4; // 1 in
@@ -237,7 +240,7 @@ class Visualizer extends Component {
     }
 
     if (needUpdateScene) {
-      this.updateScene({forceUpdate: forceUpdate});
+      this.updateScene({forceUpdate});
     }
 
     if (this.isAgitated !== nextState.isAgitated) {
@@ -250,16 +253,17 @@ class Visualizer extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.show !== this.props.show) {
       return true;
     }
+
     return false;
   }
 
   subscribe() {
     const tokens = [
-      pubsub.subscribe('resize', msg => {
+      pubsub.subscribe('resize', () => {
         this.resizeRenderer();
       }),
     ];

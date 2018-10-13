@@ -1,25 +1,27 @@
 /* eslint-disable import/default */
 
-import ensureArray from 'ensure-array';
 import * as parser from 'gcode-parser';
 import _ from 'lodash';
-import EventTrigger from '../../lib/EventTrigger';
-import Feeder from '../../lib/Feeder';
-import Sender, {SP_TYPE_SEND_RESPONSE} from '../../lib/Sender';
-import SerialConnection from '../../lib/SerialConnection';
-import SocketConnection from '../../lib/SocketConnection';
-import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
+import ensureArray from 'ensure-array';
+
 import delay from '../../lib/delay';
 import ensurePositiveNumber from '../../lib/ensure-positive-number';
 import evaluateExpression from '../../lib/evaluate-expression';
+import EventTrigger from '../../lib/EventTrigger';
+import Feeder from '../../lib/Feeder';
 import logger from '../../lib/logger';
+import Sender, {SP_TYPE_SEND_RESPONSE} from '../../lib/Sender';
+import SerialConnection from '../../lib/SerialConnection';
+import SocketConnection from '../../lib/SocketConnection';
 import translateExpression from '../../lib/translate-expression';
+import Workflow, {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED, WORKFLOW_STATE_RUNNING} from '../../lib/Workflow';
+
 import config from '../../services/configstore';
+import controllers from '../../store/controllers';
 import monitor from '../../services/monitor';
 import taskRunner from '../../services/taskrunner';
-import controllers from '../../store/controllers';
+
 import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
-import TinyGRunner from './TinyGRunner';
 import {
   TINYG,
   TINYG_PLANNER_BUFFER_LOW_WATER_MARK,
@@ -27,6 +29,8 @@ import {
   TINYG_SERIAL_BUFFER_LIMIT,
   TINYG_STATUS_CODES,
 } from './constants';
+
+import TinyGRunner from './TinyGRunner';
 
 const SENDER_STATUS_NONE = 'none';
 const SENDER_STATUS_NEXT = 'next';
@@ -65,7 +69,7 @@ class TinyGController {
         log.error(err);
       }
 
-      this.close(err => {
+      this.close(() => {
         // Remove controller
         const ident = this.connection.ident;
         delete controllers[ident];
@@ -151,8 +155,8 @@ class TinyGController {
   get connectionOptions() {
     return {
       ident: this.connection.ident,
-      type: this.connection.type,
       settings: this.connection.settings,
+      type: this.connection.type,
     };
   }
   get isOpen() {
@@ -348,7 +352,7 @@ class TinyGController {
         return line;
       },
     });
-    this.sender.on('data', (line = '', context = {}) => {
+    this.sender.on('data', (line = '') => {
       if (this.isClose) {
         log.error(
           `Unable to write data to the connection: type=${this.connection.type}, settings=${JSON.stringify(
@@ -380,7 +384,7 @@ class TinyGController {
     });
     this.sender.on('hold', noop);
     this.sender.on('unhold', noop);
-    this.sender.on('start', startTime => {
+    this.sender.on('start', () => {
       this.actionTime.senderFinishTime = 0;
     });
     this.sender.on('end', finishTime => {
@@ -389,13 +393,13 @@ class TinyGController {
 
     // Workflow
     this.workflow = new Workflow();
-    this.workflow.on('start', (...args) => {
+    this.workflow.on('start', () => {
       this.emit('workflow:state', this.workflow.state);
       this.blocked = false;
       this.senderStatus = SENDER_STATUS_NONE;
       this.sender.rewind();
     });
-    this.workflow.on('stop', (...args) => {
+    this.workflow.on('stop', () => {
       this.emit('workflow:state', this.workflow.state);
       this.blocked = false;
       this.senderStatus = SENDER_STATUS_NONE;
@@ -411,7 +415,7 @@ class TinyGController {
         this.sender.hold();
       }
     });
-    this.workflow.on('resume', (...args) => {
+    this.workflow.on('resume', () => {
       this.emit('workflow:state', this.workflow.state);
 
       // Reset feeder prior to resume program execution
@@ -566,11 +570,11 @@ class TinyGController {
       this.feeder.next();
     });
 
-    this.runner.on('sr', sr => {});
+    this.runner.on('sr', () => {});
 
-    this.runner.on('fb', fb => {});
+    this.runner.on('fb', () => {});
 
-    this.runner.on('hp', hp => {});
+    this.runner.on('hp', () => {});
 
     this.runner.on('f', f => {
       // https://github.com/synthetos/g2/wiki/Status-Codes
@@ -767,9 +771,7 @@ class TinyGController {
     send(
       relaxedJSON({
         // Returns an object composed of the picked properties
-        sr: _.pickBy(this.sr, (value, key) => {
-          return Boolean(value);
-        }),
+        sr: _.pickBy(this.sr, value => Boolean(value)),
       })
     );
 
@@ -999,8 +1001,8 @@ class TinyGController {
         socket.emit(
           'sender:load',
           {
-            name: name,
-            content: content,
+            content,
+            name,
           },
           context
         );
@@ -1012,6 +1014,7 @@ class TinyGController {
       socket.emit('workflow:state', this.workflow.state);
     }
   }
+
   removeSocket(socket) {
     if (!socket) {
       log.error('The socket parameter is not specified');
@@ -1022,12 +1025,14 @@ class TinyGController {
     this.sockets[socket.id] = undefined;
     delete this.sockets[socket.id];
   }
+
   emit(eventName, ...args) {
     Object.keys(this.sockets).forEach(id => {
       const socket = this.sockets[id];
       socket.emit(eventName, ...args);
     });
   }
+
   // https://github.com/synthetos/g2/wiki/Job-Exception-Handling
   // Character    Operation       Description
   // !            Feedhold        Start a feedhold. Ignored if already in a feedhold

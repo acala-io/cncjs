@@ -90,28 +90,22 @@ class General extends PureComponent {
   };
 
   handlers = {
-    changeCheckForUpdates: event => {
-      const {actions} = this.props;
-      actions.toggleCheckForUpdates();
+    cancel: () => {
+      this.props.actions.restoreSettings();
+    },
+    changeCheckForUpdates: () => {
+      this.props.actions.toggleCheckForUpdates();
     },
     changeLanguage: event => {
-      const {actions} = this.props;
-      const target = event.target;
-      actions.changeLanguage(target.value);
+      this.props.actions.changeLanguage(event.target.value);
     },
-    cancel: event => {
-      const {actions} = this.props;
-      actions.restoreSettings();
-    },
-    save: event => {
-      const {actions} = this.props;
-      actions.save();
+    save: () => {
+      this.props.actions.save();
     },
   };
 
   componentDidMount() {
-    const {actions} = this.props;
-    actions.load();
+    this.props.actions.load();
   }
 }
 

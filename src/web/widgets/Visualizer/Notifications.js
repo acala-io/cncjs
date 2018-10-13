@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Anchor from '../../components/Anchor';
-import {ToastNotification} from '../../components/Notifications';
-import Space from '../../components/Space';
+
 import i18n from '../../lib/i18n';
+
 import {
   NOTIFICATION_PROGRAM_ERROR,
   NOTIFICATION_M0_PROGRAM_PAUSE,
@@ -15,13 +14,17 @@ import {
   NOTIFICATION_M190_SET_HEATED_BED_TEMPERATURE,
 } from './constants';
 
-const Notifications = ({show, type, data, onDismiss, style, ...props}) => (
+import Anchor from '../../components/Anchor';
+import Space from '../../components/Space';
+import {ToastNotification} from '../../components/Notifications';
+
+const Notifications = ({onDismiss, style, show, type, ...props}) => (
   <div
     {...props}
     style={{
-      position: 'absolute',
       bottom: 0,
       left: 0,
+      position: 'absolute',
       right: 0,
       ...style,
     }}
@@ -104,7 +107,7 @@ const Notifications = ({show, type, data, onDismiss, style, ...props}) => (
           <div>
             <strong>{i18n._('M109 Set Extruder Temperature')}</strong>
           </div>
-          <div>{i18n._('Waiting for the target temperature to be reached...')}</div>
+          <div>{i18n._('Waiting for the target temperature to be reached ...')}</div>
         </div>
       )}
       {type === NOTIFICATION_M190_SET_HEATED_BED_TEMPERATURE && (
@@ -112,7 +115,7 @@ const Notifications = ({show, type, data, onDismiss, style, ...props}) => (
           <div>
             <strong>{i18n._('M190 Set Heated Bed Temperature')}</strong>
           </div>
-          <div>{i18n._('Waiting for the target temperature to be reached...')}</div>
+          <div>{i18n._('Waiting for the target temperature to be reached ...')}</div>
         </div>
       )}
     </ToastNotification>
@@ -120,10 +123,10 @@ const Notifications = ({show, type, data, onDismiss, style, ...props}) => (
 );
 
 Notifications.propTypes = {
-  show: PropTypes.bool,
-  type: PropTypes.string,
   data: PropTypes.any,
   onDismiss: PropTypes.func,
+  show: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 export default Notifications;

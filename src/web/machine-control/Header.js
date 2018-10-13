@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 
-import classcat from 'classcat';
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 
@@ -50,7 +49,7 @@ class Header extends PureComponent {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = () => {
   return {};
 };
 

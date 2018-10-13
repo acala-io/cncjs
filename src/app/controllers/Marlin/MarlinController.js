@@ -56,7 +56,7 @@ class MarlinController {
         log.error(err);
       }
 
-      this.close(err => {
+      this.close(() => {
         // Remove controller
         const ident = this.connection.ident;
         delete controllers[ident];
@@ -530,7 +530,7 @@ class MarlinController {
         return line;
       },
     });
-    this.sender.on('data', (line = '', context = {}) => {
+    this.sender.on('data', (line = '') => {
       if (this.isClose) {
         log.error(`Serial port "${this.options.port}" is not accessible`);
         return;
@@ -554,7 +554,7 @@ class MarlinController {
     });
     this.sender.on('hold', noop);
     this.sender.on('unhold', noop);
-    this.sender.on('start', startTime => {
+    this.sender.on('start', () => {
       this.senderFinishTime = 0;
     });
     this.sender.on('end', finishTime => {
@@ -563,11 +563,11 @@ class MarlinController {
 
     // Workflow
     this.workflow = new Workflow();
-    this.workflow.on('start', (...args) => {
+    this.workflow.on('start', () => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
-    this.workflow.on('stop', (...args) => {
+    this.workflow.on('stop', () => {
       this.emit('workflow:state', this.workflow.state);
       this.sender.rewind();
     });
@@ -581,7 +581,7 @@ class MarlinController {
         this.sender.hold();
       }
     });
-    this.workflow.on('resume', (...args) => {
+    this.workflow.on('resume', () => {
       this.emit('workflow:state', this.workflow.state);
 
       // Reset feeder prior to resume program execution

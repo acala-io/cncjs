@@ -9,7 +9,6 @@ import {MODAL_NONE, MODAL_CONTROLLER} from './constants';
 
 import Controller from './Controller';
 import Grbl from './Grbl';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
@@ -65,8 +64,7 @@ class GrblWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
-    const {minimized, isFullscreen, isReady} = this.state;
+    const {isFullscreen, isReady, minimized} = this.state;
 
     const state = {
       ...this.state,
@@ -81,7 +79,7 @@ class GrblWidget extends PureComponent {
           <Widget.Controls>
             {isReady && (
               <Widget.Button
-                onClick={event => {
+                onClick={() => {
                   actions.openModal(MODAL_CONTROLLER);
                 }}
               >
@@ -238,7 +236,7 @@ class GrblWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
@@ -274,7 +272,7 @@ class GrblWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {minimized, panel} = this.state;
 
     this.config.set('minimized', minimized);
@@ -301,6 +299,7 @@ class GrblWidget extends PureComponent {
     if (controller.type !== GRBL) {
       return false;
     }
+
     if (!controller.connection.ident) {
       return false;
     }

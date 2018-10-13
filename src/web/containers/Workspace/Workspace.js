@@ -2,12 +2,15 @@
 
 import _ from 'lodash';
 import classcat from 'classcat';
-import ensureArray from 'ensure-array';
 import Dropzone from 'react-dropzone';
+import ensureArray from 'ensure-array';
+import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {Fragment, PureComponent} from 'react';
-import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+
+import * as dialogActions from '../../dialogs/actions';
 
 import api from '../../api';
 import controller from '../../lib/controller';
@@ -24,7 +27,7 @@ import {Button, ButtonGroup, ButtonToolbar} from '../../components/Buttons';
 
 import FeederPaused from './modals/FeederPaused';
 import FeederWait from './modals/FeederWait';
-import ServerDisconnected from './modals/ServerDisconnected';
+// import ServerDisconnectedModal from './modals/ServerDisconnected';
 
 import {MODAL_NONE, MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT, MODAL_SERVER_DISCONNECTED} from './constants';
 import {WORKFLOW_STATE_IDLE} from '../../constants';
@@ -48,6 +51,8 @@ const stopWaiting = () => {
 class Workspace extends PureComponent {
   static propTypes = {
     ...withRouter.propTypes,
+    hideModals: PropTypes.func,
+    showServerDisconnectedModal: PropTypes.func,
   };
 
   state = this.getInitialState();
@@ -66,20 +71,20 @@ class Workspace extends PureComponent {
 
   action = {
     closeModal: () => {
-      this.setState(state => ({
+      this.setState({
         modal: {
           name: MODAL_NONE,
           params: {},
         },
-      }));
+      });
     },
     openModal: (name = MODAL_NONE, params = {}) => {
-      this.setState(state => ({
+      this.setState({
         modal: {
           name,
           params,
         },
-      }));
+      });
     },
     updateModalParams: (params = {}) => {
       this.setState(state => ({
@@ -97,9 +102,9 @@ class Workspace extends PureComponent {
   controllerEvents = {
     connect: () => {
       if (controller.connected) {
-        this.action.closeModal();
+        this.props.hideModals();
       } else {
-        this.action.openModal(MODAL_SERVER_DISCONNECTED);
+        this.props.showServerDisconnectedModal();
       }
     },
     connect_error: () => {
@@ -126,7 +131,7 @@ class Workspace extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
@@ -192,11 +197,12 @@ class Workspace extends PureComponent {
         });
       }
     },
-    onForkWidget: widgetId => {
+    onForkWidget: () => {
       // TODO
     },
-    onRemoveWidget: widgetId => {
+    onRemoveWidget: () => {
       const inactiveWidgets = widgetManager.getInactiveWidgets();
+
       this.setState({
         inactiveCount: inactiveWidgets.length,
       });
@@ -220,12 +226,11 @@ class Workspace extends PureComponent {
   };
 
   resizeDefaultContainer = () => {
-    const sidebar = document.querySelector('#sidebar');
-    const primaryContainer = ReactDOM.findDOMNode(this.primaryContainer);
-    const secondaryContainer = ReactDOM.findDOMNode(this.secondaryContainer);
-    const primaryToggler = ReactDOM.findDOMNode(this.primaryToggler);
-    const secondaryToggler = ReactDOM.findDOMNode(this.secondaryToggler);
-    const defaultContainer = ReactDOM.findDOMNode(this.defaultContainer);
+    // const primaryContainer = ReactDOM.findDOMNode(this.primaryContainer);
+    // const secondaryContainer = ReactDOM.findDOMNode(this.secondaryContainer);
+    // const primaryToggler = ReactDOM.findDOMNode(this.primaryToggler);
+    // const secondaryToggler = ReactDOM.findDOMNode(this.secondaryToggler);
+    // const defaultContainer = ReactDOM.findDOMNode(this.defaultContainer);
     const {showPrimaryContainer, showSecondaryContainer} = this.state;
 
     {
@@ -287,10 +292,10 @@ class Workspace extends PureComponent {
 
       api
         .loadGCode({gcode, ident, name})
-        .then(res => {
+        .then(() => {
           // TODO
         })
-        .catch(res => {
+        .catch(() => {
           log.error('Failed to upload G-code file');
         })
         .then(() => {
@@ -476,7 +481,7 @@ class Workspace extends PureComponent {
               });
             }
           }}
-          onDrop={(acceptedFiles, rejectedFiles) => {
+          onDrop={acceptedFiles => {
             if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
               return;
             }
@@ -532,7 +537,7 @@ class Workspace extends PureComponent {
       <Fragment>
         {modalName === MODAL_FEEDER_PAUSED && <FeederPaused title={title} onClose={onClose} />}
         {modalName === MODAL_FEEDER_WAIT && <FeederWait title={title} onClose={onClose} />}
-        {modalName === MODAL_SERVER_DISCONNECTED && <ServerDisconnected />}
+        {/* modalName === MODAL_SERVER_DISCONNECTED && <ServerDisconnectedModal /> */}
       </Fragment>
     );
   }
@@ -641,4 +646,31 @@ class Workspace extends PureComponent {
   }
 }
 
-export default withRouter(Workspace);
+const mapStateToProps = () => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => ({
+  hideModals: () => {
+    dispatch(dialogActions.hide());
+  },
+  showServerDisconnectedModal: () => {
+    dispatch(
+      dialogActions.alert({
+        buttonText: i18n._('Reload Page'),
+        heading: i18n._('Server has stopped working'),
+        onClose: window.location.reload(true),
+        text: i18n._(
+          'A problem caused the server to stop working correctly. Check out the server status and try again.'
+        ),
+      })
+    );
+  },
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Workspace)
+);

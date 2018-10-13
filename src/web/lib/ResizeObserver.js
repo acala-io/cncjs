@@ -20,7 +20,7 @@ class ResizeObserver {
       this.callback();
     }
 
-    this.observer = new MutationObserver(mutations => {
+    this.observer = new MutationObserver(() => {
       if (this.callback) {
         this.callback();
       }

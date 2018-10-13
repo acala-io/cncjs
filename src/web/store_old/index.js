@@ -4,7 +4,6 @@ import ensureArray from 'ensure-array';
 import get from 'lodash/get';
 import isElectron from 'is-electron';
 import merge from 'lodash/merge';
-import semver from 'semver';
 import set from 'lodash/set';
 import uniq from 'lodash/uniq';
 

@@ -3,26 +3,30 @@ import chainedFunction from 'chained-function';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
+import i18n from '../../../lib/i18n';
+import portal from '../../../lib/portal';
+
+import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
+
 import Anchor from '../../../components/Anchor';
-import {Button} from '../../../components/Buttons';
 import Modal from '../../../components/Modal';
 import Space from '../../../components/Space';
 import Table from '../../../components/Table';
 import ToggleSwitch from '../../../components/ToggleSwitch';
+import {Button} from '../../../components/Buttons';
 import {TablePagination} from '../../../components/Paginations';
-import portal from '../../../lib/portal';
-import i18n from '../../../lib/i18n';
-import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
+
 import styles from './index.styl';
 
 class TableRecords extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
 
     return (
       <Table
@@ -81,9 +85,9 @@ class TableRecords extends PureComponent {
         )}
         columns={[
           {
-            title: i18n._('Enabled'),
             key: 'enabled',
-            render: (value, row, index) => {
+            title: i18n._('Enabled'),
+            render: (value, row) => {
               const {id, enabled} = row;
               const title = enabled ? i18n._('Enabled') : i18n._('Disabled');
 
@@ -92,7 +96,7 @@ class TableRecords extends PureComponent {
                   checked={enabled}
                   size="sm"
                   title={title}
-                  onChange={event => {
+                  onChange={() => {
                     actions.updateRecord(id, {enabled: !enabled});
                   }}
                 />
@@ -100,14 +104,14 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Username'),
             key: 'name',
-            render: (value, row, index) => {
+            title: i18n._('Username'),
+            render: (value, row) => {
               const {name} = row;
 
               return (
                 <Anchor
-                  onClick={event => {
+                  onClick={() => {
                     actions.openModal(MODAL_UPDATE_RECORD, row);
                   }}
                 >
@@ -117,10 +121,10 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Date Modified'),
             className: 'text-nowrap',
             key: 'date-modified',
-            render: (value, row, index) => {
+            title: i18n._('Date Modified'),
+            render: (value, row) => {
               const {mtime} = row;
               if (mtime) {
                 return moment(mtime).format('lll');
@@ -130,10 +134,10 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Action'),
             className: 'text-nowrap',
             key: 'action',
-            render: (value, row, index) => {
+            title: i18n._('Action'),
+            render: (value, row) => {
               const {id} = row;
 
               return (
@@ -142,7 +146,7 @@ class TableRecords extends PureComponent {
                     type="button"
                     className="btn btn-xs btn-default"
                     title={i18n._('Edit Account')}
-                    onClick={event => {
+                    onClick={() => {
                       actions.openModal(MODAL_UPDATE_RECORD, row);
                     }}
                   >
@@ -152,7 +156,7 @@ class TableRecords extends PureComponent {
                     type="button"
                     className="btn btn-xs btn-default"
                     title={i18n._('Delete Account')}
-                    onClick={event => {
+                    onClick={() => {
                       portal(({onClose}) => (
                         <Modal size="xs" onClose={onClose}>
                           <Modal.Header>

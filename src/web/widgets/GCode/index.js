@@ -19,7 +19,6 @@ import {
 } from '../../constants';
 
 import GCodeStats from './GCodeStats';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
@@ -39,14 +38,14 @@ class GCodeWidget extends PureComponent {
       minimized: this.config.get('minimized', false),
       units: METRIC_UNITS,
 
-      // G-code Status (from server)
-      total: 0,
-      sent: 0,
-      received: 0,
-      startTime: 0,
-      finishTime: 0,
+      // G-code status (from server)
       elapsedTime: 0,
+      finishTime: 0,
+      received: 0,
       remainingTime: 0,
+      sent: 0,
+      startTime: 0,
+      total: 0,
 
       // Bounding box
       bbox: {
@@ -72,17 +71,13 @@ class GCodeWidget extends PureComponent {
   pubsubTokens = [];
 
   render() {
-    const {widgetId} = this.props;
-    const {units, bbox} = this.state;
+    const {bbox, units} = this.state;
 
     const state = {
       ...this.state,
-      bbox: mapValues(bbox, position => {
-        return mapValues(position, (pos, axis) => {
-          return mapPositionToUnits(pos, units);
-        });
-      }),
+      bbox: mapValues(bbox, position => mapValues(position, pos => mapPositionToUnits(pos, units))),
     };
+
     const actions = {};
 
     return (
@@ -201,10 +196,8 @@ class GCodeWidget extends PureComponent {
     this.unsubscribe();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const {minimized} = this.state;
-
-    this.config.set('minimized', minimized);
+  componentDidUpdate() {
+    this.config.set('minimized', this.state.minimized);
   }
 
   subscribe() {

@@ -7,25 +7,29 @@ class Webcam extends PureComponent {
   static propTypes = {
     // Video props
     autoPlay: PropTypes.bool,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     muted: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     // Webcam props
     audio: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    video: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     screenshotFormat: PropTypes.oneOf(['image/webp', 'image/png', 'image/jpeg']),
+    video: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   };
+
   static defaultProps = {
-    autoPlay: true,
-    muted: false,
-    width: 640,
-    height: 480,
     audio: true,
-    video: true,
+    autoPlay: true,
+    height: 480,
+    muted: false,
     screenshotFormat: 'image/webp',
+    video: true,
+    width: 640,
   };
+
   static mountedInstances = [];
+
   static userMediaRequested = false;
+
   static getUserMedia =
     navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
@@ -33,9 +37,20 @@ class Webcam extends PureComponent {
     hasUserMedia: false,
     src: null,
   };
+
   stream = null;
   canvas = null;
   ctx = null;
+
+  render() {
+    const {className, style, ...props} = this.props;
+
+    delete props.audio;
+    delete props.video;
+    delete props.screenshotFormat;
+
+    return <video {...props} className={className} style={style} src={this.state.src} />;
+  }
 
   componentDidMount() {
     if (!Webcam.getUserMedia) {
@@ -48,6 +63,7 @@ class Webcam extends PureComponent {
       this.requestUserMedia();
     }
   }
+
   componentWillUnmount() {
     const index = Webcam.mountedInstances.indexOf(this);
     Webcam.mountedInstances.splice(index, 1);
@@ -72,6 +88,7 @@ class Webcam extends PureComponent {
       window.URL.revokeObjectURL(this.state.src);
     }
   }
+
   requestUserMedia() {
     if (!Webcam.getUserMedia) {
       return;
@@ -91,7 +108,7 @@ class Webcam extends PureComponent {
           });
           Webcam.userMediaRequested = true;
         },
-        err => {
+        () => {
           Webcam.mountedInstances.forEach(instance => {
             instance.stream = null;
             instance.setState({
@@ -154,6 +171,7 @@ class Webcam extends PureComponent {
     // This method was removed from the spec in favor of MediaDevices.enumerateDevices().
     // This was deprecated in Chrome 40.
   }
+
   getScreenshot() {
     if (!this.state.hasUserMedia) {
       return null;
@@ -162,6 +180,7 @@ class Webcam extends PureComponent {
     const canvas = this.getCanvas();
     return canvas ? canvas.toDataURL(this.props.screenshotFormat) : null;
   }
+
   getCanvas() {
     if (!this.state.hasUserMedia) {
       return null;
@@ -184,15 +203,6 @@ class Webcam extends PureComponent {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     return canvas;
-  }
-  render() {
-    const {className, style, ...props} = this.props;
-
-    delete props.audio;
-    delete props.video;
-    delete props.screenshotFormat;
-
-    return <video {...props} className={className} style={style} src={this.state.src} />;
   }
 }
 

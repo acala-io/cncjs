@@ -21,7 +21,7 @@ const errnotfound = options => {
   const view = options.view || '404';
   const error = options.error || '';
 
-  return (req, res, next) => {
+  return (req, res) => {
     res.status(404);
 
     // respond with html page

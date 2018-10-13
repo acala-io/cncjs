@@ -109,7 +109,7 @@ class TableRecords extends PureComponent {
           {
             title: i18n._('Command'),
             key: 'command',
-            render: (value, row, rowIndex) => {
+            render: (value, row) => {
               const style = {
                 background: 'inherit',
                 border: 'none',
@@ -137,7 +137,7 @@ class TableRecords extends PureComponent {
             title: i18n._('Button Width'),
             className: 'text-nowrap',
             key: 'grid.xs',
-            render: (value, row, rowIndex) => {
+            render: (value, row) => {
               value = get(row, 'grid.xs');
               return (
                 {
@@ -206,14 +206,14 @@ class TableRecords extends PureComponent {
             className: 'text-nowrap',
             key: 'action',
             width: 90,
-            render: (value, row, rowIndex) => (
+            render: (value, row) => (
               <div>
                 <Button
                   btnSize="xs"
                   btnStyle="flat"
                   compact
                   title={i18n._('Update')}
-                  onClick={event => {
+                  onClick={() => {
                     action.openModal(MODAL_UPDATE_RECORD, row);
                   }}
                 >
@@ -224,7 +224,7 @@ class TableRecords extends PureComponent {
                   btnStyle="flat"
                   compact
                   title={i18n._('Remove')}
-                  onClick={event => {
+                  onClick={() => {
                     action.removeRecord(row.id);
                   }}
                 >

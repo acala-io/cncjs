@@ -1,106 +1,29 @@
+import InfiniteTree from 'react-infinite-tree';
 import path from 'path';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
-import InfiniteTree from 'react-infinite-tree';
 import renderer from './renderer';
+
 import api from '../../api';
-import Modal from '../../components/Modal';
+
 import i18n from '../../lib/i18n';
+
+import Modal from '../../components/Modal';
+
 import styles from './renderer.styl';
 
 class WatchDirectory extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   tableNode = null;
   treeNode = null;
 
-  componentDidMount() {
-    this.addResizeEventListener();
-
-    api.watch
-      .getFiles({path: ''})
-      .then(res => {
-        const body = res.body;
-        const data = body.files.map(file => {
-          const {name, ...props} = file;
-
-          return {
-            id: path.join(body.path, name),
-            name: name,
-            props: {
-              ...props,
-              path: body.path || '',
-            },
-            loadOnDemand: props.type === 'd',
-          };
-        });
-
-        const tree = this.treeNode.tree;
-        tree.loadData(data);
-
-        this.fitHeaderColumns();
-      })
-      .catch(res => {
-        // Ignore error
-      });
-  }
-  componentWillUnmount() {
-    this.removeResizeEventListener();
-  }
-  addResizeEventListener() {
-    window.addEventListener('resize', this.fitHeaderColumns);
-  }
-  removeResizeEventListener() {
-    window.removeEventListener('resize', this.fitHeaderColumns);
-  }
-  addColumnGroup() {
-    if (!this.treeNode) {
-      return;
-    }
-
-    this.treeNode.tree.scrollElement.style.height = '240px';
-    const table = this.treeNode.tree.contentElement.parentNode;
-    const colgroup = document.createElement('colgroup');
-    table.appendChild(colgroup);
-
-    for (let i = 0; i < 4; ++i) {
-      const col = document.createElement('col');
-      colgroup.appendChild(col);
-    }
-  }
-  fitHeaderColumns() {
-    const ready = this.tableNode && this.treeNode;
-    if (!ready) {
-      return;
-    }
-
-    // eslint-disable-next-line react/no-find-dom-node
-    const elTable = ReactDOM.findDOMNode(this.tableNode);
-    const elTree = this.treeNode.tree.options.el;
-    const tableHeaders = elTable.querySelectorAll('tr > th');
-    const colgroup = elTree.querySelector('colgroup');
-    const row = elTree.querySelector('tbody > tr');
-
-    let i = 0;
-    let child = row.firstChild;
-    let col = colgroup.firstChild;
-    while (child && col) {
-      const width = Math.max(child.clientWidth, tableHeaders[i].clientWidth);
-      col.style.minWidth = width + 'px';
-      col.style.width = width + 'px';
-      tableHeaders[i].style.width = width + 'px';
-      ++i;
-
-      child = child.nextSibling;
-      col = col.nextSibling;
-    }
-  }
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {selectedNode = null} = state.modal.params;
     const canUpload = selectedNode && selectedNode.props.type === 'f';
 
@@ -110,14 +33,7 @@ class WatchDirectory extends PureComponent {
           <Modal.Title>{i18n._('Watch Directory')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <table
-            ref={node => {
-              this.tableNode = node;
-            }}
-            style={{
-              width: '100%',
-            }}
-          >
+          <table ref={ref => (this.tableNode = ref)} style={{width: '100%'}}>
             <thead>
               <tr>
                 <th>{i18n._('Name')}</th>
@@ -149,18 +65,18 @@ class WatchDirectory extends PureComponent {
 
                     return {
                       id: path.join(body.path, name),
+                      loadOnDemand: props.type === 'd',
                       name: name,
                       props: {
                         ...props,
                         path: body.path || '',
                       },
-                      loadOnDemand: props.type === 'd',
                     };
                   });
 
                   done(null, nodes);
                 })
-                .catch(res => {
+                .catch(() => {
                   // Ignore error
                 });
             }}
@@ -251,6 +167,93 @@ class WatchDirectory extends PureComponent {
         </Modal.Footer>
       </Modal>
     );
+  }
+
+  componentDidMount() {
+    this.addResizeEventListener();
+
+    api.watch
+      .getFiles({path: ''})
+      .then(res => {
+        const body = res.body;
+        const data = body.files.map(file => {
+          const {name, ...props} = file;
+
+          return {
+            id: path.join(body.path, name),
+            loadOnDemand: props.type === 'd',
+            name: name,
+            props: {
+              ...props,
+              path: body.path || '',
+            },
+          };
+        });
+
+        const tree = this.treeNode.tree;
+        tree.loadData(data);
+
+        this.fitHeaderColumns();
+      })
+      .catch(() => {
+        // Ignore error
+      });
+  }
+
+  componentWillUnmount() {
+    this.removeResizeEventListener();
+  }
+
+  addResizeEventListener() {
+    window.addEventListener('resize', this.fitHeaderColumns);
+  }
+
+  removeResizeEventListener() {
+    window.removeEventListener('resize', this.fitHeaderColumns);
+  }
+
+  addColumnGroup() {
+    if (!this.treeNode) {
+      return;
+    }
+
+    this.treeNode.tree.scrollElement.style.height = '240px';
+    const table = this.treeNode.tree.contentElement.parentNode;
+    const colgroup = document.createElement('colgroup');
+    table.appendChild(colgroup);
+
+    for (let i = 0; i < 4; ++i) {
+      const col = document.createElement('col');
+      colgroup.appendChild(col);
+    }
+  }
+
+  fitHeaderColumns() {
+    const ready = this.tableNode && this.treeNode;
+    if (!ready) {
+      return;
+    }
+
+    // eslint-disable-next-line react/no-find-dom-node
+    const elTable = ReactDOM.findDOMNode(this.tableNode);
+    const elTree = this.treeNode.tree.options.el;
+    const tableHeaders = elTable.querySelectorAll('tr > th');
+    const colgroup = elTree.querySelector('colgroup');
+    const row = elTree.querySelector('tbody > tr');
+
+    let i = 0;
+    let child = row.firstChild;
+    let col = colgroup.firstChild;
+    while (child && col) {
+      const width = Math.max(child.clientWidth, tableHeaders[i].clientWidth);
+      col.style.minWidth = width + 'px';
+      col.style.width = width + 'px';
+      tableHeaders[i].style.width = width + 'px';
+      ++i;
+
+      child = child.nextSibling;
+      col = col.nextSibling;
+    }
   }
 }
 

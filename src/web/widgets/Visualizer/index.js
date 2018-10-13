@@ -1,33 +1,20 @@
 import chainedFunction from 'chained-function';
 import classcat from 'classcat';
-import ExpressionEvaluator from 'expr-eval';
-import includes from 'lodash/includes';
-import get from 'lodash/get';
-import mapValues from 'lodash/mapValues';
-import pubsub from 'pubsub-js';
-import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
 import Detector from 'three/examples/js/Detector';
-import Anchor from '../../components/Anchor';
-import {Button} from '../../components/Buttons';
-import ModalTemplate from '../../components/ModalTemplate';
-import Modal from '../../components/Modal';
-import Widget from '../../components/Widget';
+import ExpressionEvaluator from 'expr-eval';
+import get from 'lodash/get';
+import includes from 'lodash/includes';
+import mapValues from 'lodash/mapValues';
+import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
+import React, {PureComponent} from 'react';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import portal from '../../lib/portal';
 import {in2mm} from '../../lib/units';
-import WidgetConfig from '../WidgetConfig';
-import PrimaryToolbar from './PrimaryToolbar';
-import SecondaryToolbar from './SecondaryToolbar';
-import WorkflowControl from './WorkflowControl';
-import Visualizer from './Visualizer';
-import Dashboard from './Dashboard';
-import Notifications from './Notifications';
-import Loading from './Loading';
-import Rendering from './Rendering';
-import WatchDirectory from './WatchDirectory';
+
 import {
   // Units
   IMPERIAL_UNITS,
@@ -58,6 +45,23 @@ import {
   NOTIFICATION_M109_SET_EXTRUDER_TEMPERATURE,
   NOTIFICATION_M190_SET_HEATED_BED_TEMPERATURE,
 } from './constants';
+
+import Anchor from '../../components/Anchor';
+import Dashboard from './Dashboard';
+import Loading from './Loading';
+import Modal from '../../components/Modal';
+import ModalTemplate from '../../components/ModalTemplate';
+import Notifications from './Notifications';
+import PrimaryToolbar from './PrimaryToolbar';
+import Rendering from './Rendering';
+import SecondaryToolbar from './SecondaryToolbar';
+import Visualizer from './Visualizer';
+import WatchDirectory from './WatchDirectory';
+import Widget from '../../components/Widget';
+import WidgetConfig from '../WidgetConfig';
+import WorkflowControl from './WorkflowControl';
+import {Button} from '../../components/Buttons';
+
 import styles from './index.styl';
 
 const translateExpression = (function() {
@@ -132,27 +136,158 @@ class VisualizerWidget extends PureComponent {
   };
 
   config = new WidgetConfig(this.props.widgetId);
+
   state = this.getInitialState();
+
+  getInitialState() {
+    return {
+      cameraMode: this.config.get('cameraMode', CAMERA_MODE_PAN),
+      cameraPosition: 'top', // 'top', '3d', 'front', 'left', 'right'
+      connection: {
+        ident: controller.connection.ident,
+      },
+      controller: {
+        settings: controller.settings,
+        state: controller.state,
+        type: controller.type,
+      },
+      disabled: this.config.get('disabled', false),
+      gcode: {
+        bbox: {
+          max: {
+            x: 0,
+            y: 0,
+            z: 0,
+          },
+          min: {
+            x: 0,
+            y: 0,
+            z: 0,
+          },
+        },
+        content: '',
+        displayName: this.config.get('gcode.displayName', true),
+        loading: false,
+        name: '', // Updates by the "sender:status" event
+        ready: false,
+        received: 0,
+        rendering: false,
+        sent: 0,
+        size: 0,
+        total: 0,
+      },
+      isAgitated: false, // Defaults to false
+      modal: {
+        name: '',
+        params: {},
+      },
+      notification: {
+        data: '',
+        type: '',
+      },
+      objects: {
+        coordinateSystem: {
+          visible: this.config.get('objects.coordinateSystem.visible', true),
+        },
+        gridLineNumbers: {
+          visible: this.config.get('objects.gridLineNumbers.visible', true),
+        },
+        toolhead: {
+          visible: this.config.get('objects.toolhead.visible', true),
+        },
+      },
+      projection: this.config.get('projection', 'orthographic'),
+      units: METRIC_UNITS,
+      wcs: 'G54', // Work Coordinate System (G54 through G59)
+      workflow: {
+        state: controller.workflow.state,
+      },
+      workPosition: {
+        // Work position
+        x: '0.000',
+        y: '0.000',
+        z: '0.000',
+      },
+    };
+  }
+
+  render() {
+    const state = {
+      ...this.state,
+      isAgitated: this.isAgitated(),
+    };
+
+    const actions = {
+      ...this.actions,
+    };
+
+    const showLoader = state.gcode.loading || state.gcode.rendering;
+    const capable = {
+      view3D: Detector.webgl && !state.disabled,
+    };
+    const showDashboard = !capable.view3D && !showLoader;
+    const showVisualizer = capable.view3D && !showLoader;
+    const showNotifications = showVisualizer && Boolean(state.notification.type);
+
+    return (
+      <Widget borderless>
+        <Widget.Content
+          ref={node => {
+            this.widgetContent = node;
+          }}
+          className={classcat([styles.widgetContent, {[styles.view3D]: capable.view3D}])}
+        >
+          {state.gcode.loading && <Loading />}
+          {state.gcode.rendering && <Rendering />}
+          {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}
+          <WorkflowControl state={state} actions={actions} />
+          <Dashboard show={showDashboard} state={state} />
+          {Detector.webgl && (
+            <Visualizer
+              show={showVisualizer}
+              ref={node => {
+                this.visualizer = node;
+              }}
+              state={state}
+            />
+          )}
+          {showNotifications && (
+            <Notifications
+              show={showNotifications}
+              type={state.notification.type}
+              data={state.notification.data}
+              onDismiss={actions.dismissNotification}
+            />
+          )}
+        </Widget.Content>
+        <Widget.Footer className={styles.widgetFooter}>
+          <PrimaryToolbar state={state} actions={actions} />
+          <SecondaryToolbar state={state} actions={actions} />
+        </Widget.Footer>
+      </Widget>
+    );
+  }
+
   actions = {
     dismissNotification: () => {
       this.setState(state => ({
         notification: {
           ...state.notification,
-          type: '',
           data: '',
+          type: '',
         },
       }));
     },
     openModal: (name = '', params = {}) => {
-      this.setState(state => ({
+      this.setState(() => ({
         modal: {
-          name: name,
-          params: params,
+          name,
+          params,
         },
       }));
     },
     closeModal: () => {
-      this.setState(state => ({
+      this.setState(() => ({
         modal: {
           name: '',
           params: {},
@@ -176,8 +311,8 @@ class VisualizerWidget extends PureComponent {
         gcode: {
           ...state.gcode,
           loading: true,
-          rendering: false,
           ready: false,
+          rendering: false,
         },
       }));
 
@@ -187,8 +322,8 @@ class VisualizerWidget extends PureComponent {
             gcode: {
               ...state.gcode,
               loading: false,
-              rendering: false,
               ready: false,
+              rendering: false,
             },
           }));
 
@@ -207,8 +342,8 @@ class VisualizerWidget extends PureComponent {
         gcode: {
           ...state.gcode,
           loading: true,
-          rendering: false,
           ready: false,
+          rendering: false,
         },
       }));
 
@@ -218,8 +353,8 @@ class VisualizerWidget extends PureComponent {
             gcode: {
               ...state.gcode,
               loading: false,
-              rendering: false,
               ready: false,
+              rendering: false,
             },
           }));
 
@@ -238,24 +373,25 @@ class VisualizerWidget extends PureComponent {
       const updater = state => ({
         gcode: {
           ...state.gcode,
-          loading: false,
-          rendering: capable.view3D,
-          ready: !capable.view3D,
-          content: gcode,
           bbox: {
-            min: {
-              x: 0,
-              y: 0,
-              z: 0,
-            },
             max: {
               x: 0,
               y: 0,
               z: 0,
             },
+            min: {
+              x: 0,
+              y: 0,
+              z: 0,
+            },
           },
+          content: gcode,
+          loading: false,
+          ready: !capable.view3D,
+          rendering: capable.view3D,
         },
       });
+
       const callback = () => {
         // Clear gcode bounding box
         controller.context = {
@@ -290,10 +426,10 @@ class VisualizerWidget extends PureComponent {
             this.setState(state => ({
               gcode: {
                 ...state.gcode,
+                bbox,
                 loading: false,
-                rendering: false,
                 ready: true,
-                bbox: bbox,
+                rendering: false,
               },
             }));
           });
@@ -322,22 +458,22 @@ class VisualizerWidget extends PureComponent {
       this.setState(state => ({
         gcode: {
           ...state.gcode,
-          loading: false,
-          rendering: false,
-          ready: false,
-          content: '',
           bbox: {
-            min: {
-              x: 0,
-              y: 0,
-              z: 0,
-            },
             max: {
               x: 0,
               y: 0,
               z: 0,
             },
+            min: {
+              x: 0,
+              y: 0,
+              z: 0,
+            },
           },
+          content: '',
+          loading: false,
+          ready: false,
+          rendering: false,
         },
       }));
     },
@@ -417,13 +553,13 @@ class VisualizerWidget extends PureComponent {
         disabled: !state.disabled,
       }));
     },
-    toPerspectiveProjection: projection => {
-      this.setState(state => ({
+    toPerspectiveProjection: () => {
+      this.setState(() => ({
         projection: 'perspective',
       }));
     },
-    toOrthographicProjection: projection => {
-      this.setState(state => ({
+    toOrthographicProjection: () => {
+      this.setState(() => ({
         projection: 'orthographic',
       }));
     },
@@ -470,12 +606,12 @@ class VisualizerWidget extends PureComponent {
     },
     camera: {
       toRotateMode: () => {
-        this.setState(state => ({
+        this.setState(() => ({
           cameraMode: CAMERA_MODE_ROTATE,
         }));
       },
       toPanMode: () => {
-        this.setState(state => ({
+        this.setState(() => ({
           cameraMode: CAMERA_MODE_PAN,
         }));
       },
@@ -556,7 +692,7 @@ class VisualizerWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
       this.actions.unloadGCode();
@@ -572,8 +708,8 @@ class VisualizerWidget extends PureComponent {
     'sender:status': data => {
       const {hold, holdReason, name, size, total, sent, received} = data;
       const notification = {
-        type: '',
         data: '',
+        type: '',
       };
 
       if (hold) {
@@ -610,10 +746,10 @@ class VisualizerWidget extends PureComponent {
         gcode: {
           ...state.gcode,
           name,
+          received,
+          sent,
           size,
           total,
-          sent,
-          received,
         },
         notification: {
           ...state.notification,
@@ -633,8 +769,8 @@ class VisualizerWidget extends PureComponent {
       this.setState(state => ({
         controller: {
           ...state.controller,
-          type: type,
           settings: controllerSettings,
+          type,
         },
       }));
     },
@@ -650,13 +786,13 @@ class VisualizerWidget extends PureComponent {
         const $13 = Number(get(controller.settings, 'settings.$13', 0)) || 0;
 
         this.setState(state => ({
-          units: units,
-          wcs: modal.wcs || state.wcs,
           controller: {
             ...state.controller,
-            type: type,
             state: controllerState,
+            type: type,
           },
+          units,
+          wcs: modal.wcs || state.wcs,
           // Work position are reported in mm ($13=0) or inches ($13=1)
           workPosition: mapValues(
             {
@@ -680,12 +816,12 @@ class VisualizerWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         this.setState(state => ({
-          units: units,
           controller: {
             ...state.controller,
-            type: type,
             state: controllerState,
+            type: type,
           },
+          units,
           // Work position are reported in current units
           workPosition: mapValues(
             {
@@ -709,22 +845,20 @@ class VisualizerWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         this.setState(state => ({
-          units: units,
-          wcs: modal.wcs || state.wcs,
           controller: {
             ...state.controller,
-            type: type,
             state: controllerState,
+            type: type,
           },
+          units: units,
+          wcs: modal.wcs || state.wcs,
           // Work position are reported in current units
           workPosition: mapValues(
             {
               ...state.workPosition,
               ...wpos,
             },
-            val => {
-              return units === IMPERIAL_UNITS ? in2mm(val) : val;
-            }
+            val => (units === IMPERIAL_UNITS ? in2mm(val) : val)
           ),
         }));
       }
@@ -739,13 +873,13 @@ class VisualizerWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         this.setState(state => ({
-          units: units,
-          wcs: modal.wcs || state.wcs,
           controller: {
             ...state.controller,
-            type: type,
             state: controllerState,
+            type: type,
           },
+          units: units,
+          wcs: modal.wcs || state.wcs,
           // https://github.com/synthetos/g2/wiki/Status-Reports
           // Work position are reported in current units, and also apply any offsets.
           workPosition: mapValues(
@@ -774,15 +908,17 @@ class VisualizerWidget extends PureComponent {
       displayWebGLErrorMessage();
 
       setTimeout(() => {
-        this.setState(state => ({
+        this.setState(() => ({
           disabled: true,
         }));
       }, 0);
     }
   }
+
   componentWillUnmount() {
     this.removeControllerEvents();
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.disabled !== prevState.disabled) {
       this.config.set('disabled', this.state.disabled);
@@ -806,92 +942,23 @@ class VisualizerWidget extends PureComponent {
       this.config.set('objects.toolhead.visible', this.state.objects.toolhead.visible);
     }
   }
-  getInitialState() {
-    return {
-      units: METRIC_UNITS,
-      wcs: 'G54', // Work Coordinate System (G54 through G59)
-      controller: {
-        type: controller.type,
-        settings: controller.settings,
-        state: controller.state,
-      },
-      connection: {
-        ident: controller.connection.ident,
-      },
-      workflow: {
-        state: controller.workflow.state,
-      },
-      notification: {
-        type: '',
-        data: '',
-      },
-      modal: {
-        name: '',
-        params: {},
-      },
-      workPosition: {
-        // Work position
-        x: '0.000',
-        y: '0.000',
-        z: '0.000',
-      },
-      gcode: {
-        displayName: this.config.get('gcode.displayName', true),
-        loading: false,
-        rendering: false,
-        ready: false,
-        content: '',
-        bbox: {
-          min: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
-          max: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
-        },
-        // Updates by the "sender:status" event
-        name: '',
-        size: 0,
-        total: 0,
-        sent: 0,
-        received: 0,
-      },
-      disabled: this.config.get('disabled', false),
-      projection: this.config.get('projection', 'orthographic'),
-      objects: {
-        coordinateSystem: {
-          visible: this.config.get('objects.coordinateSystem.visible', true),
-        },
-        gridLineNumbers: {
-          visible: this.config.get('objects.gridLineNumbers.visible', true),
-        },
-        toolhead: {
-          visible: this.config.get('objects.toolhead.visible', true),
-        },
-      },
-      cameraMode: this.config.get('cameraMode', CAMERA_MODE_PAN),
-      cameraPosition: 'top', // 'top', '3d', 'front', 'left', 'right'
-      isAgitated: false, // Defaults to false
-    };
-  }
+
   addControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.addListener(eventName, callback);
     });
   }
+
   removeControllerEvents() {
     Object.keys(this.controllerEvents).forEach(eventName => {
       const callback = this.controllerEvents[eventName];
       controller.removeListener(eventName, callback);
     });
   }
+
   isAgitated() {
-    const {workflow, disabled, objects} = this.state;
+    const {disabled, objects, workflow} = this.state;
     const controllerType = this.state.controller.type;
     const controllerState = this.state.controller.state;
 
@@ -933,60 +1000,6 @@ class VisualizerWidget extends PureComponent {
     }
 
     return true;
-  }
-  render() {
-    const state = {
-      ...this.state,
-      isAgitated: this.isAgitated(),
-    };
-    const actions = {
-      ...this.actions,
-    };
-    const showLoader = state.gcode.loading || state.gcode.rendering;
-    const capable = {
-      view3D: Detector.webgl && !state.disabled,
-    };
-    const showDashboard = !capable.view3D && !showLoader;
-    const showVisualizer = capable.view3D && !showLoader;
-    const showNotifications = showVisualizer && Boolean(state.notification.type);
-
-    return (
-      <Widget borderless>
-        <Widget.Content
-          ref={node => {
-            this.widgetContent = node;
-          }}
-          className={classcat([styles.widgetContent, {[styles.view3D]: capable.view3D}])}
-        >
-          {state.gcode.loading && <Loading />}
-          {state.gcode.rendering && <Rendering />}
-          {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}
-          <WorkflowControl state={state} actions={actions} />
-          <Dashboard show={showDashboard} state={state} />
-          {Detector.webgl && (
-            <Visualizer
-              show={showVisualizer}
-              ref={node => {
-                this.visualizer = node;
-              }}
-              state={state}
-            />
-          )}
-          {showNotifications && (
-            <Notifications
-              show={showNotifications}
-              type={state.notification.type}
-              data={state.notification.data}
-              onDismiss={actions.dismissNotification}
-            />
-          )}
-        </Widget.Content>
-        <Widget.Footer className={styles.widgetFooter}>
-          <PrimaryToolbar state={state} actions={actions} />
-          <SecondaryToolbar state={state} actions={actions} />
-        </Widget.Footer>
-      </Widget>
-    );
   }
 }
 

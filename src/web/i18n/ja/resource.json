@@ -258,7 +258,6 @@
     "Home Machine": "",
     "Zero Out Work Offsets": "",
     "Set Work Offsets": "",
-    "Axis": "軸",
     "Machine Position": "機械位置",
     "Work Position": "ワーク位置",
     "Axes": "軸制御",
@@ -449,7 +448,6 @@
     "Click the Resume button to resume program execution.": "プログラムの実行を再開するには、[再開]ボタンをクリックします。",
     "Click the Stop button to stop program execution.": "プログラムの実行を停止するには、[停止]ボタンをクリックします。",
     "Run a tool change macro to change the tool and adjust the Z-axis offset. Afterwards, click the Resume button to resume program execution.": "工具交換マクロを実行して工具を変更し、Z軸のオフセットを調整します。 その後、[再開]ボタンをクリックしてプログラムの実行を再開します。",
-    "Waiting for the target temperature to be reached...": "目標温度に到達するのを待機しています...",
     "Work Coordinate System": "ワーク座標系",
     "Enable 3D View": "3Dビューを有効化する",
     "Disable 3D View": "3Dビューを無効化する",
@@ -526,5 +524,8 @@
     "Connect Machine": "",
     "Connect": "",
     "Disconnect": "",
-    "Reload Page": ""
+    "Reload Page": "",
+    "Loading": "",
+    "Work Coordinate System ({{wcs}})": "",
+    "Waiting for the target temperature to be reached ...": ""
 }

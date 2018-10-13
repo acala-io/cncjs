@@ -31,7 +31,6 @@ import AddMacro from './AddMacro';
 import EditMacro from './EditMacro';
 import Macro from './Macro';
 import RunMacro from './RunMacro';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
@@ -78,12 +77,13 @@ class MacroWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
     const {minimized} = this.state;
+
     const state = {
       ...this.state,
       canClick: this.canClick(),
     };
+
     const actions = {...this.actions};
 
     return (
@@ -175,14 +175,14 @@ class MacroWidget extends PureComponent {
       }
     },
     runMacro: (id, {name}) => {
-      controller.command('macro:run', id, controller.context, (err, data) => {
+      controller.command('macro:run', id, controller.context, err => {
         if (err) {
           log.error(`Failed to run the macro: id=${id}, name="${name}"`);
           return;
         }
       });
     },
-    loadMacro: async (id, {name}) => {
+    loadMacro: async id => {
       try {
         const res = await api.macros.read(id);
         const {name} = res.body;
@@ -234,7 +234,7 @@ class MacroWidget extends PureComponent {
         },
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState(state => ({
         ...initialState,
@@ -245,13 +245,13 @@ class MacroWidget extends PureComponent {
       this.setState(state => ({
         controller: {
           ...state.controller,
-          type,
           state: controllerState,
+          type,
         },
       }));
     },
     'workflow:state': workflowState => {
-      this.setState(state => ({
+      this.setState(() => ({
         workflow: {
           state: workflowState,
         },
@@ -279,10 +279,8 @@ class MacroWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const {minimized} = this.state;
-
-    this.config.set('minimized', minimized);
+  componentDidUpdate() {
+    this.config.set('minimized', this.state.minimized);
   }
 
   addControllerEvents() {

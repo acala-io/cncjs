@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default (Component, node = null) =>
-  new Promise((resolve, reject) => {
+  new Promise(resolve => {
     let defaultNode = null;
 
     if (!node) {

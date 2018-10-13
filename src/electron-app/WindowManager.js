@@ -1,4 +1,3 @@
-/* eslint import/no-unresolved: 0 */
 import {app, BrowserWindow, shell} from 'electron';
 // import AutoUpdater from './AutoUpdater';
 
@@ -11,7 +10,7 @@ class WindowManager {
     // https://github.com/electron/electron/blob/master/docs/api/app.md#event-activate-os-x
     // Emitted when the application is activated, which usually happens
     // when the user clicks on the application's dock icon.
-    app.on('activate', e => {
+    app.on('activate', () => {
       const window = this.getWindow();
       if (!window) {
         this.openWindow({
@@ -43,6 +42,7 @@ class WindowManager {
       app.quit();
     });
   }
+
   openWindow(url, options) {
     const window = new BrowserWindow({
       ...options,
@@ -81,10 +81,12 @@ class WindowManager {
 
     return window;
   }
+
   getWindow(index = 0) {
     if (this.windows.length === 0) {
       return null;
     }
+
     return this.windows[index] || null;
   }
 }

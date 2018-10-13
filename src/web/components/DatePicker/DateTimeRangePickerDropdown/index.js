@@ -2,10 +2,12 @@ import _max from 'lodash/max';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Button} from 'web/components/Buttons';
-import Dropdown, {MenuItem} from 'web/components/Dropdown';
+
 import i18n from 'web/lib/i18n';
+
 import DateTimeRangePicker from '../DateTimeRangePicker';
+import Dropdown, {MenuItem} from '../../../components/Dropdown';
+import {Button} from '../../../components/Buttons';
 
 const normalizeDateString = dateString => {
   let m = moment(dateString);
@@ -47,19 +49,20 @@ const mapPeriodToString = period => {
 
 class DateTimeRangePickerDropdown extends PureComponent {
   static propTypes = {
-    locale: PropTypes.string,
-    startDate: PropTypes.string,
-    startTime: PropTypes.string,
+    defaultPeriod: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     endDate: PropTypes.string,
     endTime: PropTypes.string,
-    periods: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
-    period: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    defaultPeriod: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    locale: PropTypes.string,
     onSelect: PropTypes.func,
+    period: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    periods: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    startDate: PropTypes.string,
+    startTime: PropTypes.string,
   };
+
   static defaultProps = {
-    periods: ['1d', '7d', '14d', '30d', '60d'],
     defaultPeriod: '7d',
+    periods: ['1d', '7d', '14d', '30d', '60d'],
   };
 
   state = this.getInitialState();
@@ -76,15 +79,15 @@ class DateTimeRangePickerDropdown extends PureComponent {
     if (prevState.startDate !== nextProps.startDate) {
       nextState = {
         ...nextState,
-        startDate: nextProps.startDate,
         nextStartDate: nextProps.startDate,
+        startDate: nextProps.startDate,
       };
     }
     if (prevState.startTime !== nextProps.startTime) {
       nextState = {
         ...nextState,
-        startTime: nextProps.startTime,
         nextStartTime: nextProps.startTime,
+        startTime: nextProps.startTime,
       };
     }
     if (prevState.endDate !== nextProps.endDate) {
@@ -118,10 +121,10 @@ class DateTimeRangePickerDropdown extends PureComponent {
     const isSameOrAfterEnd = moment(isoStartDateTime).isSameOrAfter(isoEndDateTime);
 
     this.setState({
-      nextStartDate: startDate,
       nextEndDate: isSameOrAfterEnd ? startDate : endDate,
-      nextStartTime: startTime,
       nextEndTime: isSameOrAfterEnd ? startTime : endTime,
+      nextStartDate: startDate,
+      nextStartTime: startTime,
     });
   };
 
@@ -138,10 +141,10 @@ class DateTimeRangePickerDropdown extends PureComponent {
     const isSameOrBeforeStart = moment(isoEndDateTime).isSameOrBefore(isoStartDateTime);
 
     this.setState({
-      nextStartDate: isSameOrBeforeStart ? endDate : startDate,
       nextEndDate: endDate,
-      nextStartTime: isSameOrBeforeStart ? endTime : startTime,
       nextEndTime: endTime,
+      nextStartDate: isSameOrBeforeStart ? endDate : startDate,
+      nextStartTime: isSameOrBeforeStart ? endTime : startTime,
     });
   };
 
@@ -155,8 +158,8 @@ class DateTimeRangePickerDropdown extends PureComponent {
     const isSameOrAfterEnd = moment(isoStartDateTime).isSameOrAfter(isoEndDateTime);
 
     this.setState({
-      nextStartTime: startTime,
       nextEndTime: isSameOrAfterEnd ? startTime : endTime,
+      nextStartTime: startTime,
     });
   };
 
@@ -170,8 +173,8 @@ class DateTimeRangePickerDropdown extends PureComponent {
     const isSameOrBeforeStart = moment(isoEndDateTime).isSameOrBefore(isoStartDateTime);
 
     this.setState({
-      nextStartTime: isSameOrBeforeStart ? endTime : startTime,
       nextEndTime: endTime,
+      nextStartTime: isSameOrBeforeStart ? endTime : startTime,
     });
   };
 
@@ -191,21 +194,21 @@ class DateTimeRangePickerDropdown extends PureComponent {
       const endDate = moment(endOfDay).format('YYYY-MM-DD');
       const endTime = moment(endOfDay).format('HH:mm:ss');
 
-      this.setState(state => ({
+      this.setState({
+        endDate,
+        endTime,
         period,
         startDate,
         startTime,
-        endDate,
-        endTime,
-      }));
+      });
     }
 
     this.setState(
       state => ({
-        nextStartDate: state.startDate,
-        nextStartTime: state.startTime,
         nextEndDate: state.endDate,
         nextEndTime: state.endTime,
+        nextStartDate: state.startDate,
+        nextStartTime: state.startTime,
       }),
       () => {
         const {onSelect} = this.props;

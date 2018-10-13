@@ -3,15 +3,15 @@ import * as THREE from 'three';
 const getBoundingBox = object => {
   const box = new THREE.Box3().setFromObject(object);
   const boundingBox = {
-    min: {
-      x: box.min.x === Infinity ? 0 : box.min.x,
-      y: box.min.y === Infinity ? 0 : box.min.y,
-      z: box.min.z === Infinity ? 0 : box.min.z,
-    },
     max: {
       x: box.max.x === -Infinity ? 0 : box.max.x,
       y: box.max.y === -Infinity ? 0 : box.max.y,
       z: box.max.z === -Infinity ? 0 : box.max.z,
+    },
+    min: {
+      x: box.min.x === Infinity ? 0 : box.min.x,
+      y: box.min.y === Infinity ? 0 : box.min.y,
+      z: box.min.z === Infinity ? 0 : box.min.z,
     },
   };
 
@@ -19,15 +19,17 @@ const getBoundingBox = object => {
 };
 
 const loadTexture = (url, callback) => {
-  callback = callback || ((err, texture) => {});
+  callback = callback || (() => {});
 
   const onLoad = texture => {
     callback(null, texture);
   };
-  const onProgress = xhr => {
+
+  const onProgress = () => {
     // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
   };
-  const onError = xhr => {
+
+  const onError = () => {
     callback(new Error('Failed to load texture with the url ' + JSON.stringify(url)));
   };
 

@@ -1,24 +1,29 @@
 /* eslint react/jsx-no-bind: 0 */
+
 import chainedFunction from 'chained-function';
-import take from 'lodash/take';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Button} from '../../../components/Buttons';
+import take from 'lodash/take';
+
+import i18n from '../../../lib/i18n';
+import portal from '../../../lib/portal';
+
+import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
+
 import Modal from '../../../components/Modal';
-import {TablePagination} from '../../../components/Paginations';
 import Space from '../../../components/Space';
 import Table from '../../../components/Table';
 import ToggleSwitch from '../../../components/ToggleSwitch';
-import portal from '../../../lib/portal';
-import i18n from '../../../lib/i18n';
-import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
+import {Button} from '../../../components/Buttons';
+import {TablePagination} from '../../../components/Paginations';
+
 import styles from './index.styl';
 
 class TableRecords extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
@@ -42,7 +47,7 @@ class TableRecords extends PureComponent {
               <span>
                 <i className="fa fa-fw fa-spin fa-circle-o-notch" />
                 <Space width="8" />
-                {i18n._('Loading...')}
+                {i18n._('Loading')}
               </span>
             );
           }
@@ -83,7 +88,7 @@ class TableRecords extends PureComponent {
           {
             title: i18n._('Enabled'),
             key: 'enabled',
-            render: (value, row, index) => {
+            render: (value, row) => {
               const {id, enabled} = row;
               const title = enabled ? i18n._('Enabled') : i18n._('Disabled');
 
@@ -92,7 +97,7 @@ class TableRecords extends PureComponent {
                   checked={enabled}
                   size="sm"
                   title={title}
-                  onChange={event => {
+                  onChange={() => {
                     actions.updateRecord(id, {enabled: !enabled});
                   }}
                 />
@@ -100,37 +105,37 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Event'),
             className: 'text-nowrap',
             key: 'event',
-            render: (value, row, index) => {
+            title: i18n._('Event'),
+            render: (value, row) => {
               const eventText =
                 {
-                  startup: i18n._('Startup'),
-                  'connection:open': i18n._('Open'),
                   'connection:close': i18n._('Close'),
+                  'connection:open': i18n._('Open'),
+                  'macro:load': i18n._('Load Macro'),
+                  'macro:run': i18n._('Run Macro'),
                   'sender:load': i18n._('G-code: Load'),
-                  'sender:unload': i18n._('G-code: Unload'),
-                  'sender:start': i18n._('G-code: Start'),
-                  'sender:stop': i18n._('G-code: Stop'),
                   'sender:pause': i18n._('G-code: Pause'),
                   'sender:resume': i18n._('G-code: Resume'),
-                  feedhold: i18n._('Feed Hold'),
+                  'sender:start': i18n._('G-code: Start'),
+                  'sender:stop': i18n._('G-code: Stop'),
+                  'sender:unload': i18n._('G-code: Unload'),
                   cyclestart: i18n._('Cycle Start'),
+                  feedhold: i18n._('Feed Hold'),
                   homing: i18n._('Homing'),
                   sleep: i18n._('Sleep'),
-                  'macro:run': i18n._('Run Macro'),
-                  'macro:load': i18n._('Load Macro'),
+                  startup: i18n._('Startup'),
                 }[row.event] || '';
 
               return eventText;
             },
           },
           {
-            title: i18n._('Trigger'),
             className: 'text-nowrap',
             key: 'trigger',
-            render: (value, row, index) => {
+            title: i18n._('Trigger'),
+            render: (value, row) => {
               const {trigger} = row;
 
               if (trigger === 'system') {
@@ -145,9 +150,9 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Commands'),
             key: 'commands',
-            render: (value, row, index) => {
+            title: i18n._('Commands'),
+            render: (value, row) => {
               const style = {
                 background: 'inherit',
                 border: 'none',
@@ -172,10 +177,10 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Date Modified'),
             className: 'text-nowrap',
             key: 'date-modified',
-            render: (value, row, index) => {
+            title: i18n._('Date Modified'),
+            render: (value, row) => {
               const {mtime} = row;
               if (mtime) {
                 return moment(mtime).format('lll');
@@ -185,10 +190,10 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            title: i18n._('Action'),
             className: 'text-nowrap',
             key: 'action',
-            render: (value, row, index) => {
+            title: i18n._('Action'),
+            render: (value, row) => {
               const {id} = row;
 
               return (
@@ -197,7 +202,7 @@ class TableRecords extends PureComponent {
                     type="button"
                     className="btn btn-xs btn-default"
                     title={i18n._('Update')}
-                    onClick={event => {
+                    onClick={() => {
                       actions.openModal(MODAL_UPDATE_RECORD, row);
                     }}
                   >
@@ -207,7 +212,7 @@ class TableRecords extends PureComponent {
                     type="button"
                     className="btn btn-xs btn-default"
                     title={i18n._('Delete')}
-                    onClick={event => {
+                    onClick={() => {
                       portal(({onClose}) => (
                         <Modal size="xs" onClose={onClose}>
                           <Modal.Header>

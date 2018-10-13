@@ -11,7 +11,6 @@ import {MODAL_NONE, MODAL_CONTROLLER} from './constants';
 
 import Controller from './Controller';
 import Marlin from './Marlin';
-import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
@@ -71,8 +70,7 @@ class MarlinWidget extends PureComponent {
   }
 
   render() {
-    const {widgetId} = this.props;
-    const {minimized, isFullscreen, isReady} = this.state;
+    const {isReady, minimized} = this.state;
 
     const state = {
       ...this.state,
@@ -89,7 +87,7 @@ class MarlinWidget extends PureComponent {
           <Widget.Controls>
             {isReady && (
               <Widget.Button
-                onClick={event => {
+                onClick={() => {
                   actions.openModal(MODAL_CONTROLLER);
                 }}
               >
@@ -257,7 +255,7 @@ class MarlinWidget extends PureComponent {
         isReady: controller.type === MARLIN,
       }));
     },
-    'connection:close': options => {
+    'connection:close': () => {
       const initialState = this.getInitialState();
       this.setState({...initialState});
     },
@@ -293,7 +291,7 @@ class MarlinWidget extends PureComponent {
     this.removeControllerEvents();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const {heater, minimized, panel} = this.state;
 
     this.config.set('minimized', minimized);

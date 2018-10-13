@@ -6,7 +6,7 @@ let authenticated = false;
 module.exports = {
   authenticated: () => authenticated,
   signin: ({name, password, token}) =>
-    new Promise((resolve, reject) => {
+    new Promise(resolve => {
       api
         .signin({name, password, token})
         .then(res => {
@@ -26,7 +26,7 @@ module.exports = {
             token,
           });
         })
-        .catch(res => {
+        .catch(() => {
           // Do not unset session token so it won't trigger an update to the store
           authenticated = false;
 
@@ -37,7 +37,7 @@ module.exports = {
         });
     }),
   signout: () =>
-    new Promise((resolve, reject) => {
+    new Promise(resolve => {
       store.unset('session.token');
 
       authenticated = false;

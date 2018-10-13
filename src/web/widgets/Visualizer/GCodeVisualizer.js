@@ -92,7 +92,7 @@ class GCodeVisualizer {
       child.geometry.dispose();
     }
 
-    toolpath.loadFromStringSync(gcode, (line, index) => {
+    toolpath.loadFromStringSync(gcode, line => {
       this.frames.push({
         data: line,
         vertexIndex: this.geometry.vertices.length, // remember current vertex index
@@ -104,9 +104,9 @@ class GCodeVisualizer {
       new THREE.LineBasicMaterial({
         color: defaultColor,
         linewidth: 1,
-        vertexColors: THREE.VertexColors,
         opacity: 0.5,
         transparent: true,
+        vertexColors: THREE.VertexColors,
       })
     );
     workpiece.geometry.vertices = this.geometry.vertices.slice();
@@ -115,9 +115,9 @@ class GCodeVisualizer {
     this.group.add(workpiece);
 
     log.debug({
-      workpiece: workpiece,
-      frames: this.frames,
       frameIndex: this.frameIndex,
+      frames: this.frames,
+      workpiece: workpiece,
     });
 
     return this.group;

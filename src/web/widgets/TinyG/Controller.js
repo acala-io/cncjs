@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button} from '../../components/Buttons';
-import Modal from '../../components/Modal';
-import {Nav, NavItem} from '../../components/Navs';
+
 import i18n from '../../lib/i18n';
+
+import Modal from '../../components/Modal';
+import {Button} from '../../components/Buttons';
+import {Nav, NavItem} from '../../components/Navs';
+
 import styles from './index.styl';
 
 const Controller = props => {
@@ -20,7 +23,7 @@ const Controller = props => {
         <Nav
           navStyle="tabs"
           activeKey={activeTab}
-          onSelect={(eventKey, event) => {
+          onSelect={eventKey => {
             actions.updateModalParams({activeTab: eventKey});
           }}
           style={{marginBottom: 10}}
@@ -49,8 +52,8 @@ const Controller = props => {
 };
 
 Controller.propTypes = {
-  state: PropTypes.object,
   actions: PropTypes.object,
+  state: PropTypes.object,
 };
 
 export default Controller;

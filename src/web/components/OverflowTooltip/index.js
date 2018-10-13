@@ -7,14 +7,24 @@ class OverflowTooltip extends React.Component {
     title: PropTypes.string,
   };
 
+  static getDerivedStateFromProps() {
+    return {
+      overflow: false,
+    };
+  }
+
   state = {
     overflow: false,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return {
-      overflow: false,
-    };
+  render() {
+    const {title, ...props} = this.props;
+
+    if (this.state.overflow) {
+      props.title = title;
+    }
+
+    return <div {...props} />;
   }
 
   detectOverflow = () => {
@@ -32,16 +42,6 @@ class OverflowTooltip extends React.Component {
 
   componentDidUpdate() {
     this.detectOverflow();
-  }
-
-  render() {
-    const {title, ...props} = this.props;
-
-    if (this.state.overflow) {
-      props.title = title;
-    }
-
-    return <div {...props} />;
   }
 }
 

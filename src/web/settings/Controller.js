@@ -1,4 +1,3 @@
-import FacebookLoading from 'react-facebook-loading';
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
 
@@ -12,7 +11,7 @@ class Controller extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,
     state: PropTypes.object,
-    stateChanged: PropTypes.bool,
+    // stateChanged: PropTypes.bool,
   };
 
   fields = {
@@ -20,15 +19,15 @@ class Controller extends PureComponent {
   };
 
   handlers = {
-    handleChangeIgnoreErrors: event => {
-      const {actions} = this.props;
-      actions.toggleIgnoreErrors();
-    },
-    cancel: event => {
+    cancel: () => {
       const {actions} = this.props;
       actions.restoreSettings();
     },
-    save: event => {
+    handleChangeIgnoreErrors: () => {
+      const {actions} = this.props;
+      actions.toggleIgnoreErrors();
+    },
+    save: () => {
       const {actions} = this.props;
       actions.save();
     },
@@ -40,7 +39,7 @@ class Controller extends PureComponent {
   }
 
   render() {
-    const {state, stateChanged} = this.props;
+    const {state} = this.props;
 
     // if (state.api.loading) {
     //   return <FacebookLoading delay={400} zoom={2} style={{margin: '15px auto'}} />;

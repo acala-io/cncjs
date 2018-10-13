@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button} from '../../components/Buttons';
-import Modal from '../../components/Modal';
-import {Nav, NavItem} from '../../components/Navs';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
+
+import Modal from '../../components/Modal';
+import {Button} from '../../components/Buttons';
+import {Nav, NavItem} from '../../components/Navs';
+
 import styles from './index.styl';
 
 const Controller = props => {
-  const {state, actions} = props;
+  const {actions, state} = props;
   const {activeTab = 'state'} = state.modal.params;
   const height = Math.max(window.innerHeight / 2, 200);
 
@@ -21,7 +24,7 @@ const Controller = props => {
         <Nav
           navStyle="tabs"
           activeKey={activeTab}
-          onSelect={(eventKey, event) => {
+          onSelect={eventKey => {
             actions.updateModalParams({activeTab: eventKey});
           }}
           style={{marginBottom: 10}}
@@ -45,7 +48,7 @@ const Controller = props => {
                   right: 10,
                   top: 10,
                 }}
-                onClick={event => {
+                onClick={() => {
                   controller.writeln('$#'); // Parameters
                   controller.writeln('$$'); // Settings
                 }}

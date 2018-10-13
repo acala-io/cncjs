@@ -1,9 +1,7 @@
 import _ from 'lodash';
 import classcat from 'classcat';
-import colornames from 'colornames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Detector from 'three/examples/js/Detector';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
@@ -49,17 +47,92 @@ import {
 } from '../../constants';
 
 import Dropdown, {MenuItem} from '../../components/Dropdown';
-import Interpolate from '../../components/Interpolate';
-import Space from '../../components/Space';
-import {Button} from '../../components/Buttons';
 
 import styles from './index.styl';
 
 class PrimaryToolbar extends PureComponent {
   static propTypes = {
-    actions: PropTypes.object,
     state: PropTypes.object,
   };
+
+  render() {
+    const {state} = this.props;
+    const {wcs} = state;
+
+    const controllerType = this.renderControllerType();
+    const controllerState = this.renderControllerState();
+    const canSendCommand = this.canSendCommand();
+
+    return (
+      <div className={styles.primaryToolbar}>
+        {controllerType}
+        {controllerState}
+        <div className="pull-right">
+          <Dropdown style={{marginRight: 5}} disabled={!canSendCommand} pullRight>
+            <Dropdown.Toggle btnSize="sm" title={i18n._('Work Coordinate System')}>
+              {wcs === 'G54' && `${wcs} (P1)`}
+              {wcs === 'G55' && `${wcs} (P2)`}
+              {wcs === 'G56' && `${wcs} (P3)`}
+              {wcs === 'G57' && `${wcs} (P4)`}
+              {wcs === 'G58' && `${wcs} (P5)`}
+              {wcs === 'G59' && `${wcs} (P6)`}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <MenuItem header>{i18n._('Work Coordinate System')}</MenuItem>
+              <MenuItem
+                active={wcs === 'G54'}
+                onSelect={() => {
+                  controller.command('gcode', 'G54');
+                }}
+              >
+                G54 (P1)
+              </MenuItem>
+              <MenuItem
+                active={wcs === 'G55'}
+                onSelect={() => {
+                  controller.command('gcode', 'G55');
+                }}
+              >
+                G55 (P2)
+              </MenuItem>
+              <MenuItem
+                active={wcs === 'G56'}
+                onSelect={() => {
+                  controller.command('gcode', 'G56');
+                }}
+              >
+                G56 (P3)
+              </MenuItem>
+              <MenuItem
+                active={wcs === 'G57'}
+                onSelect={() => {
+                  controller.command('gcode', 'G57');
+                }}
+              >
+                G57 (P4)
+              </MenuItem>
+              <MenuItem
+                active={wcs === 'G58'}
+                onSelect={() => {
+                  controller.command('gcode', 'G58');
+                }}
+              >
+                G58 (P5)
+              </MenuItem>
+              <MenuItem
+                active={wcs === 'G59'}
+                onSelect={() => {
+                  controller.command('gcode', 'G59');
+                }}
+              >
+                G59 (P6)
+              </MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      </div>
+    );
+  }
 
   canSendCommand() {
     if (!controller.connection.ident) {
@@ -72,12 +145,14 @@ class PrimaryToolbar extends PureComponent {
 
     return true;
   }
+
   renderControllerType() {
     const {state} = this.props;
     const controllerType = state.controller.type;
 
     return <div className={styles.controllerType}>{controllerType}</div>;
   }
+
   renderControllerState() {
     const {state} = this.props;
     const controllerType = state.controller.type;
@@ -181,84 +256,6 @@ class PrimaryToolbar extends PureComponent {
     }
 
     return <div className={classcat([styles.controllerState, styles[stateStyle]])}>{stateText}</div>;
-  }
-  render() {
-    const {state, actions} = this.props;
-    const {wcs, disabled, gcode, projection, objects} = state;
-    const controllerType = this.renderControllerType();
-    const controllerState = this.renderControllerState();
-    const canSendCommand = this.canSendCommand();
-    const canToggleOptions = Detector.webgl && !disabled;
-
-    return (
-      <div className={styles.primaryToolbar}>
-        {controllerType}
-        {controllerState}
-        <div className="pull-right">
-          <Dropdown style={{marginRight: 5}} disabled={!canSendCommand} pullRight>
-            <Dropdown.Toggle btnSize="sm" title={i18n._('Work Coordinate System')}>
-              {wcs === 'G54' && `${wcs} (P1)`}
-              {wcs === 'G55' && `${wcs} (P2)`}
-              {wcs === 'G56' && `${wcs} (P3)`}
-              {wcs === 'G57' && `${wcs} (P4)`}
-              {wcs === 'G58' && `${wcs} (P5)`}
-              {wcs === 'G59' && `${wcs} (P6)`}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <MenuItem header>{i18n._('Work Coordinate System')}</MenuItem>
-              <MenuItem
-                active={wcs === 'G54'}
-                onSelect={() => {
-                  controller.command('gcode', 'G54');
-                }}
-              >
-                G54 (P1)
-              </MenuItem>
-              <MenuItem
-                active={wcs === 'G55'}
-                onSelect={() => {
-                  controller.command('gcode', 'G55');
-                }}
-              >
-                G55 (P2)
-              </MenuItem>
-              <MenuItem
-                active={wcs === 'G56'}
-                onSelect={() => {
-                  controller.command('gcode', 'G56');
-                }}
-              >
-                G56 (P3)
-              </MenuItem>
-              <MenuItem
-                active={wcs === 'G57'}
-                onSelect={() => {
-                  controller.command('gcode', 'G57');
-                }}
-              >
-                G57 (P4)
-              </MenuItem>
-              <MenuItem
-                active={wcs === 'G58'}
-                onSelect={() => {
-                  controller.command('gcode', 'G58');
-                }}
-              >
-                G58 (P5)
-              </MenuItem>
-              <MenuItem
-                active={wcs === 'G59'}
-                onSelect={() => {
-                  controller.command('gcode', 'G59');
-                }}
-              >
-                G59 (P6)
-              </MenuItem>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-      </div>
-    );
   }
 }
 

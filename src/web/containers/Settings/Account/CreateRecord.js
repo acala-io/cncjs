@@ -128,7 +128,7 @@ class CreateRecord extends PureComponent {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={event => {
+            onClick={() => {
               this.form.validate(err => {
                 if (err) {
                   return;

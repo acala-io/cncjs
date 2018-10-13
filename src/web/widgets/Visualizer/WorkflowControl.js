@@ -37,7 +37,7 @@ class WorkflowControl extends PureComponent {
 
   fileInputEl = null;
 
-  handleClickUpload = event => {
+  handleClickUpload = () => {
     this.fileInputEl.value = null;
     this.fileInputEl.click();
   };
@@ -114,9 +114,6 @@ class WorkflowControl extends PureComponent {
 
     const canClick = Boolean(connection.ident);
     const isReady = canClick && gcode.ready;
-    const canRun = this.canRun();
-    const canPause = isReady && includes([WORKFLOW_STATE_RUNNING], workflow.state);
-    const canStop = isReady && includes([WORKFLOW_STATE_PAUSED], workflow.state);
     const canClose = isReady && includes([WORKFLOW_STATE_IDLE], workflow.state);
     const canUpload = isReady ? canClose : canClick && !gcode.loading;
 

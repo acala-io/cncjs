@@ -258,7 +258,6 @@
     "Home Machine": "",
     "Zero Out Work Offsets": "",
     "Set Work Offsets": "",
-    "Axis": "Assen",
     "Machine Position": "Machine Positie",
     "Work Position": "Werk Positie",
     "Axes": "Assen",
@@ -449,7 +448,6 @@
     "Click the Resume button to resume program execution.": "Klik de vervolg knop om het programma te vervolgen",
     "Click the Stop button to stop program execution.": "Klik op de Stop knop om het programma te stoppen",
     "Run a tool change macro to change the tool and adjust the Z-axis offset. Afterwards, click the Resume button to resume program execution.": "Draai een verwissel gereedschap macro om het gereedschap te verwisselen en de offset van de Z-as bij te stellen. Daarna klik de Vervolg knop om het programma te vervolgen",
-    "Waiting for the target temperature to be reached...": "",
     "Work Coordinate System": "Werk Coördinatie Systeem",
     "Enable 3D View": "3D Visie Aan",
     "Disable 3D View": "3D Visie Uit",
@@ -526,5 +524,8 @@
     "Connect Machine": "",
     "Connect": "",
     "Disconnect": "",
-    "Reload Page": ""
+    "Reload Page": "",
+    "Loading": "",
+    "Work Coordinate System ({{wcs}})": "",
+    "Waiting for the target temperature to be reached ...": ""
 }

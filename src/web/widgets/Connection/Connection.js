@@ -1,6 +1,5 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import find from 'lodash/find';
-import includes from 'lodash/includes';
 import map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
@@ -8,8 +7,6 @@ import Select from 'react-select';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
-
-import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
@@ -164,7 +161,7 @@ class Connection extends PureComponent {
               onClick={actions.handleRefresh}
               disabled={!canRefresh}
             >
-              <i className={cx('fa', 'fa-refresh', {'fa-spin': loading})} />
+              <i className={classcat(['fa fa-refresh', {'fa-spin': loading}])} />
             </button>
           </div>
         </div>
@@ -184,18 +181,6 @@ class Connection extends PureComponent {
     if (!canChangeBaudRate) {
       return null;
     }
-
-    const style = {
-      color: canChangeBaudRate ? '#333' : '#ccc',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    };
-
-    const renderBaudRateValue = option => (
-      <div style={style} title={option.label}>
-        {option.label}
-      </div>
-    );
 
     return (
       <div className="form-group">

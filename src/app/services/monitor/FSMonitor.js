@@ -16,11 +16,11 @@ class FSMonitor {
         this.files[f] = stat;
       });
 
-      monitor.on('changed', (f, curr, prev) => {
+      monitor.on('changed', (f, curr) => {
         this.files[f] = curr;
       });
 
-      monitor.on('removed', (f, stat) => {
+      monitor.on('removed', f => {
         delete this.files[f];
       });
     });
