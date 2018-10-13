@@ -13,7 +13,6 @@ import Dialogs from '../dialogs';
 import FlashMessages from '../components_new/FlashMessages';
 import Error404 from './Errors/Error404';
 import Header from '../machine-control/Header';
-import HeaderOLD from './Header';
 import Settings from './Settings';
 import Sidebar from './Sidebar';
 import Workspace from './Workspace';
@@ -55,7 +54,6 @@ class App extends PureComponent {
       return (
         <AppLayout>
           <Header />
-          <HeaderOLD />
           <Workspace {...this.props} />;
         </AppLayout>
       );

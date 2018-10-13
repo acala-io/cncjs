@@ -521,5 +521,8 @@
     "Custom Jog Distance (inches)": "Custom Jog Distance (inches)",
     "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.": "Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.",
     "The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.": "The workspace settings have become corrupted or invalid. Click store_old Defaults to store_old default settings and continue.",
-    "store Defaults": "store Defaults"
+    "store Defaults": "store Defaults",
+    "problem": "problem",
+    "Back to Homepage": "Back to Homepage",
+    "Connect Machine": "Connect Machine"
 }
