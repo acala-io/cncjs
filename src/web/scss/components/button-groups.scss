@@ -15,7 +15,6 @@
  * </div>
  */
 
-
 .button-group {
     border-radius: $border-radius;
     display: inline-block;
@@ -28,7 +27,7 @@
     color: $clickable;
     cursor: pointer;
     display: inline-block;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 1;
     margin: 0;
     min-width: 3 * $inuit-global-spacing-unit;
@@ -36,7 +35,7 @@
     position: relative;
     text-align: center;
 
-    input[type=radio] {
+    input[type='radio'] {
         display: none !important; /* stylelint-disable-line declaration-no-important */
     }
 
@@ -64,7 +63,7 @@
     &.is-selected:hover {
         background: $background;
         border-color: $border;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .13);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.13);
         color: $text;
         cursor: default;
         z-index: $z--base;
@@ -79,7 +78,6 @@
 .button-group__background {
     display: none;
 }
-
 
 // VARIANTS ----------------------------------------------------------------
 .button-group--big .button-group__button {
@@ -125,7 +123,6 @@
         }
 
         &:first-of-type {
-
             &.is-selected ~ .button-group__background {
                 left: 3px;
                 right: 50%;
@@ -133,7 +130,6 @@
         }
 
         &:last-of-type {
-
             &.is-selected ~ .button-group__background {
                 left: 50%;
                 right: 2px;
@@ -141,7 +137,6 @@
         }
 
         &:first-of-type {
-
             &:hover ~ .button-group__background {
                 left: 3px;
                 right: 50%;
@@ -149,14 +144,12 @@
         }
 
         &:last-of-type {
-
             &:hover ~ .button-group__background {
                 left: 50%;
                 right: 2px;
             }
         }
     }
-
 
     .button-group__background {
         background: $clickable-background;
