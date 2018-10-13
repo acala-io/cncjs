@@ -1,10 +1,13 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
+import FacebookLoading from 'react-facebook-loading';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import FacebookLoading from 'react-facebook-loading';
-import Space from '../../../components/Space';
+
 import i18n from '../../../lib/i18n';
+
+import Space from '../../../components/Space';
+
 import styles from './index.styl';
 
 class General extends PureComponent {
@@ -14,33 +17,6 @@ class General extends PureComponent {
     stateChanged: PropTypes.bool,
   };
 
-  fields = {
-    checkForUpdates: null,
-  };
-  handlers = {
-    changeCheckForUpdates: event => {
-      const {actions} = this.props;
-      actions.toggleCheckForUpdates();
-    },
-    changeLanguage: event => {
-      const {actions} = this.props;
-      const target = event.target;
-      actions.changeLanguage(target.value);
-    },
-    cancel: event => {
-      const {actions} = this.props;
-      actions.restoreSettings();
-    },
-    save: event => {
-      const {actions} = this.props;
-      actions.save();
-    },
-  };
-
-  componentDidMount() {
-    const {actions} = this.props;
-    actions.load();
-  }
   render() {
     const {state, stateChanged} = this.props;
     const lang = get(state, 'lang', 'en');
@@ -56,9 +32,7 @@ class General extends PureComponent {
             <div className="checkbox">
               <label>
                 <input
-                  ref={node => {
-                    this.fields.checkForUpdates = node;
-                  }}
+                  ref={ref => (this.fields.checkForUpdates = ref)}
                   type="checkbox"
                   checked={state.checkForUpdates}
                   onChange={this.handlers.changeCheckForUpdates}
@@ -72,7 +46,7 @@ class General extends PureComponent {
           <div className={styles.formGroup}>
             <label>{i18n._('Language')}</label>
             <select
-              className={classNames('form-control', styles.formControl, styles.short)}
+              className={classcat(['form-control', styles.formControl, styles.short])}
               value={lang}
               onChange={this.handlers.changeLanguage}
             >
@@ -109,6 +83,35 @@ class General extends PureComponent {
         </div>
       </form>
     );
+  }
+
+  fields = {
+    checkForUpdates: null,
+  };
+
+  handlers = {
+    changeCheckForUpdates: event => {
+      const {actions} = this.props;
+      actions.toggleCheckForUpdates();
+    },
+    changeLanguage: event => {
+      const {actions} = this.props;
+      const target = event.target;
+      actions.changeLanguage(target.value);
+    },
+    cancel: event => {
+      const {actions} = this.props;
+      actions.restoreSettings();
+    },
+    save: event => {
+      const {actions} = this.props;
+      actions.save();
+    },
+  };
+
+  componentDidMount() {
+    const {actions} = this.props;
+    actions.load();
   }
 }
 

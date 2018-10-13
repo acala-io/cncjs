@@ -33,7 +33,7 @@ class PositionInput extends PureComponent {
     const isNumber = this.state.value !== '';
 
     return (
-      <div className={cx(className, 'input-group', 'input-group-xs')} style={{...style, width: '100%'}}>
+      <div className={cx(className, 'input-group input-group-xs')} style={{...style, width: '100%'}}>
         <input
           ref={node => {
             this.node = node;

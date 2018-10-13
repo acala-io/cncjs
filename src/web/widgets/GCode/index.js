@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import mapValues from 'lodash/mapValues';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';

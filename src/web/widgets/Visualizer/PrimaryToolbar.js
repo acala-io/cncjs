@@ -1,15 +1,13 @@
 import _ from 'lodash';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import colornames from 'colornames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Detector from 'three/examples/js/Detector';
+
 import controller from '../../lib/controller';
-import {Button} from '../../components/Buttons';
-import Dropdown, {MenuItem} from '../../components/Dropdown';
-import Interpolate from '../../components/Interpolate';
-import Space from '../../components/Space';
 import i18n from '../../lib/i18n';
+
 import {
   // Controller
   GRBL,
@@ -49,6 +47,12 @@ import {
   // Workflow
   WORKFLOW_STATE_IDLE,
 } from '../../constants';
+
+import Dropdown, {MenuItem} from '../../components/Dropdown';
+import Interpolate from '../../components/Interpolate';
+import Space from '../../components/Space';
+import {Button} from '../../components/Buttons';
+
 import styles from './index.styl';
 
 class PrimaryToolbar extends PureComponent {
@@ -176,7 +180,7 @@ class PrimaryToolbar extends PureComponent {
       }[machineState];
     }
 
-    return <div className={classNames(styles.controllerState, styles[stateStyle])}>{stateText}</div>;
+    return <div className={classcat([styles.controllerState, styles[stateStyle]])}>{stateText}</div>;
   }
   render() {
     const {state, actions} = this.props;

@@ -1,6 +1,6 @@
 /* eslint-disable import/default, react/forbid-foreign-prop-types */
 
-import classNames from 'classnames';
+import classcat from 'classcat';
 import Push from 'push.js';
 import React, {PureComponent} from 'react';
 import semver from 'semver';
@@ -324,7 +324,7 @@ class Header extends PureComponent {
         <Navbar.Collapse>
           <Nav pullRight>
             <NavDropdown
-              className={classNames({hidden: hideUserDropdown})}
+              className={classcat([{hidden: hideUserDropdown}])}
               id="nav-dropdown-user"
               title={
                 <div title={i18n._('My Account')}>
@@ -420,14 +420,13 @@ class Header extends PureComponent {
                       <span title={cmd.command}>{cmd.title || cmd.command}</span>
                       <span className="pull-right">
                         <i
-                          className={classNames(
-                            'fa',
-                            'fa-fw',
-                            {'fa-circle-o-notch': isTaskRunning},
-                            {'fa-spin': isTaskRunning},
-                            {'fa-exclamation-circle': cmd.err},
-                            {'text-error': cmd.err}
-                          )}
+                          className={classcat([
+                            'fa fa-fw',
+                            {
+                              'fa-circle-o-notch fa-spin': isTaskRunning,
+                              'text-error fa-exclamation-circle': cmd.err,
+                            },
+                          ])}
                           title={cmd.err}
                         />
                       </span>

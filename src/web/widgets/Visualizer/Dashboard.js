@@ -1,17 +1,21 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import escape from 'lodash/escape';
 import get from 'lodash/get';
-import throttle from 'lodash/throttle';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
-import {ProgressBar} from 'react-bootstrap';
+import throttle from 'lodash/throttle';
 import VirtualList from 'react-tiny-virtual-list';
+import {ProgressBar} from 'react-bootstrap';
+
 import api from '../../api';
-import Anchor from '../../components/Anchor';
-import Panel from '../../components/Panel';
+
 import i18n from '../../lib/i18n';
 import {formatBytes} from '../../lib/numeral';
+
+import Anchor from '../../components/Anchor';
+import Panel from '../../components/Panel';
+
 import styles from './dashboard.styl';
 
 class Dashboard extends PureComponent {
@@ -35,7 +39,7 @@ class Dashboard extends PureComponent {
   renderItem = ({index, style}) => (
     <div key={index} style={style}>
       <div className={styles.line}>
-        <span className={cx(styles.label, styles.labelDefault)}>{index + 1}</span>
+        <span className={classcat([styles.label, styles.labelDefault])}>{index + 1}</span>
         {escape(this.lines[index])}
       </div>
     </div>
@@ -91,7 +95,7 @@ class Dashboard extends PureComponent {
     const rowHeight = 20;
 
     return (
-      <Panel className={cx(styles.dashboard)} style={style}>
+      <Panel className={styles.dashboard} style={style}>
         <Panel.Heading style={{height: 30}}>{i18n._('G-code')}</Panel.Heading>
         <Panel.Body style={{height: 'calc(100% - 30px)'}}>
           <div className="clearfix" style={{marginBottom: 10}}>
@@ -132,7 +136,7 @@ class Dashboard extends PureComponent {
             ref={node => {
               this.node.virtualList = node;
             }}
-            className={cx(styles.gcodeViewer, {[styles.gcodeViewerDisabled]: this.lines.length === 0})}
+            className={classcat([styles.gcodeViewer, {[styles.gcodeViewerDisabled]: this.lines.length === 0}])}
           >
             {this.lines.length > 0 && (
               <VirtualList

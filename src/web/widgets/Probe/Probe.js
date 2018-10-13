@@ -1,20 +1,24 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import i18n from '../../lib/i18n';
+
 import {METRIC_UNITS} from '../../constants';
 import {MODAL_PREVIEW} from './constants';
+
 import styles from './index.styl';
 
 class Probe extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {canClick, units, probeCommand, probeDepth, probeFeedrate, touchPlateHeight, retractionDistance} = state;
+
     const displayUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
     const feedrateUnits = units === METRIC_UNITS ? i18n._('mm/min') : i18n._('in/min');
     const step = units === METRIC_UNITS ? 1 : 0.1;
@@ -27,7 +31,7 @@ class Probe extends PureComponent {
             <div className="btn-group btn-group-sm">
               <button
                 type="button"
-                className={classNames('btn', 'btn-default', {'btn-select': probeCommand === 'G38.2'})}
+                className={classcat(['btn btn-default', {'btn-select': probeCommand === 'G38.2'}])}
                 title={i18n._('G38.2 probe toward workpiece, stop on contact, signal error if failure')}
                 onClick={() => actions.changeProbeCommand('G38.2')}
               >
@@ -35,7 +39,7 @@ class Probe extends PureComponent {
               </button>
               <button
                 type="button"
-                className={classNames('btn', 'btn-default', {'btn-select': probeCommand === 'G38.3'})}
+                className={classcat(['btn btn-default', {'btn-select': probeCommand === 'G38.3'}])}
                 title={i18n._('G38.3 probe toward workpiece, stop on contact')}
                 onClick={() => actions.changeProbeCommand('G38.3')}
               >
@@ -43,7 +47,7 @@ class Probe extends PureComponent {
               </button>
               <button
                 type="button"
-                className={classNames('btn', 'btn-default', {'btn-select': probeCommand === 'G38.4'})}
+                className={classcat(['btn btn-default', {'btn-select': probeCommand === 'G38.4'}])}
                 title={i18n._('G38.4 probe away from workpiece, stop on loss of contact, signal error if failure')}
                 onClick={() => actions.changeProbeCommand('G38.4')}
               >
@@ -51,7 +55,7 @@ class Probe extends PureComponent {
               </button>
               <button
                 type="button"
-                className={classNames('btn', 'btn-default', {'btn-select': probeCommand === 'G38.5'})}
+                className={classcat(['btn btn-default', {'btn-select': probeCommand === 'G38.5'}])}
                 title={i18n._('G38.5 probe away from workpiece, stop on loss of contact')}
                 onClick={() => actions.changeProbeCommand('G38.5')}
               >

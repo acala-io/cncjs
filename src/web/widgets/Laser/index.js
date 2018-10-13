@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import includes from 'lodash/includes';
 import isNumber from 'lodash/isNumber';
 import PropTypes from 'prop-types';
@@ -96,11 +96,11 @@ class LaserWidget extends PureComponent {
           <Widget.Title>{i18n._('Laser')}</Widget.Title>
           <Widget.Controls>
             <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
-              <i className={classNames('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
+              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classNames(styles.widgetContent, {[styles.hidden]: minimized})}>
+        <Widget.Content className={classcat([styles.widgetContent, {[styles.hidden]: minimized}])}>
           <Laser state={state} actions={actions} />
         </Widget.Content>
       </Widget>

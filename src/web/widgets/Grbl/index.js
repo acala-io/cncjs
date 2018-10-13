@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import PropTypes from 'prop-types';
@@ -132,13 +132,13 @@ class GrblWidget extends PureComponent {
                 title={minimized ? i18n._('Expand') : i18n._('Collapse')}
                 onClick={actions.toggleMinimized}
               >
-                <i className={classNames('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
+                <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
               </Widget.Button>
             )}
           </Widget.Controls>
         </Widget.Header>
         {isReady && (
-          <Widget.Content className={classNames(styles['widget-content'], {[styles.hidden]: minimized})}>
+          <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
             {state.modal.name === MODAL_CONTROLLER && <Controller state={state} actions={actions} />}
             <Grbl state={state} actions={actions} />
           </Widget.Content>
@@ -150,14 +150,14 @@ class GrblWidget extends PureComponent {
   actions = {
     toggleFullscreen: () => {
       const {minimized, isFullscreen} = this.state;
+
       this.setState({
         isFullscreen: !isFullscreen,
         minimized: isFullscreen ? minimized : false,
       });
     },
     toggleMinimized: () => {
-      const {minimized} = this.state;
-      this.setState({minimized: !minimized});
+      this.setState({minimized: !this.state.minimized});
     },
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({

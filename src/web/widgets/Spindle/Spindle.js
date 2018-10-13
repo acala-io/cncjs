@@ -1,22 +1,26 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import ensureArray from 'ensure-array';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Space from '../../components/Space';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
+
+import Space from '../../components/Space';
+
 import styles from './index.styl';
 
 class Spindle extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
     const {state, actions} = this.props;
     const {canClick, spindleSpeed} = state;
+
     const spindle = get(state, 'controller.modal.spindle');
     const coolant = ensureArray(get(state, 'controller.modal.coolant'));
     const mistCoolant = coolant.indexOf('M7') >= 0;
@@ -44,7 +48,7 @@ class Spindle extends PureComponent {
                     title={i18n._('Spindle On, CW (M3)', {ns: 'gcode'})}
                     disabled={!canClick}
                   >
-                    <i className={classNames('fa', 'fa-rotate-right', {'fa-spin': spindle === 'M3'})} />
+                    <i className={classcat(['fa fa-rotate-right', {'fa-spin': spindle === 'M3'}])} />
                     <Space width="4" />
                     M3
                   </button>
@@ -64,7 +68,7 @@ class Spindle extends PureComponent {
                     title={i18n._('Spindle On, CCW (M4)', {ns: 'gcode'})}
                     disabled={!canClick}
                   >
-                    <i className={classNames('fa', 'fa-rotate-left', {'fa-spin-reverse': spindle === 'M4'})} />
+                    <i className={classcat(['fa fa-rotate-left', {'fa-spin-reverse': spindle === 'M4'}])} />
                     <Space width="4" />
                     M4
                   </button>
@@ -99,7 +103,7 @@ class Spindle extends PureComponent {
                     title={i18n._('Mist Coolant On (M7)', {ns: 'gcode'})}
                     disabled={!canClick}
                   >
-                    <i className={classNames(styles.icon, styles.iconFan, {'fa-spin': mistCoolant})} />
+                    <i className={classcat([styles.icon, styles.iconFan, {'fa-spin': mistCoolant}])} />
                     <Space width="4" />
                     M7
                   </button>
@@ -115,7 +119,7 @@ class Spindle extends PureComponent {
                     title={i18n._('Flood Coolant On (M8)', {ns: 'gcode'})}
                     disabled={!canClick}
                   >
-                    <i className={classNames(styles.icon, styles.iconFan, {'fa-spin': floodCoolant})} />
+                    <i className={classcat([styles.icon, styles.iconFan, {'fa-spin': floodCoolant}])} />
                     <Space width="4" />
                     M8
                   </button>

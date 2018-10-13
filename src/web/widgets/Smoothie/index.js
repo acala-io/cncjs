@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
@@ -120,13 +120,13 @@ class SmoothieWidget extends PureComponent {
                 title={minimized ? i18n._('Expand') : i18n._('Collapse')}
                 onClick={actions.toggleMinimized}
               >
-                <i className={classNames('fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized})} />
+                <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
               </Widget.Button>
             )}
           </Widget.Controls>
         </Widget.Header>
         {isReady && (
-          <Widget.Content className={classNames(styles['widget-content'], {[styles.hidden]: minimized})}>
+          <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
             {state.modal.name === MODAL_CONTROLLER && <Controller state={state} actions={actions} />}
             <Smoothie state={state} actions={actions} />
           </Widget.Content>

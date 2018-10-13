@@ -2,13 +2,7 @@ import React from 'react';
 import TaskbarButton from './TaskbarButton';
 
 const Taskbar = ({children, style, ...props}) => (
-  <div
-    {...props}
-    style={{
-      borderTop: '1px solid #ddd',
-      ...style,
-    }}
-  >
+  <div {...props} style={style}>
     {children}
   </div>
 );

@@ -14,7 +14,6 @@ import FlashMessages from '../components_new/FlashMessages';
 import Error404 from './Errors/Error404';
 import Header from '../machine-control/Header';
 import Settings from './Settings';
-import Sidebar from './Sidebar';
 import Workspace from './Workspace';
 
 import styles from './App.styl';

@@ -1,7 +1,6 @@
 import chainedFunction from 'chained-function';
 import classcat from 'classcat';
 import ensureArray from 'ensure-array';
-import includes from 'lodash/includes';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -52,19 +51,19 @@ class DisplayPanel extends PureComponent {
     const {state} = this.props;
     const {axes, machinePosition, workPosition} = state;
     const hasAxisE = machinePosition.e !== undefined && workPosition.e !== undefined;
-    const hasAxisX = includes(axes, AXIS_X);
-    const hasAxisY = includes(axes, AXIS_Y);
-    const hasAxisZ = includes(axes, AXIS_Z);
-    const hasAxisA = includes(axes, AXIS_A);
-    const hasAxisB = includes(axes, AXIS_B);
-    const hasAxisC = includes(axes, AXIS_C);
+    const hasAxisX = axes.includes(AXIS_X);
+    const hasAxisY = axes.includes(AXIS_Y);
+    const hasAxisZ = axes.includes(AXIS_Z);
+    const hasAxisA = axes.includes(AXIS_A);
+    const hasAxisB = axes.includes(AXIS_B);
+    const hasAxisC = axes.includes(AXIS_C);
 
     return (
       <Panel className={styles.displayPanel}>
-        <table className="table-bordered">
+        <table>
           <thead>
             <tr>
-              <th className="nowrap">{i18n._('Axis')}</th>
+              <th className="nowrap" />
               <th className="nowrap">{i18n._('Machine Position')}</th>
               <th className="nowrap">{i18n._('Work Position')}</th>
               <th className={classcat(['nowrap', styles.action])}>{this.renderActionDropdown()}</th>
@@ -117,12 +116,7 @@ class DisplayPanel extends PureComponent {
           <i className="fa fa-fw fa-caret-down" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {wcs === 'G54' && <MenuItem header>{i18n._('Work Coordinate System (G54)')}</MenuItem>}
-          {wcs === 'G55' && <MenuItem header>{i18n._('Work Coordinate System (G55)')}</MenuItem>}
-          {wcs === 'G56' && <MenuItem header>{i18n._('Work Coordinate System (G56)')}</MenuItem>}
-          {wcs === 'G57' && <MenuItem header>{i18n._('Work Coordinate System (G57)')}</MenuItem>}
-          {wcs === 'G58' && <MenuItem header>{i18n._('Work Coordinate System (G58)')}</MenuItem>}
-          {wcs === 'G59' && <MenuItem header>{i18n._('Work Coordinate System (G59)')}</MenuItem>}
+          <MenuItem header>{i18n._('Work Coordinate System ({{wcs}})', {wcs})}</MenuItem>
           <MenuItem eventKey="G0 X0 Y0 Z0" disabled={!canClick}>
             {i18n._('Go To Work Zero (G0 X0 Y0 Z0)')}
           </MenuItem>

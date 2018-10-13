@@ -1,18 +1,22 @@
 /* eslint-disable import/default, react/forbid-foreign-prop-types */
 
-import cx from 'classnames';
+import classcat from 'classcat';
 import qs from 'qs';
 import React, {PureComponent} from 'react';
 import {withRouter, Redirect} from 'react-router-dom';
-import Anchor from '../../components/Anchor';
-import {Notification} from '../../components/Notifications';
-import Space from '../../components/Space';
-import settings from '../../config/settings';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import user from '../../lib/user';
+
+import settings from '../../config/settings';
 import store from '../../store_old';
+
+import Anchor from '../../components/Anchor';
+import Space from '../../components/Space';
+import {Notification} from '../../components/Notifications';
+
 import styles from './index.styl';
 
 class Login extends PureComponent {
@@ -21,61 +25,6 @@ class Login extends PureComponent {
   };
 
   state = this.getDefaultState();
-  actions = {
-    showAlertMessage: msg => {
-      this.setState({alertMessage: msg});
-    },
-    clearAlertMessage: () => {
-      this.setState({alertMessage: ''});
-    },
-    handleSignIn: event => {
-      event.preventDefault();
-
-      this.setState({
-        alertMessage: '',
-        authenticating: true,
-        redirectToReferrer: false,
-      });
-
-      const name = this.fields.name.value;
-      const password = this.fields.password.value;
-
-      user.signin({name, password}).then(({authenticated}) => {
-        if (!authenticated) {
-          this.setState({
-            alertMessage: i18n._('Authentication failed.'),
-            authenticating: false,
-            redirectToReferrer: false,
-          });
-          return;
-        }
-
-        log.debug('Create and establish a WebSocket connection');
-
-        const token = store.get('session.token');
-        const host = '';
-        const options = {
-          query: 'token=' + token,
-        };
-        controller.connect(
-          host,
-          options,
-          () => {
-            // @see "src/web/index.js"
-            this.setState({
-              alertMessage: '',
-              authenticating: false,
-              redirectToReferrer: true,
-            });
-          }
-        );
-      });
-    },
-  };
-  fields = {
-    name: null,
-    password: null,
-  };
 
   getDefaultState() {
     return {
@@ -84,11 +33,13 @@ class Login extends PureComponent {
       redirectToReferrer: false,
     };
   }
+
   render() {
     const {from} = this.props.location.state || {from: {pathname: '/'}};
-    const state = {...this.state};
     const actions = {...this.actions};
+    const state = {...this.state};
     const {alertMessage, authenticating} = state;
+
     const forgotPasswordLink = 'https://cnc.js.org/docs/faq/#forgot-your-password';
 
     if (state.redirectToReferrer) {
@@ -145,13 +96,13 @@ class Login extends PureComponent {
             <div className="form-group">
               <button type="button" className="btn btn-block btn-primary" onClick={this.actions.handleSignIn}>
                 <i
-                  className={cx(
-                    'fa',
-                    'fa-fw',
-                    {'fa-spin': authenticating},
-                    {'fa-circle-o-notch': authenticating},
-                    {'fa-sign-in': !authenticating}
-                  )}
+                  className={classcat([
+                    'fa fa-fw',
+                    {
+                      'fa-spin fa-circle-o-notch': authenticating,
+                      'fa-sign-in': !authenticating,
+                    },
+                  ])}
                 />
                 <Space width="8" />
                 {i18n._('Sign In')}
@@ -165,6 +116,63 @@ class Login extends PureComponent {
       </div>
     );
   }
+
+  actions = {
+    showAlertMessage: msg => {
+      this.setState({alertMessage: msg});
+    },
+    clearAlertMessage: () => {
+      this.setState({alertMessage: ''});
+    },
+    handleSignIn: event => {
+      event.preventDefault();
+
+      this.setState({
+        alertMessage: '',
+        authenticating: true,
+        redirectToReferrer: false,
+      });
+
+      const name = this.fields.name.value;
+      const password = this.fields.password.value;
+
+      user.signin({name, password}).then(({authenticated}) => {
+        if (!authenticated) {
+          this.setState({
+            alertMessage: i18n._('Authentication failed.'),
+            authenticating: false,
+            redirectToReferrer: false,
+          });
+          return;
+        }
+
+        log.debug('Create and establish a WebSocket connection');
+
+        const token = store.get('session.token');
+        const host = '';
+        const options = {
+          query: 'token=' + token,
+        };
+        controller.connect(
+          host,
+          options,
+          () => {
+            // @see "src/web/index.js"
+            this.setState({
+              alertMessage: '',
+              authenticating: false,
+              redirectToReferrer: true,
+            });
+          }
+        );
+      });
+    },
+  };
+
+  fields = {
+    name: null,
+    password: null,
+  };
 }
 
 export default withRouter(Login);

@@ -1,5 +1,5 @@
 import chainedFunction from 'chained-function';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import ExpressionEvaluator from 'expr-eval';
 import includes from 'lodash/includes';
 import get from 'lodash/get';
@@ -956,7 +956,7 @@ class VisualizerWidget extends PureComponent {
           ref={node => {
             this.widgetContent = node;
           }}
-          className={classNames(styles.widgetContent, {[styles.view3D]: capable.view3D})}
+          className={classcat([styles.widgetContent, {[styles.view3D]: capable.view3D}])}
         >
           {state.gcode.loading && <Loading />}
           {state.gcode.rendering && <Rendering />}
