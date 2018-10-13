@@ -110,14 +110,16 @@ class ConnectionWidget extends PureComponent {
     handleRefresh: () => {
       this.refresh();
     },
-    onChangeBaudRateOption: option => {
+    onChangeBaudRateOption: baudRate => {
+      console.log('baudRate', baudRate);
+
       this.setState(state => ({
         alertMessage: '',
         connection: {
           ...state.connection,
           serial: {
             ...state.connection.serial,
-            baudRate: option.value,
+            baudRate,
           },
         },
       }));

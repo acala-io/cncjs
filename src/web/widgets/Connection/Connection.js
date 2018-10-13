@@ -188,7 +188,7 @@ class Connection extends PureComponent {
         <ButtonGroup
           optionName="selectedBaudRate"
           options={baudRates.map(b => ({label: `${b / 1000} k`, value: b}))}
-          selectedValue={baudRate}
+          selectedValue={Number(baudRate)}
           onChange={onChangeBaudRateOption}
         />
       </div>
