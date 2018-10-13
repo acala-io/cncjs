@@ -82,12 +82,12 @@ const IconButton = styled(Button)`
 
 class SecondaryToolbar extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {cameraMode, cameraPosition, disabled, gcode, objects, projection, wcs} = state;
     const {camera} = actions;
 
@@ -95,7 +95,7 @@ class SecondaryToolbar extends PureComponent {
 
     return (
       <Fragment>
-        <Dropdown pullLeft>
+        <Dropdown>
           <Button
             btnSize="sm"
             btnStyle="flat"
