@@ -7,10 +7,9 @@ import React, {PureComponent} from 'react';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 
-import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C, METRIC_UNITS} from '../../constants';
+import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C} from '../../constants';
 
 import AxisLabel from './components/AxisLabel';
-import AxisSubscript from './components/AxisSubscript';
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Image from '../../components/Image';
 import PositionInput from './components/PositionInput';
@@ -45,7 +44,8 @@ class DisplayPanel extends PureComponent {
 
   render() {
     const {state} = this.props;
-    const {axes, machinePosition, workPosition} = state;
+    const {axes, machinePosition, units, workPosition} = state;
+
     const hasAxisE = machinePosition.e !== undefined && workPosition.e !== undefined;
     const hasAxisX = axes.includes(AXIS_X);
     const hasAxisY = axes.includes(AXIS_Y);
@@ -61,10 +61,10 @@ class DisplayPanel extends PureComponent {
             <tr>
               <th />
               <th className="nowrap text--right" style={{color: 'hsl(38, 13%, 42%)'}}>
-                {i18n._('Machine Position')}
+                {i18n._('Machine Position [{{unit}}]', {unit: units})}
               </th>
               <th className="nowrap text--right" style={{color: 'hsl(38, 13%, 42%)'}}>
-                {i18n._('Work Position')}
+                {i18n._('Work Position [{{unit}}]', {unit: units})}
               </th>
               <th className="nowrap action">{this.renderActionDropdown()}</th>
             </tr>
@@ -618,24 +618,24 @@ class DisplayPanel extends PureComponent {
   };
 
   renderAxis = axis => {
-    const {canClick, units, machinePosition, workPosition, jog} = this.props.state;
     const {actions} = this.props;
+    const {canClick, jog, machinePosition, workPosition} = this.props.state;
 
-    const lengthUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
-    const degreeUnits = i18n._('deg');
+    // const lengthUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
+    // const degreeUnits = i18n._('deg');
     const mpos = machinePosition[axis] || '0.000';
     const wpos = workPosition[axis] || '0.000';
     const axisLabel = axis.toUpperCase();
-    const displayUnits =
-      {
-        [AXIS_E]: lengthUnits,
-        [AXIS_X]: lengthUnits,
-        [AXIS_Y]: lengthUnits,
-        [AXIS_Z]: lengthUnits,
-        [AXIS_A]: degreeUnits,
-        [AXIS_B]: degreeUnits,
-        [AXIS_C]: degreeUnits,
-      }[axis] || '';
+    // const displayUnits =
+    //   {
+    //     [AXIS_E]: lengthUnits,
+    //     [AXIS_X]: lengthUnits,
+    //     [AXIS_Y]: lengthUnits,
+    //     [AXIS_Z]: lengthUnits,
+    //     [AXIS_A]: degreeUnits,
+    //     [AXIS_B]: degreeUnits,
+    //     [AXIS_C]: degreeUnits,
+    //   }[axis] || '';
     const renderActionDropdown =
       {
         [AXIS_E]: this.renderActionDropdownForAxisE,
@@ -661,7 +661,6 @@ class DisplayPanel extends PureComponent {
       <tr>
         <td className="coordinate">
           <AxisLabel highlight={highlightAxis}>{axisLabel}</AxisLabel>
-          <AxisSubscript>{displayUnits}</AxisSubscript>
         </td>
         <td className="machinePosition">
           <PositionLabel value={mpos} />
