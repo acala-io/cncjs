@@ -322,6 +322,7 @@ class AxesWidget extends PureComponent {
     },
     selectStep: (value = '') => {
       const step = Number(value);
+
       this.setState(state => ({
         jog: {
           ...state.jog,
