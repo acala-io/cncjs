@@ -4,41 +4,20 @@ import frac from 'frac';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
-import styled from 'styled-components';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Fraction from './components/Fraction';
+import jogButtonFactory from './jogButtonFactory';
+import Select from '../../components_new/Select';
 import Space from '../../components/Space';
 import {Button} from '../../components/Buttons';
 
-import {
-  // Units
-  IMPERIAL_UNITS,
-  IMPERIAL_STEPS,
-  METRIC_UNITS,
-  METRIC_STEPS,
-} from '../../constants';
+import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
 
 import styles from './index.styl';
-
-const KeypadText = styled.span`
-  position: relative;
-  display: inline-block;
-  vertical-align: baseline;
-`;
-
-const KeypadDirectionText = styled(KeypadText)`
-  min-width: 10px;
-`;
-
-const KeypadSubscriptText = styled(KeypadText)`
-  min-width: 10px;
-  font-size: 80%;
-  line-height: 0;
-`;
 
 class Keypad extends PureComponent {
   static propTypes = {
@@ -78,48 +57,58 @@ class Keypad extends PureComponent {
             <div className={styles.rowSpace}>
               <div className="row no-gutters">
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXMinusYPlus}</div>
+                  <div className={styles.colSpace}>
+                    {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '+', name: 'y'})}
+                  </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonYPlus}</div>
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '+', name: 'y'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXPlusYPlus}</div>
+                  <div className={styles.colSpace}>
+                    {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '+', name: 'y'})}
+                  </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonZPlus}</div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.rowSpace}>
-              <div className="row no-gutters">
-                <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXMinus}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXZeroYZero}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXPlus}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonZZero}</div>
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '+', name: 'z'})}</div>
                 </div>
               </div>
             </div>
             <div className={styles.rowSpace}>
               <div className="row no-gutters">
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXMinusYMinus}</div>
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '-', name: 'x'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonYMinus}</div>
+                  <div className={styles.colSpace}>
+                    {jogButtonFactory(this.props, {direction: '0', name: 'x'}, {direction: '0', name: 'y'})}
+                  </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonXPlusYMinus}</div>
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '+', name: 'x'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{this.buttonZMinus}</div>
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '0', name: 'z'})}</div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.rowSpace}>
+              <div className="row no-gutters">
+                <div className="col-xs-3">
+                  <div className={styles.colSpace}>
+                    {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '-', name: 'y'})}
+                  </div>
+                </div>
+                <div className="col-xs-3">
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '-', name: 'y'})}</div>
+                </div>
+                <div className="col-xs-3">
+                  <div className={styles.colSpace}>
+                    {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '-', name: 'y'})}
+                  </div>
+                </div>
+                <div className="col-xs-3">
+                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '-', name: 'z'})}</div>
                 </div>
               </div>
             </div>
@@ -135,357 +124,6 @@ class Keypad extends PureComponent {
           </div>
         </div>
       </div>
-    );
-  }
-
-  get buttonXPlus() {
-    const {actions} = this.props;
-    const {axes, canClick, jog} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const highlightX = canClickX && (jog.keypad || jog.axis === 'x');
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        X: distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={classcat([styles.btnKeypad, {[styles.highlight]: highlightX}])}
-        onClick={onJog}
-        disabled={!canClickX}
-        title={i18n._('Move X+')}
-        compact
-      >
-        <KeypadText>X</KeypadText>
-        <KeypadDirectionText>+</KeypadDirectionText>
-      </Button>
-    );
-  }
-
-  get buttonXPlusYPlus() {
-    const {actions} = this.props;
-    const {axes, canClick} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const canClickY = canClick && axes.includes('y');
-    const canClickXY = canClickX && canClickY;
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        X: distance,
-        Y: distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={styles.btnKeypad}
-        onClick={onJog}
-        disabled={!canClickXY}
-        title={i18n._('Move X+ Y+')}
-        compact
-      >
-        <i className={classcat(['fa fa-arrow-circle-up', styles['rotate-45deg']])} style={{fontSize: 16}} />
-      </Button>
-    );
-  }
-
-  get buttonXPlusYMinus() {
-    const {actions} = this.props;
-    const {axes, canClick} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const canClickY = canClick && axes.includes('y');
-    const canClickXY = canClickX && canClickY;
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        X: distance,
-        Y: -distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={styles.btnKeypad}
-        onClick={onJog}
-        disabled={!canClickXY}
-        title={i18n._('Move X+ Y-')}
-        compact
-      >
-        <i className={classcat(['fa', 'fa-arrow-circle-down', styles['rotate--45deg']])} style={{fontSize: 16}} />
-      </Button>
-    );
-  }
-
-  get buttonXMinus() {
-    const {actions} = this.props;
-    const {axes, canClick, jog} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const highlightX = canClickX && (jog.keypad || jog.axis === 'x');
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        X: -distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={classcat([styles.btnKeypad, {[styles.highlight]: highlightX}])}
-        onClick={onJog}
-        disabled={!canClickX}
-        title={i18n._('Move X-')}
-        compact
-      >
-        <KeypadText>X</KeypadText>
-        <KeypadDirectionText>-</KeypadDirectionText>
-      </Button>
-    );
-  }
-
-  get buttonXMinusYPlus() {
-    const {actions} = this.props;
-    const {axes, canClick} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const canClickY = canClick && axes.includes('y');
-    const canClickXY = canClickX && canClickY;
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        X: -distance,
-        Y: distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={styles.btnKeypad}
-        onClick={onJog}
-        disabled={!canClickXY}
-        title={i18n._('Move X- Y+')}
-        compact
-      >
-        <i className={classcat(['fa fa-arrow-circle-up', styles['rotate--45deg']])} style={{fontSize: 16}} />
-      </Button>
-    );
-  }
-
-  get buttonXMinusYMinus() {
-    const {actions} = this.props;
-    const {axes, canClick} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const canClickY = canClick && axes.includes('y');
-    const canClickXY = canClickX && canClickY;
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        X: -distance,
-        Y: -distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={styles.btnKeypad}
-        onClick={onJog}
-        disabled={!canClickXY}
-        title={i18n._('Move X- Y-')}
-        compact
-      >
-        <i className={classcat(['fa', 'fa-arrow-circle-down', styles['rotate-45deg']])} style={{fontSize: 16}} />
-      </Button>
-    );
-  }
-
-  get buttonXZeroYZero() {
-    const {actions} = this.props;
-    const {axes, canClick} = this.props.state;
-
-    const canClickX = canClick && axes.includes('x');
-    const canClickY = canClick && axes.includes('y');
-    const canClickXY = canClickX && canClickY;
-
-    const gotoZero = () =>
-      actions.move({
-        X: 0,
-        Y: 0,
-      });
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={styles.btnKeypad}
-        onClick={gotoZero}
-        disabled={!canClickXY}
-        title={i18n._('Move To XY Zero (G0 X0 Y0)')}
-        compact
-      >
-        <KeypadText>X</KeypadText>
-        <KeypadSubscriptText>0</KeypadSubscriptText>
-        <KeypadText>Y</KeypadText>
-        <KeypadSubscriptText>0</KeypadSubscriptText>
-      </Button>
-    );
-  }
-
-  get buttonYPlus() {
-    const {actions} = this.props;
-    const {axes, canClick, jog} = this.props.state;
-
-    const canClickY = canClick && axes.includes('y');
-    const highlightY = canClickY && (jog.keypad || jog.axis === 'y');
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        Y: distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={classcat([styles.btnKeypad, {[styles.highlight]: highlightY}])}
-        onClick={onJog}
-        disabled={!canClickY}
-        title={i18n._('Move Y+')}
-        compact
-      >
-        <KeypadText>Y</KeypadText>
-        <KeypadDirectionText>+</KeypadDirectionText>
-      </Button>
-    );
-  }
-
-  get buttonYMinus() {
-    const {actions} = this.props;
-    const {axes, canClick, jog} = this.props.state;
-
-    const canClickY = canClick && axes.includes('y');
-    const highlightY = canClickY && (jog.keypad || jog.axis === 'y');
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        Y: -distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={classcat([styles.btnKeypad, {[styles.highlight]: highlightY}])}
-        onClick={onJog}
-        disabled={!canClickY}
-        title={i18n._('Move Y-')}
-        compact
-      >
-        <KeypadText>Y</KeypadText>
-        <KeypadDirectionText>-</KeypadDirectionText>
-      </Button>
-    );
-  }
-
-  get buttonZPlus() {
-    const {actions} = this.props;
-    const {axes, canClick, jog} = this.props.state;
-
-    const canClickZ = canClick && axes.includes('z');
-    const highlightZ = canClickZ && (jog.keypad || jog.axis === 'z');
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        Z: distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={classcat([styles.btnKeypad, {[styles.highlight]: highlightZ}])}
-        onClick={onJog}
-        disabled={!canClickZ}
-        title={i18n._('Move Z+')}
-        compact
-      >
-        <KeypadText>Z</KeypadText>
-        <KeypadDirectionText>+</KeypadDirectionText>
-      </Button>
-    );
-  }
-
-  get buttonZMinus() {
-    const {actions} = this.props;
-    const {axes, canClick, jog} = this.props.state;
-
-    const canClickZ = canClick && axes.includes('z');
-    const highlightZ = canClickZ && (jog.keypad || jog.axis === 'z');
-
-    const distance = actions.getJogDistance();
-    const onJog = () => {
-      actions.jog({
-        Z: -distance,
-      });
-    };
-
-    return (
-      <Button
-        btnStyle="flat"
-        compact
-        className={classcat([styles.btnKeypad, {[styles.highlight]: highlightZ}])}
-        onClick={onJog}
-        disabled={!canClickZ}
-        title={i18n._('Move Z-')}
-      >
-        <KeypadText>Z</KeypadText>
-        <KeypadDirectionText>-</KeypadDirectionText>
-      </Button>
-    );
-  }
-
-  get buttonZZero() {
-    const {actions} = this.props;
-    const {axes, canClick} = this.props.state;
-
-    const canClickZ = canClick && axes.includes('z');
-
-    const gotoZero = () =>
-      actions.move({
-        Z: 0,
-      });
-
-    return (
-      <Button
-        btnStyle="flat"
-        className={styles.btnKeypad}
-        onClick={gotoZero}
-        disabled={!canClickZ}
-        title={i18n._('Move To Z Zero (G0 Z0)')}
-        compact
-      >
-        <KeypadText>Z</KeypadText>
-        <KeypadSubscriptText>0</KeypadSubscriptText>
-      </Button>
     );
   }
 
@@ -523,51 +161,21 @@ class Keypad extends PureComponent {
     const metricJogDistances = ensureArray(jog.metric.distances);
     const imperialJogSteps = [...imperialJogDistances, ...IMPERIAL_STEPS];
     const metricJogSteps = [...metricJogDistances, ...METRIC_STEPS];
-    const stepImperial = state.jog.imperial.step;
-    const stepMetric = state.jog.metric.step;
 
-    const onSelectStepSize = eventKey => actions.selectStep(eventKey);
+    const isImperial = units === IMPERIAL_UNITS;
 
-    if (units === IMPERIAL_UNITS) {
-      return (
-        <Dropdown pullRight style={{width: '100%'}} disabled={!canClick} onSelect={onSelectStepSize}>
-          <Dropdown.Toggle btnStyle="flat" style={{textAlign: 'right', width: '100%'}}>
-            {imperialJogSteps[jog.imperial.step]}
-            <Space width="4" />
-            <sub>{i18n._('in')}</sub>
-          </Dropdown.Toggle>
-          <Dropdown.Menu style={{maxHeight: 150, overflowY: 'auto'}}>
-            <MenuItem header>{i18n._('Imperial')}</MenuItem>
-            {imperialJogSteps.map((value, key) => (
-              <MenuItem key={value} eventKey={key} active={key === stepImperial}>
-                {value}
-                <Space width="4" />
-                <sub>{i18n._('in')}</sub>
-              </MenuItem>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      );
-    }
+    const onSelectStepSize = e => {
+      actions.selectStep(e.target.value);
+    };
 
     return (
-      <Dropdown pullRight style={{width: '100%'}} disabled={!canClick} onSelect={onSelectStepSize}>
-        <Dropdown.Toggle btnStyle="flat" style={{textAlign: 'right', width: '100%'}}>
-          {metricJogSteps[jog.metric.step]}
-          <Space width="4" />
-          <sub>{i18n._('mm')}</sub>
-        </Dropdown.Toggle>
-        <Dropdown.Menu style={{maxHeight: 150, overflowY: 'auto'}}>
-          <MenuItem header>{i18n._('Metric')}</MenuItem>
-          {metricJogSteps.map((value, key) => (
-            <MenuItem key={value} eventKey={key} active={key === stepMetric}>
-              {value}
-              <Space width="4" />
-              <sub>{i18n._('mm')}</sub>
-            </MenuItem>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+      <Select
+        options={isImperial ? imperialJogSteps : metricJogSteps}
+        selectedOption={isImperial ? jog.imperial.step : jog.metric.step}
+        optionFormatter={v => `${v} ${isImperial ? i18n._('in') : i18n._('mm')}`}
+        onChange={onSelectStepSize}
+        disabled={!canClick}
+      />
     );
   }
 
