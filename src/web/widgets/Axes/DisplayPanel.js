@@ -44,7 +44,7 @@ class DisplayPanel extends PureComponent {
 
   render() {
     const {state} = this.props;
-    const {axes, machinePosition, units, workPosition} = state;
+    const {axes, machinePosition, workPosition} = state;
 
     const hasAxisE = machinePosition.e !== undefined && workPosition.e !== undefined;
     const hasAxisX = axes.includes(AXIS_X);
@@ -61,10 +61,10 @@ class DisplayPanel extends PureComponent {
             <tr>
               <th />
               <th className="nowrap text--right" style={{color: 'hsl(38, 13%, 42%)'}}>
-                {i18n._('Machine Position [{{unit}}]', {unit: units})}
+                {i18n._('Machine Position')}
               </th>
               <th className="nowrap text--right" style={{color: 'hsl(38, 13%, 42%)'}}>
-                {i18n._('Work Position [{{unit}}]', {unit: units})}
+                {i18n._('Work Position')}
               </th>
               <th className="nowrap action">{this.renderActionDropdown()}</th>
             </tr>

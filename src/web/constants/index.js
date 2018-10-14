@@ -13,13 +13,9 @@ export const MM_PER_INCH = 25.4;
 export const IMPERIAL_UNITS = 'in';
 export const IMPERIAL_STEPS = [
   0.001,
-  0.005,
   0.01,
-  0.05,
   0.1,
-  0.5,
   1, // Default
-  5,
   10,
 ];
 
@@ -27,14 +23,10 @@ export const IMPERIAL_STEPS = [
 export const METRIC_UNITS = 'mm';
 export const METRIC_STEPS = [
   0.001,
-  0.005,
   0.01,
-  0.05,
   0.1,
-  0.5,
   1, // Default
   10,
-  50,
   100,
 ];
 

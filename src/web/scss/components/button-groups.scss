@@ -30,8 +30,8 @@
     font-weight: normal;
     line-height: 1;
     margin: 0;
-    min-width: 3 * $inuit-global-spacing-unit;
-    padding: $inuit-global-spacing-unit-small;
+    min-width: $inuit-global-spacing-unit-large;
+    padding: $inuit-global-spacing-unit-small $inuit-global-spacing-unit-tiny * 1.5;
     position: relative;
     text-align: center;
 

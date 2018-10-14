@@ -184,10 +184,10 @@ class Connection extends PureComponent {
 
     return (
       <div className="form-group">
-        <label className="control-label">{i18n._('Baud rate')}</label>
+        <label className="control-label">{i18n._('Baud rate [kilobaud]')}</label>
         <ButtonGroup
           optionName="selectedBaudRate"
-          options={baudRates.map(b => ({label: `${b / 1000} k`, value: b}))}
+          options={[...baudRates].reverse().map(b => ({label: b / 1000, value: b}))}
           selectedValue={Number(baudRate)}
           onChange={onChangeBaudRateOption}
         />

@@ -6,12 +6,10 @@ import React, {PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
 
 import controller from '../../lib/controller';
-import i18n from '../../lib/i18n';
 
-import Dropdown, {MenuItem} from '../../components/Dropdown';
+import ButtonGroup from '../../components_new/ButtonGroup';
 import Fraction from './components/Fraction';
 import jogButtonFactory from './jogButtonFactory';
-import Select from '../../components_new/Select';
 import Space from '../../components/Space';
 import {Button} from '../../components/Buttons';
 
@@ -114,8 +112,10 @@ class Keypad extends PureComponent {
             </div>
           </div>
 
-          <div className={classcat([styles.rowSpace, 'u-margin-top'])}>{this.unitSelect}</div>
-          <div className={styles.rowSpace}>{this.stepSize}</div>
+          <div className={classcat([styles.rowSpace, 'u-margin-top'])}>
+            {this.stepSize}
+            {this.unitSelect}
+          </div>
           <div className={styles.rowSpace}>
             <div className="row no-gutters">
               <div className="col-xs-6">{this.buttonStepBackward}</div>
@@ -130,32 +130,24 @@ class Keypad extends PureComponent {
   get unitSelect() {
     const {canClick, units} = this.props.state;
 
-    const select = (unit = 'metric') => {
-      controller.command('gcode', unit === 'imperial' ? 'G20' : 'G21');
+    const select = (unit = METRIC_UNITS) => {
+      controller.command('gcode', unit === IMPERIAL_UNITS ? 'G20' : 'G21');
     };
 
     return (
-      <Dropdown pullRight style={{width: '100%'}} disabled={!canClick}>
-        <Dropdown.Toggle btnStyle="flat" style={{textAlign: 'right', width: '100%'}}>
-          {units === IMPERIAL_UNITS && i18n._('G20 (inch)')}
-          {units === METRIC_UNITS && i18n._('G21 (mm)')}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <MenuItem header>{i18n._('Units')}</MenuItem>
-          <MenuItem active={units === IMPERIAL_UNITS} onSelect={select('imperial')}>
-            {i18n._('G20 (inch)')}
-          </MenuItem>
-          <MenuItem active={units === METRIC_UNITS} onSelect={select('metric')}>
-            {i18n._('G21 (mm)')}
-          </MenuItem>
-        </Dropdown.Menu>
-      </Dropdown>
+      <ButtonGroup
+        optionName="units"
+        options={[METRIC_UNITS, IMPERIAL_UNITS]}
+        selectedValue={units}
+        onChange={select}
+        isDisabled={!canClick}
+      />
     );
   }
 
   get stepSize() {
     const {actions, state} = this.props;
-    const {canClick, jog, units} = state;
+    const {jog, units} = state; // canClick,
 
     const imperialJogDistances = ensureArray(jog.imperial.distances);
     const metricJogDistances = ensureArray(jog.metric.distances);
@@ -164,17 +156,15 @@ class Keypad extends PureComponent {
 
     const isImperial = units === IMPERIAL_UNITS;
 
-    const onSelectStepSize = e => {
-      actions.selectStep(e.target.value);
-    };
+    const onSelectStepSize = e => actions.selectStep(e);
 
     return (
-      <Select
+      <ButtonGroup
+        optionName="step-size"
         options={isImperial ? imperialJogSteps : metricJogSteps}
-        selectedOption={isImperial ? jog.imperial.step : jog.metric.step}
-        optionFormatter={v => `${v} ${isImperial ? i18n._('in') : i18n._('mm')}`}
+        selectedValue={isImperial ? jog.imperial.step : jog.metric.step}
         onChange={onSelectStepSize}
-        disabled={!canClick}
+        // isDisabled={!canClick}
       />
     );
   }
