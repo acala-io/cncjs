@@ -46,8 +46,6 @@ import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../../widgets/WidgetConfig';
 
-import styles from './index.styl';
-
 const getControllerState = (type, controllerState, state) => {
   const {machinePosition, workPosition} = state;
   const {modal = {}} = {...controllerState};
@@ -195,6 +193,31 @@ class AxesWidget extends PureComponent {
     };
   }
 
+  render() {
+    const {machinePosition, units, workPosition} = this.state;
+    const config = this.config;
+
+    const state = {
+      ...this.state,
+      // Determine if the motion button is clickable
+      canClick: this.canClick(),
+      // Output machine position with the display units
+      machinePosition: mapValues(machinePosition, pos => String(mapPositionToUnits(pos, units))),
+      // Output work position with the display units
+      workPosition: mapValues(workPosition, pos => String(mapPositionToUnits(pos, units))),
+    };
+
+    const actions = {...this.actions};
+
+    return (
+      <div>
+        <Axes config={config} state={state} actions={actions} />
+        {this.widgetControls}
+        {this.modalHasToBeMovedToGlobalModals}
+      </div>
+    );
+  }
+
   actions = {
     closeModal: () => {
       this.setState({
@@ -207,8 +230,8 @@ class AxesWidget extends PureComponent {
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({
         modal: {
-          name: name,
-          params: params,
+          name,
+          params,
         },
       });
     },
@@ -686,36 +709,6 @@ class AxesWidget extends PureComponent {
     }
 
     return true;
-  }
-
-  render() {
-    const {machinePosition, units, workPosition} = this.state;
-    const config = this.config;
-
-    const state = {
-      ...this.state,
-      // Determine if the motion button is clickable
-      canClick: this.canClick(),
-      // Output machine position with the display units
-      machinePosition: mapValues(machinePosition, pos => String(mapPositionToUnits(pos, units))),
-      // Output work position with the display units
-      workPosition: mapValues(workPosition, pos => String(mapPositionToUnits(pos, units))),
-    };
-
-    const actions = {...this.actions};
-
-    return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Axes')}</Widget.Title>
-          {this.widgetControls}
-        </Widget.Header>
-        <Widget.Content className={styles['widget-content']} style={{padding: 0}}>
-          <Axes config={config} state={state} actions={actions} />
-        </Widget.Content>
-        {this.modalHasToBeMovedToGlobalModals}
-      </Widget>
-    );
   }
 
   get widgetControls() {
