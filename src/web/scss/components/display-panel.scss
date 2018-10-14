@@ -1,20 +1,29 @@
 .display-panel {
+    background: $background--slightly-off-black;
+    color: $text--lighter;
+
+    th {
+        padding: 0 0.25em;
+    }
+
+    /*
+     * 1 - Force cell to consume the entire width not used by the position data
+     */
     .coordinate {
-        position: relative;
-        padding: 5px 0;
+        line-height: 1;
         text-align: center;
-        width: 1%;
+        width: 100%; /* 1 */
 
         .axis {
-            font-size: 24px;
+            font-size: 28px;
         }
     }
 
     .machine-position,
     .work-position {
+        padding: 0;
         position: relative;
         white-space: nowrap;
-        padding: 0;
         width: 48%;
     }
 
@@ -23,7 +32,7 @@
         padding: 0;
         text-align: center;
 
-        button.action-dropdown {
+        .action-dropdown {
             min-width: auto;
             border-radius: 0;
 

@@ -11,8 +11,10 @@ const Axes = props => {
   return (
     <div>
       <DisplayPanel config={config} state={state} actions={actions} />
-      <ControlPanel config={config} state={state} actions={actions} />
-      {showMDIPanel && <MDIPanel config={config} state={state} actions={actions} />}
+      <div style={{padding: 7}}>
+        <ControlPanel config={config} state={state} actions={actions} />
+        {showMDIPanel && <MDIPanel config={config} state={state} actions={actions} />}
+      </div>
     </div>
   );
 };

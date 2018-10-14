@@ -710,7 +710,7 @@ class AxesWidget extends PureComponent {
           <Widget.Title>{i18n._('Axes')}</Widget.Title>
           {this.widgetControls}
         </Widget.Header>
-        <Widget.Content className={styles['widget-content']}>
+        <Widget.Content className={styles['widget-content']} style={{padding: 0}}>
           <Axes config={config} state={state} actions={actions} />
         </Widget.Content>
         {this.modalHasToBeMovedToGlobalModals}

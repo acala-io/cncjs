@@ -682,6 +682,7 @@ class VisualizerWidget extends PureComponent {
       },
     },
   };
+
   controllerEvents = {
     'connection:open': options => {
       const {ident} = options;

@@ -3,11 +3,16 @@ import React from 'react';
 
 const PositionLabel = ({value}) => {
   value = String(value);
+
   return (
-    <div style={{fontSize: 24, padding: 5, textAlign: 'right'}}>
-      <span>{value.split('.')[0]}</span>
-      <span>.</span>
-      <span>{value.split('.')[1]}</span>
+    <div style={{lineHeight: 1, textAlign: 'right'}}>
+      <span style={{color: 'hsl(37, 82%, 59%)', display: 'inline-block', fontSize: 42, verticalAlign: 'top'}}>
+        {value.split('.')[0]}
+      </span>
+      <span style={{display: 'inline-block', fontSize: 28, verticalAlign: 'top'}}>.</span>
+      <span style={{color: 'hsl(37, 82%, 59%)', display: 'inline-block', fontSize: 28, verticalAlign: 'top'}}>
+        {value.split('.')[1]}
+      </span>
     </div>
   );
 };

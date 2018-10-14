@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import ensureArray from 'ensure-array';
 import frac from 'frac';
 import _includes from 'lodash/includes';
@@ -133,7 +133,7 @@ class Keypad extends PureComponent {
     return (
       <div className={styles.keypad}>
         <div className="row no-gutters">
-          <div className="col-xs-8">
+          <div>
             <div className={styles.rowSpace}>
               <div className="row no-gutters">
                 <div className="col-xs-3">
@@ -149,7 +149,10 @@ class Keypad extends PureComponent {
                       disabled={!canClickXY}
                       title={i18n._('Move X- Y+')}
                     >
-                      <i className={cx('fa', 'fa-arrow-circle-up', styles['rotate--45deg'])} style={{fontSize: 16}} />
+                      <i
+                        className={classcat(['fa', 'fa-arrow-circle-up', styles['rotate--45deg']])}
+                        style={{fontSize: 16}}
+                      />
                     </Button>
                   </div>
                 </div>
@@ -158,7 +161,7 @@ class Keypad extends PureComponent {
                     <Button
                       btnStyle="flat"
                       compact
-                      className={cx(styles.btnKeypad, {[styles.highlight]: highlightY})}
+                      className={classcat([styles.btnKeypad, {[styles.highlight]: highlightY}])}
                       onClick={() => {
                         const distance = actions.getJogDistance();
                         actions.jog({Y: distance});
@@ -184,7 +187,10 @@ class Keypad extends PureComponent {
                       disabled={!canClickXY}
                       title={i18n._('Move X+ Y+')}
                     >
-                      <i className={cx('fa', 'fa-arrow-circle-up', styles['rotate-45deg'])} style={{fontSize: 16}} />
+                      <i
+                        className={classcat(['fa', 'fa-arrow-circle-up', styles['rotate-45deg']])}
+                        style={{fontSize: 16}}
+                      />
                     </Button>
                   </div>
                 </div>
@@ -193,7 +199,7 @@ class Keypad extends PureComponent {
                     <Button
                       btnStyle="flat"
                       compact
-                      className={cx(styles.btnKeypad, {[styles.highlight]: highlightZ})}
+                      className={classcat([styles.btnKeypad, {[styles.highlight]: highlightZ}])}
                       onClick={() => {
                         const distance = actions.getJogDistance();
                         actions.jog({Z: distance});
@@ -215,7 +221,7 @@ class Keypad extends PureComponent {
                     <Button
                       btnStyle="flat"
                       compact
-                      className={cx(styles.btnKeypad, {[styles.highlight]: highlightX})}
+                      className={classcat([styles.btnKeypad, {[styles.highlight]: highlightX}])}
                       onClick={() => {
                         const distance = actions.getJogDistance();
                         actions.jog({X: -distance});
@@ -250,7 +256,7 @@ class Keypad extends PureComponent {
                     <Button
                       btnStyle="flat"
                       compact
-                      className={cx(styles.btnKeypad, {[styles.highlight]: highlightX})}
+                      className={classcat([styles.btnKeypad, {[styles.highlight]: highlightX}])}
                       onClick={() => {
                         const distance = actions.getJogDistance();
                         actions.jog({X: distance});
@@ -295,7 +301,10 @@ class Keypad extends PureComponent {
                       disabled={!canClickXY}
                       title={i18n._('Move X- Y-')}
                     >
-                      <i className={cx('fa', 'fa-arrow-circle-down', styles['rotate-45deg'])} style={{fontSize: 16}} />
+                      <i
+                        className={classcat(['fa', 'fa-arrow-circle-down', styles['rotate-45deg']])}
+                        style={{fontSize: 16}}
+                      />
                     </Button>
                   </div>
                 </div>
@@ -304,7 +313,7 @@ class Keypad extends PureComponent {
                     <Button
                       btnStyle="flat"
                       compact
-                      className={cx(styles.btnKeypad, {[styles.highlight]: highlightY})}
+                      className={classcat([styles.btnKeypad, {[styles.highlight]: highlightY}])}
                       onClick={() => {
                         const distance = actions.getJogDistance();
                         actions.jog({Y: -distance});
@@ -330,7 +339,10 @@ class Keypad extends PureComponent {
                       disabled={!canClickXY}
                       title={i18n._('Move X+ Y-')}
                     >
-                      <i className={cx('fa', 'fa-arrow-circle-down', styles['rotate--45deg'])} style={{fontSize: 16}} />
+                      <i
+                        className={classcat(['fa', 'fa-arrow-circle-down', styles['rotate--45deg']])}
+                        style={{fontSize: 16}}
+                      />
                     </Button>
                   </div>
                 </div>
@@ -339,7 +351,7 @@ class Keypad extends PureComponent {
                     <Button
                       btnStyle="flat"
                       compact
-                      className={cx(styles.btnKeypad, {[styles.highlight]: highlightZ})}
+                      className={classcat([styles.btnKeypad, {[styles.highlight]: highlightZ}])}
                       onClick={() => {
                         const distance = actions.getJogDistance();
                         actions.jog({Z: -distance});
@@ -355,14 +367,58 @@ class Keypad extends PureComponent {
               </div>
             </div>
           </div>
-          <div className="col-xs-4">
-            <div className={styles.rowSpace}>
+
+          <div className={classcat([styles.rowSpace, 'u-margin-top'])}>
+            <Dropdown
+              pullRight
+              style={{
+                width: '100%',
+              }}
+              disabled={!canChangeUnits}
+            >
+              <Dropdown.Toggle
+                btnStyle="flat"
+                style={{
+                  textAlign: 'right',
+                  width: '100%',
+                }}
+              >
+                {units === IMPERIAL_UNITS && i18n._('G20 (inch)')}
+                {units === METRIC_UNITS && i18n._('G21 (mm)')}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <MenuItem header>{i18n._('Units')}</MenuItem>
+                <MenuItem
+                  active={units === IMPERIAL_UNITS}
+                  onSelect={() => {
+                    controller.command('gcode', 'G20');
+                  }}
+                >
+                  {i18n._('G20 (inch)')}
+                </MenuItem>
+                <MenuItem
+                  active={units === METRIC_UNITS}
+                  onSelect={() => {
+                    controller.command('gcode', 'G21');
+                  }}
+                >
+                  {i18n._('G21 (mm)')}
+                </MenuItem>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <div className={styles.rowSpace}>
+            {units === IMPERIAL_UNITS && (
               <Dropdown
                 pullRight
                 style={{
                   width: '100%',
                 }}
-                disabled={!canChangeUnits}
+                disabled={!canChangeStep}
+                onSelect={eventKey => {
+                  const step = eventKey;
+                  actions.selectStep(step);
+                }}
               >
                 <Dropdown.Toggle
                   btnStyle="flat"
@@ -371,142 +427,97 @@ class Keypad extends PureComponent {
                     width: '100%',
                   }}
                 >
-                  {units === IMPERIAL_UNITS && i18n._('G20 (inch)')}
-                  {units === METRIC_UNITS && i18n._('G21 (mm)')}
+                  {imperialJogSteps[jog.imperial.step]}
+                  <Space width="4" />
+                  <sub>{i18n._('in')}</sub>
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <MenuItem header>{i18n._('Units')}</MenuItem>
-                  <MenuItem
-                    active={units === IMPERIAL_UNITS}
-                    onSelect={() => {
-                      controller.command('gcode', 'G20');
-                    }}
-                  >
-                    {i18n._('G20 (inch)')}
-                  </MenuItem>
-                  <MenuItem
-                    active={units === METRIC_UNITS}
-                    onSelect={() => {
-                      controller.command('gcode', 'G21');
-                    }}
-                  >
-                    {i18n._('G21 (mm)')}
-                  </MenuItem>
+                <Dropdown.Menu
+                  style={{
+                    maxHeight: 150,
+                    overflowY: 'auto',
+                  }}
+                >
+                  <MenuItem header>{i18n._('Imperial')}</MenuItem>
+                  {this.renderImperialMenuItems()}
                 </Dropdown.Menu>
               </Dropdown>
-            </div>
-            <div className={styles.rowSpace}>
-              {units === IMPERIAL_UNITS && (
-                <Dropdown
-                  pullRight
+            )}
+            {units === METRIC_UNITS && (
+              <Dropdown
+                pullRight
+                style={{
+                  width: '100%',
+                }}
+                disabled={!canChangeStep}
+                onSelect={eventKey => {
+                  const step = eventKey;
+                  actions.selectStep(step);
+                }}
+              >
+                <Dropdown.Toggle
+                  btnStyle="flat"
                   style={{
+                    textAlign: 'right',
                     width: '100%',
                   }}
-                  disabled={!canChangeStep}
-                  onSelect={eventKey => {
-                    const step = eventKey;
-                    actions.selectStep(step);
-                  }}
                 >
-                  <Dropdown.Toggle
-                    btnStyle="flat"
-                    style={{
-                      textAlign: 'right',
-                      width: '100%',
-                    }}
-                  >
-                    {imperialJogSteps[jog.imperial.step]}
-                    <Space width="4" />
-                    <sub>{i18n._('in')}</sub>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu
-                    style={{
-                      maxHeight: 150,
-                      overflowY: 'auto',
-                    }}
-                  >
-                    <MenuItem header>{i18n._('Imperial')}</MenuItem>
-                    {this.renderImperialMenuItems()}
-                  </Dropdown.Menu>
-                </Dropdown>
-              )}
-              {units === METRIC_UNITS && (
-                <Dropdown
-                  pullRight
+                  {metricJogSteps[jog.metric.step]}
+                  <Space width="4" />
+                  <sub>{i18n._('mm')}</sub>
+                </Dropdown.Toggle>
+                <Dropdown.Menu
                   style={{
-                    width: '100%',
-                  }}
-                  disabled={!canChangeStep}
-                  onSelect={eventKey => {
-                    const step = eventKey;
-                    actions.selectStep(step);
+                    maxHeight: 150,
+                    overflowY: 'auto',
                   }}
                 >
-                  <Dropdown.Toggle
-                    btnStyle="flat"
-                    style={{
-                      textAlign: 'right',
-                      width: '100%',
-                    }}
-                  >
-                    {metricJogSteps[jog.metric.step]}
-                    <Space width="4" />
-                    <sub>{i18n._('mm')}</sub>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu
-                    style={{
-                      maxHeight: 150,
-                      overflowY: 'auto',
-                    }}
-                  >
-                    <MenuItem header>{i18n._('Metric')}</MenuItem>
-                    {this.renderMetricMenuItems()}
-                  </Dropdown.Menu>
-                </Dropdown>
-              )}
-            </div>
-            <div className={styles.rowSpace}>
-              <div className="row no-gutters">
-                <div className="col-xs-6">
-                  <Repeatable
+                  <MenuItem header>{i18n._('Metric')}</MenuItem>
+                  {this.renderMetricMenuItems()}
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
+          </div>
+          <div className={styles.rowSpace}>
+            <div className="row no-gutters">
+              <div className="col-xs-6">
+                <Repeatable
+                  disabled={!canStepBackward}
+                  style={{marginRight: 2.5}}
+                  repeatDelay={500}
+                  repeatInterval={Math.floor(1000 / 15)}
+                  onHold={actions.stepBackward}
+                  onRelease={actions.stepBackward}
+                >
+                  <Button
                     disabled={!canStepBackward}
-                    style={{marginRight: 2.5}}
-                    repeatDelay={500}
-                    repeatInterval={Math.floor(1000 / 15)}
-                    onHold={actions.stepBackward}
-                    onRelease={actions.stepBackward}
+                    style={{width: '100%'}}
+                    compact
+                    btnStyle="flat"
+                    className="pull-left"
                   >
-                    <Button
-                      disabled={!canStepBackward}
-                      style={{width: '100%'}}
-                      compact
-                      btnStyle="flat"
-                      className="pull-left"
-                    >
-                      <i className="fa fa-minus" />
-                    </Button>
-                  </Repeatable>
-                </div>
-                <div className="col-xs-6">
-                  <Repeatable
+                    <i className="fa fa-minus" />
+                  </Button>
+                </Repeatable>
+              </div>
+              <div className="col-xs-6">
+                <Repeatable
+                  disabled={!canStepForward}
+                  style={{marginLeft: 2.5}}
+                  repeatDelay={500}
+                  repeatInterval={Math.floor(1000 / 15)}
+                  onHold={actions.stepForward}
+                  onRelease={actions.stepForward}
+                >
+                  <Button
                     disabled={!canStepForward}
-                    style={{marginLeft: 2.5}}
-                    repeatDelay={500}
-                    repeatInterval={Math.floor(1000 / 15)}
-                    onHold={actions.stepForward}
-                    onRelease={actions.stepForward}
+                    style={{width: '100%'}}
+                    compact
+                    btnStyle="flat"
+                    className="pull-right"
                   >
-                    <Button
-                      disabled={!canStepForward}
-                      style={{width: '100%'}}
-                      compact
-                      btnStyle="flat"
-                      className="pull-right"
-                    >
-                      <i className="fa fa-plus" />
-                    </Button>
-                  </Repeatable>
-                </div>
+                    <i className="fa fa-plus" />
+                  </Button>
+                </Repeatable>
               </div>
             </div>
           </div>

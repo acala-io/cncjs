@@ -1,5 +1,4 @@
 import chainedFunction from 'chained-function';
-import classcat from 'classcat';
 import ensureArray from 'ensure-array';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
@@ -14,7 +13,6 @@ import AxisLabel from './components/AxisLabel';
 import AxisSubscript from './components/AxisSubscript';
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Image from '../../components/Image';
-import Panel from './components/Panel';
 import PositionInput from './components/PositionInput';
 import PositionLabel from './components/PositionLabel';
 import Taskbar from './components/Taskbar';
@@ -26,8 +24,6 @@ import iconMinus from './images/minus.svg';
 import iconPencil from './images/pencil.svg';
 import iconPin from './images/pin.svg';
 import iconPlus from './images/plus.svg';
-
-import styles from './index.styl';
 
 class DisplayPanel extends PureComponent {
   static propTypes = {
@@ -59,14 +55,18 @@ class DisplayPanel extends PureComponent {
     const hasAxisC = axes.includes(AXIS_C);
 
     return (
-      <Panel className={styles.displayPanel}>
+      <div className="display-panel">
         <table>
           <thead>
             <tr>
-              <th className="nowrap" />
-              <th className="nowrap">{i18n._('Machine Position')}</th>
-              <th className="nowrap">{i18n._('Work Position')}</th>
-              <th className={classcat(['nowrap', styles.action])}>{this.renderActionDropdown()}</th>
+              <th />
+              <th className="nowrap text--right" style={{color: 'hsl(38, 13%, 42%)'}}>
+                {i18n._('Machine Position')}
+              </th>
+              <th className="nowrap text--right" style={{color: 'hsl(38, 13%, 42%)'}}>
+                {i18n._('Work Position')}
+              </th>
+              <th className="nowrap action">{this.renderActionDropdown()}</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +79,7 @@ class DisplayPanel extends PureComponent {
             {hasAxisC && this.renderAxis(AXIS_C)}
           </tbody>
         </table>
-      </Panel>
+      </div>
     );
   }
 
@@ -112,7 +112,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-caret-down" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -185,7 +185,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-ellipsis-v" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -258,7 +258,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-ellipsis-v" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -331,7 +331,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-ellipsis-v" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -404,7 +404,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-ellipsis-v" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -477,7 +477,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-ellipsis-v" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -550,7 +550,7 @@ class DisplayPanel extends PureComponent {
 
     return (
       <Dropdown pullRight disabled={!canClick} onSelect={this.handleSelect}>
-        <Dropdown.Toggle className={styles.actionDropdown} btnStyle="link" compact noCaret>
+        <Dropdown.Toggle className="action-dropdown" btnStyle="link" compact noCaret>
           <i className="fa fa-fw fa-ellipsis-v" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -659,11 +659,11 @@ class DisplayPanel extends PureComponent {
 
     return (
       <tr>
-        <td className={styles.coordinate}>
+        <td className="coordinate">
           <AxisLabel highlight={highlightAxis}>{axisLabel}</AxisLabel>
           <AxisSubscript>{displayUnits}</AxisSubscript>
         </td>
-        <td className={styles.machinePosition}>
+        <td className="machinePosition">
           <PositionLabel value={mpos} />
           <Taskbar>
             <div className="clearfix">
@@ -697,7 +697,7 @@ class DisplayPanel extends PureComponent {
             </div>
           </Taskbar>
         </td>
-        <td className={styles.workPosition}>
+        <td className="work-position">
           {showPositionInput && (
             <PositionInput
               style={{margin: '5px 0'}}
@@ -766,7 +766,7 @@ class DisplayPanel extends PureComponent {
             </div>
           </Taskbar>
         </td>
-        <td className={styles.action}>{renderActionDropdown()}</td>
+        <td className="action">{renderActionDropdown()}</td>
       </tr>
     );
   };
