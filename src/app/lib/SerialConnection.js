@@ -74,7 +74,7 @@ class SerialConnection extends EventEmitter {
 
     const settings = {
       ...defaultSettings,
-      ...rest
+      ...rest,
     };
 
     if (settings.port) {

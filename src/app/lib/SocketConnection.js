@@ -64,7 +64,7 @@ class SocketConnection extends EventEmitter {
 
     const settings = {
       ...defaultSettings,
-      ...options
+      ...options,
     };
 
     if (!settings.host) {

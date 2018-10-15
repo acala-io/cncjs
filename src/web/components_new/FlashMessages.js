@@ -76,7 +76,7 @@ const FlashMessages = ({flashMessages}) => {
             <Button {...{
               fullWidth: true,
               size: 'small',
-              ...f.props.button
+              ...f.props.button,
             }} />
           ) : null}
         </div>
