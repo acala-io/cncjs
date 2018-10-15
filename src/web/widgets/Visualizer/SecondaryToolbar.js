@@ -321,6 +321,7 @@ class SecondaryToolbar extends PureComponent {
         ]}
         selectedValue={cameraMode}
         onChange={e => {
+          alert('FIXME: Switching camera mode is broken; visualization is always in rotate camera mode');
           if (e === CAMERA_MODE_PAN) {
             camera.toPanMode();
           } else if (e === CAMERA_MODE_ROTATE) {
