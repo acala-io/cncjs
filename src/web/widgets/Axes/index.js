@@ -474,7 +474,7 @@ class AxesWidget extends PureComponent {
       // stop the default behavior of a keyboard combination in a browser.
       preventDefault(event);
 
-      axis = axis || jog.axis;
+      const localAxis = axis || jog.axis;
       const distance = this.actions.getJogDistance();
       const jogAxis = {
         x: () => this.actions.jog({X: direction * distance * factor}),
@@ -483,7 +483,7 @@ class AxesWidget extends PureComponent {
         a: () => this.actions.jog({A: direction * distance * factor}),
         b: () => this.actions.jog({B: direction * distance * factor}),
         c: () => this.actions.jog({C: direction * distance * factor}),
-      }[axis];
+      }[localAxis];
 
       if (jogAxis) {
         jogAxis();

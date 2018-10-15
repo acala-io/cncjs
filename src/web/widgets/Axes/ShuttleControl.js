@@ -17,19 +17,19 @@ class ShuttleControl extends events.EventEmitter {
   timer = null;
 
   accumulate(zone = 0, {axis = '', distance = 1, feedrateMin, feedrateMax, hertz, overshoot}) {
+    const localAxis = String(axis).toUpperCase();
     let localZone = zone;
     let localFeedrateMin = feedrateMin;
     let localFeedrateMax = feedrateMax;
     let localHertz = hertz;
     let localOvershoot = overshoot;
     localZone = Number(localZone) || 0;
-    axis = String(axis).toUpperCase();
     localFeedrateMin = Number(localFeedrateMin) || DEFAULT_FEEDRATE_MIN;
     localFeedrateMax = Number(localFeedrateMax) || DEFAULT_FEEDRATE_MAX;
     localHertz = Number(localHertz) || DEFAULT_HERTZ;
     localOvershoot = Number(localOvershoot) || DEFAULT_OVERSHOOT;
 
-    if (this.zone !== localZone || this.axis !== axis || this.queue.length >= QUEUE_LENGTH) {
+    if (this.zone !== localZone || this.axis !== localAxis || this.queue.length >= QUEUE_LENGTH) {
       this.flush();
     }
 
@@ -42,7 +42,7 @@ class ShuttleControl extends events.EventEmitter {
     const relativeDistance = (direction * localOvershoot * (feedrate / 60.0)) / localHertz;
 
     this.zone = localZone;
-    this.axis = axis;
+    this.axis = localAxis;
     this.queue.push({
       feedrate,
       relativeDistance,

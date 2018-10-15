@@ -112,7 +112,7 @@ const renderer = node => {
     }
 
     return disabled;
-  })(localNode);
+  }(localNode));
   const dateModified = moment(localNode.props.mtime).format('lll');
   const size = includes(['f', 'l'], localNode.props.type) ? formatBytes(localNode.props.size, 0) : '';
   const type = (function(node) {
@@ -134,7 +134,7 @@ const renderer = node => {
     }
 
     return '';
-  })(localNode);
+  }(localNode));
 
   return (
     <TreeNode id={id} selected={selected} disabled={disabled}>

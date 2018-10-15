@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Space = ({componentClass: Component, width, ...props}) => {
-  if (typeof width === 'string' && width.match(/^\d+$/)) {
-    width += 'px';
+  let localWidth = width;
+  if (typeof localWidth === 'string' && localWidth.match(/^\d+$/)) {
+    localWidth += 'px';
   }
 
   props.style = {
     display: 'inline-block',
-    width,
+    width: localWidth,
     ...props.style,
   };
   return <Component {...props} />;
