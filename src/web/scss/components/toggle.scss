@@ -122,3 +122,10 @@
     padding-left: $inuit-global-spacing-unit-small;
     vertical-align: middle;
 }
+
+/*
+ * 1 - Add some spacing between toggle and label text, if toggle is wrapped in a label
+ */
+label > .toggle {
+    margin-right: $inuit-global-spacing-unit-tiny;
+}

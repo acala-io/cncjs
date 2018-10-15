@@ -76,6 +76,9 @@
     }
 
     .action-dropdown__items {
+        border-bottom-left-radius: $border-radius--large;
+        border-bottom-right-radius: $border-radius--large;
+        box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.34);
         overflow: hidden;
         transition: opacity $transition-time--fast ease-out;
 
@@ -85,7 +88,7 @@
          * 2 - Compensate for amount pulled up by adding it to padding-top
          */
         &:not(.is-collapsed) {
-            background: transparentize($background--white, 0.87);
+            background: transparentize($background--white, 0.04);
             height: auto;
             margin-top: -$border-radius--large; /* 1 */
             padding: ($inuit-global-spacing-unit-tiny + $border-radius--large) $inuit-global-spacing-unit-tiny

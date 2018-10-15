@@ -208,8 +208,10 @@ class Connection extends PureComponent {
 
     return (
       <div className="form-group">
-        <Toggle value={enableHardwareFlowControl} handleClick={toggleHardwareFlowControl} />
-        <label className="inline-block">{i18n._('Enable hardware flow control')}</label>
+        <label className="label--option">
+          <Toggle value={enableHardwareFlowControl} handleClick={toggleHardwareFlowControl} />
+          {i18n._('Enable hardware flow control')}
+        </label>
       </div>
     );
   }
@@ -220,8 +222,10 @@ class Connection extends PureComponent {
 
     return (
       <div className="form-group">
-        <Toggle value={autoReconnect} handleClick={toggleAutoReconnect} />
-        <label className="inline-block">{i18n._('Connect automatically')}</label>
+        <label className="label--option">
+          <Toggle value={autoReconnect} handleClick={toggleAutoReconnect} />
+          {i18n._('Connect automatically')}
+        </label>
       </div>
     );
   }
