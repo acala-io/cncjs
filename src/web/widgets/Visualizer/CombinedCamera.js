@@ -50,17 +50,17 @@ THREE.CombinedCamera.prototype.toPerspective = function() {
 THREE.CombinedCamera.prototype.toOrthographic = function() {
   // Switches to the Orthographic camera estimating viewport from Perspective
 
-  var fov = this.fov;
-  var aspect = this.cameraP.aspect;
-  var near = this.cameraP.near;
-  var far = this.cameraP.far;
+  const fov = this.fov;
+  const aspect = this.cameraP.aspect;
+  const near = this.cameraP.near;
+  const far = this.cameraP.far;
 
   // The size that we set is the mid plane of the viewing frustum
 
-  var hyperfocus = (near + far) / 2;
+  const hyperfocus = (near + far) / 2;
 
-  var halfHeight = Math.tan((fov * Math.PI) / 180 / 2) * hyperfocus;
-  var halfWidth = halfHeight * aspect;
+  let halfHeight = Math.tan((fov * Math.PI) / 180 / 2) * hyperfocus;
+  let halfWidth = halfHeight * aspect;
 
   halfHeight /= this.zoom;
   halfWidth /= this.zoom;
