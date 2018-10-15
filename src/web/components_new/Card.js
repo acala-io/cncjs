@@ -14,9 +14,9 @@
 
 import classcat from 'classcat';
 import React from 'react';
-import {bool, node, string} from 'prop-types';
+import {bool, node, object, string} from 'prop-types';
 
-export const Card = ({children, className = '', fitToPage = false, noPad = false, shadow = false}) => {
+export const Card = ({children, className = '', fitToPage = false, noPad = false, shadow = false, style = {}}) => {
   const classes = classcat([
     'card',
     {
@@ -27,7 +27,11 @@ export const Card = ({children, className = '', fitToPage = false, noPad = false
     className,
   ]);
 
-  return <div className={classes}>{children}</div>;
+  return (
+    <div className={classes} style={style}>
+      {children}
+    </div>
+  );
 };
 
 Card.propTypes = {
@@ -36,6 +40,7 @@ Card.propTypes = {
   fitToPage: bool,
   noPad: bool,
   shadow: bool,
+  style: object,
 };
 
 const Heading = ({heading}) => <h2>{heading}</h2>;

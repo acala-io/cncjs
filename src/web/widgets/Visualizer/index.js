@@ -232,7 +232,13 @@ class VisualizerWidget extends PureComponent {
     const showNotifications = showVisualizer && Boolean(state.notification.type);
 
     return (
-      <Card ref={node => (this.widgetContent = node)} className={classcat([{[styles.view3D]: capable.view3D}])} noPad>
+      <Card
+        ref={node => (this.widgetContent = node)}
+        className={classcat([{[styles.view3D]: capable.view3D}])}
+        style={{background: 'hsl(201, 5%, 42%)'}}
+        noPad
+        shadow
+      >
         {state.gcode.loading && <Loading />}
         {state.gcode.rendering && <Rendering />}
         {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}

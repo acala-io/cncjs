@@ -19,6 +19,7 @@
 %card {
     background: $background--white;
     border-radius: $border-radius--large;
+    overflow: hidden;
 
     &:not(.card--shadow) {
         border: 1px solid $border--lighter;
@@ -30,7 +31,7 @@
 }
 
 .card--shadow {
-    box-shadow: 1px 1px 3px hsla(0, 0%, 0%, 0.21);
+    box-shadow: 1px 1px 3px 1px hsla(0, 0%, 0%, 0.21);
 }
 
 /*

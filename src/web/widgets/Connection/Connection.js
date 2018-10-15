@@ -1,6 +1,5 @@
 import classcat from 'classcat';
 import find from 'lodash/find';
-import map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
 import Select from 'react-select';
@@ -10,6 +9,7 @@ import i18n from '../../lib/i18n';
 
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
+// import Select from '../../components_new/Select';
 import Space from '../../components/Space';
 import Toggle from '../../components_new/Toggle';
 import {ToastNotification} from '../../components/Notifications';
@@ -131,6 +131,15 @@ class Connection extends PureComponent {
     return (
       <div className="form-group">
         <label className="control-label">{i18n._('Port')}</label>
+        {/*
+        <Select
+          options={ports}
+          selectedOption={connection.serial.path}
+          optionFormatter={o => o.label}
+          onChange={actions.onChangePortOption}
+          disabled={!canChangePort}
+        />
+        */}
         <div className="input-group input-group-sm">
           <Select
             backspaceRemoves={false}
@@ -141,7 +150,7 @@ class Connection extends PureComponent {
             noResultsText={i18n._('No ports available')}
             onChange={actions.onChangePortOption}
             optionRenderer={renderPortOption}
-            options={map(ports, port => ({
+            options={ports.map(port => ({
               isOpen: port.isOpen,
               label: port.comName,
               manufacturer: port.manufacturer,
