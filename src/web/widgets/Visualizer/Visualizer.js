@@ -86,14 +86,7 @@ class Visualizer extends Component {
       return null;
     }
 
-    return (
-      <div
-        style={style}
-        ref={node => {
-          this.node = node;
-        }}
-      />
-    );
+    return <div style={style} ref={ref => (this.node = ref)} />;
   }
 
   UNSAFE_componentWillMount() {
@@ -502,13 +495,13 @@ class Visualizer extends Component {
 
     // WebGLRenderer
     this.renderer = new THREE.WebGLRenderer({
-      autoClearColor: true,
-      antialias: true,
       alpha: true,
+      antialias: true,
+      autoClearColor: true,
     });
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.renderer.setClearColor(new THREE.Color(colornames('white')), 1);
+    this.renderer.setClearColor(new THREE.Color('hsl(201, 5%, 42%)'), 1);
     this.renderer.setSize(width, height);
     this.renderer.clear();
 
@@ -841,10 +834,10 @@ class Visualizer extends Component {
         x: posx,
         y: posy,
         z: posz,
-        size: textSize,
-        text: `G-code: ${name}`,
         color: colornames('gray 44'), // grid color
         opacity: 0.5,
+        size: textSize,
+        text: `G-code: ${name}`,
       });
       gcodeName.name = 'GCodeDisplayName';
       gcodeName.visible = gcode.displayName;
@@ -1011,6 +1004,7 @@ class Visualizer extends Component {
 
   zoomIn(delta = 0.1) {
     const {noZoom} = this.controls;
+
     if (noZoom) {
       return;
     }
@@ -1023,6 +1017,7 @@ class Visualizer extends Component {
 
   zoomOut(delta = 0.1) {
     const {noZoom} = this.controls;
+
     if (noZoom) {
       return;
     }

@@ -47,6 +47,7 @@ import {
 } from './constants';
 
 import Anchor from '../../components/Anchor';
+import Card from '../../components_new/Card';
 import Dashboard from './Dashboard';
 import Loading from './Loading';
 import Modal from '../../components/Modal';
@@ -57,7 +58,6 @@ import Rendering from './Rendering';
 import SecondaryToolbar from './SecondaryToolbar';
 import Visualizer from './Visualizer';
 import WatchDirectory from './WatchDirectory';
-import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 import WorkflowControl from './WorkflowControl';
 import {Button} from '../../components/Buttons';
@@ -230,41 +230,25 @@ class VisualizerWidget extends PureComponent {
     const showNotifications = showVisualizer && Boolean(state.notification.type);
 
     return (
-      <Widget borderless>
-        <Widget.Content
-          ref={node => {
-            this.widgetContent = node;
-          }}
-          className={classcat([styles.widgetContent, {[styles.view3D]: capable.view3D}])}
-        >
-          {state.gcode.loading && <Loading />}
-          {state.gcode.rendering && <Rendering />}
-          {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}
-          <WorkflowControl state={state} actions={actions} />
-          <Dashboard show={showDashboard} state={state} />
-          {Detector.webgl && (
-            <Visualizer
-              show={showVisualizer}
-              ref={node => {
-                this.visualizer = node;
-              }}
-              state={state}
-            />
-          )}
-          {showNotifications && (
-            <Notifications
-              show={showNotifications}
-              type={state.notification.type}
-              data={state.notification.data}
-              onDismiss={actions.dismissNotification}
-            />
-          )}
-        </Widget.Content>
-        <Widget.Footer className={styles.widgetFooter}>
-          <PrimaryToolbar state={state} actions={actions} />
-          <SecondaryToolbar state={state} actions={actions} />
-        </Widget.Footer>
-      </Widget>
+      <Card ref={node => (this.widgetContent = node)} className={classcat([{[styles.view3D]: capable.view3D}])} noPad>
+        {state.gcode.loading && <Loading />}
+        {state.gcode.rendering && <Rendering />}
+        {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}
+        <WorkflowControl state={state} actions={actions} />
+        <Dashboard show={showDashboard} state={state} />
+        {Detector.webgl && <Visualizer show={showVisualizer} ref={ref => (this.visualizer = ref)} state={state} />}
+        {showNotifications && (
+          <Notifications
+            show={showNotifications}
+            type={state.notification.type}
+            data={state.notification.data}
+            onDismiss={actions.dismissNotification}
+          />
+        )}
+
+        <PrimaryToolbar state={state} actions={actions} />
+        <SecondaryToolbar state={state} actions={actions} />
+      </Card>
     );
   }
 
@@ -794,7 +778,7 @@ class VisualizerWidget extends PureComponent {
           },
           units,
           wcs: modal.wcs || state.wcs,
-          // Work position are reported in mm ($13=0) or inches ($13=1)
+          // Work positions are reported in mm ($13=0) or inches ($13=1)
           workPosition: mapValues(
             {
               ...state.workPosition,

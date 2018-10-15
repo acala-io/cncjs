@@ -62,15 +62,17 @@ class Dashboard extends PureComponent {
         },
       }));
     }
-  }, 32); // 60hz
+  }, 32); // 60Hz
 
   componentDidMount() {
     this.resizeVirtualList();
     window.addEventListener('resize', this.resizeVirtualList);
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeVirtualList);
   }
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.state.gcode.content !== this.props.state.gcode.content) {
       this.lines = get(nextProps, 'state.gcode.content', '')
@@ -78,11 +80,13 @@ class Dashboard extends PureComponent {
         .filter(line => line.trim().length > 0);
     }
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.show !== prevProps.show && this.props.show) {
       this.resizeVirtualList();
     }
   }
+
   render() {
     const {show, state} = this.props;
     const style = {
@@ -142,9 +146,7 @@ class Dashboard extends PureComponent {
               <VirtualList
                 width="100%"
                 height={virtualList.visibleHeight}
-                style={{
-                  padding: '0 5px',
-                }}
+                style={{padding: '0 5px'}}
                 itemCount={this.lines.length}
                 itemSize={rowHeight}
                 renderItem={this.renderItem}

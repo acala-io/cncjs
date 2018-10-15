@@ -236,7 +236,12 @@ class Connection extends PureComponent {
     return (
       <div>
         {!connected && (
-          <Button text={i18n._('Connect')} width="full-width" isDisabled={!canOpenPort} handleClick={handleOpenPort} />
+          <Button
+            text={i18n._('Connect Machine')}
+            width="full-width"
+            isDisabled={!canOpenPort}
+            handleClick={handleOpenPort}
+          />
         )}
         {connected && (
           <Button

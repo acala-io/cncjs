@@ -546,7 +546,7 @@ class Workspace extends PureComponent {
     const defaultWidgets = ensureArray(store.get('workspace.container.default.widgets'));
 
     return (
-      <div ref={ref => (this.defaultContainer = ref)} className={classcat([styles.defaultContainer, styles.fixed])}>
+      <div ref={ref => (this.defaultContainer = ref)} className={classcat([styles.defaultContainer])}>
         <DefaultWidgets defaultWidgets={defaultWidgets} />
       </div>
     );

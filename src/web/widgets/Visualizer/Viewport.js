@@ -10,9 +10,9 @@ const TARGET0 = new THREE.Vector3(0, 0, 0);
 // https://github.com/mrdoob/three.js/issues/1521
 class Viewport {
   camera = null;
-  width = 0;
   height = 0;
   state = {};
+  width = 0;
 
   constructor(camera, width, height) {
     // FIXME: CombinedCamera is deprecated and has to be removed completely!
@@ -32,20 +32,24 @@ class Viewport {
 
     this.state = {
       ...this.state,
-      width: this.width,
       height: this.height,
       target: TARGET0,
+      width: this.width,
     };
 
     this.reset();
   }
+
   reset() {
     this.set(this.width, this.height, TARGET0);
   }
+
   update() {
-    const {width, height, target} = this.state;
+    const {height, target, width} = this.state;
+
     this.set(width, height, target);
   }
+
   set(width, height, target = TARGET0) {
     if (!this.camera) {
       return;
@@ -53,9 +57,9 @@ class Viewport {
 
     this.state = {
       ...this.state,
-      width,
       height,
       target,
+      width,
     };
 
     const visibleWidth = Math.abs(this.camera.right - this.camera.left);
