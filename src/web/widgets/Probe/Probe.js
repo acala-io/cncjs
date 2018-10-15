@@ -129,7 +129,14 @@ class Probe extends PureComponent {
         </div>
         <div className="row no-gutters">
           <Button
-            text={i18n._('Z-Probe')}
+            text={i18n._('Probe Z-Position')}
+            isDisabled={!canClick}
+            handleClick={() => {
+              actions.openModal(MODAL_PREVIEW);
+            }}
+          />
+          <Button
+            text={i18n._('Probe XYZ-Position')}
             isDisabled={!canClick}
             handleClick={() => {
               actions.openModal(MODAL_PREVIEW);

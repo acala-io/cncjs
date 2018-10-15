@@ -9,6 +9,7 @@ import i18n from '../../lib/i18n';
 
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
+import Icon from '../../components_new/Icon';
 // import Select from '../../components_new/Select';
 import Space from '../../components/Space';
 import Toggle from '../../components_new/Toggle';
@@ -170,7 +171,8 @@ class Connection extends PureComponent {
               onClick={actions.handleRefresh}
               disabled={!canRefresh}
             >
-              <i className={classcat(['fa fa-refresh', {'fa-spin': loading}])} />
+              {/* TODO: spin during state 'loading' */}
+              <Icon name="refresh" size="small" className={classcat([{'fa-spin': loading}])} />
             </button>
           </div>
         </div>
