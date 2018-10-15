@@ -55,7 +55,19 @@ const TrackballControls = function(object, domElement) {
 
   const lastPosition = new THREE.Vector3();
 
-  let _state = STATE.NONE, _prevState = STATE.NONE, _eye = new THREE.Vector3(), _movePrev = new THREE.Vector2(), _moveCurr = new THREE.Vector2(), _lastAxis = new THREE.Vector3(), _lastAngle = 0, _zoomStart = new THREE.Vector2(), _zoomEnd = new THREE.Vector2(), _touchZoomDistanceStart = 0, _touchZoomDistanceEnd = 0, _panStart = new THREE.Vector2(), _panEnd = new THREE.Vector2();
+  let _state = STATE.NONE;
+  let _prevState = STATE.NONE;
+  let _eye = new THREE.Vector3();
+  let _movePrev = new THREE.Vector2();
+  let _moveCurr = new THREE.Vector2();
+  let _lastAxis = new THREE.Vector3();
+  let _lastAngle = 0;
+  let _zoomStart = new THREE.Vector2();
+  let _zoomEnd = new THREE.Vector2();
+  let _touchZoomDistanceStart = 0;
+  let _touchZoomDistanceEnd = 0;
+  let _panStart = new THREE.Vector2();
+  let _panEnd = new THREE.Vector2();
 
   // for reset
 
@@ -139,7 +151,13 @@ const TrackballControls = function(object, domElement) {
   })();
 
   this.rotateCamera = (function() {
-    let axis = new THREE.Vector3(), quaternion = new THREE.Quaternion(), eyeDirection = new THREE.Vector3(), objectUpDirection = new THREE.Vector3(), objectSidewaysDirection = new THREE.Vector3(), moveDirection = new THREE.Vector3(), angle;
+    let axis = new THREE.Vector3();
+    let quaternion = new THREE.Quaternion();
+    let eyeDirection = new THREE.Vector3();
+    let objectUpDirection = new THREE.Vector3();
+    let objectSidewaysDirection = new THREE.Vector3();
+    let moveDirection = new THREE.Vector3();
+    let angle;
 
     return function rotateCamera() {
       moveDirection.set(_moveCurr.x - _movePrev.x, _moveCurr.y - _movePrev.y, 0);
@@ -262,7 +280,9 @@ const TrackballControls = function(object, domElement) {
   };
 
   this.panCamera = (function() {
-    const mouseChange = new THREE.Vector2(), objectUp = new THREE.Vector3(), pan = new THREE.Vector3();
+    const mouseChange = new THREE.Vector2();
+    const objectUp = new THREE.Vector3();
+    const pan = new THREE.Vector3();
 
     return function panCamera() {
       mouseChange.copy(_panEnd).sub(_panStart);
