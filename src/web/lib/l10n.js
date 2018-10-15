@@ -60,7 +60,7 @@ export const formatDuration = duration => {
     return '–';
   }
 
-  const d = moment.duration(elapsedTime, 'ms');
+  const d = moment.duration(duration, 'ms');
 
   return moment(d._data).format('HH:mm:ss');
 };
