@@ -236,6 +236,7 @@ class VisualizerWidget extends PureComponent {
         {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}
         <WorkflowControl state={state} actions={actions} />
         <Dashboard show={showDashboard} state={state} />
+        <PrimaryToolbar state={state} actions={actions} />
         {Detector.webgl && <Visualizer show={showVisualizer} ref={ref => (this.visualizer = ref)} state={state} />}
         {showNotifications && (
           <Notifications
@@ -246,7 +247,6 @@ class VisualizerWidget extends PureComponent {
           />
         )}
 
-        <PrimaryToolbar state={state} actions={actions} />
         <SecondaryToolbar state={state} actions={actions} />
       </Card>
     );

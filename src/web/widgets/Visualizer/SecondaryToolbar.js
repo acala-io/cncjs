@@ -26,7 +26,7 @@ import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Image from '../../components/Image';
 import Interpolate from '../../components/Interpolate';
 import Space from '../../components/Space';
-import {Button, ButtonToolbar} from '../../components/Buttons';
+import {Button} from '../../components/Buttons';
 import {Tooltip} from '../../components/Tooltip';
 
 const IconButton = styled(Button)`
@@ -88,110 +88,106 @@ class SecondaryToolbar extends PureComponent {
   };
 
   render() {
-    const {actions, state} = this.props;
-    const {disabled, gcode, objects, projection} = state;
-    const {camera} = actions;
+    const {state} = this.props;
+    const {disabled} = state;
 
     const canToggleOptions = Detector.webgl && !disabled;
 
     return (
       <Fragment>
-        <Dropdown>
-          <Button
-            btnSize="sm"
-            btnStyle="flat"
-            title={!Detector.webgl || disabled ? i18n._('Enable 3D View') : i18n._('Disable 3D View')}
-            onClick={actions.toggle3DView}
-          >
-            {!Detector.webgl || disabled ? <i className="fa fa-toggle-off" /> : <i className="fa fa-toggle-on" />}
-            {i18n._('3D View')}
-          </Button>
-          <Dropdown.Toggle btnSize="sm" />
-          <Dropdown.Menu>
-            <MenuItem style={{color: '#222'}} header>
-              <Interpolate
-                format={'WebGL: {{status}}'}
-                replacement={{
-                  status: Detector.webgl ? (
-                    <span style={{color: colornames('royalblue')}}>{i18n._('Enabled')}</span>
-                  ) : (
-                    <span style={{color: colornames('crimson')}}>{i18n._('Disabled')}</span>
-                  ),
-                }}
-              />
-            </MenuItem>
-            <MenuItem divider />
-            <MenuItem header>{i18n._('Projection')}</MenuItem>
-            <MenuItem disabled={!canToggleOptions} onSelect={actions.toPerspectiveProjection}>
-              <i className={classcat(['fafa-fw', {'fa-check': projection !== 'orthographic'}])} />
-              <Space width="4" />
-              {i18n._('Perspective Projection')}
-            </MenuItem>
-            <MenuItem disabled={!canToggleOptions} onSelect={actions.toOrthographicProjection}>
-              <i className={classcat(['fa fa-fw', {'fa-check': projection === 'orthographic'}])} />
-              <Space width="4" />
-              {i18n._('Orthographic Projection')}
-            </MenuItem>
-            <MenuItem divider />
-            <MenuItem header>{i18n._('Scene Objects')}</MenuItem>
-            <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleGCodeFilename}>
-              {gcode.displayName ? <i className="fa fa-toggle-on fa-fw" /> : <i className="fa fa-toggle-off fa-fw" />}
-              <Space width="4" />
-              {i18n._('Display G-code Filename')}
-            </MenuItem>
-            <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleCoordinateSystemVisibility}>
-              {objects.coordinateSystem.visible ? (
-                <i className="fa fa-toggle-on fa-fw" />
-              ) : (
-                <i className="fa fa-toggle-off fa-fw" />
-              )}
-              <Space width="4" />
-              {objects.coordinateSystem.visible ? i18n._('Hide Coordinate System') : i18n._('Show Coordinate System')}
-            </MenuItem>
-            <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleGridLineNumbersVisibility}>
-              {objects.gridLineNumbers.visible ? (
-                <i className="fa fa-toggle-on fa-fw" />
-              ) : (
-                <i className="fa fa-toggle-off fa-fw" />
-              )}
-              <Space width="7" />
-              {objects.gridLineNumbers.visible ? i18n._('Hide Grid Line Numbers') : i18n._('Show Grid Line Numbers')}
-            </MenuItem>
-            <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleToolheadVisibility}>
-              {objects.toolhead.visible ? (
-                <i className="fa fa-toggle-on fa-fw" />
-              ) : (
-                <i className="fa fa-toggle-off fa-fw" />
-              )}
-              <Space width="7" />
-              {objects.toolhead.visible ? i18n._('Hide Toolhead') : i18n._('Show Toolhead')}
-            </MenuItem>
-          </Dropdown.Menu>
-        </Dropdown>
+        {this.visualizationSettings}
         {canToggleOptions && (
-          <ButtonToolbar className="pull-right">
+          <div className="left">
             {this.cameraPositionSelect}
-            <Space width="4" />
-            <Repeatable componentClass={IconButton} onClick={camera.zoomFit} onHold={camera.zoomFit}>
-              <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
-                <Image src={iconZoomFit} width="20" height="20" />
-              </Tooltip>
-            </Repeatable>
-            <Repeatable componentClass={IconButton} onClick={camera.zoomIn} onHold={camera.zoomIn}>
-              <Tooltip placement="top" content={i18n._('Zoom In')} hideOnClick>
-                <Image src={iconZoomIn} width="20" height="20" />
-              </Tooltip>
-            </Repeatable>
-            <Repeatable componentClass={IconButton} onClick={camera.zoomOut} onHold={camera.zoomOut}>
-              <Tooltip placement="top" content={i18n._('Zoom Out')} hideOnClick>
-                <Image src={iconZoomOut} width="20" height="20" />
-              </Tooltip>
-            </Repeatable>
-            <Space width="4" />
+            <Space width="14" />
             {this.cameraModeSelect}
-          </ButtonToolbar>
+            <Space width="14" />
+            {this.zoomFunctions}
+          </div>
         )}
       </Fragment>
+    );
+  }
+
+  get visualizationSettings() {
+    const {actions, state} = this.props;
+    const {disabled, gcode, objects, projection} = state;
+
+    const canToggleOptions = Detector.webgl && !disabled;
+
+    return (
+      <Dropdown className="right">
+        <Button
+          btnSize="sm"
+          btnStyle="flat"
+          title={!Detector.webgl || disabled ? i18n._('Enable 3D View') : i18n._('Disable 3D View')}
+          onClick={actions.toggle3DView}
+        >
+          {!Detector.webgl || disabled ? <i className="fa fa-toggle-off" /> : <i className="fa fa-toggle-on" />}
+          {i18n._('3D View')}
+        </Button>
+        <Dropdown.Toggle btnSize="sm" />
+        <Dropdown.Menu>
+          <MenuItem style={{color: '#222'}} header>
+            <Interpolate
+              format={'WebGL: {{status}}'}
+              replacement={{
+                status: Detector.webgl ? (
+                  <span style={{color: colornames('royalblue')}}>{i18n._('Enabled')}</span>
+                ) : (
+                  <span style={{color: colornames('crimson')}}>{i18n._('Disabled')}</span>
+                ),
+              }}
+            />
+          </MenuItem>
+          <MenuItem divider />
+          <MenuItem header>{i18n._('Projection')}</MenuItem>
+          <MenuItem disabled={!canToggleOptions} onSelect={actions.toPerspectiveProjection}>
+            <i className={classcat(['fafa-fw', {'fa-check': projection !== 'orthographic'}])} />
+            <Space width="4" />
+            {i18n._('Perspective Projection')}
+          </MenuItem>
+          <MenuItem disabled={!canToggleOptions} onSelect={actions.toOrthographicProjection}>
+            <i className={classcat(['fa fa-fw', {'fa-check': projection === 'orthographic'}])} />
+            <Space width="4" />
+            {i18n._('Orthographic Projection')}
+          </MenuItem>
+          <MenuItem divider />
+          <MenuItem header>{i18n._('Scene Objects')}</MenuItem>
+          <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleGCodeFilename}>
+            {gcode.displayName ? <i className="fa fa-toggle-on fa-fw" /> : <i className="fa fa-toggle-off fa-fw" />}
+            <Space width="4" />
+            {i18n._('Display G-code Filename')}
+          </MenuItem>
+          <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleCoordinateSystemVisibility}>
+            {objects.coordinateSystem.visible ? (
+              <i className="fa fa-toggle-on fa-fw" />
+            ) : (
+              <i className="fa fa-toggle-off fa-fw" />
+            )}
+            <Space width="4" />
+            {objects.coordinateSystem.visible ? i18n._('Hide Coordinate System') : i18n._('Show Coordinate System')}
+          </MenuItem>
+          <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleGridLineNumbersVisibility}>
+            {objects.gridLineNumbers.visible ? (
+              <i className="fa fa-toggle-on fa-fw" />
+            ) : (
+              <i className="fa fa-toggle-off fa-fw" />
+            )}
+            <Space width="7" />
+            {objects.gridLineNumbers.visible ? i18n._('Hide Grid Line Numbers') : i18n._('Show Grid Line Numbers')}
+          </MenuItem>
+          <MenuItem disabled={!canToggleOptions} onSelect={actions.toggleToolheadVisibility}>
+            {objects.toolhead.visible ? (
+              <i className="fa fa-toggle-on fa-fw" />
+            ) : (
+              <i className="fa fa-toggle-off fa-fw" />
+            )}
+            <Space width="7" />
+            {objects.toolhead.visible ? i18n._('Hide Toolhead') : i18n._('Show Toolhead')}
+          </MenuItem>
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 
@@ -270,6 +266,30 @@ class SecondaryToolbar extends PureComponent {
           }
         }}
       />
+    );
+  }
+
+  get zoomFunctions() {
+    const {camera} = this.props.actions;
+
+    return (
+      <div className="inline-block">
+        <Repeatable componentClass={IconButton} onClick={camera.zoomIn} onHold={camera.zoomIn}>
+          <Tooltip placement="top" content={i18n._('Zoom In')} hideOnClick>
+            <Image src={iconZoomIn} width="20" height="20" />
+          </Tooltip>
+        </Repeatable>
+        <Repeatable componentClass={IconButton} onClick={camera.zoomOut} onHold={camera.zoomOut}>
+          <Tooltip placement="top" content={i18n._('Zoom Out')} hideOnClick>
+            <Image src={iconZoomOut} width="20" height="20" />
+          </Tooltip>
+        </Repeatable>
+        <Repeatable componentClass={IconButton} onClick={camera.zoomFit} onHold={camera.zoomFit}>
+          <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
+            <Image src={iconZoomFit} width="20" height="20" />
+          </Tooltip>
+        </Repeatable>
+      </div>
     );
   }
 
