@@ -1,6 +1,7 @@
-import events from 'events';
 import ensureArray from 'ensure-array';
-import {isEqual, set, get} from 'lodash';
+import events from 'events';
+import {each, get, isEqual, set} from 'lodash';
+
 import TinyGLineParser from './TinyGLineParser';
 import TinyGLineParserResultMotorTimeout from './TinyGLineParserResultMotorTimeout';
 import TinyGLineParserResultOverrides from './TinyGLineParserResultOverrides';
@@ -9,6 +10,7 @@ import TinyGLineParserResultQueueReports from './TinyGLineParserResultQueueRepor
 import TinyGLineParserResultReceiveReports from './TinyGLineParserResultReceiveReports';
 import TinyGLineParserResultStatusReports from './TinyGLineParserResultStatusReports';
 import TinyGLineParserResultSystemSettings from './TinyGLineParserResultSystemSettings';
+
 import {
   TINYG_MACHINE_STATE_READY,
   TINYG_MACHINE_STATE_ALARM,
@@ -173,13 +175,13 @@ class TinyGRunner extends events.EventEmitter {
       } else if (type === TinyGLineParserResultStatusReports) {
         // https://github.com/synthetos/TinyG/wiki/TinyG-Status-Codes#status-report-enumerations
         const keymaps = {
-          line: 'line',
-          vel: 'velocity',
-          feed: 'feedrate',
-          stat: 'machineState',
           cycs: 'cycleState',
-          mots: 'motionState',
+          feed: 'feedrate',
           hold: 'feedholdState',
+          line: 'line',
+          mots: 'motionState',
+          stat: 'machineState',
+          vel: 'velocity',
           momo: (target, val) => {
             const gcode =
               {
@@ -351,19 +353,21 @@ class TinyGRunner extends events.EventEmitter {
           mpob: 'mpos.b',
           mpoc: 'mpos.c',
         };
+
         const state = {
           ...this.state,
           modal: {
             ...this.state.modal,
           },
-          wpos: {
-            ...this.state.wpos,
-          },
           mpos: {
             ...this.state.mpos,
           },
+          wpos: {
+            ...this.state.wpos,
+          },
         };
-        keymaps.forEach((target, key) => {
+
+        each(keymaps, (target, key) => {
           if (typeof target === 'string') {
             const val = get(payload.sr, key);
             if (val !== undefined) {
@@ -430,19 +434,24 @@ class TinyGRunner extends events.EventEmitter {
       }
     }
   }
+
   getMachinePosition(state = this.state) {
     return get(state, 'mpos', {});
   }
+
   getWorkPosition(state = this.state) {
     return get(state, 'wpos', {});
   }
+
   getModalState(state = this.state) {
     return get(state, 'modal', {});
   }
+
   isAlarm() {
     const machineState = get(this.state, 'machineState');
     return machineState === TINYG_MACHINE_STATE_ALARM;
   }
+
   isIdle() {
     const machineState = get(this.state, 'machineState');
     return (
