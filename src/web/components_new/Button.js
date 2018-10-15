@@ -23,10 +23,8 @@ const Button = ({
   icon,
   isDisabled = false,
   isInProgress = false,
-  selSelector = 'button',
   size = 'normal',
   text,
-  textShortened = '',
   width = 'normal',
 }) => {
   const classes = classcat([
@@ -41,19 +39,9 @@ const Button = ({
     className,
   ]);
 
-  let buttonText = text;
-  if (textShortened.length > 0) {
-    buttonText = (
-      <span>
-        <span className="none-lap">{text}</span>
-        <span className="none inline-lap">{textShortened}</span>
-      </span>
-    );
-  }
-
   if (isInProgress) {
     return (
-      <button data-sel-selector={selSelector} className={classes} onClick={e => e && e.preventDefault()}>
+      <button className={classes} onClick={e => e && e.preventDefault()}>
         <LoadingIndicator background="dark" />
       </button>
     );
@@ -61,7 +49,6 @@ const Button = ({
 
   return (
     <button
-      data-sel-selector={selSelector}
       className={classes}
       onClick={e => {
         if (isDisabled) {
@@ -75,8 +62,8 @@ const Button = ({
         handleClick();
       }}
     >
-      {icon ? <Icon name={icon} className="none-lap" /> : null}
-      {buttonText}
+      {icon ? <Icon name={icon} className="none-lap" size="small" /> : null}
+      {text}
     </button>
   );
 };
@@ -90,10 +77,8 @@ Button.propTypes = {
   icon: string,
   isDisabled: bool,
   isInProgress: bool,
-  selSelector: string,
   size: oneOf(['normal', 'large']),
   text: string.isRequired,
-  textShortened: string,
   width: oneOf(['normal', 'full-width']),
 };
 
