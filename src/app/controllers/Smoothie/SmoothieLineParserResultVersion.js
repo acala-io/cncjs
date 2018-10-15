@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { set } from 'lodash';
 
 class SmoothieLineParserResultVersion {
   // Build version: edge-3332442, Build date: xxx, MCU: LPC1769, System Clock: 120MHz
@@ -24,22 +24,22 @@ class SmoothieLineParserResultVersion {
 
       // Build version: edge-3332442
       if (name.match(/Build version/i)) {
-        _.set(payload, 'build.version', value);
+        set(payload, 'build.version', value);
       }
 
       // Build date: Apr 22 2015 15:52:55
       if (name.match(/Build date/i)) {
-        _.set(payload, 'build.date', value);
+        set(payload, 'build.date', value);
       }
 
       // MCU: LPC1769
       if (name.match(/MCU/i)) {
-        _.set(payload, 'mcu', value);
+        set(payload, 'mcu', value);
       }
 
       // System Clock: 120MHz
       if (name.match(/System Clock/i)) {
-        _.set(payload, 'sysclk', value);
+        set(payload, 'sysclk', value);
       }
     });
 

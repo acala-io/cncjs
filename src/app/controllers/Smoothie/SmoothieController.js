@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import _ from 'lodash';
+import { get, includes, intersection, throttle, isEqual, isEmpty } from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';
@@ -140,8 +140,8 @@ class SmoothieController {
     return {
       type: this.type,
       connection: {
-        type: _.get(this.connection, 'type', ''),
-        settings: _.get(this.connection, 'settings', {}),
+        type: get(this.connection, 'type', ''),
+        settings: get(this.connection, 'settings', {}),
       },
       sockets: Object.keys(this.sockets).length,
       ready: this.ready,
@@ -160,7 +160,7 @@ class SmoothieController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!_.includes(['serial', 'socket'], connectionType)) {
+    if (!includes(['serial', 'socket'], connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -220,7 +220,7 @@ class SmoothieController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug('M0 Program Pause');
             this.feeder.hold({data: 'M0'}); // Hold reason
@@ -231,7 +231,7 @@ class SmoothieController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
@@ -307,7 +307,7 @@ class SmoothieController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug(`M0 Program Pause: line=${sent + 1}, sent=${sent}, received=${received}`);
             this.workflow.pause({data: 'M0'});
@@ -318,7 +318,7 @@ class SmoothieController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
         }
@@ -407,7 +407,7 @@ class SmoothieController {
       // Check if the receive buffer is available in the status report (#115)
       // @see https://github.com/cncjs/cncjs/issues/115
       // @see https://github.com/cncjs/cncjs/issues/133
-      const rx = Number(_.get(res, 'buf.rx', 0)) || 0;
+      const rx = Number(get(res, 'buf.rx', 0)) || 0;
       if (rx > 0) {
         // Do not modify the buffer size when running a G-code program
         if (this.workflow.state !== WORKFLOW_STATE_IDLE) {
@@ -557,7 +557,7 @@ class SmoothieController {
 
     // The throttle function is executed on the trailing edge of the timeout,
     // the function might be executed even if the query timer has been destroyed.
-    const queryParserState = _.throttle(() => {
+    const queryParserState = throttle(() => {
       // Check the ready flag
       if (!this.ready) {
         return;
@@ -611,7 +611,7 @@ class SmoothieController {
         this.emit('sender:status', this.sender.toJSON());
       }
 
-      const zeroOffset = _.isEqual(
+      const zeroOffset = isEqual(
         this.runner.getWorkPosition(this.state),
         this.runner.getWorkPosition(this.runner.state)
       );
@@ -856,13 +856,13 @@ class SmoothieController {
     }
 
     // Controller settings
-    if (!_.isEmpty(this.settings)) {
+    if (!isEmpty(this.settings)) {
       socket.emit('controller:settings', this.type, this.settings);
       socket.emit('Smoothie:settings', this.settings); // Backward compatibility
     }
 
     // Controller state
-    if (!_.isEmpty(this.state)) {
+    if (!isEmpty(this.state)) {
       socket.emit('controller:state', this.type, this.state);
       socket.emit('Smoothie:state', this.state); // Backward compatibility
     }
@@ -983,7 +983,7 @@ class SmoothieController {
 
         this.workflow.stop();
 
-        const machineState = _.get(this.state, 'machineState', '');
+        const machineState = get(this.state, 'machineState', '');
         if (machineState === SMOOTHIE_MACHINE_STATE_HOLD) {
           this.write('~'); // resume
         }
@@ -1152,7 +1152,7 @@ class SmoothieController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1173,7 +1173,7 @@ class SmoothieController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1231,7 +1231,7 @@ class SmoothieController {
   }
 
   writeln(data, context) {
-    if (_.includes(SMOOTHIE_REALTIME_COMMANDS, data)) {
+    if (includes(SMOOTHIE_REALTIME_COMMANDS, data)) {
       this.write(data, context);
     } else {
       this.write(`${data}\n`, context);

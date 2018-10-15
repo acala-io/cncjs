@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import _ from 'lodash';
+import { trim, includes, get, set } from 'lodash';
 import {SMOOTHIE_MODAL_GROUPS} from './constants';
 
 class SmoothieLineParserResultParserState {
@@ -14,7 +14,7 @@ class SmoothieLineParserResultParserState {
     const words = _(r[1].split(' '))
       .compact()
       .map(word => {
-        return _.trim(word);
+        return trim(word);
       })
       .value();
 
@@ -23,19 +23,19 @@ class SmoothieLineParserResultParserState {
 
       // Gx, Mx
       if (word.indexOf('G') === 0 || word.indexOf('M') === 0) {
-        const r = _.find(SMOOTHIE_MODAL_GROUPS, group => {
-          return _.includes(group.modes, word);
+        const r = SMOOTHIE_MODAL_GROUPS.find(group => {
+          return includes(group.modes, word);
         });
 
         if (!r) {
           continue;
         }
 
-        const prevWord = _.get(payload, `modal.${r.group}`, '');
+        const prevWord = get(payload, `modal.${r.group}`, '');
         if (prevWord) {
-          _.set(payload, `modal.${r.group}`, ensureArray(prevWord).concat(word));
+          set(payload, `modal.${r.group}`, ensureArray(prevWord).concat(word));
         } else {
-          _.set(payload, `modal.${r.group}`, word);
+          set(payload, `modal.${r.group}`, word);
         }
 
         continue;
@@ -43,19 +43,19 @@ class SmoothieLineParserResultParserState {
 
       // T: tool number
       if (word.indexOf('T') === 0) {
-        _.set(payload, 'tool', word.substring(1));
+        set(payload, 'tool', word.substring(1));
         continue;
       }
 
       // F: feed rate
       if (word.indexOf('F') === 0) {
-        _.set(payload, 'feedrate', word.substring(1));
+        set(payload, 'feedrate', word.substring(1));
         continue;
       }
 
       // S: spindle speed
       if (word.indexOf('S') === 0) {
-        _.set(payload, 'spindle', word.substring(1));
+        set(payload, 'spindle', word.substring(1));
         continue;
       }
     }

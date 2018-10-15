@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-foreign-prop-types, react/no-find-dom-node */
 
-import _ from 'lodash';
+import { includes, pick, difference, pullAll, size, throttle } from 'lodash';
 import classcat from 'classcat';
 import Dropzone from 'react-dropzone';
 import ensureArray from 'ensure-array';
@@ -140,7 +140,7 @@ class Workspace extends PureComponent {
       const {hold, holdReason} = {...status};
 
       if (!hold) {
-        if (_.includes([MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT], modal.name)) {
+        if (includes([MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT], modal.name)) {
           this.action.closeModal();
         }
         return;
@@ -281,7 +281,7 @@ class Workspace extends PureComponent {
         return;
       }
 
-      log.debug('FileReader:', _.pick(file, ['lastModified', 'lastModifiedDate', 'meta', 'name', 'size', 'type']));
+      log.debug('FileReader:', pick(file, ['lastModified', 'lastModifiedDate', 'meta', 'name', 'size', 'type']));
 
       startWaiting();
       this.setState({isUploading: true});
@@ -319,24 +319,24 @@ class Workspace extends PureComponent {
         // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"
         const name = widgetId.split(':')[0];
 
-        return _.includes(activeWidgets, name);
+        return includes(activeWidgets, name);
       });
 
       const defaultWidgets = store.get('workspace.container.default.widgets');
-      const sortableWidgets = _.difference(widgets, defaultWidgets);
+      const sortableWidgets = difference(widgets, defaultWidgets);
       let primaryWidgets = store.get('workspace.container.primary.widgets');
       let secondaryWidgets = store.get('workspace.container.secondary.widgets');
 
       primaryWidgets = sortableWidgets.slice();
-      _.pullAll(primaryWidgets, secondaryWidgets);
+      pullAll(primaryWidgets, secondaryWidgets);
       pubsub.publish('updatePrimaryWidgets', primaryWidgets);
 
       secondaryWidgets = sortableWidgets.slice();
-      _.pullAll(secondaryWidgets, primaryWidgets);
+      pullAll(secondaryWidgets, primaryWidgets);
       pubsub.publish('updateSecondaryWidgets', secondaryWidgets);
 
       this.setState({
-        inactiveCount: _.size(inactiveWidgets),
+        inactiveCount: size(inactiveWidgets),
       });
     });
   };
@@ -347,24 +347,24 @@ class Workspace extends PureComponent {
         // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"
         const name = widgetId.split(':')[0];
 
-        return _.includes(activeWidgets, name);
+        return includes(activeWidgets, name);
       });
 
       const defaultWidgets = store.get('workspace.container.default.widgets');
-      const sortableWidgets = _.difference(widgets, defaultWidgets);
+      const sortableWidgets = difference(widgets, defaultWidgets);
       let primaryWidgets = store.get('workspace.container.primary.widgets');
       let secondaryWidgets = store.get('workspace.container.secondary.widgets');
 
       secondaryWidgets = sortableWidgets.slice();
-      _.pullAll(secondaryWidgets, primaryWidgets);
+      pullAll(secondaryWidgets, primaryWidgets);
       pubsub.publish('updateSecondaryWidgets', secondaryWidgets);
 
       primaryWidgets = sortableWidgets.slice();
-      _.pullAll(primaryWidgets, secondaryWidgets);
+      pullAll(primaryWidgets, secondaryWidgets);
       pubsub.publish('updatePrimaryWidgets', primaryWidgets);
 
       this.setState({
-        inactiveCount: _.size(inactiveWidgets),
+        inactiveCount: size(inactiveWidgets),
       });
     });
   };
@@ -398,7 +398,7 @@ class Workspace extends PureComponent {
       connection: {
         ident: controller.connection.ident,
       },
-      inactiveCount: _.size(widgetManager.getInactiveWidgets()),
+      inactiveCount: size(widgetManager.getInactiveWidgets()),
       isDraggingFile: false,
       isDraggingWidget: false,
       isUploading: false,
@@ -427,7 +427,7 @@ class Workspace extends PureComponent {
   }
 
   addResizeEventListener() {
-    this.onResizeThrottled = _.throttle(this.resizeDefaultContainer, 50);
+    this.onResizeThrottled = throttle(this.resizeDefaultContainer, 50);
     window.addEventListener('resize', this.onResizeThrottled);
   }
 

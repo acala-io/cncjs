@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { set } from 'lodash';
 import SmoothieLineParserResultStatus from './SmoothieLineParserResultStatus';
 import SmoothieLineParserResultOk from './SmoothieLineParserResultOk';
 import SmoothieLineParserResultError from './SmoothieLineParserResultError';
@@ -45,7 +45,7 @@ class SmoothieLineParser {
     for (const parser of parsers) {
       const result = parser.parse(line);
       if (result) {
-        _.set(result, 'payload.raw', line);
+        set(result, 'payload.raw', line);
         return result;
       }
     }

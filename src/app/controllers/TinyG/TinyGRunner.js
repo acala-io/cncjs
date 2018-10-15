@@ -1,6 +1,6 @@
 import events from 'events';
 import ensureArray from 'ensure-array';
-import _ from 'lodash';
+import { isEqual, set, get } from 'lodash';
 import TinyGLineParser from './TinyGLineParser';
 import TinyGLineParserResultMotorTimeout from './TinyGLineParserResultMotorTimeout';
 import TinyGLineParserResultOverrides from './TinyGLineParserResultOverrides';
@@ -145,7 +145,7 @@ class TinyGRunner extends events.EventEmitter {
       } else if (type === TinyGLineParserResultPowerManagement) {
         const {pwr = this.state.pwr} = payload;
 
-        if (!_.isEqual(this.state.pwr, pwr)) {
+        if (!isEqual(this.state.pwr, pwr)) {
           this.state = {
             // enforce change
             ...this.state,
@@ -189,7 +189,7 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_MOTION_G3]: 'G3', // CCW arc traverse
                 [TINYG_GCODE_MOTION_G80]: 'G80', // Cancel motion mode
               }[val] || '';
-            _.set(target, 'modal.motion', gcode);
+            set(target, 'modal.motion', gcode);
           },
           coor: (target, val) => {
             const gcode =
@@ -202,7 +202,7 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_COORDINATE_G58]: 'G58', // Coordinate system 5
                 [TINYG_GCODE_COORDINATE_G59]: 'G59', // Coordinate system 6
               }[val] || '';
-            _.set(target, 'modal.wcs', gcode);
+            set(target, 'modal.wcs', gcode);
           },
           plan: (target, val) => {
             const gcode =
@@ -211,7 +211,7 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_PLANE_G18]: 'G18', // XZ plane
                 [TINYG_GCODE_PLANE_G19]: 'G19', // YZ plane
               }[val] || '';
-            _.set(target, 'modal.plane', gcode);
+            set(target, 'modal.plane', gcode);
           },
           unit: (target, val) => {
             const gcode =
@@ -219,7 +219,7 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_UNITS_G20]: 'G20', // Inches mode
                 [TINYG_GCODE_UNITS_G21]: 'G21', // Millimeters mode
               }[val] || '';
-            _.set(target, 'modal.units', gcode);
+            set(target, 'modal.units', gcode);
           },
           dist: (target, val) => {
             const gcode =
@@ -227,7 +227,7 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_DISTANCE_G90]: 'G90', // Absolute distance
                 [TINYG_GCODE_DISTANCE_G91]: 'G91', // Incremental distance
               }[val] || '';
-            _.set(target, 'modal.distance', gcode);
+            set(target, 'modal.distance', gcode);
           },
           frmo: (target, val) => {
             const gcode =
@@ -236,7 +236,7 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_FEEDRATE_G94]: 'G94', // Units-per-minute mode
                 [TINYG_GCODE_FEEDRATE_G95]: 'G95', // Units-per-revolution mode
               }[val] || '';
-            _.set(target, 'modal.feedrate', gcode);
+            set(target, 'modal.feedrate', gcode);
           },
           path: (target, val) => {
             const gcode =
@@ -245,30 +245,30 @@ class TinyGRunner extends events.EventEmitter {
                 [TINYG_GCODE_PATH_G61_1]: 'G61.1', // Exact stop mode
                 [TINYG_GCODE_PATH_G64]: 'G64', // Continuous mode
               }[val] || '';
-            _.set(target, 'modal.path', gcode);
+            set(target, 'modal.path', gcode);
           },
           // [edge-082.10] Spindle enable (removed in edge-101.03)
           spe: (target, val) => {
-            _.set(target, 'spe', val);
+            set(target, 'spe', val);
 
-            const spe = _.get(target, 'spe', 0);
-            const spd = _.get(target, 'spd', 0);
+            const spe = get(target, 'spe', 0);
+            const spd = get(target, 'spd', 0);
             if (!spe) {
-              _.set(target, 'modal.spindle', 'M5');
+              set(target, 'modal.spindle', 'M5');
             } else {
-              _.set(target, 'modal.spindle', spd === 0 ? 'M3' : 'M4');
+              set(target, 'modal.spindle', spd === 0 ? 'M3' : 'M4');
             }
           },
           // [edge-082.10] Spindle direction (removed in edge-101.03)
           spd: (target, val) => {
-            _.set(target, 'spd', val);
+            set(target, 'spd', val);
 
-            const spe = _.get(target, 'spe', 0);
-            const spd = _.get(target, 'spd', 0);
+            const spe = get(target, 'spe', 0);
+            const spd = get(target, 'spd', 0);
             if (!spe) {
-              _.set(target, 'modal.spindle', 'M5');
+              set(target, 'modal.spindle', 'M5');
             } else {
-              _.set(target, 'modal.spindle', spd === 0 ? 'M3' : 'M4');
+              set(target, 'modal.spindle', spd === 0 ? 'M3' : 'M4');
             }
           },
           // [edge-101.03] Spindle control
@@ -276,54 +276,54 @@ class TinyGRunner extends events.EventEmitter {
           spc: (target, val) => {
             if (val === 0) {
               // OFF
-              _.set(target, 'modal.spindle', 'M5');
+              set(target, 'modal.spindle', 'M5');
             } else if (val === 1) {
               // CW
-              _.set(target, 'modal.spindle', 'M3');
+              set(target, 'modal.spindle', 'M3');
             } else if (val === 2) {
               // CCW
-              _.set(target, 'modal.spindle', 'M4');
+              set(target, 'modal.spindle', 'M4');
             }
           },
           // [edge-082.10] Spindle speed
           sps: (target, val) => {
-            _.set(target, 'sps', val);
+            set(target, 'sps', val);
           },
           // [edge-082.10] Mist coolant
           com: (target, val) => {
             if (val === 0) {
               // Coolant Off
-              _.set(target, 'modal.coolant', 'M9');
+              set(target, 'modal.coolant', 'M9');
               return;
             }
 
-            const data = ensureArray(_.get(target, 'modal.coolant', ''));
+            const data = ensureArray(get(target, 'modal.coolant', ''));
             if (data.indexOf('M8') >= 0) {
               // Mist + Flood
-              _.set(target, 'modal.coolant', ['M7', 'M8']);
+              set(target, 'modal.coolant', ['M7', 'M8']);
               return;
             }
 
             // Mist
-            _.set(target, 'modal.coolant', 'M7');
+            set(target, 'modal.coolant', 'M7');
           },
           // [edge-082.10] Flood coolant
           cof: (target, val) => {
             if (val === 0) {
               // Coolant Off
-              _.set(target, 'modal.coolant', 'M9');
+              set(target, 'modal.coolant', 'M9');
               return;
             }
 
-            const data = ensureArray(_.get(target, 'modal.coolant', ''));
+            const data = ensureArray(get(target, 'modal.coolant', ''));
             if (data.indexOf('M7') >= 0) {
               // Mist + Flood
-              _.set(target, 'modal.coolant', ['M7', 'M8']);
+              set(target, 'modal.coolant', ['M7', 'M8']);
               return;
             }
 
             // Flood
-            _.set(target, 'modal.coolant', 'M8');
+            set(target, 'modal.coolant', 'M8');
           },
 
           // Work Position
@@ -363,22 +363,22 @@ class TinyGRunner extends events.EventEmitter {
             ...this.state.mpos,
           },
         };
-        _.each(keymaps, (target, key) => {
+        keymaps.forEach((target, key) => {
           if (typeof target === 'string') {
-            const val = _.get(payload.sr, key);
+            const val = get(payload.sr, key);
             if (val !== undefined) {
-              _.set(state, target, val);
+              set(state, target, val);
             }
           }
           if (typeof target === 'function') {
-            const val = _.get(payload.sr, key);
+            const val = get(payload.sr, key);
             if (val !== undefined) {
               target(state, val);
             }
           }
         });
 
-        if (!_.isEqual(this.state, state)) {
+        if (!isEqual(this.state, state)) {
           this.state = {
             // enforce change
             ...this.state,
@@ -431,20 +431,20 @@ class TinyGRunner extends events.EventEmitter {
     }
   }
   getMachinePosition(state = this.state) {
-    return _.get(state, 'mpos', {});
+    return get(state, 'mpos', {});
   }
   getWorkPosition(state = this.state) {
-    return _.get(state, 'wpos', {});
+    return get(state, 'wpos', {});
   }
   getModalState(state = this.state) {
-    return _.get(state, 'modal', {});
+    return get(state, 'modal', {});
   }
   isAlarm() {
-    const machineState = _.get(this.state, 'machineState');
+    const machineState = get(this.state, 'machineState');
     return machineState === TINYG_MACHINE_STATE_ALARM;
   }
   isIdle() {
-    const machineState = _.get(this.state, 'machineState');
+    const machineState = get(this.state, 'machineState');
     return (
       machineState === TINYG_MACHINE_STATE_READY ||
       machineState === TINYG_MACHINE_STATE_STOP ||

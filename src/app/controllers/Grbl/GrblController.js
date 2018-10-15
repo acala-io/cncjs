@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import _ from 'lodash';
+import { get, includes, intersection, throttle, isEqual, isEmpty } from 'lodash';
 import ensureArray from 'ensure-array';
 
 import controllers from '../../store/controllers';
@@ -143,8 +143,8 @@ class GrblController {
   get status() {
     return {
       connection: {
-        settings: _.get(this.connection, 'settings', {}),
-        type: _.get(this.connection, 'type', ''),
+        settings: get(this.connection, 'settings', {}),
+        type: get(this.connection, 'type', ''),
       },
       feeder: this.feeder.toJSON(),
       ready: this.ready,
@@ -165,7 +165,7 @@ class GrblController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!_.includes(['serial', 'socket'], connectionType)) {
+    if (!includes(['serial', 'socket'], connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -252,7 +252,7 @@ class GrblController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug('M0 Program Pause');
             this.feeder.hold({data: 'M0'}); // Hold reason
@@ -263,7 +263,7 @@ class GrblController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
 
@@ -343,7 +343,7 @@ class GrblController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug(`M0 Program Pause: line=${sent + 1}, sent=${sent}, received=${received}`);
             this.workflow.pause({data: 'M0'});
@@ -354,7 +354,7 @@ class GrblController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
 
@@ -455,7 +455,7 @@ class GrblController {
       // Check if the receive buffer is available in the status report
       // @see https://github.com/cncjs/cncjs/issues/115
       // @see https://github.com/cncjs/cncjs/issues/133
-      const rx = Number(_.get(res, 'buf.rx', 0)) || 0;
+      const rx = Number(get(res, 'buf.rx', 0)) || 0;
       if (rx > 0) {
         // Do not modify the buffer size when running a G-code program
         if (this.workflow.state !== WORKFLOW_STATE_IDLE) {
@@ -522,7 +522,7 @@ class GrblController {
 
     this.runner.on('error', res => {
       const code = Number(res.message) || undefined;
-      const error = _.find(GRBL_ERRORS, {code});
+      const error = GRBL_ERRORS.find({code});
 
       if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
         const ignoreErrors = config.get('state.controller.exception.ignoreErrors');
@@ -567,7 +567,7 @@ class GrblController {
 
     this.runner.on('alarm', res => {
       const code = Number(res.message) || undefined;
-      const alarm = _.find(GRBL_ALARMS, {code});
+      const alarm = GRBL_ALARMS.find({code});
 
       if (alarm) {
         // Grbl v1.1
@@ -596,7 +596,7 @@ class GrblController {
     });
 
     this.runner.on('settings', res => {
-      const setting = _.find(GRBL_SETTINGS, {setting: res.name});
+      const setting = GRBL_SETTINGS.find({setting: res.name});
 
       if (!res.message && setting) {
         // Grbl v1.1
@@ -668,7 +668,7 @@ class GrblController {
       }
     };
 
-    const queryParserState = _.throttle(() => {
+    const queryParserState = throttle(() => {
       // Check the ready flag
       if (!this.ready) {
         return;
@@ -722,7 +722,7 @@ class GrblController {
         this.emit('sender:status', this.sender.toJSON());
       }
 
-      const zeroOffset = _.isEqual(
+      const zeroOffset = isEqual(
         this.runner.getWorkPosition(this.state),
         this.runner.getWorkPosition(this.runner.state)
       );
@@ -960,13 +960,13 @@ class GrblController {
     }
 
     // Controller settings
-    if (!_.isEmpty(this.settings)) {
+    if (!isEmpty(this.settings)) {
       socket.emit('controller:settings', this.type, this.settings);
       socket.emit('Grbl:settings', this.settings); // Backward compatibility
     }
 
     // Controller state
-    if (!_.isEmpty(this.state)) {
+    if (!isEmpty(this.state)) {
       socket.emit('controller:state', this.type, this.state);
       socket.emit('Grbl:state', this.state); // Backward compatibility
     }
@@ -1090,7 +1090,7 @@ class GrblController {
         this.workflow.stop();
 
         if (force) {
-          const getMachineState = () => _.get(this.state, 'machineState', '');
+          const getMachineState = () => get(this.state, 'machineState', '');
           let machineState = getMachineState();
 
           if (machineState === GRBL_MACHINE_STATE_RUN) {
@@ -1267,7 +1267,7 @@ class GrblController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1288,7 +1288,7 @@ class GrblController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1346,7 +1346,7 @@ class GrblController {
   }
 
   writeln(data, context) {
-    if (_.includes(GRBL_REALTIME_COMMANDS, data)) {
+    if (includes(GRBL_REALTIME_COMMANDS, data)) {
       this.write(data, context);
     } else {
       this.write(`${data}\n`, context);

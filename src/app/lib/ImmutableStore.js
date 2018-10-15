@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { get, merge, set, extend, unset } from 'lodash';
 import events from 'events';
 
 class ImmutableStore extends events.EventEmitter {
@@ -11,11 +11,11 @@ class ImmutableStore extends events.EventEmitter {
   }
 
   get(key, defaultValue) {
-    return _.get(this.state, key, defaultValue);
+    return get(this.state, key, defaultValue);
   }
 
   set(key, value) {
-    this.state = _.merge({}, this.state, _.set({}, key, value));
+    this.state = merge({}, this.state, set({}, key, value));
 
     this.emit('change', this.state);
 
@@ -23,8 +23,8 @@ class ImmutableStore extends events.EventEmitter {
   }
 
   unset(key) {
-    const state = _.extend({}, this.state);
-    _.unset(state, key);
+    const state = extend({}, this.state);
+    unset(state, key);
 
     this.state = state;
 

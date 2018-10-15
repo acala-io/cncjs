@@ -1,13 +1,13 @@
-import _ from 'lodash';
+import { get } from 'lodash';
 
 class TinyGLineParserResultMotorTimeout {
   static parse(data) {
-    const mt = _.get(data, 'r.mt');
+    const mt = get(data, 'r.mt');
     if (typeof mt === 'undefined') {
       return null;
     }
 
-    const footer = _.get(data, 'f') || [];
+    const footer = get(data, 'f') || [];
     const statusCode = footer[1];
     const payload = {};
     if (mt && statusCode === 0) {

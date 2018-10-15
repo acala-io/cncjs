@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { get } from 'lodash';
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -161,7 +161,7 @@ class PrimaryToolbar extends PureComponent {
     let stateText = '';
 
     if (controllerType === GRBL) {
-      const machineState = _.get(controllerState, 'machineState');
+      const machineState = get(controllerState, 'machineState');
 
       stateStyle = {
         [GRBL_MACHINE_STATE_IDLE]: 'controller-state-default',
@@ -191,7 +191,7 @@ class PrimaryToolbar extends PureComponent {
     }
 
     if (controllerType === SMOOTHIE) {
-      const machineState = _.get(controllerState, 'machineState');
+      const machineState = get(controllerState, 'machineState');
 
       stateStyle = {
         [SMOOTHIE_MACHINE_STATE_IDLE]: 'controller-state-default',
@@ -217,7 +217,7 @@ class PrimaryToolbar extends PureComponent {
     }
 
     if (controllerType === TINYG) {
-      const machineState = _.get(controllerState, 'machineState');
+      const machineState = get(controllerState, 'machineState');
 
       // https://github.com/synthetos/g2/wiki/Alarm-Processing
       stateStyle = {

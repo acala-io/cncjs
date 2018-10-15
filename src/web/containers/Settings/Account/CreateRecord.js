@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { get } from 'lodash';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -27,7 +27,7 @@ class CreateRecord extends PureComponent {
     const {name, password} = this.form.getValues();
 
     return {
-      enabled: Boolean(_.get(this.fields.enabled, 'state.checked')),
+      enabled: Boolean(get(this.fields.enabled, 'state.checked')),
       name,
       password,
     };

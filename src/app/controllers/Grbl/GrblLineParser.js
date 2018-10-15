@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { set } from 'lodash';
 import GrblLineParserResultStatus from './GrblLineParserResultStatus';
 import GrblLineParserResultOk from './GrblLineParserResultOk';
 import GrblLineParserResultError from './GrblLineParserResultError';
@@ -74,7 +74,7 @@ class GrblLineParser {
     for (const parser of parsers) {
       const result = parser.parse(line);
       if (result) {
-        _.set(result, 'payload.raw', line);
+        set(result, 'payload.raw', line);
         return result;
       }
     }

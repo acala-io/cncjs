@@ -1,5 +1,5 @@
 import events from 'events';
-import _ from 'lodash';
+import { has, get, isEqual } from 'lodash';
 import decimalPlaces from '../../lib/decimal-places';
 import GrblLineParser from './GrblLineParser';
 import GrblLineParserResultStatus from './GrblLineParserResultStatus';
@@ -71,18 +71,18 @@ class GrblRunner extends events.EventEmitter {
       // WCO:0.000,10.000,2.500
       // A current work coordinate offset is now sent to easily convert
       // between position vectors, where WPos = MPos - WCO for each axis.
-      if (_.has(payload, 'mpos') && !_.has(payload, 'wpos')) {
+      if (has(payload, 'mpos') && !has(payload, 'wpos')) {
         payload.wpos = payload.wpos || {};
-        _.each(payload.mpos, (mpos, axis) => {
+        payload.mpos.forEach((mpos, axis) => {
           const digits = decimalPlaces(mpos);
-          const wco = _.get(payload.wco || this.state.status.wco, axis, 0);
+          const wco = get(payload.wco || this.state.status.wco, axis, 0);
           payload.wpos[axis] = (Number(mpos) - Number(wco)).toFixed(digits);
         });
-      } else if (_.has(payload, 'wpos') && !_.has(payload, 'mpos')) {
+      } else if (has(payload, 'wpos') && !has(payload, 'mpos')) {
         payload.mpos = payload.mpos || {};
-        _.each(payload.wpos, (wpos, axis) => {
+        payload.wpos.forEach((wpos, axis) => {
           const digits = decimalPlaces(wpos);
-          const wco = _.get(payload.wco || this.state.status.wco, axis, 0);
+          const wco = get(payload.wco || this.state.status.wco, axis, 0);
           payload.mpos[axis] = (Number(wpos) + Number(wco)).toFixed(digits);
         });
       }
@@ -98,7 +98,7 @@ class GrblRunner extends events.EventEmitter {
       // Delete the raw key
       delete nextState.status.raw;
 
-      if (!_.isEqual(this.state.status, nextState.status)) {
+      if (!isEqual(this.state.status, nextState.status)) {
         this.state = nextState; // enforce change
       }
       this.emit('status', payload);
@@ -129,7 +129,7 @@ class GrblRunner extends events.EventEmitter {
           spindle,
         },
       };
-      if (!_.isEqual(this.state.parserstate, nextState.parserstate)) {
+      if (!isEqual(this.state.parserstate, nextState.parserstate)) {
         this.state = nextState; // enforce change
       }
       this.emit('parserstate', payload);
@@ -144,7 +144,7 @@ class GrblRunner extends events.EventEmitter {
           [name]: value,
         },
       };
-      if (!_.isEqual(this.settings.parameters[name], nextSettings.parameters[name])) {
+      if (!isEqual(this.settings.parameters[name], nextSettings.parameters[name])) {
         this.settings = nextSettings; // enforce change
       }
       this.emit('parameters', payload);
@@ -176,7 +176,7 @@ class GrblRunner extends events.EventEmitter {
         ...this.settings,
         version,
       };
-      if (!_.isEqual(this.settings.version, nextSettings.version)) {
+      if (!isEqual(this.settings.version, nextSettings.version)) {
         this.settings = nextSettings; // enforce change
       }
       this.emit('startup', payload);
@@ -188,20 +188,20 @@ class GrblRunner extends events.EventEmitter {
     }
   }
   getMachinePosition(state = this.state) {
-    return _.get(state, 'status.mpos', {});
+    return get(state, 'status.mpos', {});
   }
   getWorkPosition(state = this.state) {
-    return _.get(state, 'status.wpos', {});
+    return get(state, 'status.wpos', {});
   }
   getModalGroup(state = this.state) {
-    return _.get(state, 'parserstate.modal', {});
+    return get(state, 'parserstate.modal', {});
   }
   isAlarm() {
-    const machineState = _.get(this.state, 'status.machineState');
+    const machineState = get(this.state, 'status.machineState');
     return machineState === GRBL_MACHINE_STATE_ALARM;
   }
   isIdle() {
-    const machineState = _.get(this.state, 'status.machineState');
+    const machineState = get(this.state, 'status.machineState');
     return machineState === GRBL_MACHINE_STATE_IDLE;
   }
 }

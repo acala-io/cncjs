@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import _ from 'lodash';
+import { trim, includes, get, set } from 'lodash';
 import {GRBL_MODAL_GROUPS} from './constants';
 
 class GrblLineParserResultParserState {
@@ -17,7 +17,7 @@ class GrblLineParserResultParserState {
     const words = _(r[1].split(' '))
       .compact()
       .map(word => {
-        return _.trim(word);
+        return trim(word);
       })
       .value();
 
@@ -26,17 +26,17 @@ class GrblLineParserResultParserState {
 
       // Gx, Mx
       if (word.indexOf('G') === 0 || word.indexOf('M') === 0) {
-        const modalGroup = _.find(GRBL_MODAL_GROUPS, group => _.includes(group.modes, word));
+        const modalGroup = GRBL_MODAL_GROUPS.find(group => includes(group.modes, word));
 
         if (!modalGroup) {
           continue;
         }
 
-        const prevWord = _.get(payload, `modal.${modalGroup.group}`, '');
+        const prevWord = get(payload, `modal.${modalGroup.group}`, '');
         if (prevWord) {
-          _.set(payload, `modal.${modalGroup.group}`, ensureArray(prevWord).concat(word));
+          set(payload, `modal.${modalGroup.group}`, ensureArray(prevWord).concat(word));
         } else {
-          _.set(payload, `modal.${modalGroup.group}`, word);
+          set(payload, `modal.${modalGroup.group}`, word);
         }
 
         continue;
@@ -44,19 +44,19 @@ class GrblLineParserResultParserState {
 
       // T: tool number
       if (word.indexOf('T') === 0) {
-        _.set(payload, 'tool', word.substring(1));
+        set(payload, 'tool', word.substring(1));
         continue;
       }
 
       // F: feed rate
       if (word.indexOf('F') === 0) {
-        _.set(payload, 'feedrate', word.substring(1));
+        set(payload, 'feedrate', word.substring(1));
         continue;
       }
 
       // S: spindle speed
       if (word.indexOf('S') === 0) {
-        _.set(payload, 'spindle', word.substring(1));
+        set(payload, 'spindle', word.substring(1));
         continue;
       }
     }

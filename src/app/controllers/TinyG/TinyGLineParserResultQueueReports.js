@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import { get } from 'lodash';
 
 class TinyGLineParserResultQueueReports {
   static parse(data) {
-    const qr = _.get(data, 'r.qr') || _.get(data, 'qr');
-    const qi = _.get(data, 'r.qi') || _.get(data, 'qi');
-    const qo = _.get(data, 'r.qo') || _.get(data, 'qo');
+    const qr = get(data, 'r.qr') || get(data, 'qr');
+    const qi = get(data, 'r.qi') || get(data, 'qi');
+    const qo = get(data, 'r.qo') || get(data, 'qo');
 
     if (!qr) {
       return null;

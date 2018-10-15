@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { trim } from 'lodash';
 
 class GrblLineParserResultSettings {
   static parse(line) {
@@ -10,7 +10,7 @@ class GrblLineParserResultSettings {
     const payload = {
       name: r[1],
       value: r[2],
-      message: _.trim(r[3], '()'),
+      message: trim(r[3], '()'),
     };
 
     return {

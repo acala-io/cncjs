@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import { get } from 'lodash';
 
 class TinyGLineParserResultReceiveReports {
   static parse(data) {
-    const r = _.get(data, 'r.r') || _.get(data, 'r');
+    const r = get(data, 'r.r') || get(data, 'r');
     if (!r) {
       return null;
     }

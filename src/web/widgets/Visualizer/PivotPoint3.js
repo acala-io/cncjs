@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { defaults } from 'lodash';
 
 const noop = () => {
   // do nothing
@@ -12,7 +12,7 @@ export default class PivotPoint3 {
   // @param callback {function} The callback function
   constructor(options, callback = noop) {
     let localOptions = options;
-    localOptions = _.defaults({}, localOptions, {x: 0, y: 0, z: 0});
+    localOptions = defaults({}, localOptions, {x: 0, y: 0, z: 0});
 
     localOptions.x = Number(localOptions.x) || 0;
     localOptions.y = Number(localOptions.y) || 0;

@@ -1,6 +1,6 @@
 /* eslint-disable import/default */
 
-import _ from 'lodash';
+import { isPlainObject, has, get, set, unset } from 'lodash';
 import chalk from 'chalk';
 import events from 'events';
 import fs from 'fs';
@@ -71,7 +71,7 @@ class ConfigStore extends events.EventEmitter {
       return false;
     }
 
-    if (!_.isPlainObject(this.config)) {
+    if (!isPlainObject(this.config)) {
       log.error(`"${this.file}" does not contain valid JSON`);
       this.config = {};
     }
@@ -98,7 +98,7 @@ class ConfigStore extends events.EventEmitter {
   }
 
   has(key) {
-    return _.has(this.config, key);
+    return has(this.config, key);
   }
 
   get(key, defaultValue) {
@@ -106,7 +106,7 @@ class ConfigStore extends events.EventEmitter {
       this.reload();
     }
 
-    return key !== undefined ? _.get(this.config, key, defaultValue) : this.config;
+    return key !== undefined ? get(this.config, key, defaultValue) : this.config;
   }
 
   set(key, value, options) {
@@ -117,7 +117,7 @@ class ConfigStore extends events.EventEmitter {
     }
 
     const hasReloaded = this.reload(); // reload before making changes
-    _.set(this.config, key, value);
+    set(this.config, key, value);
     if (hasReloaded && !silent) {
       this.sync();
     }
@@ -129,7 +129,7 @@ class ConfigStore extends events.EventEmitter {
     }
 
     const hasReloaded = this.reload(); // reload before making changes
-    _.unset(this.config, key);
+    unset(this.config, key);
     if (hasReloaded) {
       this.sync();
     }

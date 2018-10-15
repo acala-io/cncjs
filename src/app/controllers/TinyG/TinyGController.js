@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import _ from 'lodash';
+import { get, includes, intersection, isEqual, pickBy, isEmpty } from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';
@@ -169,8 +169,8 @@ class TinyGController {
     return {
       type: this.type,
       connection: {
-        type: _.get(this.connection, 'type', ''),
-        settings: _.get(this.connection, 'settings', {}),
+        type: get(this.connection, 'type', ''),
+        settings: get(this.connection, 'settings', {}),
       },
       sockets: Object.keys(this.sockets).length,
       ready: this.ready,
@@ -190,7 +190,7 @@ class TinyGController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!_.includes(['serial', 'socket'], connectionType)) {
+    if (!includes(['serial', 'socket'], connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -252,7 +252,7 @@ class TinyGController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug('M0 Program Pause');
             this.feeder.hold({data: 'M0'}); // Hold reason
@@ -263,7 +263,7 @@ class TinyGController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
@@ -338,7 +338,7 @@ class TinyGController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug(`M0 Program Pause: line=${sent + 1}, sent=${sent}, received=${received}`);
             this.workflow.pause({data: 'M0'});
@@ -349,7 +349,7 @@ class TinyGController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
         }
@@ -468,7 +468,7 @@ class TinyGController {
       const {hold, sent, received} = this.sender.state;
 
       if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
-        const n = _.get(r, 'r.n') || _.get(r, 'n');
+        const n = get(r, 'r.n') || get(r, 'n');
         if (n !== sent) {
           log.warn(`Expression: n (${n}) === sent (${sent})`);
         }
@@ -493,7 +493,7 @@ class TinyGController {
         if (received + 1 >= sent) {
           log.debug(`Stop sending G-code: hold=${hold}, sent=${sent}, received=${received + 1}`);
         }
-        const n = _.get(r, 'r.n') || _.get(r, 'n');
+        const n = get(r, 'r.n') || get(r, 'n');
         if (n !== sent) {
           log.warn(`Expression: n (${n}) === sent (${sent})`);
         }
@@ -588,7 +588,7 @@ class TinyGController {
 
       if (statusCode !== 0) {
         const code = Number(statusCode);
-        const err = _.find(TINYG_STATUS_CODES, {code}) || {};
+        const err = TINYG_STATUS_CODES.find({code}) || {};
 
         if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
           const ignoreErrors = config.get('state.controller.exception.ignoreErrors');
@@ -657,7 +657,7 @@ class TinyGController {
         this.emit('sender:status', this.sender.toJSON());
       }
 
-      const zeroOffset = _.isEqual(
+      const zeroOffset = isEqual(
         this.runner.getWorkPosition(this.state),
         this.runner.getWorkPosition(this.runner.state)
       );
@@ -779,7 +779,7 @@ class TinyGController {
     send(
       relaxedJSON({
         // Returns an object composed of the picked properties
-        sr: _.pickBy(this.sr, value => Boolean(value)),
+        sr: pickBy(this.sr, value => Boolean(value)),
       })
     );
 
@@ -983,13 +983,13 @@ class TinyGController {
     }
 
     // Controller settings
-    if (!_.isEmpty(this.settings)) {
+    if (!isEmpty(this.settings)) {
       socket.emit('controller:settings', this.type, this.settings);
       socket.emit('TinyG:settings', this.settings); // Backward compatibility
     }
 
     // Controller state
-    if (!_.isEmpty(this.state)) {
+    if (!isEmpty(this.state)) {
       socket.emit('controller:state', this.type, this.state);
       socket.emit('TinyG:state', this.state); // Backward compatibility
     }
@@ -1307,7 +1307,7 @@ class TinyGController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1328,7 +1328,7 @@ class TinyGController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);

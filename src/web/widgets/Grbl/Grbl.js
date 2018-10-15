@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { get, mapValues, isEmpty } from 'lodash';
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -33,14 +33,14 @@ class Grbl extends PureComponent {
     const none = '–';
     const panel = state.panel;
     const controllerState = state.controller.state || {};
-    const machineState = _.get(controllerState, 'machineState') || none;
-    const feedrate = _.get(controllerState, 'feedrate', none);
-    const spindle = _.get(controllerState, 'spindle', none);
-    const tool = _.get(controllerState, 'tool', none);
-    const ov = _.get(controllerState, 'ov', []);
+    const machineState = get(controllerState, 'machineState') || none;
+    const feedrate = get(controllerState, 'feedrate', none);
+    const spindle = get(controllerState, 'spindle', none);
+    const tool = get(controllerState, 'tool', none);
+    const ov = get(controllerState, 'ov', []);
     const [ovF = 0, ovR = 0, ovS = 0] = ov;
-    const buf = _.get(controllerState, 'buf', {});
-    const modal = _.mapValues(controllerState.modal || {}, mapGCodeToText);
+    const buf = get(controllerState, 'buf', {});
+    const modal = mapValues(controllerState.modal || {}, mapGCodeToText);
     const receiveBufferStyle = (rx => {
       let localRx = rx;
       // danger: 0-7
@@ -62,7 +62,7 @@ class Grbl extends PureComponent {
     return (
       <div>
         <Overrides ovF={ovF} ovS={ovS} ovR={ovR} />
-        {!_.isEmpty(buf) && (
+        {!isEmpty(buf) && (
           <Panel className={styles.panel}>
             <Panel.Heading className={styles['panel-heading']}>
               <Toggler

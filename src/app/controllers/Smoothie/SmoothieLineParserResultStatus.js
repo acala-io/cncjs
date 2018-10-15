@@ -1,5 +1,5 @@
 /* eslint no-bitwise: ["error", { "allow": ["&", "<<"] }] */
-import _ from 'lodash';
+import { has, get } from 'lodash';
 
 class SmoothieLineParserResultStatus {
   // <Idle>
@@ -44,9 +44,9 @@ class SmoothieLineParserResultStatus {
     }
 
     // Machine Position - reported in current units
-    if (_.has(result, 'MPos')) {
+    if (has(result, 'MPos')) {
       const axes = ['x', 'y', 'z', 'a', 'b', 'c'];
-      const mPos = _.get(result, 'MPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
+      const mPos = get(result, 'MPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
       payload.mpos = {};
       for (let i = 0; i < mPos.length; ++i) {
         payload.mpos[axes[i]] = mPos[i];
@@ -54,9 +54,9 @@ class SmoothieLineParserResultStatus {
     }
 
     // Work Position - reported in current units
-    if (_.has(result, 'WPos')) {
+    if (has(result, 'WPos')) {
       const axes = ['x', 'y', 'z', 'a', 'b', 'c'];
-      const wPos = _.get(result, 'WPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
+      const wPos = get(result, 'WPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
       payload.wpos = {};
       for (let i = 0; i < wPos.length; ++i) {
         payload.wpos[axes[i]] = wPos[i];
@@ -64,36 +64,36 @@ class SmoothieLineParserResultStatus {
     }
 
     // Planner Buffer (Grbl v0.9)
-    if (_.has(result, 'Buf')) {
+    if (has(result, 'Buf')) {
       payload.buf = payload.buf || {};
-      payload.buf.planner = Number(_.get(result, 'Buf[0]', 0));
+      payload.buf.planner = Number(get(result, 'Buf[0]', 0));
     }
 
     // RX Buffer (Grbl v0.9)
-    if (_.has(result, 'RX')) {
+    if (has(result, 'RX')) {
       payload.buf = payload.buf || {};
-      payload.buf.rx = Number(_.get(result, 'RX[0]', 0));
+      payload.buf.rx = Number(get(result, 'RX[0]', 0));
     }
 
     // Line Number
     // Ln:99999 indicates line 99999 is currently being executed.
-    if (_.has(result, 'Ln')) {
-      payload.ln = Number(_.get(result, 'Ln[0]', 0));
+    if (has(result, 'Ln')) {
+      payload.ln = Number(get(result, 'Ln[0]', 0));
     }
 
     // Feed Rate
     // F:500 contains real-time feed rate data as the value.
     // This appears only when VARIABLE_SPINDLE is disabled.
-    if (_.has(result, 'F')) {
-      payload.feedrate = Number(_.get(result, 'F[0]', 0));
+    if (has(result, 'F')) {
+      payload.feedrate = Number(get(result, 'F[0]', 0));
     }
 
     // Limit Pins (Grbl v0.9)
     // X_AXIS is (1<<0) or bit 0
     // Y_AXIS is (1<<1) or bit 1
     // Z_AXIS is (1<<2) or bit 2
-    if (_.has(result, 'Lim')) {
-      const value = Number(_.get(result, 'Lim[0]', 0));
+    if (has(result, 'Lim')) {
+      const value = Number(get(result, 'Lim[0]', 0));
       payload.pinState = [
         value & (1 << 0) ? 'X' : '',
         value & (1 << 1) ? 'Y' : '',

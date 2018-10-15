@@ -1,5 +1,5 @@
 /* eslint no-bitwise: ["error", { "allow": ["&", "<<"] }] */
-import _ from 'lodash';
+import { has, get } from 'lodash';
 
 // https://github.com/grbl/grbl/blob/master/grbl/report.c
 class GrblLineParserResultStatus {
@@ -52,9 +52,9 @@ class GrblLineParserResultStatus {
     }
 
     // Machine Position (v0.9, v1.1)
-    if (_.has(result, 'MPos')) {
+    if (has(result, 'MPos')) {
       const axes = ['x', 'y', 'z', 'a', 'b', 'c'];
-      const mPos = _.get(result, 'MPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
+      const mPos = get(result, 'MPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
       payload.mpos = {};
       for (let i = 0; i < mPos.length; ++i) {
         payload.mpos[axes[i]] = mPos[i];
@@ -62,9 +62,9 @@ class GrblLineParserResultStatus {
     }
 
     // Work Position (v0.9, v1.1)
-    if (_.has(result, 'WPos')) {
+    if (has(result, 'WPos')) {
       const axes = ['x', 'y', 'z', 'a', 'b', 'c'];
-      const wPos = _.get(result, 'WPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
+      const wPos = get(result, 'WPos', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
       payload.wpos = {};
       for (let i = 0; i < wPos.length; ++i) {
         payload.wpos[axes[i]] = wPos[i];
@@ -72,9 +72,9 @@ class GrblLineParserResultStatus {
     }
 
     // Work Coordinate Offset (v1.1)
-    if (_.has(result, 'WCO')) {
+    if (has(result, 'WCO')) {
       const axes = ['x', 'y', 'z', 'a', 'b', 'c'];
-      const wco = _.get(result, 'WCO', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
+      const wco = get(result, 'WCO', ['0.000', '0.000', '0.000']); // Defaults to [x, y, z]
       payload.wco = {};
       for (let i = 0; i < wco.length; ++i) {
         payload.wco[axes[i]] = wco[i];
@@ -82,51 +82,51 @@ class GrblLineParserResultStatus {
     }
 
     // Planner Buffer (v0.9)
-    if (_.has(result, 'Buf')) {
+    if (has(result, 'Buf')) {
       payload.buf = payload.buf || {};
-      payload.buf.planner = Number(_.get(result, 'Buf[0]', 0));
+      payload.buf.planner = Number(get(result, 'Buf[0]', 0));
     }
 
     // RX Buffer (v0.9)
-    if (_.has(result, 'RX')) {
+    if (has(result, 'RX')) {
       payload.buf = payload.buf || {};
-      payload.buf.rx = Number(_.get(result, 'RX[0]', 0));
+      payload.buf.rx = Number(get(result, 'RX[0]', 0));
     }
 
     // Buffer State (v1.1)
     // Bf:15,128. The first value is the number of available blocks in the planner buffer and the second is number of available bytes in the serial RX buffer.
-    if (_.has(result, 'Bf')) {
+    if (has(result, 'Bf')) {
       payload.buf = payload.buf || {};
-      payload.buf.planner = Number(_.get(result, 'Bf[0]', 0));
-      payload.buf.rx = Number(_.get(result, 'Bf[1]', 0));
+      payload.buf.planner = Number(get(result, 'Bf[0]', 0));
+      payload.buf.rx = Number(get(result, 'Bf[1]', 0));
     }
 
     // Line Number (v0.9, v1.1)
     // Ln:99999 indicates line 99999 is currently being executed.
-    if (_.has(result, 'Ln')) {
-      payload.ln = Number(_.get(result, 'Ln[0]', 0));
+    if (has(result, 'Ln')) {
+      payload.ln = Number(get(result, 'Ln[0]', 0));
     }
 
     // Feed Rate (v0.9, v1.1)
     // F:500 contains real-time feed rate data as the value.
     // This appears only when VARIABLE_SPINDLE is disabled.
-    if (_.has(result, 'F')) {
-      payload.feedrate = Number(_.get(result, 'F[0]', 0));
+    if (has(result, 'F')) {
+      payload.feedrate = Number(get(result, 'F[0]', 0));
     }
 
     // Current Feed and Speed (v1.1)
     // FS:500,8000 contains real-time feed rate, followed by spindle speed, data as the values.
-    if (_.has(result, 'FS')) {
-      payload.feedrate = Number(_.get(result, 'FS[0]', 0));
-      payload.spindle = Number(_.get(result, 'FS[1]', 0));
+    if (has(result, 'FS')) {
+      payload.feedrate = Number(get(result, 'FS[0]', 0));
+      payload.spindle = Number(get(result, 'FS[1]', 0));
     }
 
     // Limit Pins (v0.9)
     // X_AXIS is (1<<0) or bit 0
     // Y_AXIS is (1<<1) or bit 1
     // Z_AXIS is (1<<2) or bit 2
-    if (_.has(result, 'Lim')) {
-      const value = Number(_.get(result, 'Lim[0]', 0));
+    if (has(result, 'Lim')) {
+      const value = Number(get(result, 'Lim[0]', 0));
       payload.pinState = [
         value & (1 << 0) ? 'X' : '',
         value & (1 << 1) ? 'Y' : '',
@@ -143,14 +143,14 @@ class GrblLineParserResultStatus {
     //   - D H R S the door, hold, soft-reset, and cycle-start pins, respectively.
     //   - Example: Pn:PZ indicates the probe and z-limit pins are 'triggered'.
     //   - Note: A may be added in later versions for an A-axis limit pin.
-    if (_.has(result, 'Pn')) {
-      payload.pinState = _.get(result, 'Pn[0]', '');
+    if (has(result, 'Pn')) {
+      payload.pinState = get(result, 'Pn[0]', '');
     }
 
     // Override Values (v1.1)
     // Ov:100,100,100 indicates current override values in percent of programmed values for feed, rapids, and spindle speed, respectively.
-    if (_.has(result, 'Ov')) {
-      payload.ov = _.get(result, 'Ov', []).map(v => Number(v));
+    if (has(result, 'Ov')) {
+      payload.ov = get(result, 'Ov', []).map(v => Number(v));
     }
 
     // Accessory State (v1.1)
@@ -160,8 +160,8 @@ class GrblLineParserResultStatus {
     //   - C indicates spindle is enabled in the CCW direction. This does not appear with S.
     //   - F indicates flood coolant is enabled.
     //   - M indicates mist coolant is enabled.
-    if (_.has(result, 'A')) {
-      payload.accessoryState = _.get(result, 'A[0]', '');
+    if (has(result, 'A')) {
+      payload.accessoryState = get(result, 'A[0]', '');
     }
 
     return {

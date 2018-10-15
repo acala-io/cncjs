@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import _ from 'lodash';
+import { get, mapValues } from 'lodash';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import mapGCodeToText from '../../lib/gcode-text';
@@ -20,13 +20,13 @@ class Smoothie extends PureComponent {
     const none = '–';
     const panel = state.panel;
     const controllerState = state.controller.state || {};
-    const machineState = _.get(controllerState, 'machineState', none);
-    const ovF = _.get(controllerState, 'ovF', 0);
-    const ovS = _.get(controllerState, 'ovS', 0);
-    const feedrate = _.get(controllerState, 'feedrate', none);
-    const spindle = _.get(controllerState, 'spindle', none);
-    const tool = _.get(controllerState, 'tool', none);
-    const modal = _.mapValues(controllerState.modal || {}, mapGCodeToText);
+    const machineState = get(controllerState, 'machineState', none);
+    const ovF = get(controllerState, 'ovF', 0);
+    const ovS = get(controllerState, 'ovS', 0);
+    const feedrate = get(controllerState, 'feedrate', none);
+    const spindle = get(controllerState, 'spindle', none);
+    const tool = get(controllerState, 'tool', none);
+    const modal = mapValues(controllerState.modal || {}, mapGCodeToText);
 
     return (
       <div>

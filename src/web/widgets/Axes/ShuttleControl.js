@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { sumBy } from 'lodash';
 import events from 'events';
 
 const HERTZ_LIMIT = 60; // 60 items per second
@@ -70,8 +70,8 @@ class ShuttleControl extends events.EventEmitter {
 
     const accumulatedResult = {
       axis: this.axis,
-      feedrate: _.sumBy(this.queue, o => o.feedrate) / this.queue.length,
-      relativeDistance: _.sumBy(this.queue, o => o.relativeDistance),
+      feedrate: sumBy(this.queue, o => o.feedrate) / this.queue.length,
+      relativeDistance: sumBy(this.queue, o => o.relativeDistance),
     };
 
     clearTimeout(this.timer);

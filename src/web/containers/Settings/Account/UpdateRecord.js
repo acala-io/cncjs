@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { get } from 'lodash';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -28,7 +28,7 @@ class UpdateRecord extends PureComponent {
     const {name, oldPassword, password: newPassword} = this.form.getValues();
 
     return {
-      enabled: Boolean(_.get(this.fields.enabled, 'state.checked')),
+      enabled: Boolean(get(this.fields.enabled, 'state.checked')),
       name,
       oldPassword,
       newPassword,

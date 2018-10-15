@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { set } from 'lodash';
 import MarlinLineParserResultEcho from './MarlinLineParserResultEcho';
 import MarlinLineParserResultError from './MarlinLineParserResultError';
 import MarlinLineParserResultFirmware from './MarlinLineParserResultFirmware';
@@ -36,7 +36,7 @@ class MarlinLineParser {
     for (const parser of parsers) {
       const result = parser.parse(line);
       if (result) {
-        _.set(result, 'payload.raw', line);
+        set(result, 'payload.raw', line);
         return result;
       }
     }

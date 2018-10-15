@@ -1,5 +1,5 @@
 import events from 'events';
-import _ from 'lodash';
+import { isEqual, get } from 'lodash';
 import MarlinLineParser from './MarlinLineParser';
 import MarlinLineParserResultStart from './MarlinLineParserResultStart';
 import MarlinLineParserResultFirmware from './MarlinLineParserResultFirmware';
@@ -66,7 +66,7 @@ class MarlinRunner extends events.EventEmitter {
         extruderCount,
         uuid,
       };
-      if (!_.isEqual(this.settings, nextSettings)) {
+      if (!isEqual(this.settings, nextSettings)) {
         this.settings = nextSettings; // enforce change
       }
 
@@ -82,7 +82,7 @@ class MarlinRunner extends events.EventEmitter {
         },
       };
 
-      if (!_.isEqual(this.state.pos, nextState.pos)) {
+      if (!isEqual(this.state.pos, nextState.pos)) {
         this.state = nextState; // enforce change
       }
       this.emit('pos', payload);
@@ -114,8 +114,8 @@ class MarlinRunner extends events.EventEmitter {
       };
 
       if (
-        !_.isEqual(this.state.extruder, nextState.extruder) ||
-        !_.isEqual(this.state.heatedBed, nextState.heatedBed)
+        !isEqual(this.state.extruder, nextState.extruder) ||
+        !isEqual(this.state.heatedBed, nextState.heatedBed)
       ) {
         this.state = nextState; // enforce change
       }
@@ -138,10 +138,10 @@ class MarlinRunner extends events.EventEmitter {
     }
   }
   getPosition(state = this.state) {
-    return _.get(state, 'pos', {});
+    return get(state, 'pos', {});
   }
   getModalGroup(state = this.state) {
-    return _.get(state, 'modal', {});
+    return get(state, 'modal', {});
   }
   isAlarm() {
     // Not supported

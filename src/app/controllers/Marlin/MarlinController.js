@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import _ from 'lodash';
+import { throttle, get, includes, uniq, isEqual, intersection, isEmpty } from 'lodash';
 import config from '../../services/configstore';
 import controllers from '../../store/controllers';
 import delay from '../../lib/delay';
@@ -148,7 +148,7 @@ class MarlinController {
   queryPosition = (() => {
     let lastQueryTime = 0;
 
-    return _.throttle(() => {
+    return throttle(() => {
       // Check the ready flag
       if (!this.ready) {
         return;
@@ -176,7 +176,7 @@ class MarlinController {
   queryTemperature = (() => {
     let lastQueryTime = 0;
 
-    return _.throttle(() => {
+    return throttle(() => {
       // Check the ready flag
       if (!this.ready) {
         return;
@@ -217,8 +217,8 @@ class MarlinController {
     return {
       type: this.type,
       connection: {
-        type: _.get(this.connection, 'type', ''),
-        settings: _.get(this.connection, 'settings', {}),
+        type: get(this.connection, 'type', ''),
+        settings: get(this.connection, 'settings', {}),
       },
       sockets: Object.keys(this.sockets).length,
       ready: this.ready,
@@ -238,7 +238,7 @@ class MarlinController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!_.includes(['serial', 'socket'], connectionType)) {
+    if (!includes(['serial', 'socket'], connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -268,7 +268,7 @@ class MarlinController {
 
         interpret(line, (cmd, params) => {
           // motion
-          if (_.includes(['G0', 'G1', 'G2', 'G3', 'G38.2', 'G38.3', 'G38.4', 'G38.5', 'G80'], cmd)) {
+          if (includes(['G0', 'G1', 'G2', 'G3', 'G38.2', 'G38.3', 'G38.4', 'G38.5', 'G80'], cmd)) {
             nextState.modal.motion = cmd;
 
             if (params.F !== undefined) {
@@ -281,41 +281,41 @@ class MarlinController {
           }
 
           // wcs
-          if (_.includes(['G54', 'G55', 'G56', 'G57', 'G58', 'G59'], cmd)) {
+          if (includes(['G54', 'G55', 'G56', 'G57', 'G58', 'G59'], cmd)) {
             nextState.modal.wcs = cmd;
           }
 
           // plane
-          if (_.includes(['G17', 'G18', 'G19'], cmd)) {
+          if (includes(['G17', 'G18', 'G19'], cmd)) {
             // G17: xy-plane, G18: xz-plane, G19: yz-plane
             nextState.modal.plane = cmd;
           }
 
           // units
-          if (_.includes(['G20', 'G21'], cmd)) {
+          if (includes(['G20', 'G21'], cmd)) {
             // G20: Inches, G21: Millimeters
             nextState.modal.units = cmd;
           }
 
           // distance
-          if (_.includes(['G90', 'G91'], cmd)) {
+          if (includes(['G90', 'G91'], cmd)) {
             // G90: Absolute, G91: Relative
             nextState.modal.distance = cmd;
           }
 
           // feedrate
-          if (_.includes(['G93', 'G94'], cmd)) {
+          if (includes(['G93', 'G94'], cmd)) {
             // G93: Inverse time mode, G94: Units per minute
             nextState.modal.feedrate = cmd;
           }
 
           // program
-          if (_.includes(['M0', 'M1', 'M2', 'M30'], cmd)) {
+          if (includes(['M0', 'M1', 'M2', 'M30'], cmd)) {
             nextState.modal.program = cmd;
           }
 
           // spindle or head
-          if (_.includes(['M3', 'M4', 'M5'], cmd)) {
+          if (includes(['M3', 'M4', 'M5'], cmd)) {
             // M3: Spindle (cw), M4: Spindle (ccw), M5: Spindle off
             nextState.modal.spindle = cmd;
 
@@ -327,14 +327,14 @@ class MarlinController {
           }
 
           // coolant
-          if (_.includes(['M7', 'M8', 'M9'], cmd)) {
+          if (includes(['M7', 'M8', 'M9'], cmd)) {
             const coolant = nextState.modal.coolant;
 
             // M7: Mist coolant, M8: Flood coolant, M9: Coolant off, [M7,M8]: Both on
             if (cmd === 'M9' || coolant === 'M9') {
               nextState.modal.coolant = cmd;
             } else {
-              nextState.modal.coolant = _.uniq(ensureArray(coolant).concat(cmd)).sort();
+              nextState.modal.coolant = uniq(ensureArray(coolant).concat(cmd)).sort();
               if (nextState.modal.coolant.length === 1) {
                 nextState.modal.coolant = nextState.modal.coolant[0];
               }
@@ -342,7 +342,7 @@ class MarlinController {
           }
         });
 
-        if (!_.isEqual(this.runner.state, nextState)) {
+        if (!isEqual(this.runner.state, nextState)) {
           this.runner.state = nextState; // enforce change
         }
 
@@ -398,20 +398,20 @@ class MarlinController {
         const words = ensureArray(data.words);
 
         // M109 Set extruder temperature and wait for the target temperature to be reached
-        if (_.includes(words, 'M109')) {
+        if (includes(words, 'M109')) {
           log.debug(`Wait for extruder temperature to reach target temperature (${localLine})`);
           this.feeder.hold({data: 'M109'}); // Hold reason
         }
 
         // M190 Set heated bed temperature and wait for the target temperature to be reached
-        if (_.includes(words, 'M190')) {
+        if (includes(words, 'M190')) {
           log.debug(`Wait for heated bed temperature to reach target temperature (${localLine})`);
           this.feeder.hold({data: 'M190'}); // Hold reason
         }
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug('M0 Program Pause');
             this.feeder.hold({data: 'M0'}); // Hold reason
@@ -422,7 +422,7 @@ class MarlinController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
@@ -496,7 +496,7 @@ class MarlinController {
         const words = ensureArray(data.words);
 
         // M109 Set extruder temperature and wait for the target temperature to be reached
-        if (_.includes(words, 'M109')) {
+        if (includes(words, 'M109')) {
           log.debug(
             `Wait for extruder temperature to reach target temperature (${localLine}): line=${sent +
               1}, sent=${sent}, received=${received}`
@@ -506,7 +506,7 @@ class MarlinController {
         }
 
         // M190 Set heated bed temperature and wait for the target temperature to be reached
-        if (_.includes(words, 'M190')) {
+        if (includes(words, 'M190')) {
           log.debug(
             `Wait for heated bed temperature to reach target temperature (${localLine}): line=${sent +
               1}, sent=${sent}, received=${received}`
@@ -517,7 +517,7 @@ class MarlinController {
 
         {
           // Program Mode: M0, M1
-          const programMode = _.intersection(words, ['M0', 'M1'])[0];
+          const programMode = intersection(words, ['M0', 'M1'])[0];
           if (programMode === 'M0') {
             log.debug(`M0 Program Pause: line=${sent + 1}, sent=${sent}, received=${received}`);
             this.workflow.pause({data: 'M0'});
@@ -528,7 +528,7 @@ class MarlinController {
         }
 
         // M6 Tool Change
-        if (_.includes(words, 'M6')) {
+        if (includes(words, 'M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
         }
@@ -627,7 +627,7 @@ class MarlinController {
         )}, res=${JSON.stringify(res)}`
       );
 
-      if (_.includes([WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER], this.history.writeSsource)) {
+      if (includes([WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER], this.history.writeSsource)) {
         this.emit('connection:read', this.connectionOptions, res.raw);
       }
     });
@@ -639,7 +639,7 @@ class MarlinController {
         )}, res=${JSON.stringify(res)}`
       );
 
-      if (_.includes([WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER], this.history.writeSource)) {
+      if (includes([WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER], this.history.writeSource)) {
         this.emit('connection:read', this.connectionOptions, res.raw);
       }
     });
@@ -652,7 +652,7 @@ class MarlinController {
       );
 
       if (res) {
-        if (_.includes([WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER], this.history.writeSource)) {
+        if (includes([WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER], this.history.writeSource)) {
           this.emit('connection:read', this.connectionOptions, res.raw);
         } else if (!this.history.writeSource) {
           this.emit('connection:read', this.connectionOptions, res.raw);
@@ -749,7 +749,10 @@ class MarlinController {
         this.emit('sender:status', this.sender.toJSON());
       }
 
-      const zeroOffset = _.isEqual(this.runner.getPosition(this.state), this.runner.getPosition(this.runner.state));
+      const zeroOffset = isEqual(
+        this.runner.getPosition(this.state),
+        this.runner.getPosition(this.runner.state)
+      );
 
       // Marlin settings
       if (this.settings !== this.runner.settings) {
@@ -973,13 +976,13 @@ class MarlinController {
     }
 
     // Controller settings
-    if (!_.isEmpty(this.settings)) {
+    if (!isEmpty(this.settings)) {
       socket.emit('controller:settings', this.type, this.settings);
       socket.emit('Marlin:settings', this.settings); // Backward compatibility
     }
 
     // Controller state
-    if (!_.isEmpty(this.state)) {
+    if (!isEmpty(this.state)) {
       socket.emit('controller:state', this.type, this.state);
       socket.emit('Marlin:state', this.state); // Backward compatibility
     }
@@ -1254,7 +1257,7 @@ class MarlinController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1275,7 +1278,7 @@ class MarlinController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id});
+        const macro = macros.find({id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);

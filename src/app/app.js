@@ -1,7 +1,7 @@
 /* eslint-disable callback-return, import/default, no-catch-shadow */
 
 import 'hogan.js'; // required by consolidate
-import _ from 'lodash';
+import { get } from 'lodash';
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import connectRestreamer from 'connect-restreamer';
@@ -225,7 +225,7 @@ const appMain = () => {
 
       if (!bypass) {
         // Check whether the provided credential is correct
-        const token = _.get(req, 'query.token') || _.get(req, 'body.token');
+        const token = get(req, 'query.token') || get(req, 'body.token');
         try {
           // User Validation
           const user = jwt.verify(token, settings.secret) || {};

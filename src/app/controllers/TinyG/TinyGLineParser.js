@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { set } from 'lodash';
 import TinyGLineParserResultMotorTimeout from './TinyGLineParserResultMotorTimeout';
 import TinyGLineParserResultPowerManagement from './TinyGLineParserResultPowerManagement';
 import TinyGLineParserResultQueueReports from './TinyGLineParserResultQueueReports';
@@ -22,8 +22,8 @@ class TinyGLineParser {
     for (const parser of parsers) {
       const result = parser.parse(data);
       if (result) {
-        _.set(result, 'payload.raw', data);
-        _.set(result, 'payload.f', data.f || []); // footer
+        set(result, 'payload.raw', data);
+        set(result, 'payload.f', data.f || []); // footer
         return result;
       }
     }
