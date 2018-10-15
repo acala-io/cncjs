@@ -1,6 +1,7 @@
+import * as THREE from 'three';
 import colornames from 'colornames';
 import Toolpath from 'gcode-toolpath';
-import * as THREE from 'three';
+
 import log from '../../lib/log';
 
 const defaultColor = new THREE.Color(colornames('lightgrey'));
@@ -28,6 +29,7 @@ class GCodeVisualizer {
 
     return this;
   }
+
   render(gcode) {
     const toolpath = new Toolpath({
       // @param {object} modal The modal object.
@@ -122,6 +124,7 @@ class GCodeVisualizer {
 
     return this.group;
   }
+
   setFrameIndex(frameIndex) {
     if (this.frames.length === 0) {
       return;

@@ -1,5 +1,5 @@
-import colornames from 'colornames';
 import * as THREE from 'three';
+import colornames from 'colornames';
 
 const buildAxis = (src, dst, color, dashed) => {
   const geometry = new THREE.Geometry();
@@ -7,17 +7,17 @@ const buildAxis = (src, dst, color, dashed) => {
 
   if (dashed) {
     material = new THREE.LineDashedMaterial({
-      linewidth: 1,
-      color: color,
+      color,
       dashSize: 1,
       gapSize: 1,
+      linewidth: 1,
       opacity: 0.8,
       transparent: true,
     });
   } else {
     material = new THREE.LineBasicMaterial({
+      color,
       linewidth: 1,
-      color: color,
       opacity: 0.8,
       transparent: true,
     });

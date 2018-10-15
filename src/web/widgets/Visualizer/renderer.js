@@ -45,8 +45,8 @@ const TreeNodeColumn = props => {
   );
 };
 TreeNodeColumn.propTypes = {
-  padding: PropTypes.bool,
   componentClass: PropTypes.node,
+  padding: PropTypes.bool,
 };
 
 const TreeNodeToggler = ({show, expanded}) => {

@@ -108,12 +108,12 @@ THREE.CombinedCamera.prototype.copy = function(source) {
 
 THREE.CombinedCamera.prototype.setViewOffset = function(fullWidth, fullHeight, x, y, width, height) {
   this.view = {
-    fullWidth: fullWidth,
-    fullHeight: fullHeight,
+    fullHeight,
+    fullWidth,
+    height,
     offsetX: x,
     offsetY: y,
-    width: width,
-    height: height,
+    width,
   };
 
   if (this.inPerspectiveMode) {
@@ -167,9 +167,9 @@ THREE.CombinedCamera.prototype.updateProjectionMatrix = function() {
 THREE.CombinedCamera.prototype.setLens = function(focalLength, filmGauge) {
   if (filmGauge === undefined) filmGauge = 35;
 
-  var vExtentSlope = (0.5 * filmGauge) / (focalLength * Math.max(this.cameraP.aspect, 1));
+  const vExtentSlope = (0.5 * filmGauge) / (focalLength * Math.max(this.cameraP.aspect, 1));
 
-  var fov = THREE.Math.RAD2DEG * 2 * Math.atan(vExtentSlope);
+  const fov = THREE.Math.RAD2DEG * 2 * Math.atan(vExtentSlope);
 
   this.setFov(fov);
 
