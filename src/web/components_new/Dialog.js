@@ -75,11 +75,9 @@ class ActualDialog extends PureComponent {
   }
 }
 
-export const Dialog = connect(function(state) {
-  return {
-    leaving: state.dialogs.leaving,
-  };
-})(ActualDialog);
+export const Dialog = connect(state => ({
+  leaving: state.dialogs.leaving
+}))(ActualDialog);
 
 export default Dialog;
 

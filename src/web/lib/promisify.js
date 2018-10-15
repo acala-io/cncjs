@@ -3,7 +3,7 @@ const promisify = (fn, options) =>
     const {errorFirst = true, thisArg} = {...options};
 
     return new Promise((resolve, reject) => {
-      args.push(function(...results) {
+      args.push((...results) => {
         if (errorFirst) {
           const err = results.shift();
           if (err) {
