@@ -1,7 +1,6 @@
 import ensureArray from 'ensure-array';
-import get from 'lodash/get';
-import map from 'lodash/map';
-import mapValues from 'lodash/mapValues';
+import {get, map, mapValues} from 'lodash';
+
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {ProgressBar} from 'react-bootstrap';
@@ -32,8 +31,8 @@ import styles from './index.styl';
 
 class TinyG extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   // See src/app/controllers/TinyG/constants.js

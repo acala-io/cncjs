@@ -1,8 +1,7 @@
 import classcat from 'classcat';
-import includes from 'lodash/includes';
-import map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {includes, map} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';

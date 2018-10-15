@@ -1,8 +1,8 @@
 import classcat from 'classcat';
-import find from 'lodash/find';
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
 import Select from 'react-select';
+import {find} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';

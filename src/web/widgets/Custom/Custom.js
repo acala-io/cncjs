@@ -1,4 +1,4 @@
-import get from 'lodash/get';
+import {get} from 'lodash';
 import Uri from 'jsuri';
 import pubsub from 'pubsub-js';
 import PropTypes from 'prop-types';

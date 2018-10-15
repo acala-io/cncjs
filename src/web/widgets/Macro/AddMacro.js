@@ -1,4 +1,4 @@
-import uniqueId from 'lodash/uniqueId';
+import {uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';

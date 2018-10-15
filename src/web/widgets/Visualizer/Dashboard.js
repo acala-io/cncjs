@@ -1,11 +1,9 @@
 import classcat from 'classcat';
-import escape from 'lodash/escape';
-import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
-import throttle from 'lodash/throttle';
 import VirtualList from 'react-tiny-virtual-list';
+import {escape, get, throttle} from 'lodash';
 import {ProgressBar} from 'react-bootstrap';
 
 import api from '../../api';

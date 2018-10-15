@@ -1,8 +1,8 @@
 import classcat from 'classcat';
 import ensureArray from 'ensure-array';
-import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {get} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';

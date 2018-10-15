@@ -1,10 +1,11 @@
 import classcat from 'classcat';
+import PropTypes from 'prop-types';
+import React, {PureComponent} from 'react';
+import {isNumber} from 'lodash';
+
 import controller from '../../lib/controller';
 import ensurePositiveNumber from '../../lib/ensure-positive-number';
 import i18n from '../../lib/i18n';
-import isNumber from 'lodash/isNumber';
-import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
 
 import {MARLIN} from '../../constants';
 import {MODAL_NONE, MODAL_CONTROLLER} from './constants';

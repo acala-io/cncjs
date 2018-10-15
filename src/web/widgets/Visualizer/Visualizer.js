@@ -1,14 +1,11 @@
 import * as THREE from 'three';
 import colornames from 'colornames';
 import Detector from 'three/examples/js/Detector';
-import each from 'lodash/each';
-import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import tail from 'lodash/tail';
-import throttle from 'lodash/throttle';
+import {each, isEqual, tail, throttle} from 'lodash';
 
 import log from '../../lib/log';
 

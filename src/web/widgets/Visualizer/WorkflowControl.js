@@ -1,9 +1,8 @@
 import classcat from 'classcat';
-import includes from 'lodash/includes';
-import pick from 'lodash/pick';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {Dropdown, MenuItem} from 'react-bootstrap';
+import {includes, pick} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';

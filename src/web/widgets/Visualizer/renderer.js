@@ -1,9 +1,9 @@
 import classcat from 'classcat';
-import includes from 'lodash/includes';
 import moment from 'moment';
 import path from 'path';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {includes} from 'lodash';
 
 import i18n from '../../lib/i18n';
 import {formatBytes} from '../../lib/numeral';
@@ -112,7 +112,7 @@ const renderer = node => {
     }
 
     return disabled;
-  }(localNode));
+  })(localNode);
   const dateModified = moment(localNode.props.mtime).format('lll');
   const size = includes(['f', 'l'], localNode.props.type) ? formatBytes(localNode.props.size, 0) : '';
   const type = (function(node) {
@@ -134,7 +134,7 @@ const renderer = node => {
     }
 
     return '';
-  }(localNode));
+  })(localNode);
 
   return (
     <TreeNode id={id} selected={selected} disabled={disabled}>

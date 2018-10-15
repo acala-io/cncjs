@@ -1,7 +1,5 @@
 import ensureArray from 'ensure-array';
-import get from 'lodash/get';
-import isNumber from 'lodash/isNumber';
-import mapValues from 'lodash/mapValues';
+import {get, isNumber, mapValues} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {ProgressBar} from 'react-bootstrap';

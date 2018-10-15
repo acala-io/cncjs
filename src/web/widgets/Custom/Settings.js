@@ -1,8 +1,10 @@
-import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Modal from '../../components/Modal';
+import {noop} from 'lodash';
+
 import i18n from '../../lib/i18n';
+
+import Modal from '../../components/Modal';
 
 class Settings extends PureComponent {
   static propTypes = {
@@ -10,6 +12,7 @@ class Settings extends PureComponent {
     onCancel: PropTypes.func,
     onSave: PropTypes.func,
   };
+
   static defaultProps = {
     config: PropTypes.object,
     onCancel: noop,

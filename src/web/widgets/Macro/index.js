@@ -1,12 +1,12 @@
 import classcat from 'classcat';
-import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {includes} from 'lodash';
 
 import api from '../../api';
+import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
-import controller from '../../lib/controller';
 
 import {
   // Controller

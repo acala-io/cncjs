@@ -2,12 +2,10 @@ import chainedFunction from 'chained-function';
 import classcat from 'classcat';
 import Detector from 'three/examples/js/Detector';
 import ExpressionEvaluator from 'expr-eval';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import mapValues from 'lodash/mapValues';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
+import {get, includes, mapValues} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
@@ -99,7 +97,7 @@ const translateExpression = (function() {
       })
       .join('\n');
   };
-}());
+})();
 
 const displayWebGLErrorMessage = () => {
   portal(({onClose}) => (
