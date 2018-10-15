@@ -15,17 +15,16 @@
  * </div>
  */
 
-
 .dropdown {
-    background: transparentize($background--white, .87);
+    background: transparentize($background--white, 0.87);
     border: 1px solid $transparent;
-    border-radius: $border-radius\+;
+    border-radius: $border-radius--large;
     position: absolute;
     right: 0;
     z-index: $z--overlayed-1;
 
     &:hover {
-        background: transparentize($background--white, .05);
+        background: transparentize($background--white, 0.05);
     }
 
     .icon--show-hide {
@@ -46,19 +45,17 @@
         transition: opacity $transition-time--fast ease-out;
 
         li {
-
             /*
              * 1 - Round lower corners, because otherwise the item sticks out over the rounded corners of its container;
              *     Reduce border-radius by 1px because otherwise the background bleeds through when
              *     nesting a rounded corner inside a rounded corner
              */
             &:last-child a {
-                border-bottom-left-radius: $border-radius\+ - 1px; /* 1 */
-                border-bottom-right-radius: $border-radius\+ - 1px; /* 1 */
+                border-bottom-left-radius: $border-radius--large - 1px; /* 1 */
+                border-bottom-right-radius: $border-radius--large - 1px; /* 1 */
             }
 
             &:hover {
-
                 /*
                  * 1 - Hide border-top of hovered element because it doesn't look nice with a background
                  */

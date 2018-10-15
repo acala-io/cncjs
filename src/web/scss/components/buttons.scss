@@ -25,9 +25,9 @@ a.button,
 
     appearance: none; /* stylelint-disable-line plugin/no-unsupported-browser-features */
     background: $clickable;
-    border-radius: $border-radius\+;
+    border-radius: $border-radius--large;
     border: 0;
-    box-shadow: inset -1px (- $visualZHeight) 0 hsla(0, 0%, 0%, .23); /* 1 */
+    box-shadow: inset -1px (-$visualZHeight) 0 hsla(0, 0%, 0%, 0.23); /* 1 */
     color: $text--inverse;
     cursor: pointer;
     display: inline-block;
@@ -56,8 +56,8 @@ a.button,
      * 3 - Reducing padding-bottom of button -> reduces height of button
      */
     &:active:not(.is-disabled) {
-        box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, .08); /* 1 */
-        margin-top: $visualZHeight;  /* 2 */
+        box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
+        margin-top: $visualZHeight; /* 2 */
         padding-bottom: $inuit-global-spacing-unit-small - $visualZHeight; /* 3 */
     }
 
@@ -67,8 +67,10 @@ a.button,
     > .icon {
         display: inline-block;
         fill: $text--inverse;
-        filter: drop-shadow(0 -1px 0 darken($clickable, 13)); /* stylelint-disable-line plugin/no-unsupported-browser-features */
-        margin-left: - $inuit-global-spacing-unit-tiny; /* 1 */
+        filter: drop-shadow(
+            0 -1px 0 darken($clickable, 13)
+        ); /* stylelint-disable-line plugin/no-unsupported-browser-features */
+        margin-left: -$inuit-global-spacing-unit-tiny; /* 1 */
         margin-right: $inuit-global-spacing-unit-small;
         position: relative;
         top: -3px;
@@ -83,11 +85,12 @@ a.button,
         text-shadow: 0 -1px 0 darken($background, 13);
 
         .icon {
-            filter: drop-shadow(0 -1px 0 darken($background, 13)); /* stylelint-disable-line plugin/no-unsupported-browser-features */
+            filter: drop-shadow(
+                0 -1px 0 darken($background, 13)
+            ); /* stylelint-disable-line plugin/no-unsupported-browser-features */
         }
     }
 }
-
 
 // Variants ------------------------------------------------------------------------------------------------------------
 .button--large.button {
@@ -123,7 +126,9 @@ a.button,
     }
 
     > .icon {
-        filter: drop-shadow(0 -1px 0 darken($danger, 25)); /* stylelint-disable-line plugin/no-unsupported-browser-features */
+        filter: drop-shadow(
+            0 -1px 0 darken($danger, 25)
+        ); /* stylelint-disable-line plugin/no-unsupported-browser-features */
     }
 }
 

@@ -4,13 +4,12 @@
 
 /* stylelint-disable declaration-colon-space-after, function-parentheses-space-inside, function-comma-space-after */
 /* Because stylelint does not understand SCSS variable definitions */
-$inuit-global-spacing-unit:   14px !default;
+$inuit-global-spacing-unit: 14px !default;
 
-$clickable:                 hsl(201,  87%,  68%) !default;
-$clickable--highlight:      hsl(201,  92%,  74%) !default;
-$text--lightest:            hsl( 83,   2%,  78%) !default;
+$clickable: hsl(201, 87%, 68%) !default;
+$clickable--highlight: hsl(201, 92%, 74%) !default;
+$text--lightest: hsl(83, 2%, 78%) !default;
 /* stylelint-enable */
-
 
 a,
 .link,
@@ -67,7 +66,6 @@ a,
     }
 }
 
-
 // Variants ------------------------------------------------------------------------------------------------------------
 .link--cta {
     border: 1px solid $clickable;
@@ -107,7 +105,7 @@ a,
 }
 
 .link--social {
-    border-radius: $border-radius\+;
+    border-radius: $border-radius--large;
 
     &,
     &:visited {

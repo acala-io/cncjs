@@ -22,7 +22,6 @@
  * </div>
  */
 
-
 /*
  * 1 - Center dialog horizontally
  * 2 - Center dialog vertically in viewport
@@ -30,7 +29,7 @@
 .dialog {
     @include center--xy; /* 1, 2 */
 
-    border-radius: $border-radius\+;
+    border-radius: $border-radius--large;
     max-width: 100%;
     position: fixed;
     /* stylelint-disable plugin/no-unsupported-browser-features */
@@ -40,7 +39,6 @@
     width: $inuit-global-spacing-unit * 17;
     z-index: $z--topmost-2;
 }
-
 
 // Variants ------------------------------------------------------------------------------------------------------------
 .dialog--wide {
@@ -68,15 +66,14 @@
     @include animation--slide-up-out;
 }
 
-
 /*
  * 1 - Limit the maximum height of the dialog
  * 2 - Fallback for browsers that don't support vh units
  */
 .dialog__shadow-wrapper {
     background: $background--white;
-    border-radius: $border-radius\+;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, .21);
+    border-radius: $border-radius--large;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.21);
     /* stylelint-disable plugin/no-unsupported-browser-features */
     /* browsers that don't understand vh units can fall back to the px value */
     max-height: 800px; /* 1, 2 */
