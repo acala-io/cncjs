@@ -62,7 +62,10 @@ class SocketConnection extends EventEmitter {
       this.writeFilter = writeFilter;
     }
 
-    const settings = Object.assign({}, defaultSettings, options);
+    const settings = {
+      ...defaultSettings,
+      ...options
+    };
 
     if (!settings.host) {
       throw new TypeError(`"host" is not defined: ${settings.host}`);

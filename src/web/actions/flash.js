@@ -26,13 +26,22 @@ export const flashMessage = (message, options = {}) => {
 
 // Aliases
 export const flashSuccessMessage = (message, options) => {
-  return flashMessage(message, Object.assign({}, options, {type: 'success'}));
+  return flashMessage(message, {
+    ...options,
+    type: 'success'
+  });
 };
 
 export const flashErrorMessage = (message, options) => {
-  return flashMessage(message, Object.assign({}, options, {type: 'error'}));
+  return flashMessage(message, {
+    ...options,
+    type: 'error'
+  });
 };
 
 export const flashInfoMessage = (message, options) => {
-  return flashMessage(message, Object.assign({}, options, {type: 'info'}));
+  return flashMessage(message, {
+    ...options,
+    type: 'info'
+  });
 };

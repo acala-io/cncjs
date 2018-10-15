@@ -72,7 +72,10 @@ class SerialConnection extends EventEmitter {
       this.writeFilter = writeFilter;
     }
 
-    const settings = Object.assign({}, defaultSettings, rest);
+    const settings = {
+      ...defaultSettings,
+      ...rest
+    };
 
     if (settings.port) {
       throw new TypeError('"port" is an unknown option, did you mean "path"?');

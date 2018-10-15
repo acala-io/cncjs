@@ -94,7 +94,9 @@ THREE.CombinedCamera.prototype.copy = function(source) {
   this.bottom = source.bottom;
 
   this.zoom = source.zoom;
-  this.view = source.view === null ? null : Object.assign({}, source.view);
+  this.view = source.view === null ? null : {
+    ...source.view
+  };
   this.aspect = source.aspect;
 
   this.cameraO.copy(source.cameraO);

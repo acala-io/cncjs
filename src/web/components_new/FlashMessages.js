@@ -73,7 +73,11 @@ const FlashMessages = ({flashMessages}) => {
             ) : null}
           </p>
           {f.props && f.props.button ? (
-            <Button {...Object.assign({fullWidth: true, size: 'small'}, f.props.button)} />
+            <Button {...{
+              fullWidth: true,
+              size: 'small',
+              ...f.props.button
+            }} />
           ) : null}
         </div>
       ))}
