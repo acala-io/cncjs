@@ -1,0 +1,26 @@
+/*
+ * Action links.
+ */
+
+/* stylelint-disable declaration-colon-space-after, function-parentheses-space-inside, function-comma-space-after */
+/* Because stylelint does not understand SCSS variable definitions */
+$inuit-global-spacing-unit-small: 7px !default;
+$inuit-global-spacing-unit-tiny: 4px !default;
+/* stylelint-enable */
+
+/*
+ * 1 - Prevent that clicking the link selects its text because it looks ugly and broken
+ */
+.action-link {
+    @extend %link-base-behaviour;
+
+    display: inline-block;
+    font-weight: bold;
+    padding: $inuit-global-spacing-unit-tiny $inuit-global-spacing-unit-small;
+    user-select: none; /* 1 */
+    vertical-align: middle;
+
+    > span {
+        padding-left: $inuit-global-spacing-unit-small;
+    }
+}

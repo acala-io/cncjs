@@ -7,15 +7,11 @@ import React, {PureComponent} from 'react';
 import i18n from '../../lib/i18n';
 import portal from '../../lib/portal';
 
-import {
-  // Workflow
-  WORKFLOW_STATE_IDLE,
-  WORKFLOW_STATE_PAUSED,
-} from '../../constants';
+import {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED} from '../../constants';
 
-import {Button} from '../../components/Buttons';
+import ActionLink from '../../components_new/ActionLink';
 import Modal from '../../components/Modal';
-import Space from '../../components/Space';
+import {Button} from '../../components/Buttons';
 
 import styles from './index.styl';
 
@@ -67,13 +63,14 @@ class Macro extends PureComponent {
   render() {
     const {state} = this.props;
     const {canClick, workflow, macros = []} = state;
+
     const canRunMacro = canClick && includes([WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED], workflow.state);
     const canLoadMacro = canClick && includes([WORKFLOW_STATE_IDLE], workflow.state);
 
     return (
       <div>
-        <div className={styles.tableContainer}>
-          <table className={styles.table}>
+        <div className="{styles.tableContainer}">
+          <table className="table table--form table--row-hovers">
             <tbody>
               {macros.length === 0 && (
                 <tr>
@@ -85,18 +82,14 @@ class Macro extends PureComponent {
               {ensureArray(macros).map(macro => (
                 <tr key={macro.id}>
                   <td>
-                    <Button
-                      compact
-                      btnSize="xs"
-                      btnStyle="flat"
-                      disabled={!canRunMacro}
+                    <ActionLink
+                      action="run"
+                      className="u-margin-right-tiny"
                       onClick={this.handleRunMacro(macro)}
-                      title={i18n._('Run Macro')}
-                    >
-                      <i className="fa fa-play" />
-                    </Button>
-                    <Space width="8" />
-                    {macro.name}
+                      label={macro.name}
+                      isDisabled={!canRunMacro}
+                      renderWithLabel
+                    />
                   </td>
                   <td style={{width: '1%'}}>
                     <div className="nowrap">
@@ -110,9 +103,7 @@ class Macro extends PureComponent {
                       >
                         <i className="fa fa-chevron-up" />
                       </Button>
-                      <Button compact btnSize="xs" btnStyle="flat" onClick={this.handleEditMacro(macro)}>
-                        <i className="fa fa-edit" />
-                      </Button>
+                      <ActionLink action="edit" onClick={this.handleEditMacro(macro)} />
                     </div>
                   </td>
                 </tr>

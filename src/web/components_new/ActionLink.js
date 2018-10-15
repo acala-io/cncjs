@@ -6,7 +6,7 @@
  * Shows the name of the action in a custom tooltip on hover.
  *
  * Usage:
- * <ActionLink action="edit" onClick={() => { alert('clicked!'); }}/>
+ * <ActionLink action="edit" onClick={() => { alert('clicked!'); }} isDisabled={false} />
  */
 
 import classcat from 'classcat';
@@ -14,26 +14,27 @@ import * as React from 'react';
 
 import Icon from './Icon';
 
-type Action = 'add' | 'cancel' | 'delete' | 'download' | 'duplicate' | 'edit' | string;
+type Action = 'add' | 'cancel' | 'delete' | 'download' | 'duplicate' | 'edit' | 'run' | string;
 
 const TEXTS = {
   add: 'add',
   cancel: 'cancel',
   delete: 'delete',
   download: 'download',
-  duplicate: 'duplicate',
   edit: 'edit',
+  run: 'run',
 };
 
 export type Props = {
   action: Action,
   className: string,
+  label: string,
   isDisabled: boolean,
   onClick: Function,
   renderWithLabel: boolean,
   style: any,
   title: string,
-  tooltipPosition: 'above' | 'right' | 'below' | 'left',
+  // tooltipPosition: 'above' | 'right' | 'below' | 'left',
 };
 
 function getOptions(action: string): {icon: string, text: string} {
@@ -43,20 +44,9 @@ function getOptions(action: string): {icon: string, text: string} {
   };
 
   const options = {
-    cancel: {
+    dunno: {
+      icon: 'dunno',
       text: TEXTS[action],
-    },
-    editOffer: {
-      icon: 'edit',
-      text: TEXTS[action],
-    },
-    showChanges: {
-      icon: 'history',
-      text: TEXTS[action],
-    },
-    try: {
-      icon: 'try',
-      text: TEXTS.preview,
     },
   };
 
@@ -69,6 +59,7 @@ export default class ActionLink extends React.Component<Props> {
   static defaultProps = {
     className: '',
     isDisabled: false,
+    label: '',
     renderWithLabel: false,
     style: {},
     title: '',
@@ -94,18 +85,13 @@ export default class ActionLink extends React.Component<Props> {
   };
 
   render() {
-    const {action, className, isDisabled, renderWithLabel, style, title, tooltipPosition} = this.props;
+    const {action, className, isDisabled, label, renderWithLabel, style, title} = this.props;
     const options = getOptions(action);
-    const showTooltip = options.icon ? !renderWithLabel : false;
+    // const showTooltip = options.icon ? !renderWithLabel : false;
     const classes = classcat([
-      'edit-item dont-print',
+      'action-link',
       {
         'is-disabled': isDisabled,
-        tooltip: showTooltip,
-        'tooltip--above': showTooltip && tooltipPosition === 'above',
-        'tooltip--below': showTooltip && tooltipPosition === 'below',
-        'tooltip--left': showTooltip && tooltipPosition === 'left',
-        'tooltip--right': showTooltip && tooltipPosition === 'right',
       },
       className,
     ]);
@@ -114,12 +100,11 @@ export default class ActionLink extends React.Component<Props> {
       <span
         className={classes}
         data-title={renderWithLabel ? null : title || options.text}
-        data-sel-selector={action}
         onClick={this.onClick}
         style={style}
       >
         {options.icon ? <ActionLinkIcon type={options.icon} /> : null}
-        {!options.icon || renderWithLabel ? <span>{options.text}</span> : null}
+        {!options.icon || renderWithLabel ? <span>{label || options.text}</span> : null}
       </span>
     );
   }

@@ -7,22 +7,11 @@ import Repeatable from 'react-repeatable';
 
 import i18n from '../../lib/i18n';
 
-import icon3DView from './images/camera-3d-view.svg';
-import iconFrontView from './images/camera-front-view.png';
-import iconLeftSideView from './images/camera-left-side-view.png';
-import iconMoveCamera from './images/move-camera.svg';
-import iconRightSideView from './images/camera-right-side-view.png';
-import iconRotateCamera from './images/rotate-camera.svg';
-import iconTopView from './images/camera-top-view.png';
-import iconZoomFit from './images/zoom-fit.svg';
-import iconZoomIn from './images/zoom-in.svg';
-import iconZoomOut from './images/zoom-out.svg';
-
 import {CAMERA_MODE_PAN, CAMERA_MODE_ROTATE} from './constants';
 
 import ButtonGroup from '../../components_new/ButtonGroup';
 import Dropdown, {MenuItem} from '../../components/Dropdown';
-import Image from '../../components/Image';
+import Icon from '../../components_new/Icon';
 import Interpolate from '../../components/Interpolate';
 import Space from '../../components/Space';
 import {Button} from '../../components/Buttons';
@@ -150,7 +139,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Top View')} hideOnClick>
-                <Image src={iconTopView} width="20" height="20" />
+                <Icon name="view-top" size="small" />
               </Tooltip>
             ),
             value: 'top',
@@ -158,31 +147,31 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Front View')} hideOnClick>
-                <Image src={iconFrontView} width="20" height="20" />
+                <Icon name="view-front" size="small" />
               </Tooltip>
             ),
             value: 'front',
           },
           {
             label: (
-              <Tooltip placement="top" content={i18n._('Right Side View')} hideOnClick>
-                <Image src={iconRightSideView} width="20" height="20" />
-              </Tooltip>
-            ),
-            value: 'right',
-          },
-          {
-            label: (
               <Tooltip placement="top" content={i18n._('Left Side View')} hideOnClick>
-                <Image src={iconLeftSideView} width="20" height="20" />
+                <Icon name="view-left" size="small" />
               </Tooltip>
             ),
             value: 'left',
           },
           {
             label: (
+              <Tooltip placement="top" content={i18n._('Right Side View')} hideOnClick>
+                <Icon name="view-right" size="small" />
+              </Tooltip>
+            ),
+            value: 'right',
+          },
+          {
+            label: (
               <Tooltip placement="top" content={i18n._('3D View')} hideOnClick>
-                <Image src={icon3DView} width="20" height="20" />
+                <Icon name="view-3d" size="small" />
               </Tooltip>
             ),
             value: '3d',
@@ -222,23 +211,23 @@ class SecondaryToolbar extends PureComponent {
     return (
       <div className="button-group">
         <label className="button-group__button">
-          <Repeatable onClick={camera.zoomIn} onHold={camera.zoomIn}>
+          <Repeatable onMouseDown={camera.zoomIn} onHold={camera.zoomIn}>
             <Tooltip placement="top" content={i18n._('Zoom In')} hideOnClick>
-              <Image src={iconZoomIn} width="20" height="20" />
+              <Icon name="zoom-in" size="small" />
             </Tooltip>
           </Repeatable>
         </label>
         <label className="button-group__button">
-          <Repeatable onClick={camera.zoomOut} onHold={camera.zoomOut}>
+          <Repeatable onMouseDown={camera.zoomOut} onHold={camera.zoomOut}>
             <Tooltip placement="top" content={i18n._('Zoom Out')} hideOnClick>
-              <Image src={iconZoomOut} width="20" height="20" />
+              <Icon name="zoom-out" size="small" />
             </Tooltip>
           </Repeatable>
         </label>
         <label className="button-group__button">
-          <Fragment onClick={camera.zoomFit}>
+          <Fragment onMouseDown={camera.zoomFit}>
             <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
-              <Image src={iconZoomFit} width="20" height="20" />
+              <Icon name="zoom-fit" size="small" />
             </Tooltip>
           </Fragment>
         </label>
@@ -258,7 +247,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Move the camera')} hideOnClick>
-                <Image src={iconMoveCamera} width="20" height="20" />
+                <Icon name="camera-move" size="small" />
               </Tooltip>
             ),
             value: CAMERA_MODE_PAN,
@@ -266,7 +255,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Rotate the camera')} hideOnClick>
-                <Image src={iconRotateCamera} width="20" height="20" />
+                <Icon name="camera-rotate" size="small" />
               </Tooltip>
             ),
             value: CAMERA_MODE_ROTATE,

@@ -6,6 +6,7 @@ import i18n from '../../lib/i18n';
 import {METRIC_UNITS} from '../../constants';
 import {MODAL_PREVIEW} from './constants';
 
+import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
 import Hint from '../../components_new/Hint';
 
@@ -127,18 +128,13 @@ class Probe extends PureComponent {
           </div>
         </div>
         <div className="row no-gutters">
-          <div className="col-xs-12">
-            <button
-              type="button"
-              className="btn btn-sm btn-default"
-              onClick={() => {
-                actions.openModal(MODAL_PREVIEW);
-              }}
-              disabled={!canClick}
-            >
-              {i18n._('Z-Probe')}
-            </button>
-          </div>
+          <Button
+            text={i18n._('Z-Probe')}
+            isDisabled={!canClick}
+            handleClick={() => {
+              actions.openModal(MODAL_PREVIEW);
+            }}
+          />
         </div>
       </div>
     );

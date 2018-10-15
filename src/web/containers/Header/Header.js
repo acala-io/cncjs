@@ -5,7 +5,7 @@ import Push from 'push.js';
 import React, {PureComponent} from 'react';
 import semver from 'semver';
 import without from 'lodash/without';
-import {Nav, Navbar, NavDropdown, MenuItem, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown, MenuItem, OverlayTrigger} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
 
 import api from '../../api';
@@ -21,6 +21,7 @@ import store from '../../store_old';
 import Anchor from '../../components/Anchor';
 import QuickAccessToolbar from './QuickAccessToolbar';
 import Space from '../../components/Space';
+import Tooltip from '../../components/Tooltip';
 
 import styles from './index.styl';
 

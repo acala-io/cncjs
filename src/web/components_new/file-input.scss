@@ -1,0 +1,44 @@
+/*
+ * Styled file input.
+ *
+ * <div class="file-input">
+ *
+ * </div>
+ */
+
+.file-input {
+    .file-input__input {
+        @include visuallyhidden;
+    }
+
+    .file-input__label {
+        @include button;
+
+        cursor: pointer;
+    }
+
+    .icon {
+        margin-left: 0;
+        margin-right: 10px;
+        top: -1px;
+    }
+
+    &.is-disabled {
+        .file-input__label {
+            background: $background;
+            border-color: $transparent darken($background, 13) darken($background, 13);
+            /* stylelint-disable plugin/no-unsupported-browser-features */
+            /* nobody cares, if the cursor is not changed in bad browsers */
+            cursor: not-allowed;
+            /* stylelint-enable */
+            text-shadow: 0 -1px 0 darken($background, 13);
+        }
+
+        .icon {
+            /* stylelint-disable plugin/no-unsupported-browser-features */
+            /* if IE can't render a drop-shadow on the icon, so be it */
+            filter: drop-shadow(0 -1px 0 darken($background, 13));
+            /* stylelint-enable */
+        }
+    }
+}

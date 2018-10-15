@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import Slider from 'rc-slider';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
 import i18n from '../../lib/i18n';
 
@@ -14,6 +13,7 @@ import Circle from './Circle';
 import Image from './Image';
 import Line from './Line';
 import WebcamComponent from '../../components/Webcam';
+import {Tooltip} from '../../components/Tooltip';
 
 import styles from './index.styl';
 
@@ -36,22 +36,23 @@ class Webcam extends PureComponent {
 
       setTimeout(() => {
         el.src = state.url;
-      }, 10); // delay 10ms
+      }, 10);
     }
   }
+
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {
-      disabled,
-      mediaSource,
+      crosshair,
       deviceId,
-      url,
-      scale,
-      rotation,
+      disabled,
       flipHorizontally,
       flipVertically,
-      crosshair,
+      mediaSource,
       muted,
+      rotation,
+      scale,
+      url,
     } = state;
 
     if (disabled) {
@@ -77,9 +78,7 @@ class Webcam extends PureComponent {
         {mediaSource === MEDIA_SOURCE_LOCAL && (
           <div style={{width: '100%'}}>
             <WebcamComponent
-              ref={node => {
-                this.mediaSource = node;
-              }}
+              ref={ref => (this.mediaSource = ref)}
               className={styles.center}
               style={{transform: transformStyle}}
               width={`${(100 * scale).toFixed(0)}%`}
@@ -91,13 +90,11 @@ class Webcam extends PureComponent {
         )}
         {mediaSource === MEDIA_SOURCE_MJPEG && (
           <Image
-            ref={node => {
-              this.mediaSource = node;
-            }}
+            ref={ref => (this.mediaSource = ref)}
             src={url}
             style={{
-              width: `${(100 * scale).toFixed(0)}%`,
               transform: transformStyle,
+              width: `${(100 * scale).toFixed(0)}%`,
             }}
             className={styles.center}
           />
@@ -125,37 +122,31 @@ class Webcam extends PureComponent {
                 />
               </Anchor>
             )}
-            <OverlayTrigger overlay={<Tooltip id="rotate-left">{i18n._('Rotate Left')}</Tooltip>} placement="top">
+            <Tooltip content={i18n._('Rotate Left')} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.rotateLeft}>
                 <i className={classcat([styles.icon, styles.inverted, styles.iconRotateLeft])} />
               </Anchor>
-            </OverlayTrigger>
-            <OverlayTrigger overlay={<Tooltip id="rotate-right">{i18n._('Rotate Right')}</Tooltip>} placement="top">
+            </Tooltip>
+            <Tooltip content={i18n._('Rotate Right')} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.rotateRight}>
                 <i className={classcat([styles.icon, styles.inverted, styles.iconRotateRight])} />
               </Anchor>
-            </OverlayTrigger>
-            <OverlayTrigger
-              overlay={<Tooltip id="flip-horizontally">{i18n._('Flip Horizontally')}</Tooltip>}
-              placement="top"
-            >
+            </Tooltip>
+            <Tooltip content={i18n._('Flip Horizontally')} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.toggleFlipHorizontally}>
                 <i className={classcat([styles.icon, styles.inverted, styles.iconFlipHorizontally])} />
               </Anchor>
-            </OverlayTrigger>
-            <OverlayTrigger
-              overlay={<Tooltip id="flip-vertically">{i18n._('Flip Vertically')}</Tooltip>}
-              placement="top"
-            >
+            </Tooltip>
+            <Tooltip content={i18n._('Flip Vertically')} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.toggleFlipVertically}>
                 <i className={classcat([styles.icon, styles.inverted, styles.iconFlipVertically])} />
               </Anchor>
-            </OverlayTrigger>
-            <OverlayTrigger overlay={<Tooltip id="crosshair">{i18n._('Crosshair')}</Tooltip>} placement="top">
+            </Tooltip>
+            <Tooltip content={i18n._('Crosshair')} placement="top">
               <Anchor className={styles.btnIcon} onClick={actions.toggleCrosshair}>
                 <i className={classcat([styles.icon, styles.inverted, styles.iconCrosshair])} />
               </Anchor>
-            </OverlayTrigger>
+            </Tooltip>
           </div>
         </div>
         <div className={styles['image-scale-slider']}>
