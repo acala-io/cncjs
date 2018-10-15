@@ -38,7 +38,7 @@ const MachineControlFunctions = ({}) => {
 
   return (
     <div>
-      {canRun && <Button text={i18n._('Cycle Start')} handleClick={cyclestart} />}
+      {canRun && <Button text={i18n._('Cycle Start')} icon="cyclestart" handleClick={cyclestart} />}
       {(canPause || canStop) && <Button text={i18n._('Feedhold')} handleClick={feedhold} />}
       {canClose && <Button text={i18n._('Sleep')} handleClick={sleep} />}
       <Button text={i18n._('Unlock')} handleClick={unlock} />

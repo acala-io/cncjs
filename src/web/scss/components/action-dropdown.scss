@@ -52,14 +52,14 @@
     }
 
     /*
-     * 1 - Override padding inherited from .button
+     * 1 - Override padding inherited from .button; FIXME: use standardized padding after font-sizes are fixed
      */
     .action-dropdown__trigger {
         @include button;
 
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        padding: $inuit-global-spacing-unit-small; /* 1 */
+        padding: 10px; /* 1 */
 
         /*
          * 1 - Reset property values inherited from .button > .icon

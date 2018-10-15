@@ -2,7 +2,6 @@
  * Display helper classes
  */
 
-
 // Display -------------------------------------------------------------------------------------------------------------
 .block {
     display: block;
@@ -38,5 +37,9 @@
 // helper class for visuallyhidden
 .visuallyhidden,
 .is-visuallyhidden {
+    @extend %visuallyhidden;
+}
+
+@mixin visuallyhidden {
     @extend %visuallyhidden;
 }

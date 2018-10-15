@@ -10,7 +10,6 @@ import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 
 import {
-  // Controller
   GRBL,
   GRBL_MACHINE_STATE_ALARM,
   MARLIN,
@@ -18,13 +17,15 @@ import {
   SMOOTHIE_MACHINE_STATE_ALARM,
   TINYG,
   TINYG_MACHINE_STATE_ALARM,
-  // Workflow
   WORKFLOW_STATE_IDLE,
   WORKFLOW_STATE_PAUSED,
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
 import {MODAL_WATCH_DIRECTORY} from './constants';
 
+// import ActionDropdown from '../components_new/ActionDropdown';
+import Button from '../../components_new/Button';
+import Icon from '../../components_new/Icon';
 import Space from '../../components/Space';
 
 import styles from './workflow-control.styl';
@@ -128,15 +129,21 @@ class WorkflowControl extends PureComponent {
         />
         <div className="btn-toolbar">
           <div className="btn-group btn-group-sm">
-            <button
-              type="button"
-              className="btn btn-primary"
-              title={i18n._('Upload G-code')}
-              onClick={this.handleClickUpload}
-              disabled={!canUpload}
-            >
-              {i18n._('Upload G-code')}
-            </button>
+            <div className={classcat(['file-input', {'is-disabled': !canUpload}])}>
+              <label className="file-input__label" htmlFor={this.id}>
+                <Icon name="upload" size="small" />
+                {i18n._('Load G-code')}
+                <input
+                  type="file"
+                  className="file-input__input"
+                  id={this.id}
+                  onChange={this.handleChangeFile}
+                  ref={ref => (this.fileInputEl = ref)}
+                  disabled={!canUpload}
+                />
+              </label>
+            </div>
+
             <Dropdown id="upload-dropdown" disabled={!canUpload}>
               <Dropdown.Toggle bsStyle="primary" noCaret>
                 <i className="fa fa-caret-down" />
@@ -178,8 +185,7 @@ class WorkflowControl extends PureComponent {
       {
         action: handleRun,
         disabled: !canRun,
-        icon: 'play',
-        id: 1,
+        icon: 'run',
         title: workflow.state === WORKFLOW_STATE_PAUSED ? i18n._('Resume') : i18n._('Run'),
       },
     ];
@@ -188,7 +194,6 @@ class WorkflowControl extends PureComponent {
       playerActions.push({
         action: handlePause,
         icon: 'pause',
-        id: 2,
         title: i18n._('Pause'),
       });
     }
@@ -196,32 +201,21 @@ class WorkflowControl extends PureComponent {
       playerActions.push({
         action: handleStop,
         icon: 'stop',
-        id: 3,
         title: i18n._('Stop'),
       });
     }
     if (canClose) {
       playerActions.push({
         action: handleClose,
-        icon: 'close',
-        id: 4,
+        icon: 'eject',
         title: i18n._('Close'),
       });
     }
 
     return (
-      <div className="btn-group btn-group-sm">
+      <div>
         {playerActions.map(a => (
-          <button
-            key={a.id}
-            type="button"
-            className="btn btn-default"
-            title={a.title}
-            onClick={a.action}
-            disabled={a.disabled}
-          >
-            <i className={`fa fa-${a.icon}`} />
-          </button>
+          <Button key={a.title} icon={a.icon} isDisabled={a.disabled} handleClick={a.action} />
         ))}
       </div>
     );

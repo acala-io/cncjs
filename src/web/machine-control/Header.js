@@ -10,6 +10,7 @@ import * as dialogs from '../dialogs/actions';
 
 import ActionDropdown from '../components_new/ActionDropdown';
 import Button from '../components_new/Button';
+import Icon from '../components_new/Icon';
 import MachineControlFunctions from './MachineControlFunctions';
 import SettingsModal from '../settings/SettingsModal';
 
@@ -42,7 +43,7 @@ class Header extends PureComponent {
             {this.connectDetails}
           </ActionDropdown>
         </div>
-        <Button text={i18n._('Home Machine')} isDisabled={isDisabled} handleClick={homeMachine} />
+        <Button text={i18n._('Home Machine')} icon="homing" isDisabled={isDisabled} handleClick={homeMachine} />
       </Fragment>
     );
   }
@@ -53,7 +54,8 @@ class Header extends PureComponent {
 
   get settings() {
     return (
-      <div className="link" onClick={this.props.editSettings}>
+      <div className="link u-padding-small" onClick={this.props.editSettings}>
+        <Icon name="settings" size="small" className="u-margin-right-tiny" />
         Settings
       </div>
     );
