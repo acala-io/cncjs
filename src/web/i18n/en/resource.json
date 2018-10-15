@@ -269,8 +269,6 @@
     "Enter Full Screen": "Enter Full Screen",
     "Exit Full Screen": "Exit Full Screen",
     "Units": "Units",
-    "G20 (inch)": "G20 (inch)",
-    "G21 (mm)": "G21 (mm)",
     "Right": "Right",
     "Left": "Left",
     "Up": "Up",
@@ -308,7 +306,6 @@
     "No ports available": "No ports available",
     "Choose a port": "Choose a port",
     "Refresh": "Refresh",
-    "Baud rate": "Baud rate",
     "Enable hardware flow control": "Enable hardware flow control",
     "Connect automatically": "Connect automatically",
     "Error opening serial port: {{-path}}": "Error opening serial port: {{-path}}",
@@ -508,10 +505,10 @@
     "problem": "problem",
     "Back to Homepage": "Back to Homepage",
     "Connect Machine": "Connect Machine",
-    "Connect": "Connect",
     "Disconnect": "Disconnect",
     "Reload Page": "Reload Page",
     "Loading": "Loading",
     "Work Coordinate System ({{wcs}})": "Work Coordinate System ({{wcs}})",
-    "Waiting for the target temperature to be reached ...": "Waiting for the target temperature to be reached ..."
+    "Waiting for the target temperature to be reached ...": "Waiting for the target temperature to be reached ...",
+    "Baud rate [kilobaud]": "Baud rate [kilobaud]"
 }

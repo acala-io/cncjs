@@ -269,8 +269,6 @@
     "Enter Full Screen": "Tam ekran yap",
     "Exit Full Screen": "Tam Ekrandan Çık",
     "Units": "Birimler",
-    "G20 (inch)": "",
-    "G21 (mm)": "",
     "Right": "Sağ",
     "Left": "Sol",
     "Up": "Yukarı",
@@ -308,7 +306,6 @@
     "No ports available": "Bağlantı noktası yok",
     "Choose a port": "Bir port seçin",
     "Refresh": "Yenile",
-    "Baud rate": "Band hızı",
     "Enable hardware flow control": "Donanım akış denetimini etkinleştir",
     "Connect automatically": "Otomatik bağlan",
     "Error opening serial port: {{-path}}": "Seri bağlantı noktası açılırken hata oluştu: {{-path}}",
@@ -508,10 +505,10 @@
     "problem": "",
     "Back to Homepage": "",
     "Connect Machine": "",
-    "Connect": "",
     "Disconnect": "",
     "Reload Page": "",
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
-    "Waiting for the target temperature to be reached ...": ""
+    "Waiting for the target temperature to be reached ...": "",
+    "Baud rate [kilobaud]": ""
 }

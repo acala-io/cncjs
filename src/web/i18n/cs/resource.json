@@ -269,8 +269,6 @@
     "Enter Full Screen": "",
     "Exit Full Screen": "",
     "Units": "Jednotky",
-    "G20 (inch)": "",
-    "G21 (mm)": "",
     "Right": "Doprava",
     "Left": "Doleva",
     "Up": "Nahoru",
@@ -308,7 +306,6 @@
     "No ports available": "Nejsou dostupné žádné porty",
     "Choose a port": "Zvolte port",
     "Refresh": "Obnovit",
-    "Baud rate": "Rychlost",
     "Enable hardware flow control": "",
     "Connect automatically": "Automaticky připojit",
     "Error opening serial port: {{-path}}": "",
@@ -508,10 +505,10 @@
     "problem": "",
     "Back to Homepage": "",
     "Connect Machine": "",
-    "Connect": "",
     "Disconnect": "",
     "Reload Page": "",
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
-    "Waiting for the target temperature to be reached ...": ""
+    "Waiting for the target temperature to be reached ...": "",
+    "Baud rate [kilobaud]": ""
 }

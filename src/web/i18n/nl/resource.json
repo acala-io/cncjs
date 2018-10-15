@@ -269,8 +269,6 @@
     "Enter Full Screen": "Volledig Scherm",
     "Exit Full Screen": "Ga Uit Volledige Scherm",
     "Units": "Units",
-    "G20 (inch)": "",
-    "G21 (mm)": "",
     "Right": "Rechts",
     "Left": "Links",
     "Up": "Omhoog",
@@ -308,7 +306,6 @@
     "No ports available": "Geen poorten beschikbaar",
     "Choose a port": "Kies een poort",
     "Refresh": "Ververs",
-    "Baud rate": "Verbindingssnelheid",
     "Enable hardware flow control": "",
     "Connect automatically": "Verbind automatisch",
     "Error opening serial port: {{-path}}": "",
@@ -508,10 +505,10 @@
     "problem": "",
     "Back to Homepage": "",
     "Connect Machine": "",
-    "Connect": "",
     "Disconnect": "",
     "Reload Page": "",
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
-    "Waiting for the target temperature to be reached ...": ""
+    "Waiting for the target temperature to be reached ...": "",
+    "Baud rate [kilobaud]": ""
 }

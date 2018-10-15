@@ -269,8 +269,6 @@
     "Enter Full Screen": "Gehe in den Vollbild-Modus",
     "Exit Full Screen": "Verlasse Vollbild-Modus",
     "Units": "Einheit",
-    "G20 (inch)": "",
-    "G21 (mm)": "",
     "Right": "Nach rechts",
     "Left": "Nach links",
     "Up": "Nach oben",
@@ -308,7 +306,6 @@
     "No ports available": "Keine Schnittstelle verfügbar",
     "Choose a port": "Schnittstelle wählen",
     "Refresh": "Aktualisieren",
-    "Baud rate": "Baudrate",
     "Enable hardware flow control": "",
     "Connect automatically": "Automatisch verbinden",
     "Error opening serial port: {{-path}}": "Fehler beim Öffnen des seriellen Ports: {{-path}}",
@@ -508,10 +505,10 @@
     "problem": "",
     "Back to Homepage": "",
     "Connect Machine": "",
-    "Connect": "",
     "Disconnect": "",
     "Reload Page": "",
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
-    "Waiting for the target temperature to be reached ...": ""
+    "Waiting for the target temperature to be reached ...": "",
+    "Baud rate [kilobaud]": ""
 }
