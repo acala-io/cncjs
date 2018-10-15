@@ -8,6 +8,7 @@ import i18n from '../lib/i18n';
 
 import * as dialogs from '../dialogs/actions';
 
+import ActionDropdown from '../components_new/ActionDropdown';
 import Button from '../components_new/Button';
 import MachineControlFunctions from './MachineControlFunctions';
 import SettingsModal from '../settings/SettingsModal';
@@ -30,7 +31,18 @@ class Header extends PureComponent {
 
     return (
       <Fragment>
-        <Button text={i18n._('Connect Machine')} isDisabled={isDisabled} handleClick={connectMachine} />
+        <div className="relative">
+          <ActionDropdown
+            buttonProps={{
+              handleClick: connectMachine,
+              isDisabled,
+              text: i18n._('Connect Machine'),
+            }}
+          >
+            <Button text={i18n._('Connect Machine')} isDisabled={isDisabled} handleClick={connectMachine} />
+            <Button text={i18n._('Connect Machine')} isDisabled={isDisabled} handleClick={connectMachine} />
+          </ActionDropdown>
+        </div>
         <Button text={i18n._('Home Machine')} isDisabled={isDisabled} handleClick={homeMachine} />
       </Fragment>
     );

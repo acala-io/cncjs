@@ -1,0 +1,107 @@
+/*
+ * Wrapper component for showing additional things when clicking a toggler.
+ *
+ * Usage:
+ *
+ * <div class="action-dropdown">
+ *     <div class="action-dropdown__buttons">
+ *         <a href="#" class="button">
+ *           Button 1 - visible by default
+ *         </a>
+ *         <div className="action-dropdown__trigger">
+ *             >
+ *         </div>
+ *     </div>
+ *     <div class="action-dropdown__items">
+ *         <a href="#" class="button">
+ *             Button 2 - visible when hovering Button 1
+ *         </a>
+ *     </div>
+ * </div>
+ */
+
+.action-dropdown {
+    border-radius: $border-radius--large;
+    position: absolute;
+    z-index: $z--overlayed-1;
+
+    .action-dropdown__buttons {
+        display: flex;
+        flex-direction: row;
+        align-self: stretch;
+        align-items: stretch;
+
+        > .button {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+
+            /*
+             * Equally apply visual push effect of button to adjacent dropdown__trigger
+             */
+            &:active + .action-dropdown__trigger,
+            &:focus + .action-dropdown__trigger {
+                outline: none; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+            }
+
+            &:active:not(.is-disabled) + .action-dropdown__trigger {
+                box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
+                margin-top: $visualZHeight; /* 2 */
+                padding-bottom: $inuit-global-spacing-unit-small - $visualZHeight; /* 3 */
+            }
+        }
+    }
+
+    /*
+     * 1 - Override padding inherited from .button
+     */
+    .action-dropdown__trigger {
+        @include button;
+
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding: $inuit-global-spacing-unit-small; /* 1 */
+
+        /*
+         * 1 - Reset property values inherited from .button > .icon
+         */
+        .icon {
+            margin-left: inherit; /* 1 */
+            margin-right: inherit; /* 1 */
+            top: inherit; /* 1 */
+        }
+    }
+
+    .icon--show-hide {
+        color: $text;
+    }
+
+    .action-dropdown__items {
+        overflow: hidden;
+        transition: opacity $transition-time--fast ease-out;
+
+        /*
+         * 1 - Pull up by border-radius of button to avoid visual gap in background
+         *     caused by border-radius of button
+         * 2 - Compensate for amount pulled up by adding it to padding-top
+         */
+        &:not(.is-collapsed) {
+            background: transparentize($background--white, 0.87);
+            height: auto;
+            margin-top: -$border-radius--large; /* 1 */
+            padding: ($inuit-global-spacing-unit-tiny + $border-radius--large) $inuit-global-spacing-unit-tiny
+                $inuit-global-spacing-unit-tiny; /* 2 */
+            opacity: 1;
+        }
+
+        /*
+         * 1 - Hide elements visually but keep them in the document flow thus stretching the action-dropdown
+         *     to the width of its widest child elements
+         * 2 - Make the hidden elements zero height so they don't cover anything and drive someone crazy,
+         *     because he cannot click a covered element
+         */
+        &.is-collapsed {
+            height: 0; /* 2 */
+            opacity: 0; /* 1 */
+        }
+    }
+}

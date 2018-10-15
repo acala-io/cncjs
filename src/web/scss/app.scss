@@ -19,7 +19,7 @@ $mq-breakpoints: (
     mobile: 320px,
     tablet: 600px,
     desktop: 1024px,
-    wide: 1440px
+    wide: 1440px,
 );
 @import '~sass-mq/mq';
 @import 'helpers/alignment';
@@ -73,6 +73,7 @@ $mq-breakpoints: (
 @import 'components/badges';
 @import 'components/buttons';
 @import 'components/button-groups';
+@import 'components/action-dropdown'; // must come after button component, because it uses the button mixin
 @import 'components/cards';
 @import 'components/checkbox';
 @import 'components/display-panel';
