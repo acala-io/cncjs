@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import { get, mapValues } from 'lodash';
+import {get, mapValues} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import mapGCodeToText from '../../lib/gcode-text';

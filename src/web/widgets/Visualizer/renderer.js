@@ -87,7 +87,7 @@ TreeNodeLoader.propTypes = {
 };
 
 const renderer = node => {
-  let localNode = node;
+  const localNode = node;
   const {id, loadOnDemand = false} = localNode;
   const {depth, filtered, loading = false, open, selected = false} = localNode.state;
   const more = localNode.hasChildren();

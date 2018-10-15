@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import {get} from 'lodash';
 import Slider from 'rc-slider';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';

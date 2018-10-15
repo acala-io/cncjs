@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import { get, includes, intersection, throttle, isEqual, isEmpty } from 'lodash';
+import {get, includes, intersection, isEmpty, isEqual, noop, throttle} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';
@@ -31,7 +31,6 @@ import SmoothieRunner from './SmoothieRunner';
 const WAIT = '%wait';
 
 const log = logger('controller:Smoothie');
-const noop = _.noop;
 
 class SmoothieController {
   type = SMOOTHIE;

@@ -140,64 +140,66 @@ class TableRecords extends PureComponent {
             render: (value, row) => {
               let localValue = value;
               localValue = get(row, 'grid.xs');
-              return {
-                1: (
-                  <span>
-                    <sup>1</sup>/<sub>12</sub>
-                  </span>
-                ),
-                2: (
-                  <span>
-                    <sup>1</sup>/<sub>6</sub>
-                  </span>
-                ),
-                3: (
-                  <span>
-                    <sup>1</sup>/<sub>4</sub>
-                  </span>
-                ),
-                4: (
-                  <span>
-                    <sup>1</sup>/<sub>3</sub>
-                  </span>
-                ),
-                5: (
-                  <span>
-                    <sup>5</sup>/<sub>12</sub>
-                  </span>
-                ),
-                6: (
-                  <span>
-                    <sup>1</sup>/<sub>2</sub>
-                  </span>
-                ),
-                7: (
-                  <span>
-                    <sup>7</sup>/<sub>12</sub>
-                  </span>
-                ),
-                8: (
-                  <span>
-                    <sup>2</sup>/<sub>3</sub>
-                  </span>
-                ),
-                9: (
-                  <span>
-                    <sup>3</sup>/<sub>4</sub>
-                  </span>
-                ),
-                10: (
-                  <span>
-                    <sup>5</sup>/<sub>6</sub>
-                  </span>
-                ),
-                11: (
-                  <span>
-                    <sup>11</sup>/<sub>12</sub>
-                  </span>
-                ),
-                12: '100%',
-              }[localValue] || '–';
+              return (
+                {
+                  1: (
+                    <span>
+                      <sup>1</sup>/<sub>12</sub>
+                    </span>
+                  ),
+                  2: (
+                    <span>
+                      <sup>1</sup>/<sub>6</sub>
+                    </span>
+                  ),
+                  3: (
+                    <span>
+                      <sup>1</sup>/<sub>4</sub>
+                    </span>
+                  ),
+                  4: (
+                    <span>
+                      <sup>1</sup>/<sub>3</sub>
+                    </span>
+                  ),
+                  5: (
+                    <span>
+                      <sup>5</sup>/<sub>12</sub>
+                    </span>
+                  ),
+                  6: (
+                    <span>
+                      <sup>1</sup>/<sub>2</sub>
+                    </span>
+                  ),
+                  7: (
+                    <span>
+                      <sup>7</sup>/<sub>12</sub>
+                    </span>
+                  ),
+                  8: (
+                    <span>
+                      <sup>2</sup>/<sub>3</sub>
+                    </span>
+                  ),
+                  9: (
+                    <span>
+                      <sup>3</sup>/<sub>4</sub>
+                    </span>
+                  ),
+                  10: (
+                    <span>
+                      <sup>5</sup>/<sub>6</sub>
+                    </span>
+                  ),
+                  11: (
+                    <span>
+                      <sup>11</sup>/<sub>12</sub>
+                    </span>
+                  ),
+                  12: '100%',
+                }[localValue] || '–'
+              );
             },
           },
           {

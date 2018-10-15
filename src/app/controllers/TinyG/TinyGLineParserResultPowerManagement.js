@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import {get} from 'lodash';
 
 // https://github.com/synthetos/TinyG/wiki/Power-Management
 class TinyGLineParserResultPowerManagement {

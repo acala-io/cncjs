@@ -1,5 +1,5 @@
 import events from 'events';
-import { isEqual, get } from 'lodash';
+import {isEqual, get} from 'lodash';
 import MarlinLineParser from './MarlinLineParser';
 import MarlinLineParserResultStart from './MarlinLineParserResultStart';
 import MarlinLineParserResultFirmware from './MarlinLineParserResultFirmware';
@@ -113,10 +113,7 @@ class MarlinRunner extends events.EventEmitter {
         },
       };
 
-      if (
-        !isEqual(this.state.extruder, nextState.extruder) ||
-        !isEqual(this.state.heatedBed, nextState.heatedBed)
-      ) {
+      if (!isEqual(this.state.extruder, nextState.extruder) || !isEqual(this.state.heatedBed, nextState.heatedBed)) {
         this.state = nextState; // enforce change
       }
 

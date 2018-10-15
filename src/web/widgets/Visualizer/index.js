@@ -85,18 +85,18 @@ const translateExpression = (function() {
 
     return lines
       .map(line => {
-      let localLine = line;
-      try {
-        localLine = localLine.replace(reExpressionContext, match => {
-          const expr = match.slice(1, -1);
-          return Parser.evaluate(expr, localContext);
-        });
-      } catch (e) {
-        // Bypass unknown expression
-      }
+        let localLine = line;
+        try {
+          localLine = localLine.replace(reExpressionContext, match => {
+            const expr = match.slice(1, -1);
+            return Parser.evaluate(expr, localContext);
+          });
+        } catch (e) {
+          // Bypass unknown expression
+        }
 
-      return localLine;
-    })
+        return localLine;
+      })
       .join('\n');
   };
 })();

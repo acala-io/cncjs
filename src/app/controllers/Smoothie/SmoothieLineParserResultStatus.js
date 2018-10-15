@@ -1,5 +1,5 @@
 /* eslint no-bitwise: ["error", { "allow": ["&", "<<"] }] */
-import { has, get } from 'lodash';
+import {has, get} from 'lodash';
 
 class SmoothieLineParserResultStatus {
   // <Idle>

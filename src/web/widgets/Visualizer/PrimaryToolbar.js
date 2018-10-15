@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import {get} from 'lodash';
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';

@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import {get} from 'lodash';
 
 // https://github.com/synthetos/g2/wiki/Text-Mode#displaying-settings-and-groups
 class TinyGLineParserResultSystemSettings {

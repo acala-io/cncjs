@@ -1,4 +1,4 @@
-import { isPlainObject } from 'lodash';
+import {isPlainObject} from 'lodash';
 import ensureArray from 'ensure-array';
 import rangeCheck from 'range_check';
 

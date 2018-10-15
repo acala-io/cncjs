@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import {set} from 'lodash';
 import GrblLineParserResultStatus from './GrblLineParserResultStatus';
 import GrblLineParserResultOk from './GrblLineParserResultOk';
 import GrblLineParserResultError from './GrblLineParserResultError';

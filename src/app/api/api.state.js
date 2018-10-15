@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import _ from 'lodash';
 import deepKeys from 'deep-keys';
 
 import config from '../services/configstore';
@@ -56,7 +56,7 @@ export const set = (req, res) => {
 
   deepKeys(data).forEach(key => {
     const oldValue = config.get(`state.${key}`);
-    const newValue = get(data, key);
+    const newValue = _.get(data, key);
 
     if (typeof oldValue === 'object' && typeof newValue === 'object') {
       config.set(`state.${key}`, {

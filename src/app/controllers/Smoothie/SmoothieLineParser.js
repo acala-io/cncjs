@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import {set} from 'lodash';
 import SmoothieLineParserResultStatus from './SmoothieLineParserResultStatus';
 import SmoothieLineParserResultOk from './SmoothieLineParserResultOk';
 import SmoothieLineParserResultError from './SmoothieLineParserResultError';

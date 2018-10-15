@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import {set} from 'lodash';
 
 class SmoothieLineParserResultVersion {
   // Build version: edge-3332442, Build date: xxx, MCU: LPC1769, System Clock: 120MHz

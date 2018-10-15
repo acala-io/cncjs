@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import { get, includes, intersection, throttle, isEqual, isEmpty } from 'lodash';
+import {get, includes, intersection, isEmpty, isEqual, noop, throttle} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import controllers from '../../store/controllers';
@@ -36,7 +36,6 @@ import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_FEEDER} from '../constants';
 const WAIT = '%wait';
 
 const log = logger('controller:Grbl');
-const noop = _.noop;
 
 class GrblController {
   type = GRBL;

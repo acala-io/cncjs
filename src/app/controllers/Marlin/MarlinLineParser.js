@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import {set} from 'lodash';
 import MarlinLineParserResultEcho from './MarlinLineParserResultEcho';
 import MarlinLineParserResultError from './MarlinLineParserResultError';
 import MarlinLineParserResultFirmware from './MarlinLineParserResultFirmware';

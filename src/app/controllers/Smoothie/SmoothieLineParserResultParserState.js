@@ -1,5 +1,6 @@
 import ensureArray from 'ensure-array';
-import { trim, includes, get, set } from 'lodash';
+import {get, includes, set, trim} from 'lodash';
+
 import {SMOOTHIE_MODAL_GROUPS} from './constants';
 
 class SmoothieLineParserResultParserState {
@@ -11,12 +12,10 @@ class SmoothieLineParserResultParserState {
     }
 
     const payload = {};
-    const words = _(r[1].split(' '))
-      .compact()
-      .map(word => {
-        return trim(word);
-      })
-      .value();
+    const words = r[1]
+      .split(' ')
+      .filter(Boolean)
+      .map(word => trim(word));
 
     for (let i = 0; i < words.length; ++i) {
       const word = words[i];

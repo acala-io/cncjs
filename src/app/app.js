@@ -1,7 +1,7 @@
 /* eslint-disable callback-return, import/default, no-catch-shadow */
 
 import 'hogan.js'; // required by consolidate
-import { get } from 'lodash';
+import {get, noop} from 'lodash';
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import connectRestreamer from 'connect-restreamer';
@@ -40,7 +40,7 @@ import {ERR_FORBIDDEN} from './constants';
 
 const log = logger('app');
 
-const renderPage = (view = 'index', cb = _.noop) => (req, res) => {
+const renderPage = (view = 'index', cb = noop) => (req, res) => {
   // Override IE's Compatibility View Settings
   // http://stackoverflow.com/questions/6156639/x-ua-compatible-is-set-to-ie-edge-but-it-still-doesnt-stop-compatibility-mode
   res.set({'X-UA-Compatible': 'IE=edge'});

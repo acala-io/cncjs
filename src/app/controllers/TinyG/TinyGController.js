@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import { get, includes, intersection, isEqual, pickBy, isEmpty } from 'lodash';
+import {get, includes, intersection, isEqual, pickBy, isEmpty} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';

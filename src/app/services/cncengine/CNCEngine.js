@@ -112,7 +112,11 @@ class CNCEngine {
     }
 
     // TinyG / G2core
-    if (!localController || caseInsensitiveEquals(G2CORE, localController) || caseInsensitiveEquals(TINYG, localController)) {
+    if (
+      !localController ||
+      caseInsensitiveEquals(G2CORE, localController) ||
+      caseInsensitiveEquals(TINYG, localController)
+    ) {
       this.controllerClass[TINYG] = TinyGController;
     }
 
@@ -254,7 +258,9 @@ class CNCEngine {
 
         localOptions = {...localOptions};
 
-        log.debug(`socket.open("${localControllerType}", "${connectionType}", ${JSON.stringify(localOptions)}): id=${socket.id}`);
+        log.debug(
+          `socket.open("${localControllerType}", "${connectionType}", ${JSON.stringify(localOptions)}): id=${socket.id}`
+        );
 
         let ident = '';
 

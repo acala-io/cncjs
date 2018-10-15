@@ -22,9 +22,9 @@ const normalizeTimeString = timeString => {
   hh = Number(hh) || 0;
   mm = Number(mm) || 0;
   ss = Number(ss) || 0;
-  hh = hh < 0 || hh > 23 ? '00' : (`0${hh}`).slice(-2);
-  mm = mm < 0 || mm > 59 ? '00' : (`0${mm}`).slice(-2);
-  ss = ss < 0 || ss > 59 ? '00' : (`0${ss}`).slice(-2);
+  hh = hh < 0 || hh > 23 ? '00' : `0${hh}`.slice(-2);
+  mm = mm < 0 || mm > 59 ? '00' : `0${mm}`.slice(-2);
+  ss = ss < 0 || ss > 59 ? '00' : `0${ss}`.slice(-2);
   return `${hh}:${mm}:${ss}`;
 };
 

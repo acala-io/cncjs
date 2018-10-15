@@ -1,4 +1,4 @@
-import { get, merge, set, extend, unset } from 'lodash';
+import {get, merge, set, extend, unset} from 'lodash';
 import events from 'events';
 
 class ImmutableStore extends events.EventEmitter {

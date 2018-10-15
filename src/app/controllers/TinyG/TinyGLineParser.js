@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import {set} from 'lodash';
 import TinyGLineParserResultMotorTimeout from './TinyGLineParserResultMotorTimeout';
 import TinyGLineParserResultPowerManagement from './TinyGLineParserResultPowerManagement';
 import TinyGLineParserResultQueueReports from './TinyGLineParserResultQueueReports';

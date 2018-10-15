@@ -1,4 +1,4 @@
-import { sumBy } from 'lodash';
+import {sumBy} from 'lodash';
 import events from 'events';
 
 const HERTZ_LIMIT = 60; // 60 items per second
@@ -37,7 +37,8 @@ class ShuttleControl extends events.EventEmitter {
     const zoneMin = 1; // Shuttle Zone +1/-1
     const direction = localZone < 0 ? -1 : 1;
     const feedrate =
-      (localFeedrateMax - localFeedrateMin) * distance * ((Math.abs(localZone) - zoneMin) / (zoneMax - zoneMin)) + localFeedrateMin;
+      (localFeedrateMax - localFeedrateMin) * distance * ((Math.abs(localZone) - zoneMin) / (zoneMax - zoneMin)) +
+      localFeedrateMin;
     const relativeDistance = (direction * localOvershoot * (feedrate / 60.0)) / localHertz;
 
     this.zone = localZone;

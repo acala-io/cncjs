@@ -1,4 +1,4 @@
-import { trim } from 'lodash';
+import {trim} from 'lodash';
 
 class GrblLineParserResultSettings {
   static parse(line) {

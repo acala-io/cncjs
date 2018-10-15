@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import { throttle, get, includes, uniq, isEqual, intersection, isEmpty } from 'lodash';
+import {get, includes, isEqual, intersection, isEmpty, noop, throttle, uniq} from 'lodash';
 import config from '../../services/configstore';
 import controllers from '../../store/controllers';
 import delay from '../../lib/delay';
@@ -27,7 +27,6 @@ import {WRITE_SOURCE_CLIENT, WRITE_SOURCE_SERVER, WRITE_SOURCE_FEEDER, WRITE_SOU
 const WAIT = '%wait';
 
 const log = logger('controller:Marlin');
-const noop = _.noop;
 
 class MarlinController {
   type = MARLIN;
@@ -749,10 +748,7 @@ class MarlinController {
         this.emit('sender:status', this.sender.toJSON());
       }
 
-      const zeroOffset = isEqual(
-        this.runner.getPosition(this.state),
-        this.runner.getPosition(this.runner.state)
-      );
+      const zeroOffset = isEqual(this.runner.getPosition(this.state), this.runner.getPosition(this.runner.state));
 
       // Marlin settings
       if (this.settings !== this.runner.settings) {

@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-foreign-prop-types, react/no-find-dom-node */
 
-import { includes, pick, difference, pullAll, size, throttle } from 'lodash';
+import {includes, pick, difference, pullAll, size, throttle} from 'lodash';
 import classcat from 'classcat';
 import Dropzone from 'react-dropzone';
 import ensureArray from 'ensure-array';

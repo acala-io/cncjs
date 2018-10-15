@@ -8,5 +8,5 @@ export const formatBytes = (bytes, decimals = 3) => {
   const sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return `${parseFloat((bytes / (k ** i)).toFixed(decimals))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(decimals))} ${sizes[i]}`;
 };

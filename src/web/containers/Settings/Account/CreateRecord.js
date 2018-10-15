@@ -1,20 +1,23 @@
-import { get } from 'lodash';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {get} from 'lodash';
+
+import * as validations from '../../../lib/validations';
+import i18n from '../../../lib/i18n';
+
 import Modal from '../../../components/Modal';
 import Space from '../../../components/Space';
-import {ToastNotification} from '../../../components/Notifications';
 import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Form, Input} from '../../../components/Validation';
-import i18n from '../../../lib/i18n';
-import * as validations from '../../../lib/validations';
+import {ToastNotification} from '../../../components/Notifications';
+
 import styles from '../form.styl';
 
 class CreateRecord extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   fields = {
@@ -34,7 +37,7 @@ class CreateRecord extends PureComponent {
   }
 
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {modal} = state;
     const {alertMessage} = modal.params;
 
@@ -61,14 +64,7 @@ class CreateRecord extends PureComponent {
               {alertMessage}
             </ToastNotification>
           )}
-          <Form
-            ref={node => {
-              this.form = node;
-            }}
-            onSubmit={event => {
-              event.preventDefault();
-            }}
-          >
+          <Form ref={ref => (this.form = ref)} onSubmit={e => e.preventDefault()}>
             <div className={styles.formFields}>
               <div className={styles.formGroup}>
                 <label>{i18n._('Account status')}</label>

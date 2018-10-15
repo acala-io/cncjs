@@ -1,5 +1,5 @@
 import events from 'events';
-import { has, get, isEqual } from 'lodash';
+import {has, get, isEqual} from 'lodash';
 import decimalPlaces from '../../lib/decimal-places';
 import SmoothieLineParser from './SmoothieLineParser';
 import SmoothieLineParserResultStatus from './SmoothieLineParserResultStatus';

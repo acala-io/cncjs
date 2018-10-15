@@ -1,6 +1,6 @@
 /* eslint-disable import/default */
 
-import { isPlainObject, has, get, set, unset } from 'lodash';
+import {isPlainObject, has, get, set, unset} from 'lodash';
 import chalk from 'chalk';
 import events from 'events';
 import fs from 'fs';
