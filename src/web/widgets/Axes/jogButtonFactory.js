@@ -32,7 +32,7 @@ const getOnJogFunction = (props, axis1, axis2) => {
   const jogMovement = {
     '+': distance,
     '-': -distance,
-    '0': 0,
+    0: 0,
   };
 
   const jogObject = {
