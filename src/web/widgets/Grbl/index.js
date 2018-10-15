@@ -70,7 +70,12 @@ class GrblWidget extends PureComponent {
       ...this.state,
       canClick: this.canClick(),
     };
+
     const actions = {...this.actions};
+
+    if (state.controller.type !== GRBL) {
+      return null;
+    }
 
     return (
       <Widget fullscreen={isFullscreen}>

@@ -77,6 +77,10 @@ class SmoothieWidget extends PureComponent {
       ...this.actions,
     };
 
+    if (state.controller.type !== SMOOTHIE) {
+      return null;
+    }
+
     return (
       <Widget>
         <Widget.Header>

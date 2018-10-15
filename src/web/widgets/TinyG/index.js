@@ -76,6 +76,10 @@ class TinyGWidget extends PureComponent {
       ...this.actions,
     };
 
+    if (state.controller.type !== TINYG) {
+      return null;
+    }
+
     return (
       <Widget>
         <Widget.Header>

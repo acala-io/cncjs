@@ -76,9 +76,14 @@ class MarlinWidget extends PureComponent {
       ...this.state,
       canClick: this.canClick(),
     };
+
     const actions = {
       ...this.actions,
     };
+
+    if (state.controller.type !== MARLIN) {
+      return null;
+    }
 
     return (
       <Widget>
