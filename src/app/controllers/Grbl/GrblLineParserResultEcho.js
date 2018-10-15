@@ -13,7 +13,7 @@ class GrblLineParserResultEcho {
 
     return {
       type: GrblLineParserResultEcho,
-      payload: payload,
+      payload,
     };
   }
 }

@@ -63,7 +63,7 @@ class SecondaryWidgets extends Component {
               store.set(`widgets["${forkedWidgetId}"]`, clonedSettings);
 
               const widgets = [...this.state.widgets, forkedWidgetId];
-              this.setState({widgets: widgets});
+              this.setState({widgets});
 
               this.props.onForkWidget(widgetId);
             }, onClose)}
@@ -88,7 +88,7 @@ class SecondaryWidgets extends Component {
             btnStyle="primary"
             onClick={chainedFunction(() => {
               const widgets = this.state.widgets.filter(n => n !== widgetId);
-              this.setState({widgets: widgets});
+              this.setState({widgets});
 
               if (widgetId.match(/\w+:[\w\-]+/)) {
                 // Remove forked widget settings
@@ -132,7 +132,7 @@ class SecondaryWidgets extends Component {
     {
       // updateSecondaryWidgets
       const token = pubsub.subscribe('updateSecondaryWidgets', (msg, widgets) => {
-        this.setState({widgets: widgets});
+        this.setState({widgets});
       });
       this.pubsubTokens.push(token);
     }

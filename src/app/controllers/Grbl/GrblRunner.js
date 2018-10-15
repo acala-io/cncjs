@@ -123,10 +123,10 @@ class GrblRunner extends events.EventEmitter {
       const nextState = {
         ...this.state,
         parserstate: {
-          modal: modal,
-          tool: tool,
-          feedrate: feedrate,
-          spindle: spindle,
+          modal,
+          tool,
+          feedrate,
+          spindle,
         },
       };
       if (!_.isEqual(this.state.parserstate, nextState.parserstate)) {
@@ -174,7 +174,7 @@ class GrblRunner extends events.EventEmitter {
       const nextSettings = {
         // enforce change
         ...this.settings,
-        version: version,
+        version,
       };
       if (!_.isEqual(this.settings.version, nextSettings.version)) {
         this.settings = nextSettings; // enforce change

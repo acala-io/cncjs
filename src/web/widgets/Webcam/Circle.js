@@ -25,7 +25,7 @@ class Circle extends PureComponent {
       borderColor: color,
       borderStyle: 'solid',
       borderWidth: width,
-      opacity: opacity,
+      opacity,
       width: diameter,
       height: diameter,
     };

@@ -50,7 +50,7 @@ class MarlinLineParserResultFirmware {
 
     return {
       type: MarlinLineParserResultFirmware,
-      payload: payload,
+      payload,
     };
   }
 }

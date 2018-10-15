@@ -17,7 +17,7 @@ class TinyGLineParserResultPowerManagement {
 
     return {
       type: TinyGLineParserResultPowerManagement,
-      payload: payload,
+      payload,
     };
   }
 }

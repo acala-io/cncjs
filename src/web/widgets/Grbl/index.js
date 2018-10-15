@@ -237,7 +237,7 @@ class GrblWidget extends PureComponent {
         isReady: controller.type === GRBL,
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
     },
@@ -250,7 +250,7 @@ class GrblWidget extends PureComponent {
         this.setState(state => ({
           controller: {
             ...state.controller,
-            type: type,
+            type,
             settings: controllerSettings,
           },
         }));
@@ -261,7 +261,7 @@ class GrblWidget extends PureComponent {
         this.setState(state => ({
           controller: {
             ...state.controller,
-            type: type,
+            type,
             state: controllerState,
           },
         }));

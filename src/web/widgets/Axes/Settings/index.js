@@ -70,7 +70,7 @@ class Settings extends PureComponent {
     // MDI
     const {records} = this.node.mdi.state;
     api.mdi
-      .bulkUpdate({records: records})
+      .bulkUpdate({records})
       .then(() => {
         // TODO
       })

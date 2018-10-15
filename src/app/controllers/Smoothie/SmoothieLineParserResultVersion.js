@@ -50,7 +50,7 @@ class SmoothieLineParserResultVersion {
 
     return {
       type: SmoothieLineParserResultVersion,
-      payload: payload,
+      payload,
     };
   }
 }

@@ -522,7 +522,7 @@ class GrblController {
 
     this.runner.on('error', res => {
       const code = Number(res.message) || undefined;
-      const error = _.find(GRBL_ERRORS, {code: code});
+      const error = _.find(GRBL_ERRORS, {code});
 
       if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
         const ignoreErrors = config.get('state.controller.exception.ignoreErrors');
@@ -567,7 +567,7 @@ class GrblController {
 
     this.runner.on('alarm', res => {
       const code = Number(res.message) || undefined;
-      const alarm = _.find(GRBL_ALARMS, {code: code});
+      const alarm = _.find(GRBL_ALARMS, {code});
 
       if (alarm) {
         // Grbl v1.1
@@ -1267,7 +1267,7 @@ class GrblController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id: id});
+        const macro = _.find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1288,7 +1288,7 @@ class GrblController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id: id});
+        const macro = _.find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);

@@ -52,8 +52,8 @@ class CustomWidget extends PureComponent {
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({
         modal: {
-          name: name,
-          params: params,
+          name,
+          params,
         },
       });
     },
@@ -78,9 +78,9 @@ class CustomWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
-          type: type,
-          settings: settings,
+          ident,
+          type,
+          settings,
         },
       }));
     },

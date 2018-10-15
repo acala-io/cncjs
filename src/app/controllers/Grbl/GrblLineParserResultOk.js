@@ -9,7 +9,7 @@ class GrblLineParserResultOk {
 
     return {
       type: GrblLineParserResultOk,
-      payload: payload,
+      payload,
     };
   }
 }

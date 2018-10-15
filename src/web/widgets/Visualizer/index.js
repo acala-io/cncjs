@@ -525,7 +525,7 @@ class VisualizerWidget extends PureComponent {
       this.setState(state => ({
         gcode: {
           ...state.gcode,
-          bbox: bbox,
+          bbox,
         },
       }));
     },
@@ -675,7 +675,7 @@ class VisualizerWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
     },
@@ -776,7 +776,7 @@ class VisualizerWidget extends PureComponent {
           controller: {
             ...state.controller,
             state: controllerState,
-            type: type,
+            type,
           },
           units,
           wcs: modal.wcs || state.wcs,
@@ -806,7 +806,7 @@ class VisualizerWidget extends PureComponent {
           controller: {
             ...state.controller,
             state: controllerState,
-            type: type,
+            type,
           },
           units,
           // Work position are reported in current units
@@ -835,9 +835,9 @@ class VisualizerWidget extends PureComponent {
           controller: {
             ...state.controller,
             state: controllerState,
-            type: type,
+            type,
           },
-          units: units,
+          units,
           wcs: modal.wcs || state.wcs,
           // Work position are reported in current units
           workPosition: mapValues(
@@ -863,9 +863,9 @@ class VisualizerWidget extends PureComponent {
           controller: {
             ...state.controller,
             state: controllerState,
-            type: type,
+            type,
           },
-          units: units,
+          units,
           wcs: modal.wcs || state.wcs,
           // https://github.com/synthetos/g2/wiki/Status-Reports
           // Work position are reported in current units, and also apply any offsets.

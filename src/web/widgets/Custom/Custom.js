@@ -75,10 +75,10 @@ class Custom extends PureComponent {
     const token = store.get('session.token');
     const target = get(this.iframe, 'contentWindow');
     const message = {
-      token: token,
+      token,
       version: settings.version,
       action: {
-        type: type,
+        type,
         payload: {
           ...payload,
         },

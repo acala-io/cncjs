@@ -62,7 +62,7 @@ class SmoothieLineParserResultParserState {
 
     return {
       type: SmoothieLineParserResultParserState,
-      payload: payload,
+      payload,
     };
   }
 }

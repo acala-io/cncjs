@@ -139,7 +139,7 @@ const renderer = node => {
   return (
     <TreeNode id={id} selected={selected} disabled={disabled}>
       <TreeNodeColumn>
-        <div style={{paddingLeft: paddingLeft}}>
+        <div style={{paddingLeft}}>
           <TreeNodeToggler show={more || loadOnDemand} expanded={more && open} />
           <i
             className={classcat([

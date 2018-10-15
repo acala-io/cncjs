@@ -10,7 +10,7 @@ class MarlinLineParserResultStart {
 
     return {
       type: MarlinLineParserResultStart,
-      payload: payload,
+      payload,
     };
   }
 }

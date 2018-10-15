@@ -9,7 +9,7 @@ class SmoothieLineParserResultOk {
 
     return {
       type: SmoothieLineParserResultOk,
-      payload: payload,
+      payload,
     };
   }
 }

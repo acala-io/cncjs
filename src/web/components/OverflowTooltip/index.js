@@ -32,7 +32,7 @@ class OverflowTooltip extends React.Component {
     const el = ReactDOM.findDOMNode(this);
     const overflow = el.clientWidth < el.scrollWidth;
     if (overflow !== this.state.overflow) {
-      this.setState({overflow: overflow});
+      this.setState({overflow});
     }
   };
 

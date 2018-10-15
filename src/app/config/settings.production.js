@@ -16,7 +16,7 @@ export default {
         '/', // fallback
       ],
       path: path.resolve(__dirname, '..', '..', 'web'),
-      maxAge: maxAge,
+      maxAge,
     },
   },
   backend: {

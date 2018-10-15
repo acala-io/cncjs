@@ -137,7 +137,7 @@ class TinyGRunner extends events.EventEmitter {
           this.state = {
             // enforce change
             ...this.state,
-            mt: mt,
+            mt,
           };
         }
 
@@ -149,7 +149,7 @@ class TinyGRunner extends events.EventEmitter {
           this.state = {
             // enforce change
             ...this.state,
-            pwr: pwr,
+            pwr,
           };
         }
 

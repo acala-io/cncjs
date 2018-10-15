@@ -12,7 +12,7 @@ class MarlinLineParserResultError {
 
     return {
       type: MarlinLineParserResultError,
-      payload: payload,
+      payload,
     };
   }
 }

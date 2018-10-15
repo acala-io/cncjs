@@ -115,8 +115,8 @@ class MacroWidget extends PureComponent {
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({
         modal: {
-          name: name,
-          params: params,
+          name,
+          params,
         },
       });
     },
@@ -145,7 +145,7 @@ class MacroWidget extends PureComponent {
         res = await api.macros.create({content, name});
         res = await api.macros.fetch();
         const {records: macros} = res.body;
-        this.setState({macros: macros});
+        this.setState({macros});
       } catch (err) {
         // Ignore error
       }
@@ -230,7 +230,7 @@ class MacroWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
     },

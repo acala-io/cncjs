@@ -856,7 +856,7 @@ class Visualizer extends Component {
     this.updateScene();
 
     if (typeof callback === 'function') {
-      callback({bbox: bbox});
+      callback({bbox});
     }
   }
 

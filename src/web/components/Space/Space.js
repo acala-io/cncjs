@@ -8,7 +8,7 @@ const Space = ({componentClass: Component, width, ...props}) => {
 
   props.style = {
     display: 'inline-block',
-    width: width,
+    width,
     ...props.style,
   };
   return <Component {...props} />;

@@ -17,7 +17,7 @@ export default {
 
   // The secret key is loaded from the config file (defaults to "~/.cncrc")
   // @see "src/app/index.js"
-  secret: secret,
+  secret,
 
   // Access Token Lifetime
   accessTokenLifetime: '30d', // https://github.com/zeit/ms

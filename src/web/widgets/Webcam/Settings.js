@@ -36,12 +36,12 @@ class Settings extends PureComponent {
 
   handleChangeVideoDevice = option => {
     const deviceId = option.value;
-    this.setState({deviceId: deviceId});
+    this.setState({deviceId});
   };
 
   handleChangeURL = event => {
     const url = event.target.value;
-    this.setState({url: url});
+    this.setState({url});
   };
 
   handleSave = () => {
@@ -70,7 +70,7 @@ class Settings extends PureComponent {
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices = devices.filter(device => device.kind === 'videoinput');
 
-      this.setState({videoDevices: videoDevices});
+      this.setState({videoDevices});
     } catch (err) {
       log.error(err.name + ': ' + err.message);
     }

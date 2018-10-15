@@ -22,7 +22,7 @@ class Line extends PureComponent {
     const {style, vertical, color, opacity, length, width, ...props} = this.props;
     const componentStyle = {
       ...style,
-      opacity: opacity,
+      opacity,
     };
 
     if (vertical) {

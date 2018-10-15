@@ -170,8 +170,8 @@ class ConsoleWidget extends PureComponent {
         this.terminal.writeln(
           color.white(
             i18n._('Connected to {{host}}:{{port}}', {
-              host: host,
-              port: port,
+              host,
+              port,
             })
           )
         );

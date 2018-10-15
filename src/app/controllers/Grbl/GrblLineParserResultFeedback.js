@@ -16,7 +16,7 @@ class GrblLineParserResultFeedback {
 
     return {
       type: GrblLineParserResultFeedback,
-      payload: payload,
+      payload,
     };
   }
 }

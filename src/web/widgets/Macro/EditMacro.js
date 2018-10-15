@@ -31,8 +31,8 @@ class EditMacro extends PureComponent {
     const {name, content} = this.form.getValues();
 
     return {
-      name: name,
-      content: content,
+      name,
+      content,
     };
   }
 

@@ -10,7 +10,7 @@ class MarlinLineParserResultOk {
 
     return {
       type: MarlinLineParserResultOk,
-      payload: payload,
+      payload,
     };
   }
 }

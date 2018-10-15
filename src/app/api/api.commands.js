@@ -139,7 +139,7 @@ export const create = (req, res) => {
 export const read = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -162,7 +162,7 @@ export const read = (req, res) => {
 export const update = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -202,7 +202,7 @@ export const update = (req, res) => {
 export const __delete = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({
@@ -228,7 +228,7 @@ export const __delete = (req, res) => {
 export const run = (req, res) => {
   const id = req.params.id;
   const records = getSanitizedRecords();
-  const record = find(records, {id: id});
+  const record = find(records, {id});
 
   if (!record) {
     res.status(ERR_NOT_FOUND).send({

@@ -56,7 +56,7 @@ class MDI extends PureComponent {
               err: false,
               fetching: false,
             },
-            records: records,
+            records,
           }));
         })
         .catch(() => {
@@ -93,7 +93,7 @@ class MDI extends PureComponent {
     },
     updateRecord: (id, options) => {
       const records = [...this.state.records];
-      const index = findIndex(records, {id: id});
+      const index = findIndex(records, {id});
 
       if (index < 0) {
         return;
@@ -106,7 +106,7 @@ class MDI extends PureComponent {
 
       this.setState(
         {
-          records: records,
+          records,
         },
         () => {
           this.action.closeModal();

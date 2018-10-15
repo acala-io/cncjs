@@ -12,7 +12,7 @@ class GrblLineParserResultError {
 
     return {
       type: GrblLineParserResultError,
-      payload: payload,
+      payload,
     };
   }
 }

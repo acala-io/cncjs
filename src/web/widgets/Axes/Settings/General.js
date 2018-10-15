@@ -116,7 +116,7 @@ class General extends PureComponent {
       metricJogDistances.splice(index, 1);
 
       return {
-        metricJogDistances: metricJogDistances,
+        metricJogDistances,
       };
     });
   };
@@ -148,7 +148,7 @@ class General extends PureComponent {
       imperialJogDistances.splice(index, 1);
 
       return {
-        imperialJogDistances: imperialJogDistances,
+        imperialJogDistances,
       };
     });
   };

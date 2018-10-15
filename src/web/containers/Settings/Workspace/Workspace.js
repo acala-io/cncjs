@@ -78,7 +78,7 @@ class Workspace extends PureComponent {
         return;
       }
 
-      actions.openModal(MODAL_IMPORT_SETTINGS, {data: data});
+      actions.openModal(MODAL_IMPORT_SETTINGS, {data});
     };
 
     try {

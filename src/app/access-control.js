@@ -50,7 +50,7 @@ export const validateUser = user =>
       }));
     const enabledUsers = users.filter(user => user.enabled);
 
-    if (enabledUsers.length === 0 || _.find(enabledUsers, {id: id, name: name})) {
+    if (enabledUsers.length === 0 || _.find(enabledUsers, {id, name})) {
       resolve();
     } else {
       reject(new Error(`Unauthorized user: user.id=${id}, user.name=${name}`));

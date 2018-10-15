@@ -29,9 +29,9 @@ class UpdateRecord extends PureComponent {
 
     return {
       enabled: Boolean(_.get(this.fields.enabled, 'state.checked')),
-      name: name,
-      oldPassword: oldPassword,
-      newPassword: newPassword,
+      name,
+      oldPassword,
+      newPassword,
     };
   }
   render() {

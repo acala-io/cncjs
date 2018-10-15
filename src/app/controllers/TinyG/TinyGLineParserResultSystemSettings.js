@@ -9,12 +9,12 @@ class TinyGLineParserResultSystemSettings {
     }
 
     const payload = {
-      sys: sys,
+      sys,
     };
 
     return {
       type: TinyGLineParserResultSystemSettings,
-      payload: payload,
+      payload,
     };
   }
 }

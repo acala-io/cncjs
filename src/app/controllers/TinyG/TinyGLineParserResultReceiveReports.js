@@ -8,12 +8,12 @@ class TinyGLineParserResultReceiveReports {
     }
 
     const payload = {
-      r: r,
+      r,
     };
 
     return {
       type: TinyGLineParserResultReceiveReports,
-      payload: payload,
+      payload,
     };
   }
 }

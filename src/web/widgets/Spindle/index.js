@@ -111,7 +111,7 @@ class SpindleWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
     },
@@ -133,8 +133,8 @@ class SpindleWidget extends PureComponent {
 
         this.setState({
           controller: {
-            type: type,
-            state: state,
+            type,
+            state,
             modal: {
               spindle: modal.spindle || '',
               coolant: modal.coolant || '',
@@ -149,8 +149,8 @@ class SpindleWidget extends PureComponent {
 
         this.setState({
           controller: {
-            type: type,
-            state: state,
+            type,
+            state,
             modal: {
               spindle: modal.spindle || '',
               coolant: modal.coolant || '',
@@ -165,8 +165,8 @@ class SpindleWidget extends PureComponent {
 
         this.setState({
           controller: {
-            type: type,
-            state: state,
+            type,
+            state,
             modal: {
               spindle: modal.spindle || '',
               coolant: modal.coolant || '',
@@ -181,8 +181,8 @@ class SpindleWidget extends PureComponent {
 
         this.setState({
           controller: {
-            type: type,
-            state: state,
+            type,
+            state,
             modal: {
               spindle: modal.spindle || '',
               coolant: modal.coolant || '',

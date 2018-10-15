@@ -12,7 +12,7 @@ export default {
         '', // empty path
       ],
       path: path.resolve(__dirname, '..', '..', 'web'),
-      maxAge: maxAge,
+      maxAge,
     },
   },
   backend: {

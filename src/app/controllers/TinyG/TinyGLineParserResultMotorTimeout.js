@@ -16,7 +16,7 @@ class TinyGLineParserResultMotorTimeout {
 
     return {
       type: TinyGLineParserResultMotorTimeout,
-      payload: payload,
+      payload,
     };
   }
 }

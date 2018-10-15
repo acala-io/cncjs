@@ -79,7 +79,7 @@ export const signin = (req, res) => {
     res.send({
       enabled: false, // session is disabled
       name: user.name, // empty name
-      token: token,
+      token,
     });
     return;
   }
@@ -103,7 +103,7 @@ export const signin = (req, res) => {
     res.send({
       enabled: true, // session is enabled
       name: user.name,
-      token: token, // new token
+      token, // new token
     });
     return;
   }
@@ -132,7 +132,7 @@ export const signin = (req, res) => {
     res.send({
       enabled: true, // session is enabled
       name: localUser.name,
-      token: token, // old token
+      token, // old token
     });
   });
 };

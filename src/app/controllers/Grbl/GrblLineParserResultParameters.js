@@ -8,7 +8,7 @@ class GrblLineParserResultParameters {
     const name = r[1];
     const value = r[2];
     const payload = {
-      name: name,
+      name,
       value: '',
     };
 
@@ -42,7 +42,7 @@ class GrblLineParserResultParameters {
 
     return {
       type: GrblLineParserResultParameters,
-      payload: payload,
+      payload,
     };
   }
 }

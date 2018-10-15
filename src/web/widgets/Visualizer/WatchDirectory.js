@@ -66,7 +66,7 @@ class WatchDirectory extends PureComponent {
                     return {
                       id: path.join(body.path, name),
                       loadOnDemand: props.type === 'd',
-                      name: name,
+                      name,
                       props: {
                         ...props,
                         path: body.path || '',
@@ -182,7 +182,7 @@ class WatchDirectory extends PureComponent {
           return {
             id: path.join(body.path, name),
             loadOnDemand: props.type === 'd',
-            name: name,
+            name,
             props: {
               ...props,
               path: body.path || '',

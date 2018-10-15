@@ -25,7 +25,7 @@ class TargetPoint {
       thetaLength
     );
     const material = new THREE.MeshBasicMaterial({
-      color: color,
+      color,
       opacity: 0.9,
       transparent: true,
     });

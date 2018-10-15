@@ -11,7 +11,7 @@ class SmoothieLineParserResultError {
 
     return {
       type: SmoothieLineParserResultError,
-      payload: payload,
+      payload,
     };
   }
 }

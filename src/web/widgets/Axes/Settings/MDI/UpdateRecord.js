@@ -24,8 +24,8 @@ class UpdateRecord extends PureComponent {
     const {name, command} = this.form.getValues();
 
     return {
-      name: name,
-      command: command,
+      name,
+      command,
       grid: {
         xs: this.slider.state.value,
       },

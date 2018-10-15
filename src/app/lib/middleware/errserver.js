@@ -39,7 +39,7 @@ const errserver = options => {
     // here and next(err) appropriately, or if
     // we possibly recovered from the error, simply next().
     res.status(err.status || 500);
-    res.render(view, {error: error});
+    res.render(view, {error});
   };
 };
 

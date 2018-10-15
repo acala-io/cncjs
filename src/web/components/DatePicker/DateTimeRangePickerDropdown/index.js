@@ -305,10 +305,10 @@ class DateTimeRangePickerDropdown extends PureComponent {
 
     return {
       // prev
-      startDate: startDate,
-      startTime: startTime,
-      endDate: endDate,
-      endTime: endTime,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
 
       // next
       nextStartDate: startDate,

@@ -25,7 +25,7 @@ class TinyGLineParserResultOverrides {
 
     return {
       type: TinyGLineParserResultOverrides,
-      payload: payload,
+      payload,
     };
   }
 }

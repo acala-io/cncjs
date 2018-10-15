@@ -37,9 +37,9 @@ class CreateRecord extends PureComponent {
 
     return {
       enabled: Boolean(get(this.fields.enabled, 'state.checked')),
-      event: event,
-      trigger: trigger,
-      commands: commands,
+      event,
+      trigger,
+      commands,
     };
   }
   render() {
@@ -115,7 +115,7 @@ class CreateRecord extends PureComponent {
                     }
                     actions.updateModalParams({
                       event: value,
-                      trigger: trigger,
+                      trigger,
                     });
                   }}
                   validations={[validations.required]}

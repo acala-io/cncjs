@@ -1152,7 +1152,7 @@ class SmoothieController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id: id});
+        const macro = _.find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1173,7 +1173,7 @@ class SmoothieController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id: id});
+        const macro = _.find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);

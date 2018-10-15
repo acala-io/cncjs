@@ -30,7 +30,7 @@ const buildToolHead = (color, texture) => {
 
   // Material
   const materialFront = new THREE.MeshBasicMaterial({
-    color: color,
+    color,
     map: texture,
     opacity: 0.5,
     shading: THREE.SmoothShading,
@@ -39,7 +39,7 @@ const buildToolHead = (color, texture) => {
   });
 
   const materialBack = new THREE.MeshBasicMaterial({
-    color: color,
+    color,
     map: texture,
     opacity: 0.5,
     shading: THREE.SmoothShading,

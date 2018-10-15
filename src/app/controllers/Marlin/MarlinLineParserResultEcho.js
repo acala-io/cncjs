@@ -12,7 +12,7 @@ class MarlinLineParserResultEcho {
 
     return {
       type: MarlinLineParserResultEcho,
-      payload: payload,
+      payload,
     };
   }
 }

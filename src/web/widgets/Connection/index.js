@@ -207,7 +207,7 @@ class ConnectionWidget extends PureComponent {
               return port;
             }
 
-            return {...port, isOpen: isOpen};
+            return {...port, isOpen};
           }),
         }));
       }

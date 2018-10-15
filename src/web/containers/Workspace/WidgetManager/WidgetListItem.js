@@ -18,7 +18,7 @@ class WidgetListItem extends PureComponent {
 
   handleChange = event => {
     const checked = event.target.checked;
-    this.setState({checked: checked});
+    this.setState({checked});
     this.props.onChange(this.props.id, checked);
   };
 

@@ -127,10 +127,10 @@ class SmoothieRunner extends events.EventEmitter {
       const nextState = {
         ...this.state,
         parserstate: {
-          modal: modal,
-          tool: tool,
-          feedrate: feedrate,
-          spindle: spindle,
+          modal,
+          tool,
+          feedrate,
+          spindle,
         },
       };
       if (!_.isEqual(this.state.parserstate, nextState.parserstate)) {

@@ -217,7 +217,7 @@ class SmoothieWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
         isReady: controller.type === SMOOTHIE,
       }));

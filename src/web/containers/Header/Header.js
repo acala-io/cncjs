@@ -95,7 +95,7 @@ class Header extends PureComponent {
 
         this.setState({
           commands: this.state.commands.map(c => {
-            return c.id === cmd.id ? {...c, taskId: taskId, err: null} : c;
+            return c.id === cmd.id ? {...c, taskId, err: null} : c;
           }),
         });
       } catch (res) {
@@ -143,9 +143,9 @@ class Header extends PureComponent {
 
       if (cmd && this.state.pushPermission === Push.Permission.GRANTED) {
         Push.create(cmd.title, {
-          body: code === 0 ? i18n._('Command succeeded') : i18n._('Command failed ({{err}})', {err: err}),
+          body: code === 0 ? i18n._('Command succeeded') : i18n._('Command failed ({{err}})', {err}),
           icon: 'images/logo-badge-32x32.png',
-          onClick: function() {
+          onClick() {
             window.focus();
             this.close();
           },
@@ -175,9 +175,9 @@ class Header extends PureComponent {
 
       if (cmd && this.state.pushPermission === Push.Permission.GRANTED) {
         Push.create(cmd.title, {
-          body: i18n._('Command failed ({{err}})', {err: err}),
+          body: i18n._('Command failed ({{err}})', {err}),
           icon: 'images/logo-badge-32x32.png',
-          onClick: function() {
+          onClick() {
             window.focus();
             this.close();
           },
@@ -201,7 +201,7 @@ class Header extends PureComponent {
       commands: [],
       currentVersion: settings.version,
       latestVersion: settings.version,
-      pushPermission: pushPermission,
+      pushPermission,
       runningTasks: [],
     };
   }

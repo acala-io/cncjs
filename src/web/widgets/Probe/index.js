@@ -127,8 +127,8 @@ class ProbeWidget extends PureComponent {
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({
         modal: {
-          name: name,
-          params: params,
+          name,
+          params,
         },
       });
     },

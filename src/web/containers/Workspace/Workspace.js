@@ -127,7 +127,7 @@ class Workspace extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
     },
@@ -174,7 +174,7 @@ class Workspace extends PureComponent {
         }[data] || data;
 
       this.action.openModal(MODAL_FEEDER_PAUSED, {
-        title: title,
+        title,
       });
     },
   };

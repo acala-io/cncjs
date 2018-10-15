@@ -62,7 +62,7 @@ class GrblLineParserResultParserState {
     }
 
     return {
-      payload: payload,
+      payload,
       type: GrblLineParserResultParserState,
     };
   }

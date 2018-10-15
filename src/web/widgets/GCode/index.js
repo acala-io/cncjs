@@ -138,7 +138,7 @@ class GCodeWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         if (this.state.units !== units) {
-          this.setState({units: units});
+          this.setState({units});
         }
       }
 
@@ -152,7 +152,7 @@ class GCodeWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         if (this.state.units !== units) {
-          this.setState({units: units});
+          this.setState({units});
         }
       }
 
@@ -166,7 +166,7 @@ class GCodeWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         if (this.state.units !== units) {
-          this.setState({units: units});
+          this.setState({units});
         }
       }
 
@@ -180,7 +180,7 @@ class GCodeWidget extends PureComponent {
           }[modal.units] || this.state.units;
 
         if (this.state.units !== units) {
-          this.setState({units: units});
+          this.setState({units});
         }
       }
     },

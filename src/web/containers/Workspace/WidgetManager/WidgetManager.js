@@ -190,7 +190,7 @@ class WidgetManager extends PureComponent {
           <WidgetList
             list={this.widgetList}
             onChange={(id, checked) => {
-              const o = find(this.widgetList, {id: id});
+              const o = find(this.widgetList, {id});
               if (o) {
                 o.visible = checked;
               }

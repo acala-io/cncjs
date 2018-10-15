@@ -12,7 +12,7 @@ class GrblLineParserResultAlarm {
 
     return {
       type: GrblLineParserResultAlarm,
-      payload: payload,
+      payload,
     };
   }
 }

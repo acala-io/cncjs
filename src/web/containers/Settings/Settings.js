@@ -156,7 +156,7 @@ class Settings extends PureComponent {
     const initialSectionPath = this.sections[0].path;
     const sectionPath = pathname.replace(/^\/settings(\/)?/, ''); // TODO
     const id = mapSectionPathToId(sectionPath || initialSectionPath);
-    const activeSection = find(this.sections, {id: id}) || this.sections[0];
+    const activeSection = find(this.sections, {id}) || this.sections[0];
     const sectionItems = this.sections.map(section => (
       <li key={section.id} className={classNames({[styles.active]: activeSection.id === section.id})}>
         <Link to={`/settings/${section.path}`}>{section.title}</Link>
@@ -372,7 +372,7 @@ class Settings extends PureComponent {
         this.setState({
           general: {
             ...this.state.general,
-            lang: lang,
+            lang,
           },
         });
       },
@@ -384,8 +384,8 @@ class Settings extends PureComponent {
           workspace: {
             ...this.state.workspace,
             modal: {
-              name: name,
-              params: params,
+              name,
+              params,
             },
           },
         });
@@ -549,7 +549,7 @@ class Settings extends PureComponent {
                   pageLength: pagination.pageLength,
                   totalRecords: pagination.totalRecords,
                 },
-                records: records,
+                records,
               },
             });
           })
@@ -600,7 +600,7 @@ class Settings extends PureComponent {
             }
 
             const records = this.state.account.records;
-            const index = findIndex(records, {id: id});
+            const index = findIndex(records, {id});
 
             if (index >= 0) {
               records[index] = {
@@ -611,7 +611,7 @@ class Settings extends PureComponent {
               this.setState({
                 account: {
                   ...this.state.account,
-                  records: records,
+                  records,
                 },
               });
             }
@@ -644,8 +644,8 @@ class Settings extends PureComponent {
           account: {
             ...this.state.account,
             modal: {
-              name: name,
-              params: params,
+              name,
+              params,
             },
           },
         });
@@ -711,7 +711,7 @@ class Settings extends PureComponent {
                   pageLength: pagination.pageLength,
                   totalRecords: pagination.totalRecords,
                 },
-                records: records,
+                records,
               },
             });
           })
@@ -762,7 +762,7 @@ class Settings extends PureComponent {
             }
 
             const records = this.state.commands.records;
-            const index = findIndex(records, {id: id});
+            const index = findIndex(records, {id});
 
             if (index >= 0) {
               records[index] = {
@@ -773,7 +773,7 @@ class Settings extends PureComponent {
               this.setState({
                 commands: {
                   ...this.state.commands,
-                  records: records,
+                  records,
                 },
               });
             }
@@ -805,8 +805,8 @@ class Settings extends PureComponent {
           commands: {
             ...this.state.commands,
             modal: {
-              name: name,
-              params: params,
+              name,
+              params,
             },
           },
         });
@@ -872,7 +872,7 @@ class Settings extends PureComponent {
                   pageLength: pagination.pageLength,
                   totalRecords: pagination.totalRecords,
                 },
-                records: records,
+                records,
               },
             });
           })
@@ -923,7 +923,7 @@ class Settings extends PureComponent {
             }
 
             const records = this.state.events.records;
-            const index = findIndex(records, {id: id});
+            const index = findIndex(records, {id});
 
             if (index >= 0) {
               records[index] = {
@@ -934,7 +934,7 @@ class Settings extends PureComponent {
               this.setState({
                 events: {
                   ...this.state.events,
-                  records: records,
+                  records,
                 },
               });
             }
@@ -966,8 +966,8 @@ class Settings extends PureComponent {
           events: {
             ...this.state.events,
             modal: {
-              name: name,
-              params: params,
+              name,
+              params,
             },
           },
         });

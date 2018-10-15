@@ -148,8 +148,8 @@ class MarlinWidget extends PureComponent {
     openModal: (name = MODAL_NONE, params = {}) => {
       this.setState({
         modal: {
-          name: name,
-          params: params,
+          name,
+          params,
         },
       });
     },
@@ -255,7 +255,7 @@ class MarlinWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
         isReady: controller.type === MARLIN,
       }));

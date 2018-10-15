@@ -11,7 +11,7 @@ class SmoothieLineParserResultAlarm {
 
     return {
       type: SmoothieLineParserResultAlarm,
-      payload: payload,
+      payload,
     };
   }
 }

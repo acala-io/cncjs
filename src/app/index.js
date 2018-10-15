@@ -86,7 +86,7 @@ const createServer = (options, callback) => {
         log.info(`Watching ${chalk.yellow(JSON.stringify(watchDirectory))} for file changes`);
 
         // monitor service
-        monitor.start({watchDirectory: watchDirectory});
+        monitor.start({watchDirectory});
       } else {
         log.error(`The directory ${chalk.yellow(JSON.stringify(watchDirectory))} does not exist.`);
       }
@@ -169,7 +169,7 @@ const createServer = (options, callback) => {
             // Do not verify the SSL certificate for self-signed certs
             // secure: false,
 
-            target: target,
+            target,
           });
 
           proxy.on('proxyReq', proxyReq => {

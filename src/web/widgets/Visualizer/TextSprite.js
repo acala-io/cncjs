@@ -44,7 +44,7 @@ class TextSprite {
     const material = new THREE.SpriteMaterial({
       map: texture,
       transparent: true,
-      opacity: opacity,
+      opacity,
     });
 
     textObject.textHeight = size;

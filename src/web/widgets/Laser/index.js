@@ -183,7 +183,7 @@ class LaserWidget extends PureComponent {
       this.setState(state => ({
         connection: {
           ...state.connection,
-          ident: ident,
+          ident,
         },
       }));
     },
@@ -196,7 +196,7 @@ class LaserWidget extends PureComponent {
         controller: {
           ...state.controller,
           settings: controllerSettings,
-          type: type,
+          type,
         },
       }));
     },
@@ -205,7 +205,7 @@ class LaserWidget extends PureComponent {
         controller: {
           ...state.controller,
           state: controllerState,
-          type: type,
+          type,
         },
       }));
     },

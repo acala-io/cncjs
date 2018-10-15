@@ -13,7 +13,7 @@ class GrblLineParserResultOption {
 
     return {
       type: GrblLineParserResultOption,
-      payload: payload,
+      payload,
     };
   }
 }

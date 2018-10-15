@@ -65,7 +65,7 @@ class MarlinLineParserResultTemperature {
 
     return {
       type: MarlinLineParserResultTemperature,
-      payload: payload,
+      payload,
     };
   }
 }

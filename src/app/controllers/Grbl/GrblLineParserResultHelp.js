@@ -13,7 +13,7 @@ class GrblLineParserResultHelp {
 
     return {
       type: GrblLineParserResultHelp,
-      payload: payload,
+      payload,
     };
   }
 }

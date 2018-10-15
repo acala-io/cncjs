@@ -119,7 +119,7 @@ class GCodeVisualizer {
     log.debug({
       frameIndex: this.frameIndex,
       frames: this.frames,
-      workpiece: workpiece,
+      workpiece,
     });
 
     return this.group;

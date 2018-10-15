@@ -28,8 +28,8 @@ class CreateRecord extends PureComponent {
 
     return {
       enabled: Boolean(_.get(this.fields.enabled, 'state.checked')),
-      title: title,
-      commands: commands,
+      title,
+      commands,
     };
   }
   render() {

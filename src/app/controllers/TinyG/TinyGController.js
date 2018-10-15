@@ -588,7 +588,7 @@ class TinyGController {
 
       if (statusCode !== 0) {
         const code = Number(statusCode);
-        const err = _.find(TINYG_STATUS_CODES, {code: code}) || {};
+        const err = _.find(TINYG_STATUS_CODES, {code}) || {};
 
         if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
           const ignoreErrors = config.get('state.controller.exception.ignoreErrors');
@@ -602,7 +602,7 @@ class TinyGController {
             this.connectionOptions,
             JSON.stringify({
               err: {
-                code: code,
+                code,
                 data: line.trim(),
                 line: received,
                 msg: err.msg,
@@ -611,7 +611,7 @@ class TinyGController {
           );
 
           log.error('Error:', {
-            code: code,
+            code,
             data: line.trim(),
             line: received,
             msg: err.msg,
@@ -629,7 +629,7 @@ class TinyGController {
           this.connectionOptions,
           JSON.stringify({
             err: {
-              code: code,
+              code,
               msg: err.msg,
             },
           })
@@ -1307,7 +1307,7 @@ class TinyGController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id: id});
+        const macro = _.find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1328,7 +1328,7 @@ class TinyGController {
         }
 
         const macros = config.get('macros');
-        const macro = _.find(macros, {id: id});
+        const macro = _.find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);

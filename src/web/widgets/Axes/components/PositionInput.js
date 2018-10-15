@@ -51,7 +51,7 @@ class PositionInput extends PureComponent {
               return;
             }
             if (value >= min && value <= max) {
-              this.setState({value: value});
+              this.setState({value});
             }
           }}
           onKeyDown={event => {

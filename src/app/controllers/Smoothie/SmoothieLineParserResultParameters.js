@@ -8,7 +8,7 @@ class SmoothieLineParserResultParameters {
     const name = r[1];
     const value = r[2];
     const payload = {
-      name: name,
+      name,
       value: '',
     };
 
@@ -42,7 +42,7 @@ class SmoothieLineParserResultParameters {
 
     return {
       type: SmoothieLineParserResultParameters,
-      payload: payload,
+      payload,
     };
   }
 }

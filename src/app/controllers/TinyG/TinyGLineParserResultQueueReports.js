@@ -18,7 +18,7 @@ class TinyGLineParserResultQueueReports {
 
     return {
       type: TinyGLineParserResultQueueReports,
-      payload: payload,
+      payload,
     };
   }
 }

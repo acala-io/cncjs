@@ -318,7 +318,7 @@ class AxesWidget extends PureComponent {
       this.setState(state => ({
         jog: {
           ...state.jog,
-          axis: axis,
+          axis,
         },
       }));
     },
@@ -600,7 +600,7 @@ class AxesWidget extends PureComponent {
       this.setState(state => ({
         mdi: {
           ...state.mdi,
-          commands: commands,
+          commands,
         },
       }));
     } catch (err) {

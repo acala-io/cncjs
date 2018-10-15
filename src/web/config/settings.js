@@ -23,7 +23,7 @@ const settings = {
       allowMultiLoading: false,
       crossDomain: false,
       loadPath: webroot + 'i18n/{{lng}}/{{ns}}.json',
-      parse: function(data, url) {
+      parse(data, url) {
         log.debug(`Loading resource: url="${url}"`);
 
         if (endsWith(url, '/gcode.json') || endsWith(url, '/resource.json')) {

@@ -32,7 +32,7 @@ const Controller = props => {
           <NavItem eventKey="state">{i18n._('Controller State')}</NavItem>
           <NavItem eventKey="settings">{i18n._('Controller Settings')}</NavItem>
         </Nav>
-        <div className={styles.navContent} style={{height: height}}>
+        <div className={styles.navContent} style={{height}}>
           {activeTab === 'state' && (
             <pre className={styles.pre}>
               <code>{JSON.stringify(state.controller.state, null, 4)}</code>

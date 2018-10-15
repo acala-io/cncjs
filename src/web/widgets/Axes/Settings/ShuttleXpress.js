@@ -73,7 +73,7 @@ class ShuttleXpress extends PureComponent {
           />
         </FormGroup>
         <FormGroup>
-          <label>{i18n._('Repeat Rate: {{hertz}}Hz', {hertz: hertz})}</label>
+          <label>{i18n._('Repeat Rate: {{hertz}}Hz', {hertz})}</label>
           <select className="form-control" defaultValue={hertz} onChange={this.onChangeHertz}>
             <option value="60">{i18n._('60 Times per Second')}</option>
             <option value="45">{i18n._('45 Times per Second')}</option>
@@ -86,7 +86,7 @@ class ShuttleXpress extends PureComponent {
           </select>
         </FormGroup>
         <FormGroup>
-          <p>{i18n._('Distance Overshoot: {{overshoot}}x', {overshoot: overshoot})}</p>
+          <p>{i18n._('Distance Overshoot: {{overshoot}}x', {overshoot})}</p>
           <Slider
             defaultValue={overshoot}
             min={OVERSHOOT_RANGE[0]}
