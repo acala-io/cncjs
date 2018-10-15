@@ -1,5 +1,5 @@
 import {get} from 'lodash';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Modal from '../../../components/Modal';
@@ -92,7 +92,7 @@ class UpdateRecord extends PureComponent {
                   type="text"
                   name="name"
                   value={name}
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   validations={[validations.required]}
                 />
               </div>
@@ -105,12 +105,12 @@ class UpdateRecord extends PureComponent {
                     }}
                     type="password"
                     name="oldPassword"
-                    className={classNames(
+                    className={classcat([
                       'form-control',
                       {'pull-left': !changePassword},
                       styles.formControl,
-                      styles.short
-                    )}
+                      styles.short,
+                    ])}
                     validations={changePassword ? [validations.required] : []}
                     disabled={!changePassword}
                   />
@@ -136,7 +136,7 @@ class UpdateRecord extends PureComponent {
                     }}
                     type="password"
                     name="password"
-                    className={classNames('form-control', styles.formControl, styles.short)}
+                    className={classcat(['form-control', styles.formControl, styles.short])}
                     validations={[validations.required, validations.password]}
                   />
                 </div>
@@ -148,7 +148,7 @@ class UpdateRecord extends PureComponent {
                     type="password"
                     name="confirm"
                     value=""
-                    className={classNames('form-control', styles.formControl, styles.short)}
+                    className={classcat(['form-control', styles.formControl, styles.short])}
                     validations={[validations.required]}
                   />
                 </div>

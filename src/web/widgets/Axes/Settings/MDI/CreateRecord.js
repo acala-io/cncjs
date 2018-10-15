@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import React, {PureComponent} from 'react';
@@ -73,7 +73,7 @@ class CreateRecord extends PureComponent {
                 type="text"
                 name="name"
                 value=""
-                className={cx('form-control', styles.formControl, styles.short)}
+                className={classcat(['form-control', styles.formControl, styles.short])}
                 validations={[validations.required]}
               />
             </FormGroup>
@@ -83,7 +83,7 @@ class CreateRecord extends PureComponent {
                 name="command"
                 value=""
                 rows="5"
-                className={cx('form-control', styles.formControl, styles.long)}
+                className={classcat(['form-control', styles.formControl, styles.long])}
                 validations={[validations.required]}
               />
             </FormGroup>

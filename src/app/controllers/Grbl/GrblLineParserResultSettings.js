@@ -8,14 +8,14 @@ class GrblLineParserResultSettings {
     }
 
     const payload = {
+      message: trim(r[3], '()'),
       name: r[1],
       value: r[2],
-      message: trim(r[3], '()'),
     };
 
     return {
-      type: GrblLineParserResultSettings,
       payload,
+      type: GrblLineParserResultSettings,
     };
   }
 }

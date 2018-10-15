@@ -1,11 +1,10 @@
 /* eslint-disable max-classes-per-file */
 
 import events from 'events';
+import {noop} from 'lodash';
 
 export const SP_TYPE_SEND_RESPONSE = 0;
 export const SP_TYPE_CHAR_COUNTING = 1;
-
-const noop = () => {};
 
 class SPSendResponse {
   callback = null;

@@ -459,7 +459,6 @@
     "Type": "Тип",
     "Size": "Размер",
     "Load G-code": "",
-    "Upload G-code": "Загрузить G-код",
     "Browse...": "",
     "Resume": "",
     "Pause": "Пауза",
@@ -510,5 +509,7 @@
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
     "Waiting for the target temperature to be reached ...": "",
-    "Baud rate [kilobaud]": ""
+    "Baud rate [kilobaud]": "",
+    "Probe Z-Position": "",
+    "Probe XYZ-Position": ""
 }

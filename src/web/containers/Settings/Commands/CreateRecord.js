@@ -1,5 +1,5 @@
 import {get} from 'lodash';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Modal from '../../../components/Modal';
@@ -87,7 +87,7 @@ class CreateRecord extends PureComponent {
                   type="text"
                   name="title"
                   value=""
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   validations={[validations.required]}
                 />
               </div>
@@ -97,7 +97,7 @@ class CreateRecord extends PureComponent {
                   name="commands"
                   value=""
                   rows="5"
-                  className={classNames('form-control', styles.formControl, styles.long)}
+                  className={classcat(['form-control', styles.formControl, styles.long])}
                   validations={[validations.required]}
                 />
               </div>

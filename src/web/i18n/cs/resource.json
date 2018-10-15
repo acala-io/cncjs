@@ -459,7 +459,6 @@
     "Type": "Typ",
     "Size": "Velikost",
     "Load G-code": "",
-    "Upload G-code": "Nahrát G-code",
     "Browse...": "",
     "Resume": "",
     "Pause": "Pause",
@@ -510,5 +509,7 @@
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
     "Waiting for the target temperature to be reached ...": "",
-    "Baud rate [kilobaud]": ""
+    "Baud rate [kilobaud]": "",
+    "Probe Z-Position": "",
+    "Probe XYZ-Position": ""
 }

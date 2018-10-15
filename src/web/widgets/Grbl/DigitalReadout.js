@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -8,12 +8,12 @@ const DigitalReadout = props => {
   const {children, label, value} = props;
 
   return (
-    <div className={classNames('row', 'no-gutters', styles.dro)}>
+    <div className={classcat(['row no-gutters', styles.dro])}>
       <div className="col col-xs-1">
         <div className={styles.droLabel}>{label}</div>
       </div>
       <div className="col col-xs-2">
-        <div className={classNames(styles.well, styles.droDisplay)}>{value}</div>
+        <div className={classcat([styles.well, styles.droDisplay])}>{value}</div>
       </div>
       <div className="col col-xs-9">
         <div className={styles.droBtnGroup}>

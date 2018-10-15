@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get} from 'lodash';
@@ -87,7 +87,7 @@ class CreateRecord extends PureComponent {
                   type="text"
                   name="name"
                   value=""
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   validations={[validations.required]}
                 />
               </div>
@@ -100,7 +100,7 @@ class CreateRecord extends PureComponent {
                   type="password"
                   name="password"
                   value=""
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   validations={[validations.required, validations.password]}
                 />
               </div>
@@ -110,7 +110,7 @@ class CreateRecord extends PureComponent {
                   type="password"
                   name="confirm"
                   value=""
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   validations={[validations.required]}
                 />
               </div>

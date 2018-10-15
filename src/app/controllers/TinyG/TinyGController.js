@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import {get, includes, intersection, isEqual, pickBy, isEmpty} from 'lodash';
+import {get, intersection, isEqual, isEmpty, noop, pickBy} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';
@@ -40,7 +40,6 @@ const SENDER_STATUS_ACK = 'ack';
 const WAIT = '%wait';
 
 const log = logger('controller:TinyG');
-const noop = () => {};
 
 class TinyGController {
   type = TINYG;
@@ -190,7 +189,7 @@ class TinyGController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!includes(['serial', 'socket'], connectionType)) {
+    if (!['serial', 'socket'].includes(connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -263,7 +262,7 @@ class TinyGController {
         }
 
         // M6 Tool Change
-        if (includes(words, 'M6')) {
+        if (words.includes('M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
@@ -349,7 +348,7 @@ class TinyGController {
         }
 
         // M6 Tool Change
-        if (includes(words, 'M6')) {
+        if (words.includes('M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
         }

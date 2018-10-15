@@ -1,5 +1,5 @@
 import moment from 'moment';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 import semver from 'semver';
@@ -29,7 +29,7 @@ const UpdateStatusContainer = props => {
   if (newUpdateAvailable) {
     return (
       <div className={styles.updateStatusContainer}>
-        <div className={classNames(styles.updateStatusIcon, styles.warning)}>
+        <div className={classcat([styles.updateStatusIcon, styles.warning])}>
           <i className="fa fa-exclamation-circle fa-fw" />
         </div>
         <div className={styles.updateStatusMessageContainer}>
@@ -57,7 +57,7 @@ const UpdateStatusContainer = props => {
 
   return (
     <div className={styles.updateStatusContainer}>
-      <div className={classNames(styles.updateStatusIcon, styles.info)}>
+      <div className={classcat([styles.updateStatusIcon, styles.info])}>
         <i className="fa fa-check-circle fa-fw" />
       </div>
       <div className={styles.updateStatusMessageContainer}>

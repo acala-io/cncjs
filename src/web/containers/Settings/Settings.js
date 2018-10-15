@@ -1,28 +1,28 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
-import classNames from 'classnames';
+import classcat from 'classcat';
 import i18next from 'i18next';
-import camelCase from 'lodash/camelCase';
-import find from 'lodash/find';
-import findIndex from 'lodash/findIndex';
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
-import Uri from 'jsuri';
 import React, {PureComponent} from 'react';
+import Uri from 'jsuri';
+import {camelCase, find, findIndex, get, isEqual} from 'lodash';
 import {Link, withRouter} from 'react-router-dom';
+
 import api from '../../api';
-import settings from '../../config/settings';
-import Breadcrumbs from '../../components/Breadcrumbs';
 import i18n from '../../lib/i18n';
+
+import settings from '../../config/settings';
+import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../../api/constants';
+
+import About from './About';
+import Account from './Account';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import Commands from './Commands';
+import Controller from './Controller';
+import Events from './Events';
 import General from './General';
 import Workspace from './Workspace';
-import Account from './Account';
-import Controller from './Controller';
-import Commands from './Commands';
-import Events from './Events';
-import About from './About';
+
 import styles from './index.styl';
-import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../../api/constants';
 
 const mapSectionPathToId = (path = '') => {
   return camelCase(path.split('/')[0] || '');
@@ -158,7 +158,7 @@ class Settings extends PureComponent {
     const id = mapSectionPathToId(sectionPath || initialSectionPath);
     const activeSection = find(this.sections, {id}) || this.sections[0];
     const sectionItems = this.sections.map(section => (
-      <li key={section.id} className={classNames({[styles.active]: activeSection.id === section.id})}>
+      <li key={section.id} className={classcat([{[styles.active]: activeSection.id === section.id}])}>
         <Link to={`/settings/${section.path}`}>{section.title}</Link>
       </li>
     ));
@@ -175,15 +175,15 @@ class Settings extends PureComponent {
         <Breadcrumbs>
           <Breadcrumbs.Item active>{i18n._('Settings')}</Breadcrumbs.Item>
         </Breadcrumbs>
-        <div className={classNames(styles.container, styles.border)}>
+        <div className={classcat([styles.container, styles.border])}>
           <div className={styles.row}>
-            <div className={classNames(styles.col, styles.sidenav)}>
+            <div className={classcat([styles.col, styles.sidenav])}>
               <nav className={styles.navbar}>
                 <ul className={styles.nav}>{sectionItems}</ul>
               </nav>
             </div>
-            <div className={classNames(styles.col, styles.splitter)} />
-            <div className={classNames(styles.col, styles.section)}>
+            <div className={classcat([styles.col, styles.splitter])} />
+            <div className={classcat([styles.col, styles.section])}>
               <div className={styles.heading}>{activeSection.title}</div>
               <div className={styles.content}>
                 <Section

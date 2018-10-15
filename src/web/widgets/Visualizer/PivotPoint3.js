@@ -1,8 +1,4 @@
-import {defaults} from 'lodash';
-
-const noop = () => {
-  // do nothing
-};
+import {defaults, noop} from 'lodash';
 
 export default class PivotPoint3 {
   // @param {object} options The options object

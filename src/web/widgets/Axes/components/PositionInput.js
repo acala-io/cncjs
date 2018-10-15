@@ -1,7 +1,7 @@
-import cx from 'classnames';
-import noop from 'lodash/noop';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {noop} from 'lodash';
 
 class PositionInput extends PureComponent {
   static propTypes = {
@@ -33,7 +33,7 @@ class PositionInput extends PureComponent {
     const isNumber = this.state.value !== '';
 
     return (
-      <div className={cx(className, 'input-group input-group-xs')} style={{...style, width: '100%'}}>
+      <div className={classcat([className, 'input-group input-group-xs'])} style={{...style, width: '100%'}}>
         <input
           ref={node => {
             this.node = node;

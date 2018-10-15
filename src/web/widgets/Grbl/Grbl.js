@@ -1,4 +1,4 @@
-import {get, mapValues, isEmpty} from 'lodash';
+import {get, isEmpty, mapValues} from 'lodash';
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';

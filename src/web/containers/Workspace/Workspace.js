@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-foreign-prop-types, react/no-find-dom-node */
 
-import {includes, pick, difference, pullAll, size, throttle} from 'lodash';
 import classcat from 'classcat';
 import Dropzone from 'react-dropzone';
 import ensureArray from 'ensure-array';
@@ -8,6 +7,7 @@ import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
+import {difference, includes, pick, pullAll, size, throttle} from 'lodash';
 import {withRouter} from 'react-router-dom';
 
 import * as dialogActions from '../../dialogs/actions';

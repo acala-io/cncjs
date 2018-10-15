@@ -459,7 +459,6 @@
     "Type": "Type",
     "Size": "Grootte",
     "Load G-code": "Laad G-code",
-    "Upload G-code": "Upload G-code",
     "Browse...": "Bladeren",
     "Resume": "Vervolg",
     "Pause": "Pause",
@@ -510,5 +509,7 @@
     "Loading": "",
     "Work Coordinate System ({{wcs}})": "",
     "Waiting for the target temperature to be reached ...": "",
-    "Baud rate [kilobaud]": ""
+    "Baud rate [kilobaud]": "",
+    "Probe Z-Position": "",
+    "Probe XYZ-Position": ""
 }

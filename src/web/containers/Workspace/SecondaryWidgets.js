@@ -1,14 +1,12 @@
 import chainedFunction from 'chained-function';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import ensureArray from 'ensure-array';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {Component} from 'react';
 import Sortable from 'react-sortablejs';
 import uuid from 'uuid';
+import {get, includes, isEqual} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
@@ -214,7 +212,7 @@ class SecondaryWidgets extends Component {
 
     return (
       <Sortable
-        className={classNames(className, styles.widgets)}
+        className={classcat([className, styles.widgets])}
         style={{
           overflowX: 'hidden',
         }}

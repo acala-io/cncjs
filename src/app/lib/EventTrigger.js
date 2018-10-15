@@ -1,6 +1,6 @@
-import config from '../services/configstore';
+import {noop} from 'lodash';
 
-const noop = () => {};
+import config from '../services/configstore';
 
 class EventTrigger {
   constructor(callback = noop) {

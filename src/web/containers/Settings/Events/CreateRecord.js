@@ -1,15 +1,17 @@
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import {ToastNotification} from '../../../components/Notifications';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import {Form, Select, Textarea} from '../../../components/Validation';
+import {get, includes} from 'lodash';
+
 import i18n from '../../../lib/i18n';
 import * as validations from '../../../lib/validations';
+
+import Modal from '../../../components/Modal';
+import Space from '../../../components/Space';
+import ToggleSwitch from '../../../components/ToggleSwitch';
+import {Form, Select, Textarea} from '../../../components/Validation';
+import {ToastNotification} from '../../../components/Notifications';
+
 import styles from '../form.styl';
 
 const SYSTEM_EVENTS = [
@@ -106,7 +108,7 @@ class CreateRecord extends PureComponent {
                 <Select
                   name="event"
                   value={modal.params.event}
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   onChange={event => {
                     const value = event.target.value;
                     let trigger = modal.params.trigger;
@@ -143,7 +145,7 @@ class CreateRecord extends PureComponent {
                 <Select
                   name="trigger"
                   value={modal.params.trigger}
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   disabled={disableTriggerOptions}
                   onChange={event => {
                     const value = event.target.value;
@@ -164,7 +166,7 @@ class CreateRecord extends PureComponent {
                   name="commands"
                   value=""
                   rows="5"
-                  className={classNames('form-control', styles.formControl, styles.long)}
+                  className={classcat(['form-control', styles.formControl, styles.long])}
                   placeholder={sampleCommands}
                   validations={[validations.required]}
                 />

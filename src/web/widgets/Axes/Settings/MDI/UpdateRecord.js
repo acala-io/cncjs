@@ -1,21 +1,24 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
-import Slider from 'rc-slider';
 import React, {PureComponent} from 'react';
-import {Button} from 'web/components/Buttons';
-import Modal from 'web/components/Modal';
-import Space from 'web/components/Space';
-import {ToastNotification} from 'web/components/Notifications';
-import {Form, Input, Textarea} from 'web/components/Validation';
-import {FormGroup} from 'web/components/Forms';
-import i18n from 'web/lib/i18n';
-import * as validations from 'web/lib/validations';
+import Slider from 'rc-slider';
+
+import i18n from '../../../../lib/i18n';
+import * as validations from '../../../..//lib/validations';
+
+import Modal from '../../../..//components/Modal';
+import Space from '../../../..//components/Space';
+import {Button} from '../../../..//components/Buttons';
+import {Form, Input, Textarea} from '../../../..//components/Validation';
+import {FormGroup} from '../../../..//components/Forms';
+import {ToastNotification} from '../../../..//components/Notifications';
+
 import styles from '../form.styl';
 
 class UpdateRecord extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     action: PropTypes.object,
+    state: PropTypes.object,
   };
 
   slider = null;
@@ -24,11 +27,11 @@ class UpdateRecord extends PureComponent {
     const {name, command} = this.form.getValues();
 
     return {
-      name,
       command,
       grid: {
         xs: this.slider.state.value,
       },
+      name,
     };
   }
   render() {
@@ -74,7 +77,7 @@ class UpdateRecord extends PureComponent {
                   type="text"
                   name="name"
                   value={name}
-                  className={cx('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   validations={[validations.required]}
                 />
               </FormGroup>
@@ -84,7 +87,7 @@ class UpdateRecord extends PureComponent {
                   name="command"
                   value={command}
                   rows="5"
-                  className={cx('form-control', styles.formControl, styles.long)}
+                  className={classcat(['form-control', styles.formControl, styles.long])}
                   validations={[validations.required]}
                 />
               </FormGroup>

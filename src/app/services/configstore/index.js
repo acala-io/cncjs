@@ -1,9 +1,9 @@
 /* eslint-disable import/default */
 
-import {isPlainObject, has, get, set, unset} from 'lodash';
 import chalk from 'chalk';
 import events from 'events';
 import fs from 'fs';
+import {get, has, isPlainObject, set, unset} from 'lodash';
 
 import logger from '../../lib/logger';
 

@@ -1,15 +1,17 @@
 import * as fit from 'xterm/lib/addons/fit/fit';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import color from 'cli-color';
 import PerfectScrollbar from 'perfect-scrollbar';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
-import trimEnd from 'lodash/trimEnd';
 import {Terminal} from 'xterm';
+import {trimEnd} from 'lodash';
 
 import log from '../../lib/log';
+
 import History from './History';
+
 import styles from './index.styl';
 
 Terminal.applyAddon(fit);
@@ -371,10 +373,8 @@ class TerminalWrapper extends PureComponent {
 
     return (
       <div
-        ref={node => {
-          this.terminalContainer = node;
-        }}
-        className={classNames(className, styles.terminalContainer)}
+        ref={ref => (this.terminalContainer = ref)}
+        className={classcat([className, styles.terminalContainer])}
         style={style}
       />
     );

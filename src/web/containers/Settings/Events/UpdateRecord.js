@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import includes from 'lodash/includes';
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {Form, Select, Textarea} from '../../../components/Validation';
@@ -106,7 +106,7 @@ class UpdateRecord extends PureComponent {
                 <Select
                   name="event"
                   value={modal.params.event}
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   onChange={event => {
                     const value = event.target.value;
                     let trigger = modal.params.trigger;
@@ -143,7 +143,7 @@ class UpdateRecord extends PureComponent {
                 <Select
                   name="trigger"
                   value={modal.params.trigger}
-                  className={classNames('form-control', styles.formControl, styles.short)}
+                  className={classcat(['form-control', styles.formControl, styles.short])}
                   disabled={disableTriggerOptions}
                   onChange={event => {
                     const value = event.target.value;
@@ -164,7 +164,7 @@ class UpdateRecord extends PureComponent {
                   name="commands"
                   value={modal.params.commands}
                   rows="5"
-                  className={classNames('form-control', styles.formControl, styles.long)}
+                  className={classcat(['form-control', styles.formControl, styles.long])}
                   placeholder={sampleCommands}
                   validations={[validations.required]}
                 />

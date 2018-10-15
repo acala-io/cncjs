@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import {get, includes, set, trim} from 'lodash';
+import {get, includes, set} from 'lodash';
 
 import {SMOOTHIE_MODAL_GROUPS} from './constants';
 
@@ -15,16 +15,14 @@ class SmoothieLineParserResultParserState {
     const words = r[1]
       .split(' ')
       .filter(Boolean)
-      .map(word => trim(word));
+      .map(word => word.trim());
 
     for (let i = 0; i < words.length; ++i) {
       const word = words[i];
 
       // Gx, Mx
       if (word.indexOf('G') === 0 || word.indexOf('M') === 0) {
-        const r = SMOOTHIE_MODAL_GROUPS.find(group => {
-          return includes(group.modes, word);
-        });
+        const r = SMOOTHIE_MODAL_GROUPS.find(group => includes(group.modes, word));
 
         if (!r) {
           continue;

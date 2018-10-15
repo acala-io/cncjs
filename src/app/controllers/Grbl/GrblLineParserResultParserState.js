@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import {trim, includes, get, set} from 'lodash';
+import {get, includes, set} from 'lodash';
 import {GRBL_MODAL_GROUPS} from './constants';
 
 class GrblLineParserResultParserState {
@@ -17,7 +17,7 @@ class GrblLineParserResultParserState {
     const words = r[1]
       .split(' ')
       .filter(Boolean)
-      .map(word => trim(word));
+      .map(word => word.trim());
 
     for (let i = 0; i < words.length; ++i) {
       const word = words[i];
