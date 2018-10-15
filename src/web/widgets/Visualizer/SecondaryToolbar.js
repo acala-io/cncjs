@@ -2,7 +2,7 @@ import classcat from 'classcat';
 import colornames from 'colornames';
 import Detector from 'three/examples/js/Detector';
 import PropTypes from 'prop-types';
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
 import styled from 'styled-components';
 
@@ -94,7 +94,7 @@ class SecondaryToolbar extends PureComponent {
     const canToggleOptions = Detector.webgl && !disabled;
 
     return (
-      <Fragment>
+      <div className="clearfix u-padding-tiny">
         {this.visualizationSettings}
         {canToggleOptions && (
           <div className="left">
@@ -105,7 +105,7 @@ class SecondaryToolbar extends PureComponent {
             {this.zoomFunctions}
           </div>
         )}
-      </Fragment>
+      </div>
     );
   }
 
