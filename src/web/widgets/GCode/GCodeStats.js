@@ -1,29 +1,10 @@
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import i18n from '../../lib/i18n';
+import {formatDate, formatDuration, time24h} from '../../lib/l10n';
+
 import {METRIC_UNITS} from '../../constants';
-import styles from './index.styl';
-
-const formatISODateTime = time => {
-  return time > 0 ? moment.unix(time / 1000).format('YYYY-MM-DD HH:mm:ss') : '–';
-};
-
-const formatElapsedTime = elapsedTime => {
-  if (!elapsedTime || elapsedTime < 0) {
-    return '–';
-  }
-  const d = moment.duration(elapsedTime, 'ms');
-  return moment(d._data).format('HH:mm:ss');
-};
-
-const formatRemainingTime = remainingTime => {
-  if (!remainingTime || remainingTime < 0) {
-    return '–';
-  }
-  const d = moment.duration(remainingTime, 'ms');
-  return moment(d._data).format('HH:mm:ss');
-};
 
 class GCodeStats extends PureComponent {
   static propTypes = {
@@ -32,50 +13,73 @@ class GCodeStats extends PureComponent {
 
   render() {
     const {state} = this.props;
-    const {units, total, sent, received, bbox} = state;
+    const {bbox, received, sent, total, units} = state;
+
     const displayUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
-    const startTime = formatISODateTime(state.startTime);
-    const finishTime = formatISODateTime(state.finishTime);
-    const elapsedTime = formatElapsedTime(state.elapsedTime);
-    const remainingTime = formatRemainingTime(state.remainingTime);
+
+    const startTime = formatDate(state.startTime, time24h);
+    const finishTime = formatDate(state.finishTime, time24h);
+    const elapsedTime = formatDuration(state.elapsedTime);
+    const remainingTime = formatDuration(state.remainingTime);
 
     return (
-      <div className={styles['gcode-stats']}>
+      <div>
         <div className="row no-gutters" style={{marginBottom: 10}}>
           <div className="col-xs-12">
-            <table className="table-bordered" data-table="dimension">
+            <table className="table">
               <thead>
                 <tr>
                   <th />
-                  <th>
-                    {i18n._('Min')} [{displayUnits}]
-                  </th>
-                  <th>
-                    {i18n._('Max')} [{displayUnits}]
-                  </th>
-                  <th>
-                    {i18n._('Dimension')} [{displayUnits}]
-                  </th>
+                  <th className="number-cell">{i18n._('Min')}</th>
+                  <th className="number-cell">{i18n._('Max')}</th>
+                  <th className="number-cell">{i18n._('Dimension')}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className={styles.axis}>X</td>
-                  <td>{bbox.min.x}</td>
-                  <td>{bbox.max.x}</td>
-                  <td>{bbox.delta.x}</td>
+                  <th>X</th>
+                  <td className="number-cell">
+                    {bbox.min.x}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
+                  <td className="number-cell">
+                    {bbox.max.x}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
+                  <td className="number-cell">
+                    {bbox.delta.x}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td className={styles.axis}>Y</td>
-                  <td>{bbox.min.y}</td>
-                  <td>{bbox.max.y}</td>
-                  <td>{bbox.delta.y}</td>
+                  <th>Y</th>
+                  <td className="number-cell">
+                    {bbox.min.y}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
+                  <td className="number-cell">
+                    {bbox.max.y}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
+                  <td className="number-cell">
+                    {bbox.delta.y}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td className={styles.axis}>Z</td>
-                  <td>{bbox.min.z}</td>
-                  <td>{bbox.max.z}</td>
-                  <td>{bbox.delta.z}</td>
+                  <th>Z</th>
+                  <td className="number-cell">
+                    {bbox.min.z}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
+                  <td className="number-cell">
+                    {bbox.max.z}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
+                  <td className="number-cell">
+                    {bbox.delta.z}
+                    <span className="unit">{displayUnits}</span>
+                  </td>
                 </tr>
               </tbody>
             </table>

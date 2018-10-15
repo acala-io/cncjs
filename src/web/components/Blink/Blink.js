@@ -29,9 +29,9 @@ class Blink extends PureComponent {
         }));
       }, this.props.rate);
     } else {
-      this.setState(() => ({
+      this.setState({
         visible: true,
-      }));
+      });
     }
   };
 

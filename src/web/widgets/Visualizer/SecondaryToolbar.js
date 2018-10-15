@@ -2,9 +2,8 @@ import classcat from 'classcat';
 import colornames from 'colornames';
 import Detector from 'three/examples/js/Detector';
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
-import styled from 'styled-components';
 
 import i18n from '../../lib/i18n';
 
@@ -28,58 +27,6 @@ import Interpolate from '../../components/Interpolate';
 import Space from '../../components/Space';
 import {Button} from '../../components/Buttons';
 import {Tooltip} from '../../components/Tooltip';
-
-const IconButton = styled(Button)`
-  background-color: inherit;
-  background-image: none;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: normal;
-  margin-bottom: 0;
-  padding: 8px;
-  text-align: center;
-  touch-action: manipulation;
-  user-select: none;
-  white-space: nowrap;
-
-  && {
-    border: 0;
-    border-radius: 0;
-  }
-
-  filter: invert(40%);
-
-  &.highlight,
-  &:hover.highlight {
-    background-color: rgba(255, 255, 255, 0.7);
-    background-image: none;
-    color: #333;
-    filter: invert(100%);
-    outline: 0;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background-color: #e6e6e6;
-    background-image: none;
-    filter: invert(0%);
-  }
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: #333;
-    outline: 0;
-    text-decoration: none;
-  }
-
-  min-width: 36px; // 8px + 20px + 8px
-  height: 36px; // 8px + 20px + 8px
-
-  & + & {
-    margin-left: 0;
-  }
-`;
 
 class SecondaryToolbar extends PureComponent {
   static propTypes = {
@@ -273,22 +220,28 @@ class SecondaryToolbar extends PureComponent {
     const {camera} = this.props.actions;
 
     return (
-      <div className="inline-block">
-        <Repeatable componentClass={IconButton} onClick={camera.zoomIn} onHold={camera.zoomIn}>
-          <Tooltip placement="top" content={i18n._('Zoom In')} hideOnClick>
-            <Image src={iconZoomIn} width="20" height="20" />
-          </Tooltip>
-        </Repeatable>
-        <Repeatable componentClass={IconButton} onClick={camera.zoomOut} onHold={camera.zoomOut}>
-          <Tooltip placement="top" content={i18n._('Zoom Out')} hideOnClick>
-            <Image src={iconZoomOut} width="20" height="20" />
-          </Tooltip>
-        </Repeatable>
-        <Repeatable componentClass={IconButton} onClick={camera.zoomFit} onHold={camera.zoomFit}>
-          <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
-            <Image src={iconZoomFit} width="20" height="20" />
-          </Tooltip>
-        </Repeatable>
+      <div className="button-group">
+        <label className="button-group__button">
+          <Repeatable onClick={camera.zoomIn} onHold={camera.zoomIn}>
+            <Tooltip placement="top" content={i18n._('Zoom In')} hideOnClick>
+              <Image src={iconZoomIn} width="20" height="20" />
+            </Tooltip>
+          </Repeatable>
+        </label>
+        <label className="button-group__button">
+          <Repeatable onClick={camera.zoomOut} onHold={camera.zoomOut}>
+            <Tooltip placement="top" content={i18n._('Zoom Out')} hideOnClick>
+              <Image src={iconZoomOut} width="20" height="20" />
+            </Tooltip>
+          </Repeatable>
+        </label>
+        <label className="button-group__button">
+          <Fragment onClick={camera.zoomFit}>
+            <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
+              <Image src={iconZoomFit} width="20" height="20" />
+            </Tooltip>
+          </Fragment>
+        </label>
       </div>
     );
   }
