@@ -10,7 +10,7 @@ const Events = {
     }),
   delete: id =>
     new Promise((resolve, reject) => {
-      authrequest.delete('/api/events/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.delete(`/api/events/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   fetch: options =>
     new Promise((resolve, reject) => {
@@ -21,12 +21,12 @@ const Events = {
     }),
   read: id =>
     new Promise((resolve, reject) => {
-      authrequest.get('/api/events/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.get(`/api/events/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   update: (id, options) =>
     new Promise((resolve, reject) => {
       authrequest
-        .put('/api/events/' + id)
+        .put(`/api/events/${id}`)
         .send(options)
         .end((err, res) => (err ? reject(res) : resolve(res)));
     }),

@@ -82,7 +82,7 @@ series([
         return;
       }
 
-      require('bundle-loader!moment/locale/' + locale)(() => {
+      require(`bundle-loader!moment/locale/${locale}`)(() => {
         log.debug(`moment: locale=${locale}`);
         moment().locale(locale);
         next();
@@ -98,7 +98,7 @@ series([
 
           const host = '';
           const options = {
-            query: 'token=' + token,
+            query: `token=${token}`,
           };
           controller.connect(
             host,
@@ -171,7 +171,7 @@ series([
     if (settings.error.corruptedWorkspaceSettings) {
       const filename = `${settings.name}-${settings.version}.json`;
       const text = store_old.getConfig();
-      const url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+      const url = `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`;
 
       await portal(({onClose}) => (
         <Modal onClose={onClose} disableOverlay showCloseButton={false}>

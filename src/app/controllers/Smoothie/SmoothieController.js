@@ -261,12 +261,12 @@ class SmoothieController {
         return;
       }
 
-      this.emit('connection:write', this.connectionOptions, localLine + '\n', {
+      this.emit('connection:write', this.connectionOptions, `${localLine}\n`, {
         ...context,
         source: WRITE_SOURCE_FEEDER,
       });
 
-      this.connection.write(localLine + '\n');
+      this.connection.write(`${localLine}\n`);
       log.silly(`> ${localLine}`);
     });
     this.feeder.on('hold', noop);
@@ -348,7 +348,7 @@ class SmoothieController {
         return;
       }
 
-      this.connection.write(localLine + '\n');
+      this.connection.write(`${localLine}\n`);
       log.silly(`> ${localLine}`);
     });
     this.sender.on('hold', noop);
@@ -929,7 +929,7 @@ class SmoothieController {
         // be no queued motions, as long as no more commands were sent after the G4.
         // This is the fastest way to do it without having to check the status reports.
         const dwell = '%wait ; Wait for the planner to empty';
-        const ok = this.sender.load(name, content + '\n' + dwell, context);
+        const ok = this.sender.load(name, `${content}\n${dwell}`, context);
         if (!ok) {
           callback(new Error(`Invalid G-code: name=${name}`));
           return;
@@ -1058,7 +1058,7 @@ class SmoothieController {
         } else {
           feedOverride += value;
         }
-        this.command('gcode', 'M220S' + feedOverride);
+        this.command('gcode', `M220S${feedOverride}`);
 
         // enforce state change
         this.runner.state = {
@@ -1084,7 +1084,7 @@ class SmoothieController {
         } else {
           spindleOverride += value;
         }
-        this.command('gcode', 'M221S' + spindleOverride);
+        this.command('gcode', `M221S${spindleOverride}`);
 
         // enforce state change
         this.runner.state = {
@@ -1111,14 +1111,14 @@ class SmoothieController {
 
         this.command('gcode', 'M3');
         // Firing laser at <power>% power and entering manual mode
-        this.command('gcode', 'fire ' + ensurePositiveNumber(power));
+        this.command('gcode', `fire ${ensurePositiveNumber(power)}`);
         if (duration > 0) {
           // http://smoothieware.org/g4
           // Dwell S<seconds> or P<milliseconds>
           // Note that if `grbl_mode` is set to `true`, then the `P` parameter
           // is the duration to wait in seconds, not milliseconds, as a float value.
           // This is to confirm to G-code standards.
-          this.command('gcode', 'G4P' + ensurePositiveNumber(duration / 1000));
+          this.command('gcode', `G4P${ensurePositiveNumber(duration / 1000)}`);
           // Turning laser off and returning to auto mode
           this.command('gcode', 'fire off');
           this.command('gcode', 'M5');
@@ -1234,7 +1234,7 @@ class SmoothieController {
     if (_.includes(SMOOTHIE_REALTIME_COMMANDS, data)) {
       this.write(data, context);
     } else {
-      this.write(data + '\n', context);
+      this.write(`${data}\n`, context);
     }
   }
 }

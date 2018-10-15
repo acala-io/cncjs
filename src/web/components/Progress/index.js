@@ -11,7 +11,7 @@ const Progress = ({now = 0, min = 0, max = 0}) => {
           aria-valuenow={now}
           aria-valuemin={min}
           aria-valuemax={max}
-          style={{width: now + '%'}}
+          style={{width: `${now}%`}}
         >
           <span>{now}%</span>
         </div>

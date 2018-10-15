@@ -8,7 +8,7 @@ const bearer = request => {
   const token = store.get('session.token');
 
   if (token) {
-    request.set('Authorization', 'Bearer ' + token);
+    request.set('Authorization', `Bearer ${token}`);
   }
 };
 

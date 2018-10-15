@@ -32,11 +32,11 @@ class GrblLineParserResultParserState {
           continue;
         }
 
-        const prevWord = _.get(payload, 'modal.' + modalGroup.group, '');
+        const prevWord = _.get(payload, `modal.${modalGroup.group}`, '');
         if (prevWord) {
-          _.set(payload, 'modal.' + modalGroup.group, ensureArray(prevWord).concat(word));
+          _.set(payload, `modal.${modalGroup.group}`, ensureArray(prevWord).concat(word));
         } else {
-          _.set(payload, 'modal.' + modalGroup.group, word);
+          _.set(payload, `modal.${modalGroup.group}`, word);
         }
 
         continue;

@@ -23,7 +23,7 @@ class TextSprite {
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-    context.font = 'normal ' + textHeight + 'px Arial';
+    context.font = `normal ${textHeight}px Arial`;
 
     const metrics = context.measureText(localOptions.text);
     textWidth = metrics.width;
@@ -31,7 +31,7 @@ class TextSprite {
     canvas.width = textWidth;
     canvas.height = textHeight;
 
-    context.font = 'normal ' + textHeight + 'px Arial';
+    context.font = `normal ${textHeight}px Arial`;
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillStyle = localOptions.color;

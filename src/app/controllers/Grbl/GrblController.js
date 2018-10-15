@@ -297,12 +297,12 @@ class GrblController {
         return;
       }
 
-      this.emit('connection:write', this.connectionOptions, localLine + '\n', {
+      this.emit('connection:write', this.connectionOptions, `${localLine}\n`, {
         ...context,
         source: WRITE_SOURCE_FEEDER,
       });
 
-      this.connection.write(localLine + '\n');
+      this.connection.write(`${localLine}\n`);
       log.silly(`> ${localLine}`);
     });
     this.feeder.on('hold', noop);
@@ -388,7 +388,7 @@ class GrblController {
         return;
       }
 
-      this.connection.write(localLine + '\n');
+      this.connection.write(`${localLine}\n`);
       log.silly(`> ${localLine}`);
     });
 
@@ -1033,7 +1033,7 @@ class GrblController {
         // be no queued motions, as long as no more commands were sent after the G4.
         // This is the fastest way to do it without having to check the status reports.
         const dwell = '%wait ; Wait for the planner to empty';
-        const ok = this.sender.load(name, content + '\n' + dwell, context);
+        const ok = this.sender.load(name, `${content}\n${dwell}`, context);
         if (!ok) {
           callback(new Error(`Invalid G-code: name=${name}`));
           return;
@@ -1232,10 +1232,10 @@ class GrblController {
         // https://github.com/gnea/grbl/wiki/Grbl-v1.1-Laser-Mode
         // The laser will only turn on when Grbl is in a G1, G2, or G3 motion mode.
         this.command('gcode', 'G1F1');
-        this.command('gcode', 'M3S' + ensurePositiveNumber(maxS * (power / 100)));
+        this.command('gcode', `M3S${ensurePositiveNumber(maxS * (power / 100))}`);
 
         if (duration > 0) {
-          this.command('gcode', 'G4P' + ensurePositiveNumber(duration / 1000));
+          this.command('gcode', `G4P${ensurePositiveNumber(duration / 1000)}`);
           this.command('gcode', 'M5S0');
         }
       },
@@ -1349,7 +1349,7 @@ class GrblController {
     if (_.includes(GRBL_REALTIME_COMMANDS, data)) {
       this.write(data, context);
     } else {
-      this.write(data + '\n', context);
+      this.write(`${data}\n`, context);
     }
   }
 }

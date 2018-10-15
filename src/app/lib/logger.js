@@ -52,7 +52,7 @@ module.exports = (namespace = '') => {
       }
 
       return localNamespace.length > 0
-        ? logger[level](chalk.cyan(localNamespace) + ' ' + util.format(...localArgs))
+        ? logger[level](`${chalk.cyan(localNamespace)} ${util.format(...localArgs)}`)
         : logger[level](util.format(...localArgs));
     };
 

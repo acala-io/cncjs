@@ -31,11 +31,11 @@ class SmoothieLineParserResultParserState {
           continue;
         }
 
-        const prevWord = _.get(payload, 'modal.' + r.group, '');
+        const prevWord = _.get(payload, `modal.${r.group}`, '');
         if (prevWord) {
-          _.set(payload, 'modal.' + r.group, ensureArray(prevWord).concat(word));
+          _.set(payload, `modal.${r.group}`, ensureArray(prevWord).concat(word));
         } else {
-          _.set(payload, 'modal.' + r.group, word);
+          _.set(payload, `modal.${r.group}`, word);
         }
 
         continue;

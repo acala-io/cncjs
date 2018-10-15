@@ -246,9 +246,9 @@ class WatchDirectory extends PureComponent {
     let col = colgroup.firstChild;
     while (child && col) {
       const width = Math.max(child.clientWidth, tableHeaders[i].clientWidth);
-      col.style.minWidth = width + 'px';
-      col.style.width = width + 'px';
-      tableHeaders[i].style.width = width + 'px';
+      col.style.minWidth = `${width}px`;
+      col.style.width = `${width}px`;
+      tableHeaders[i].style.width = `${width}px`;
       ++i;
 
       child = child.nextSibling;

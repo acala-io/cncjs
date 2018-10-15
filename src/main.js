@@ -61,7 +61,7 @@ const main = () => {
 
       const {address, port, routes} = {...data};
       if (!(address && port)) {
-        console.error('Unable to start the server at ' + chalk.cyan(`http://${address}:${port}`));
+        console.error(`Unable to start the server at ${chalk.cyan(`http://${address}:${port}`)}`);
         return;
       }
 

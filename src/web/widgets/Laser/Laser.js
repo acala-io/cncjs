@@ -63,7 +63,7 @@ class Laser extends PureComponent {
           <label className="control-label">{i18n._('Laser Intensity Control')}</label>
           <div className="row no-gutters">
             <div className="col-xs-3">
-              <div className={styles.droDisplay}>{laserIntensityScale ? laserIntensityScale + '%' : none}</div>
+              <div className={styles.droDisplay}>{laserIntensityScale ? `${laserIntensityScale}%` : none}</div>
             </div>
             <div className="col-xs-9">
               <div className={styles.droBtnGroup}>

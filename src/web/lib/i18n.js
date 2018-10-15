@@ -28,7 +28,7 @@ const _ = (...args) => {
       localValue = localValue + i18next.options.contextSeparator + options.context;
     }
     if (containsPlural) {
-      localValue = localValue + i18next.options.pluralSeparator + 'plural';
+      localValue = `${localValue + i18next.options.pluralSeparator}plural`;
     }
     return sha1(localValue);
   })(value, options);

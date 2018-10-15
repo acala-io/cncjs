@@ -31,7 +31,7 @@ const loadTexture = (url, callback) => {
   };
 
   const onError = () => {
-    localCallback(new Error('Failed to load texture with the url ' + JSON.stringify(url)));
+    localCallback(new Error(`Failed to load texture with the url ${JSON.stringify(url)}`));
   };
 
   const loader = new THREE.TextureLoader();

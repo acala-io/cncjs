@@ -448,12 +448,12 @@ class MarlinController {
         return;
       }
 
-      this.emit('connection:write', this.connectionOptions, localLine + '\n', {
+      this.emit('connection:write', this.connectionOptions, `${localLine}\n`, {
         ...context,
         source: WRITE_SOURCE_FEEDER,
       });
 
-      this.connection.write(localLine + '\n', {
+      this.connection.write(`${localLine}\n`, {
         source: WRITE_SOURCE_FEEDER,
       });
       log.silly(`> ${localLine}`);
@@ -554,7 +554,7 @@ class MarlinController {
         return;
       }
 
-      this.connection.write(localLine + '\n', {
+      this.connection.write(`${localLine}\n`, {
         source: WRITE_SOURCE_SENDER,
       });
       log.silly(`> ${localLine}`);
@@ -1043,7 +1043,7 @@ class MarlinController {
         // be no queued motions, as long as no more commands were sent after the G4.
         // This is the fastest way to do it without having to check the status reports.
         const dwell = '%wait ; Wait for the planner to empty';
-        const ok = this.sender.load(name, content + '\n' + dwell, context);
+        const ok = this.sender.load(name, `${content}\n${dwell}`, context);
         if (!ok) {
           callback(new Error(`Invalid G-code: name=${name}`));
           return;
@@ -1160,7 +1160,7 @@ class MarlinController {
           feedOverride += value;
         }
         // M220: Set speed factor override percentage
-        this.command('gcode', 'M220S' + feedOverride);
+        this.command('gcode', `M220S${feedOverride}`);
 
         // enforce state change
         this.runner.state = {
@@ -1184,7 +1184,7 @@ class MarlinController {
           spindleOverride += value;
         }
         // M221: Set extruder factor override percentage
-        this.command('gcode', 'M221S' + spindleOverride);
+        this.command('gcode', `M221S${spindleOverride}`);
 
         // enforce state change
         this.runner.state = {
@@ -1210,12 +1210,12 @@ class MarlinController {
           this.command('gcode', 'M5');
         }
 
-        this.command('gcode', 'M3S' + ensurePositiveNumber(maxS * (power / 100)));
+        this.command('gcode', `M3S${ensurePositiveNumber(maxS * (power / 100))}`);
 
         if (duration > 0) {
           // G4 [P<time in ms>] [S<time in sec>]
           // If both S and P are included, S takes precedence.
-          this.command('gcode', 'G4 P' + ensurePositiveNumber(duration));
+          this.command('gcode', `G4 P${ensurePositiveNumber(duration)}`);
           this.command('gcode', 'M5');
         }
       },
@@ -1329,7 +1329,7 @@ class MarlinController {
     log.silly(`> ${data}`);
   }
   writeln(data, context) {
-    this.write(data + '\n', context);
+    this.write(`${data}\n`, context);
   }
 }
 

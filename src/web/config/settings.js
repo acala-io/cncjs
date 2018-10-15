@@ -22,7 +22,7 @@ const settings = {
       addPath: 'api/i18n/sendMissing/{{lng}}/{{ns}}',
       allowMultiLoading: false,
       crossDomain: false,
-      loadPath: webroot + 'i18n/{{lng}}/{{ns}}.json',
+      loadPath: `${webroot}i18n/{{lng}}/{{ns}}.json`,
       parse(data, url) {
         log.debug(`Loading resource: url="${url}"`);
 

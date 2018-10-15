@@ -152,7 +152,7 @@ const createServer = (options, callback) => {
           const target = mount.target;
           const targetPathname = url.parse(target).pathname;
           const proxyPathPattern = new RegExp(
-            '^' + escapeRegExp(urljoin(targetPathname, routeWithoutTrailingSlash)),
+            `^${escapeRegExp(urljoin(targetPathname, routeWithoutTrailingSlash))}`,
             'i'
           );
 
@@ -203,8 +203,8 @@ const createServer = (options, callback) => {
           app.all(routeWithoutTrailingSlash, (req, res, next) => {
             const url = req.url;
             // Redirect URL with a trailing slash
-            if (url.indexOf(routeWithoutTrailingSlash) === 0 && url.indexOf(routeWithoutTrailingSlash + '/') < 0) {
-              const redirectUrl = routeWithoutTrailingSlash + '/' + url.slice(routeWithoutTrailingSlash.length);
+            if (url.indexOf(routeWithoutTrailingSlash) === 0 && url.indexOf(`${routeWithoutTrailingSlash}/`) < 0) {
+              const redirectUrl = `${routeWithoutTrailingSlash}/${url.slice(routeWithoutTrailingSlash.length)}`;
               log.debug(`redirect: url=${chalk.yellow(url)}, redirectUrl=${chalk.yellow(redirectUrl)}`);
               res.redirect(301, redirectUrl);
               return;
@@ -281,7 +281,7 @@ const createServer = (options, callback) => {
       }
 
       if (address !== '0.0.0.0') {
-        log.info('Starting the server at ' + chalk.yellow(`http://${address}:${port}`));
+        log.info(`Starting the server at ${chalk.yellow(`http://${address}:${port}`)}`);
         return;
       }
 
@@ -292,7 +292,7 @@ const createServer = (options, callback) => {
         }
 
         addresses.forEach(({address}) => {
-          log.info('Starting the server at ' + chalk.yellow(`http://${address}:${port}`));
+          log.info(`Starting the server at ${chalk.yellow(`http://${address}:${port}`)}`);
         });
       });
     })

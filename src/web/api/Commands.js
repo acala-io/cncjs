@@ -10,7 +10,7 @@ const Commands = {
     }),
   delete: id =>
     new Promise((resolve, reject) => {
-      authrequest.delete('/api/commands/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.delete(`/api/commands/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   fetch: options =>
     new Promise((resolve, reject) => {
@@ -21,16 +21,16 @@ const Commands = {
     }),
   read: id =>
     new Promise((resolve, reject) => {
-      authrequest.get('/api/commands/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.get(`/api/commands/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   run: id =>
     new Promise((resolve, reject) => {
-      authrequest.post('/api/commands/run/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.post(`/api/commands/run/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   update: (id, options) =>
     new Promise((resolve, reject) => {
       authrequest
-        .put('/api/commands/' + id)
+        .put(`/api/commands/${id}`)
         .send(options)
         .end((err, res) => (err ? reject(res) : resolve(res)));
     }),

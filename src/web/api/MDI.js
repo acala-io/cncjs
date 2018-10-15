@@ -17,7 +17,7 @@ const MDI = {
     }),
   delete: id =>
     new Promise((resolve, reject) => {
-      authrequest.delete('/api/mdi/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.delete(`/api/mdi/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   fetch: options =>
     new Promise((resolve, reject) => {
@@ -28,12 +28,12 @@ const MDI = {
     }),
   read: id =>
     new Promise((resolve, reject) => {
-      authrequest.get('/api/mdi/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.get(`/api/mdi/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   update: (id, options) =>
     new Promise((resolve, reject) => {
       authrequest
-        .put('/api/mdi/' + id)
+        .put(`/api/mdi/${id}`)
         .send(options)
         .end((err, res) => (err ? reject(res) : resolve(res)));
     }),

@@ -40,7 +40,7 @@ class Spindle extends PureComponent {
                     style={{padding: '5px 0'}}
                     onClick={() => {
                       if (spindleSpeed > 0) {
-                        controller.command('gcode', 'M3 S' + spindleSpeed);
+                        controller.command('gcode', `M3 S${spindleSpeed}`);
                       } else {
                         controller.command('gcode', 'M3');
                       }
@@ -60,7 +60,7 @@ class Spindle extends PureComponent {
                     style={{padding: '5px 0'}}
                     onClick={() => {
                       if (spindleSpeed > 0) {
-                        controller.command('gcode', 'M4 S' + spindleSpeed);
+                        controller.command('gcode', `M4 S${spindleSpeed}`);
                       } else {
                         controller.command('gcode', 'M4');
                       }

@@ -82,7 +82,7 @@ class Webcam extends PureComponent {
               }}
               className={styles.center}
               style={{transform: transformStyle}}
-              width={(100 * scale).toFixed(0) + '%'}
+              width={`${(100 * scale).toFixed(0)}%`}
               height="auto"
               muted={muted}
               video={deviceId ? deviceId : true}
@@ -96,7 +96,7 @@ class Webcam extends PureComponent {
             }}
             src={url}
             style={{
-              width: (100 * scale).toFixed(0) + '%',
+              width: `${(100 * scale).toFixed(0)}%`,
               transform: transformStyle,
             }}
             className={styles.center}

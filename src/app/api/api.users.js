@@ -226,7 +226,7 @@ export const create = (req, res) => {
     });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
-      msg: 'Failed to save ' + JSON.stringify(settings.rcfile),
+      msg: `Failed to save ${JSON.stringify(settings.rcfile)}`,
     });
   }
 };
@@ -305,7 +305,7 @@ export const update = (req, res) => {
     });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
-      msg: 'Failed to save ' + JSON.stringify(settings.rcfile),
+      msg: `Failed to save ${JSON.stringify(settings.rcfile)}`,
     });
   }
 };
@@ -332,7 +332,7 @@ export const __delete = (req, res) => {
     });
   } catch (err) {
     res.status(ERR_INTERNAL_SERVER_ERROR).send({
-      msg: 'Failed to save ' + JSON.stringify(settings.rcfile),
+      msg: `Failed to save ${JSON.stringify(settings.rcfile)}`,
     });
   }
 };

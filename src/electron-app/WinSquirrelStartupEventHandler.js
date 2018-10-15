@@ -33,14 +33,14 @@ const handleStartupEvent = () => {
   // - Write to the registry for things like file associations and explorer context menus
   if (cmd === '--squirrel-install' || cmd === '--squirrel-updated') {
     // Install desktop and start menu shortcuts
-    run([String('--createShortcut=' + exeName)], app.quit);
+    run([String(`--createShortcut=${exeName}`)], app.quit);
     return true;
   }
 
   // Undo anything you did in the --squirrel-install and --squirrel-updated handlers
   if (cmd === '--squirrel-uninstall') {
     // Remove desktop and start menu shortcuts
-    run([String('--removeShortcut=' + exeName)], app.quit);
+    run([String(`--removeShortcut=${exeName}`)], app.quit);
     return true;
   }
 

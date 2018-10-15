@@ -72,7 +72,7 @@ class Settings extends PureComponent {
 
       this.setState({videoDevices});
     } catch (err) {
-      log.error(err.name + ': ' + err.message);
+      log.error(`${err.name}: ${err.message}`);
     }
   };
 

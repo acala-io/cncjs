@@ -293,12 +293,12 @@ class TinyGController {
         return;
       }
 
-      this.emit('connection:write', this.connectionOptions, localLine + '\n', {
+      this.emit('connection:write', this.connectionOptions, `${localLine}\n`, {
         ...context,
         source: WRITE_SOURCE_FEEDER,
       });
 
-      this.connection.write(localLine + '\n');
+      this.connection.write(`${localLine}\n`);
       log.silly(`> ${localLine}`);
     });
     this.feeder.on('hold', noop);
@@ -383,9 +383,9 @@ class TinyGController {
       // Replace line numbers with the number of lines sent
       const n = this.sender.state.sent;
       localLine = String(localLine).replace(/^N[0-9]*/, '');
-      localLine = 'N' + n + localLine;
+      localLine = `N${n}${localLine}`;
 
-      this.connection.write(localLine + '\n');
+      this.connection.write(`${localLine}\n`);
       log.silly(`data: n=${n}, line="${localLine}"`);
     });
     this.sender.on('hold', noop);
@@ -1063,7 +1063,7 @@ class TinyGController {
         // be no queued motions, as long as no more commands were sent after the G4.
         // This is the fastest way to do it without having to check the status reports.
         const dwell = '%wait ; Wait for the planner to empty';
-        const ok = this.sender.load(name, content + '\n' + dwell, context);
+        const ok = this.sender.load(name, `${content}\n${dwell}`, context);
         if (!ok) {
           callback(new Error(`Invalid G-code: name=${name}`));
           return;
@@ -1272,10 +1272,10 @@ class TinyGController {
           return;
         }
 
-        this.command('gcode', 'M3S' + ensurePositiveNumber(maxS * (power / 100)));
+        this.command('gcode', `M3S${ensurePositiveNumber(maxS * (power / 100))}`);
 
         if (duration > 0) {
-          this.command('gcode', 'G4P' + ensurePositiveNumber(duration / 1000));
+          this.command('gcode', `G4P${ensurePositiveNumber(duration / 1000)}`);
           this.command('gcode', 'M5S0');
         }
       },
@@ -1382,7 +1382,7 @@ class TinyGController {
   }
 
   writeln(data, context) {
-    this.write(data + '\n', context);
+    this.write(`${data}\n`, context);
   }
 }
 

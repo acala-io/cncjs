@@ -10,7 +10,7 @@ const Macros = {
     }),
   delete: id =>
     new Promise((resolve, reject) => {
-      authrequest.delete('/api/macros/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.delete(`/api/macros/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   fetch: options =>
     new Promise((resolve, reject) => {
@@ -21,12 +21,12 @@ const Macros = {
     }),
   read: id =>
     new Promise((resolve, reject) => {
-      authrequest.get('/api/macros/' + id).end((err, res) => (err ? reject(res) : resolve(res)));
+      authrequest.get(`/api/macros/${id}`).end((err, res) => (err ? reject(res) : resolve(res)));
     }),
   update: (id, options) =>
     new Promise((resolve, reject) => {
       authrequest
-        .put('/api/macros/' + id)
+        .put(`/api/macros/${id}`)
         .send(options)
         .end((err, res) => (err ? reject(res) : resolve(res)));
     }),

@@ -37,7 +37,7 @@ import styles from './index.styl';
 const gcode = (cmd, params) => {
   const s = map(params, (value, letter) => String(letter + value)).join(' ');
 
-  return s.length > 0 ? cmd + ' ' + s : cmd;
+  return s.length > 0 ? `${cmd} ${s}` : cmd;
 };
 
 class ProbeWidget extends PureComponent {

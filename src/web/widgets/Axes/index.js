@@ -289,14 +289,14 @@ class AxesWidget extends PureComponent {
       controller.command('gcode', gcode);
     },
     jog: (params = {}) => {
-      const s = map(params, (value, letter) => String(letter.toUpperCase()) + value).join(' ');
+      const s = map(params, (value, letter) => `${String(letter.toUpperCase())}${value}`).join(' ');
       controller.command('gcode', 'G91'); // relative
-      controller.command('gcode', 'G0 ' + s);
+      controller.command('gcode', `G0 ${s}`);
       controller.command('gcode', 'G90'); // absolute
     },
     move: (params = {}) => {
-      const s = map(params, (value, letter) => String(letter.toUpperCase()) + value).join(' ');
-      controller.command('gcode', 'G0 ' + s);
+      const s = map(params, (value, letter) => `${String(letter.toUpperCase())}${value}`).join(' ');
+      controller.command('gcode', `G0 ${s}`);
     },
     toggleMDIMode: () => {
       this.setState(state => ({
@@ -662,7 +662,7 @@ class AxesWidget extends PureComponent {
       localRelativeDistance = Number(localRelativeDistance.toFixed(4));
 
       controller.command('gcode', 'G91'); // relative
-      controller.command('gcode', 'G1 F' + localFeedrate + ' ' + axis + localRelativeDistance);
+      controller.command('gcode', `G1 F${localFeedrate} ${axis}${localRelativeDistance}`);
       controller.command('gcode', 'G90'); // absolute
     });
   }

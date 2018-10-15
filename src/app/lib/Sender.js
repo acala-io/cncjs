@@ -192,7 +192,7 @@ class Sender extends events.EventEmitter {
             continue;
           }
 
-          const line = sp.line + '\n';
+          const line = `${sp.line}\n`;
           sp.line = '';
           sp.dataLength += line.length;
           sp.queue.push(line.length);
@@ -220,7 +220,7 @@ class Sender extends events.EventEmitter {
             continue;
           }
 
-          this.emit('data', line + '\n', this.state.context);
+          this.emit('data', `${line}\n`, this.state.context);
           break;
         }
       });
