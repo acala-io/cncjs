@@ -42,14 +42,15 @@ class Grbl extends PureComponent {
     const buf = _.get(controllerState, 'buf', {});
     const modal = _.mapValues(controllerState.modal || {}, mapGCodeToText);
     const receiveBufferStyle = (rx => {
+      let localRx = rx;
       // danger: 0-7
       // warning: 8-15
       // info: >=16
-      rx = Number(rx) || 0;
-      if (rx >= 16) {
+      localRx = Number(localRx) || 0;
+      if (localRx >= 16) {
         return 'info';
       }
-      if (rx >= 8) {
+      if (localRx >= 8) {
         return 'warning';
       }
       return 'danger';

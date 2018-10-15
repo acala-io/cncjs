@@ -7,20 +7,22 @@ import i18n from './i18n';
 const Error = props => <div {...props} style={{color: '#A94442'}} />;
 
 export const required = (value, props, components) => {
+  let localValue = value;
+  let localComponents = components;
   if (props.type === 'radio') {
     const name = props.name;
 
-    components = components[name] || [];
-    if (components.length === 0) {
+    localComponents = localComponents[name] || [];
+    if (localComponents.length === 0) {
       return null;
     }
 
     // Controls the placement of the error message for radio buttons
-    if (components[components.length - 1] !== props) {
+    if (localComponents[localComponents.length - 1] !== props) {
       return null;
     }
 
-    const checked = components.reduce((checked, props) => {
+    const checked = localComponents.reduce((checked, props) => {
       return checked || props.checked;
     }, false);
 
@@ -39,8 +41,8 @@ export const required = (value, props, components) => {
     return <Error>{i18n._('This field is required.')}</Error>;
   }
 
-  value = String(value).trim();
-  if (!value) {
+  localValue = String(localValue).trim();
+  if (!localValue) {
     return <Error>{i18n._('This field is required.')}</Error>;
   }
 

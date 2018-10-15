@@ -11,13 +11,15 @@ class SPSendResponse {
   callback = null;
 
   constructor(options, callback = noop) {
-    if (typeof options === 'function') {
-      callback = options;
-      options = {};
+    let localOptions = options;
+    let localCallback = callback;
+    if (typeof localOptions === 'function') {
+      localCallback = localOptions;
+      localOptions = {};
     }
 
-    if (typeof callback === 'function') {
-      this.callback = callback;
+    if (typeof localCallback === 'function') {
+      this.callback = localCallback;
     }
   }
 
@@ -47,19 +49,21 @@ class SPCharCounting {
   };
 
   constructor(options, callback = noop) {
-    if (typeof options === 'function') {
-      callback = options;
-      options = {};
+    let localOptions = options;
+    let localCallback = callback;
+    if (typeof localOptions === 'function') {
+      localCallback = localOptions;
+      localOptions = {};
     }
 
     // bufferSize
-    const bufferSize = Number(options.bufferSize);
+    const bufferSize = Number(localOptions.bufferSize);
     if (bufferSize && bufferSize > 0) {
       this.state.bufferSize = bufferSize;
     }
 
-    if (typeof callback === 'function') {
-      this.callback = callback;
+    if (typeof localCallback === 'function') {
+      this.callback = localCallback;
     }
   }
 
@@ -91,13 +95,14 @@ class SPCharCounting {
   }
 
   set bufferSize(bufferSize = 0) {
-    bufferSize = Number(bufferSize);
-    if (!bufferSize) {
+    let localBufferSize = bufferSize;
+    localBufferSize = Number(localBufferSize);
+    if (!localBufferSize) {
       return;
     }
 
     // The buffer size cannot be reduced below the size of the data within the buffer.
-    this.state.bufferSize = Math.max(bufferSize, this.state.dataLength);
+    this.state.bufferSize = Math.max(localBufferSize, this.state.dataLength);
   }
 
   get dataLength() {

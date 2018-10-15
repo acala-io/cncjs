@@ -14,15 +14,16 @@ const increaseVerbosityLevel = (val, total) => {
 };
 
 const parseMountPoint = (val, acc) => {
-  val = val || '';
+  let localVal = val;
+  localVal = localVal || '';
 
   const mount = {
     route: '/',
-    target: val,
+    target: localVal,
   };
 
-  if (val.indexOf(':') >= 0) {
-    const r = val.match(/(?:([^:]*)(?::(.*)))/);
+  if (localVal.indexOf(':') >= 0) {
+    const r = localVal.match(/(?:([^:]*)(?::(.*)))/);
     mount.route = r[1];
     mount.target = r[2];
   }
@@ -36,10 +37,11 @@ const parseMountPoint = (val, acc) => {
 };
 
 const parseController = val => {
-  val = val ? String(val).toLowerCase() : '';
+  let localVal = val;
+  localVal = localVal ? String(localVal).toLowerCase() : '';
 
-  if (['grbl', 'marlin', 'smoothie', 'tinyg', 'g2core'].includes(val)) {
-    return val;
+  if (['grbl', 'marlin', 'smoothie', 'tinyg', 'g2core'].includes(localVal)) {
+    return localVal;
   } else {
     return '';
   }

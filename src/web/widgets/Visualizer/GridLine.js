@@ -8,18 +8,22 @@ class GridLine {
 
   // eslint-disable-next-line max-params
   constructor(sizeX, stepX, sizeY, stepY, colorCenterLine, colorGrid) {
-    colorCenterLine = new THREE.Color(colorCenterLine) || this.colorCenterLine;
-    colorGrid = new THREE.Color(colorGrid) || this.colorGrid;
+    let localSizeY = sizeY;
+    let localStepY = stepY;
+    let localColorCenterLine = colorCenterLine;
+    let localColorGrid = colorGrid;
+    localColorCenterLine = new THREE.Color(localColorCenterLine) || this.colorCenterLine;
+    localColorGrid = new THREE.Color(localColorGrid) || this.colorGrid;
 
-    sizeY = typeof sizeY === 'undefined' ? sizeX : sizeY;
-    stepY = typeof stepY === 'undefined' ? stepX : stepY;
+    localSizeY = typeof localSizeY === 'undefined' ? sizeX : localSizeY;
+    localStepY = typeof localStepY === 'undefined' ? stepX : localStepY;
 
     for (let i = -1 * sizeX; i <= sizeX; i += stepX) {
       const geometry = new THREE.Geometry();
       const material = new THREE.LineBasicMaterial({
         vertexColors: THREE.VertexColors,
       });
-      const color = i === 0 ? colorCenterLine : colorGrid;
+      const color = i === 0 ? localColorCenterLine : localColorGrid;
 
       geometry.vertices.push(new THREE.Vector3(-sizeX, i, 0), new THREE.Vector3(sizeX, i, 0));
       geometry.colors.push(color, color);
@@ -27,14 +31,14 @@ class GridLine {
       this.group.add(new THREE.Line(geometry, material));
     }
 
-    for (let i = -1 * sizeY; i <= sizeY; i += stepY) {
+    for (let i = -1 * localSizeY; i <= localSizeY; i += localStepY) {
       const geometry = new THREE.Geometry();
       const material = new THREE.LineBasicMaterial({
         vertexColors: THREE.VertexColors,
       });
-      const color = i === 0 ? colorCenterLine : colorGrid;
+      const color = i === 0 ? localColorCenterLine : localColorGrid;
 
-      geometry.vertices.push(new THREE.Vector3(i, -sizeY, 0), new THREE.Vector3(i, sizeY, 0));
+      geometry.vertices.push(new THREE.Vector3(i, -localSizeY, 0), new THREE.Vector3(i, localSizeY, 0));
       geometry.colors.push(color, color);
 
       this.group.add(new THREE.Line(geometry, material));

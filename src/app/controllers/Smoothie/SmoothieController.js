@@ -193,27 +193,29 @@ class SmoothieController {
     // Feeder
     this.feeder = new Feeder({
       dataFilter: (line, context) => {
+        let localLine = line;
+        let localContext = context;
         // Remove comments that start with a semicolon `;`
-        line = line.replace(/\s*;.*/g, '').trim();
-        context = this.populateContext(context);
+        localLine = localLine.replace(/\s*;.*/g, '').trim();
+        localContext = this.populateContext(localContext);
 
-        if (line[0] === '%') {
+        if (localLine[0] === '%') {
           // %wait
-          if (line === WAIT) {
+          if (localLine === WAIT) {
             log.debug('Wait for the planner to empty');
             return 'G4 P0.5'; // dwell
           }
 
           // Expression
           // %_x=posx,_y=posy,_z=posz
-          evaluateExpression(line.slice(1), context);
+          evaluateExpression(localLine.slice(1), localContext);
           return '';
         }
 
         // line="G0 X[posx - 8] Y[ymax]"
         // > "G0 X2 Y50"
-        line = translateExpression(line, context);
-        const data = parser.parseLine(line, {flatten: true});
+        localLine = translateExpression(localLine, localContext);
+        const data = parser.parseLine(localLine, {flatten: true});
         const words = ensureArray(data.words);
 
         {
@@ -234,10 +236,11 @@ class SmoothieController {
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
 
-        return line;
+        return localLine;
       },
     });
     this.feeder.on('data', (line = '', context = {}) => {
+      let localLine = line;
       if (this.isClose) {
         log.error(
           `Unable to write data to the connection: type=${this.connection.type}, settings=${JSON.stringify(
@@ -253,18 +256,18 @@ class SmoothieController {
         return;
       }
 
-      line = String(line).trim();
-      if (line.length === 0) {
+      localLine = String(localLine).trim();
+      if (localLine.length === 0) {
         return;
       }
 
-      this.emit('connection:write', this.connectionOptions, line + '\n', {
+      this.emit('connection:write', this.connectionOptions, localLine + '\n', {
         ...context,
         source: WRITE_SOURCE_FEEDER,
       });
 
-      this.connection.write(line + '\n');
-      log.silly(`> ${line}`);
+      this.connection.write(localLine + '\n');
+      log.silly(`> ${localLine}`);
     });
     this.feeder.on('hold', noop);
     this.feeder.on('unhold', noop);
@@ -274,15 +277,17 @@ class SmoothieController {
       // Deduct the buffer size to prevent from buffer overrun
       bufferSize: 128 - 8, // The default buffer size is 128 bytes
       dataFilter: (line, context) => {
+        let localLine = line;
+        let localContext = context;
         // Remove comments that start with a semicolon `;`
-        line = line.replace(/\s*;.*/g, '').trim();
-        context = this.populateContext(context);
+        localLine = localLine.replace(/\s*;.*/g, '').trim();
+        localContext = this.populateContext(localContext);
 
         const {sent, received} = this.sender.state;
 
-        if (line[0] === '%') {
+        if (localLine[0] === '%') {
           // %wait
-          if (line === WAIT) {
+          if (localLine === WAIT) {
             log.debug(`Wait for the planner to empty: line=${sent + 1}, sent=${sent}, received=${received}`);
             this.sender.hold({data: WAIT}); // Hold reason
             return 'G4 P0.5'; // dwell
@@ -290,14 +295,14 @@ class SmoothieController {
 
           // Expression
           // %_x=posx,_y=posy,_z=posz
-          evaluateExpression(line.slice(1), context);
+          evaluateExpression(localLine.slice(1), localContext);
           return '';
         }
 
         // line="G0 X[posx - 8] Y[ymax]"
         // > "G0 X2 Y50"
-        line = translateExpression(line, context);
-        const data = parser.parseLine(line, {flatten: true});
+        localLine = translateExpression(localLine, localContext);
+        const data = parser.parseLine(localLine, {flatten: true});
         const words = ensureArray(data.words);
 
         {
@@ -318,10 +323,11 @@ class SmoothieController {
           this.workflow.pause({data: 'M6'});
         }
 
-        return line;
+        return localLine;
       },
     });
     this.sender.on('data', (line = '') => {
+      let localLine = line;
       if (this.isClose) {
         log.error(
           `Unable to write data to the connection: type=${this.connection.type}, settings=${JSON.stringify(
@@ -336,14 +342,14 @@ class SmoothieController {
         return;
       }
 
-      line = String(line).trim();
-      if (line.length === 0) {
+      localLine = String(localLine).trim();
+      if (localLine.length === 0) {
         log.warn(`Expected non-empty line: N=${this.sender.state.sent}`);
         return;
       }
 
-      this.connection.write(line + '\n');
-      log.silly(`> ${line}`);
+      this.connection.write(localLine + '\n');
+      log.silly(`> ${localLine}`);
     });
     this.sender.on('hold', noop);
     this.sender.on('unhold', noop);

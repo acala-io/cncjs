@@ -169,13 +169,14 @@ class SocketConnection extends EventEmitter {
   }
 
   write(data, context) {
+    let localData = data;
     if (!this.socket) {
       return;
     }
 
-    data = this.writeFilter(data, context);
+    localData = this.writeFilter(localData, context);
 
-    this.socket.write(data);
+    this.socket.write(localData);
   }
 }
 

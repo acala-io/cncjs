@@ -87,32 +87,34 @@ TreeNodeLoader.propTypes = {
 };
 
 const renderer = node => {
-  const {id, loadOnDemand = false} = node;
-  const {depth, filtered, loading = false, open, selected = false} = node.state;
-  const more = node.hasChildren();
+  let localNode = node;
+  const {id, loadOnDemand = false} = localNode;
+  const {depth, filtered, loading = false, open, selected = false} = localNode.state;
+  const more = localNode.hasChildren();
   const paddingLeft = more || loadOnDemand ? depth * 18 : (depth + 1) * 18;
 
   if (filtered === false) {
     return '';
   }
 
-  node.props = {...node.props};
+  localNode.props = {...localNode.props};
 
   const disabled = (function(node) {
-    let {disabled = false} = node.props;
+    let localNode = node;
+    let {disabled = false} = localNode.props;
 
-    while (node && node.parent) {
-      if (node.props && node.props.disabled) {
+    while (localNode && localNode.parent) {
+      if (localNode.props && localNode.props.disabled) {
         disabled = true;
         break;
       }
-      node = node.parent;
+      localNode = localNode.parent;
     }
 
     return disabled;
-  })(node);
-  const dateModified = moment(node.props.mtime).format('lll');
-  const size = includes(['f', 'l'], node.props.type) ? formatBytes(node.props.size, 0) : '';
+  })(localNode);
+  const dateModified = moment(localNode.props.mtime).format('lll');
+  const size = includes(['f', 'l'], localNode.props.type) ? formatBytes(localNode.props.size, 0) : '';
   const type = (function(node) {
     if (node.props.type === 'd') {
       return i18n._('File folder');
@@ -132,7 +134,7 @@ const renderer = node => {
     }
 
     return '';
-  })(node);
+  })(localNode);
 
   return (
     <TreeNode id={id} selected={selected} disabled={disabled}>
@@ -148,7 +150,7 @@ const renderer = node => {
             ])}
           />
           <Space width="8" />
-          {node.name}
+          {localNode.name}
           <TreeNodeLoader show={loading} />
         </div>
       </TreeNodeColumn>

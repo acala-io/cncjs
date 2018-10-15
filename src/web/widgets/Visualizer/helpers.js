@@ -19,10 +19,11 @@ const getBoundingBox = object => {
 };
 
 const loadTexture = (url, callback) => {
-  callback = callback || (() => {});
+  let localCallback = callback;
+  localCallback = localCallback || (() => {});
 
   const onLoad = texture => {
-    callback(null, texture);
+    localCallback(null, texture);
   };
 
   const onProgress = () => {
@@ -30,7 +31,7 @@ const loadTexture = (url, callback) => {
   };
 
   const onError = () => {
-    callback(new Error('Failed to load texture with the url ' + JSON.stringify(url)));
+    localCallback(new Error('Failed to load texture with the url ' + JSON.stringify(url)));
   };
 
   const loader = new THREE.TextureLoader();

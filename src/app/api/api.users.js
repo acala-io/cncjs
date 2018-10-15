@@ -109,6 +109,7 @@ export const signin = (req, res) => {
   }
 
   jwt.verify(token, settings.secret, (err, user) => {
+    let localUser = user;
     if (err) {
       res.status(ERR_INTERNAL_SERVER_ERROR).send({
         msg: 'Internal server error',
@@ -116,12 +117,12 @@ export const signin = (req, res) => {
       return;
     }
 
-    const iat = new Date(user.iat * 1000).toISOString();
-    const exp = new Date(user.exp * 1000).toISOString();
-    log.debug(`jwt.verify: user.id=${user.id}, user.name=${user.name}, user.iat=${iat}, user.exp=${exp}`);
+    const iat = new Date(localUser.iat * 1000).toISOString();
+    const exp = new Date(localUser.exp * 1000).toISOString();
+    log.debug(`jwt.verify: user.id=${localUser.id}, user.name=${localUser.name}, user.iat=${iat}, user.exp=${exp}`);
 
-    user = find(enabledUsers, {id: user.id, name: user.name});
-    if (!user) {
+    localUser = find(enabledUsers, {id: localUser.id, name: localUser.name});
+    if (!localUser) {
       res.status(ERR_UNAUTHORIZED).send({
         msg: 'Authentication failed',
       });
@@ -130,7 +131,7 @@ export const signin = (req, res) => {
 
     res.send({
       enabled: true, // session is enabled
-      name: user.name,
+      name: localUser.name,
       token: token, // old token
     });
   });

@@ -9,12 +9,13 @@ const log = logger('translateExpression');
 const re = new RegExp(/\[[^\]]+\]/g);
 
 const translateExpression = (data, context = {}) => {
-  if (!data) {
+  let localData = data;
+  if (!localData) {
     return '';
   }
 
   try {
-    data = String(data).replace(re, match => {
+    localData = String(localData).replace(re, match => {
       const expr = match.slice(1, -1);
       const ast = parse(expr).body[0].expression;
       const value = evaluate(ast, context);
@@ -22,11 +23,11 @@ const translateExpression = (data, context = {}) => {
       return value !== undefined ? value : match;
     });
   } catch (e) {
-    log.error(`translateExpression: data="${data}", context=${JSON.stringify(context)}`);
+    log.error(`translateExpression: data="${localData}", context=${JSON.stringify(context)}`);
     log.error(e);
   }
 
-  return data;
+  return localData;
 };
 
 export default translateExpression;

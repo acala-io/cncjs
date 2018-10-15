@@ -20,16 +20,17 @@ const _ = (...args) => {
 
   const [value = '', options = {}] = args;
   const key = ((value, options) => {
+    let localValue = value;
     const {context, count} = {...options};
     const containsContext = context !== undefined && context !== null;
     const containsPlural = typeof count === 'number';
     if (containsContext) {
-      value = value + i18next.options.contextSeparator + options.context;
+      localValue = localValue + i18next.options.contextSeparator + options.context;
     }
     if (containsPlural) {
-      value = value + i18next.options.pluralSeparator + 'plural';
+      localValue = localValue + i18next.options.pluralSeparator + 'plural';
     }
-    return sha1(value);
+    return sha1(localValue);
   })(value, options);
 
   options.defaultValue = value;

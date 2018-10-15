@@ -31,11 +31,12 @@ import urljoin from './lib/urljoin';
 const log = logger('init');
 
 const createServer = (options, callback) => {
-  options = {...options};
+  let localOptions = options;
+  localOptions = {...localOptions};
 
   {
     // verbosity
-    const verbosity = options.verbosity;
+    const verbosity = localOptions.verbosity;
 
     // https://github.com/winstonjs/winston#logging-levels
     switch (verbosity) {
@@ -56,7 +57,7 @@ const createServer = (options, callback) => {
     }
   }
 
-  const rcfile = path.resolve(options.configFile || settings.rcfile);
+  const rcfile = path.resolve(localOptions.configFile || settings.rcfile);
 
   // configstore service
   log.info(`Loading configuration from ${chalk.yellow(JSON.stringify(rcfile))}`);
@@ -78,7 +79,7 @@ const createServer = (options, callback) => {
 
   {
     // watchDirectory
-    const watchDirectory = options.watchDirectory || config.get('watchDirectory');
+    const watchDirectory = localOptions.watchDirectory || config.get('watchDirectory');
 
     if (watchDirectory) {
       if (fs.existsSync(watchDirectory)) {
@@ -94,7 +95,7 @@ const createServer = (options, callback) => {
 
   {
     // accessTokenLifetime
-    const accessTokenLifetime = options.accessTokenLifetime || config.get('accessTokenLifetime');
+    const accessTokenLifetime = localOptions.accessTokenLifetime || config.get('accessTokenLifetime');
 
     if (accessTokenLifetime) {
       set(settings, 'accessTokenLifetime', accessTokenLifetime);
@@ -103,7 +104,7 @@ const createServer = (options, callback) => {
 
   {
     // allowRemoteAccess
-    const allowRemoteAccess = options.allowRemoteAccess || config.get('allowRemoteAccess', false);
+    const allowRemoteAccess = localOptions.allowRemoteAccess || config.get('allowRemoteAccess', false);
 
     if (allowRemoteAccess) {
       if (size(config.get('users')) === 0) {
@@ -116,10 +117,10 @@ const createServer = (options, callback) => {
     }
   }
 
-  const {port = 0, host, backlog} = options;
+  const {port = 0, host, backlog} = localOptions;
   const routes = [];
 
-  ensureArray(options.mountPoints).forEach(mount => {
+  ensureArray(localOptions.mountPoints).forEach(mount => {
     if (!mount || !mount.route || mount.route === '/') {
       log.error(`Must specify a valid route path ${JSON.stringify(mount.route)}.`);
       return;
@@ -255,7 +256,7 @@ const createServer = (options, callback) => {
   webappengine({backlog, host, port, routes})
     .on('ready', server => {
       // cncengine service
-      cncengine.start(server, options.controller || config.get('controller', ''));
+      cncengine.start(server, localOptions.controller || config.get('controller', ''));
 
       const address = server.address().address;
       const port = server.address().port;

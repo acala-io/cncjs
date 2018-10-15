@@ -175,13 +175,14 @@ class SerialConnection extends EventEmitter {
   }
 
   write(data, context) {
+    let localData = data;
     if (!this.port) {
       return;
     }
 
-    data = this.writeFilter(data, context);
+    localData = this.writeFilter(localData, context);
 
-    this.port.write(data);
+    this.port.write(localData);
   }
 }
 

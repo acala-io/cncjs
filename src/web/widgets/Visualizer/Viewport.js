@@ -51,6 +51,7 @@ class Viewport {
   }
 
   set(width, height, target = TARGET0) {
+    let localTarget = target;
     if (!this.camera) {
       return;
     }
@@ -58,7 +59,7 @@ class Viewport {
     this.state = {
       ...this.state,
       height,
-      target,
+      target: localTarget,
       width,
     };
 
@@ -73,11 +74,11 @@ class Viewport {
       // Perspective Projection
       const {x, y, z} = this.camera.position;
       const eye = new THREE.Vector3(x, y, z);
-      if (!(target instanceof THREE.Vector3)) {
-        target = TARGET0;
+      if (!(localTarget instanceof THREE.Vector3)) {
+        localTarget = TARGET0;
       }
       // Find the distance from the camera to the closest face of the object
-      const distance = target.distanceTo(eye);
+      const distance = localTarget.distanceTo(eye);
       // The aspect ratio of the canvas (width / height)
       const aspect = visibleHeight > 0 ? visibleWidth / visibleHeight : 1;
 

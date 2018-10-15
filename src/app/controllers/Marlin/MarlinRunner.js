@@ -41,14 +41,15 @@ class MarlinRunner extends events.EventEmitter {
   parser = new MarlinLineParser();
 
   parse(data) {
-    data = String(data).replace(/\s+$/, '');
-    if (!data) {
+    let localData = data;
+    localData = String(localData).replace(/\s+$/, '');
+    if (!localData) {
       return;
     }
 
-    this.emit('raw', {raw: data});
+    this.emit('raw', {raw: localData});
 
-    const result = this.parser.parse(data) || {};
+    const result = this.parser.parse(localData) || {};
     const {type, payload} = result;
 
     if (type === MarlinLineParserResultStart) {
@@ -131,7 +132,7 @@ class MarlinRunner extends events.EventEmitter {
 
       return;
     }
-    if (data.length > 0) {
+    if (localData.length > 0) {
       this.emit('others', payload);
       return;
     }

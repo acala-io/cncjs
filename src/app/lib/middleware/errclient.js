@@ -15,9 +15,10 @@
  */
 
 const errclient = options => {
-  options = options || {};
+  let localOptions = options;
+  localOptions = localOptions || {};
 
-  const error = options.error || '';
+  const error = localOptions.error || '';
 
   return (err, req, res, next) => {
     if (req.xhr) {

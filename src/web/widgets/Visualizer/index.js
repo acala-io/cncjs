@@ -69,6 +69,7 @@ const translateExpression = (function() {
   const reExpressionContext = new RegExp(/\[[^\]]+\]/g);
 
   return function(gcode, context = controller.context) {
+    let localContext = context;
     if (typeof gcode !== 'string') {
       log.error(`Invalid parameter: gcode=${gcode}`);
       return '';
@@ -77,24 +78,25 @@ const translateExpression = (function() {
     const lines = gcode.split('\n');
 
     // The work position (i.e. posx, posy, posz) are not included in the context
-    context = {
+    localContext = {
       ...controller.context,
-      ...context,
+      ...localContext,
     };
 
     return lines
       .map(line => {
-        try {
-          line = line.replace(reExpressionContext, match => {
-            const expr = match.slice(1, -1);
-            return Parser.evaluate(expr, context);
-          });
-        } catch (e) {
-          // Bypass unknown expression
-        }
+      let localLine = line;
+      try {
+        localLine = localLine.replace(reExpressionContext, match => {
+          const expr = match.slice(1, -1);
+          return Parser.evaluate(expr, localContext);
+        });
+      } catch (e) {
+        // Bypass unknown expression
+      }
 
-        return line;
-      })
+      return localLine;
+    })
       .join('\n');
   };
 })();

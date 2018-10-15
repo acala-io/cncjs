@@ -41,17 +41,19 @@ const levels = [
 ];
 
 module.exports = (namespace = '') => {
-  namespace = String(namespace);
+  let localNamespace = namespace;
+  localNamespace = String(localNamespace);
 
   return levels.reduce((acc, level) => {
     acc[level] = function(...args) {
+      let localArgs = args;
       if (settings.verbosity >= VERBOSITY_MAX && level !== 'silly') {
-        args = args.concat(getStackTrace()[2]);
+        localArgs = localArgs.concat(getStackTrace()[2]);
       }
 
-      return namespace.length > 0
-        ? logger[level](chalk.cyan(namespace) + ' ' + util.format(...args))
-        : logger[level](util.format(...args));
+      return localNamespace.length > 0
+        ? logger[level](chalk.cyan(localNamespace) + ' ' + util.format(...localArgs))
+        : logger[level](util.format(...localArgs));
     };
 
     return acc;
@@ -62,10 +64,11 @@ module.exports.logger = logger;
 
 levels.forEach(level => {
   module.exports[level] = function(...args) {
+    let localArgs = args;
     if (settings.verbosity >= VERBOSITY_MAX && level !== 'silly') {
-      args = args.concat(getStackTrace()[2]);
+      localArgs = localArgs.concat(getStackTrace()[2]);
     }
 
-    return logger[level](util.format(...args));
+    return logger[level](util.format(...localArgs));
   };
 });

@@ -333,6 +333,8 @@ class TerminalWrapper extends PureComponent {
     return w1 - w2;
   }
   resize(cols = this.props.cols, rows = this.props.rows) {
+    let localCols = cols;
+    let localRows = rows;
     if (!(this.term && this.term.element)) {
       return;
     }
@@ -342,9 +344,9 @@ class TerminalWrapper extends PureComponent {
       return;
     }
 
-    cols = !cols || cols === 'auto' ? geometry.cols : cols;
-    rows = !rows || rows === 'auto' ? geometry.rows : rows;
-    this.term.resize(cols, rows);
+    localCols = !localCols || localCols === 'auto' ? geometry.cols : localCols;
+    localRows = !localRows || localRows === 'auto' ? geometry.rows : localRows;
+    this.term.resize(localCols, localRows);
   }
   clear() {
     this.term.clear();

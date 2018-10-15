@@ -16,10 +16,11 @@
  */
 
 const errnotfound = options => {
-  options = options || {};
+  let localOptions = options;
+  localOptions = localOptions || {};
 
-  const view = options.view || '404';
-  const error = options.error || '';
+  const view = localOptions.view || '404';
+  const error = localOptions.error || '';
 
   return (req, res) => {
     res.status(404);

@@ -31,10 +31,12 @@ const log = logger('service:cncengine');
 // @param {string} str2 Second string to check.
 // @return {boolean} True if str1 and str2 are the same string, ignoring case.
 const caseInsensitiveEquals = (str1, str2) => {
-  str1 = str1 ? String(str1).toUpperCase() : '';
-  str2 = str2 ? String(str2).toUpperCase() : '';
+  let localStr1 = str1;
+  let localStr2 = str2;
+  localStr1 = localStr1 ? String(localStr1).toUpperCase() : '';
+  localStr2 = localStr2 ? String(localStr2).toUpperCase() : '';
 
-  return str1 === str2;
+  return localStr1 === localStr2;
 };
 
 const isValidController = controller =>
@@ -88,33 +90,34 @@ class CNCEngine {
   // @param {object} server The HTTP server instance.
   // @param {string} controller Specify CNC controller.
   start(server, controller = '') {
+    let localController = controller;
     // Fallback to an empty string if the controller is not valid
-    if (!isValidController(controller)) {
-      controller = '';
+    if (!isValidController(localController)) {
+      localController = '';
     }
 
     // Grbl
-    if (!controller || caseInsensitiveEquals(GRBL, controller)) {
+    if (!localController || caseInsensitiveEquals(GRBL, localController)) {
       this.controllerClass[GRBL] = GrblController;
     }
 
     // Marlin
-    if (!controller || caseInsensitiveEquals(MARLIN, controller)) {
+    if (!localController || caseInsensitiveEquals(MARLIN, localController)) {
       this.controllerClass[MARLIN] = MarlinController;
     }
 
     // Smoothie
-    if (!controller || caseInsensitiveEquals(SMOOTHIE, controller)) {
+    if (!localController || caseInsensitiveEquals(SMOOTHIE, localController)) {
       this.controllerClass[SMOOTHIE] = SmoothieController;
     }
 
     // TinyG / G2core
-    if (!controller || caseInsensitiveEquals(G2CORE, controller) || caseInsensitiveEquals(TINYG, controller)) {
+    if (!localController || caseInsensitiveEquals(G2CORE, localController) || caseInsensitiveEquals(TINYG, localController)) {
       this.controllerClass[TINYG] = TinyGController;
     }
 
     if (Object.keys(this.controllerClass).length === 0) {
-      throw new Error(`No valid CNC controller specified (${controller})`);
+      throw new Error(`No valid CNC controller specified (${localController})`);
     }
 
     const availableControllers = Object.keys(this.controllerClass);
@@ -191,8 +194,9 @@ class CNCEngine {
       // Gets a list of available serial ports
       // @param {function} callback The error-first callback.
       socket.on('getPorts', async (callback = noop) => {
-        if (typeof callback !== 'function') {
-          callback = noop;
+        let localCallback = callback;
+        if (typeof localCallback !== 'function') {
+          localCallback = noop;
         }
 
         log.debug(`socket.getPorts(): id=${socket.id}`);
@@ -218,68 +222,72 @@ class CNCEngine {
             })
             .filter(port => Boolean(port.comName));
 
-          callback(null, ports);
+          localCallback(null, ports);
         } catch (err) {
           log.error(err);
-          callback(err);
+          localCallback(err);
         }
       });
 
       // Gets a list of supported baud rates
       // @param {function} callback The error-first callback.
       socket.on('getBaudRates', (callback = noop) => {
-        if (typeof callback !== 'function') {
-          callback = noop;
+        let localCallback = callback;
+        if (typeof localCallback !== 'function') {
+          localCallback = noop;
         }
 
         const defaultBaudRates = [250000, 115200, 57600, 38400, 19200, 9600, 2400];
         const customBaudRates = ensureArray(config.get('baudRates', []));
         const baudRates = reverse(sortBy(uniq(customBaudRates.concat(defaultBaudRates))));
 
-        callback(null, baudRates);
+        localCallback(null, baudRates);
       });
 
       socket.on('open', (controllerType = GRBL, connectionType = 'serial', options, callback = noop) => {
-        if (typeof callback !== 'function') {
-          callback = noop;
+        let localControllerType = controllerType;
+        let localOptions = options;
+        let localCallback = callback;
+        if (typeof localCallback !== 'function') {
+          localCallback = noop;
         }
 
-        options = {...options};
+        localOptions = {...localOptions};
 
-        log.debug(`socket.open("${controllerType}", "${connectionType}", ${JSON.stringify(options)}): id=${socket.id}`);
+        log.debug(`socket.open("${localControllerType}", "${connectionType}", ${JSON.stringify(localOptions)}): id=${socket.id}`);
 
         let ident = '';
 
         if (connectionType === 'serial') {
-          ident = toSerialIdent(options);
+          ident = toSerialIdent(localOptions);
         } else if (connectionType === 'socket') {
-          ident = toSocketIdent(options);
+          ident = toSocketIdent(localOptions);
         }
 
         if (!ident) {
           const err = new Error('Invalid connection identifier');
           log.error(err);
-          callback(err);
+          localCallback(err);
           return;
         }
 
         let controller = controllers[ident];
         if (!controller) {
-          if (controllerType === 'TinyG2') {
+          if (localControllerType === 'TinyG2') {
             // TinyG2 is deprecated and will be removed in a future release
-            controllerType = TINYG;
+            localControllerType = TINYG;
           }
 
-          const Controller = this.controllerClass[controllerType];
+          const Controller = this.controllerClass[localControllerType];
           if (!Controller) {
-            const err = `Not supported controller: ${controllerType}`;
+            const err = `Not supported controller: ${localControllerType}`;
             log.error(err);
-            callback(new Error(err));
+            localCallback(new Error(err));
             return;
           }
 
           const engine = this;
-          controller = new Controller(engine, connectionType, options);
+          controller = new Controller(engine, connectionType, localOptions);
         }
 
         controller.addSocket(socket);
@@ -288,13 +296,13 @@ class CNCEngine {
           // Join the room
           socket.join(ident);
 
-          callback(null, ident);
+          localCallback(null, ident);
           return;
         }
 
         controller.open((err = null) => {
           if (err) {
-            callback(err);
+            localCallback(err);
             return;
           }
 
@@ -310,13 +318,14 @@ class CNCEngine {
           // Join the room
           socket.join(ident);
 
-          callback(null, ident);
+          localCallback(null, ident);
         });
       });
 
       socket.on('close', (ident, callback = noop) => {
-        if (typeof callback !== 'function') {
-          callback = noop;
+        let localCallback = callback;
+        if (typeof localCallback !== 'function') {
+          localCallback = noop;
         }
 
         log.debug(`socket.close("${ident}"): id=${socket.id}`);
@@ -324,7 +333,7 @@ class CNCEngine {
         const controller = controllers[ident];
         if (!controller) {
           log.error(`The connection is not accessible: ident=${ident}`);
-          callback(new Error(`The connection is not accessible: ident=${ident}`));
+          localCallback(new Error(`The connection is not accessible: ident=${ident}`));
           return;
         }
 
@@ -342,7 +351,7 @@ class CNCEngine {
           // Destroy controller
           controller.destroy();
 
-          callback();
+          localCallback();
         });
       });
 

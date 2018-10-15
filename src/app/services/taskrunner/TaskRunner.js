@@ -13,15 +13,17 @@ class TaskRunner extends events.EventEmitter {
   tasks = [];
 
   run(command, title, options) {
-    if (options === undefined && typeof title === 'object') {
-      options = title;
-      title = '';
+    let localTitle = title;
+    let localOptions = options;
+    if (localOptions === undefined && typeof localTitle === 'object') {
+      localOptions = localTitle;
+      localTitle = '';
     }
 
     const taskId = shortid.generate(); // task id
     const child = defaultShell.spawn(command, {
       detached: true,
-      ...options,
+      ...localOptions,
     });
     child.unref();
 

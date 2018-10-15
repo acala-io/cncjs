@@ -165,9 +165,10 @@ THREE.CombinedCamera.prototype.updateProjectionMatrix = function() {
 * Formula based on http://www.bobatkins.com/photography/technical/field_of_view.html
 */
 THREE.CombinedCamera.prototype.setLens = function(focalLength, filmGauge) {
-  if (filmGauge === undefined) filmGauge = 35;
+  let localFilmGauge = filmGauge;
+  if (localFilmGauge === undefined) localFilmGauge = 35;
 
-  const vExtentSlope = (0.5 * filmGauge) / (focalLength * Math.max(this.cameraP.aspect, 1));
+  const vExtentSlope = (0.5 * localFilmGauge) / (focalLength * Math.max(this.cameraP.aspect, 1));
 
   const fov = THREE.Math.RAD2DEG * 2 * Math.atan(vExtentSlope);
 

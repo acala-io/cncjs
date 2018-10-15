@@ -44,9 +44,10 @@ const getConfig = () => {
 };
 
 const persist = data => {
-  const {state, version} = {...data};
+  let localData = data;
+  const {state, version} = {...localData};
 
-  data = {
+  localData = {
     state: {
       ...store.state,
       ...state,
@@ -55,7 +56,7 @@ const persist = data => {
   };
 
   try {
-    const value = JSON.stringify(data, null, 2);
+    const value = JSON.stringify(localData, null, 2);
 
     // Check whether the code is running in Electron renderer process
     if (isElectron()) {

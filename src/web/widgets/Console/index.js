@@ -185,6 +185,7 @@ class ConsoleWidget extends PureComponent {
       this.terminal.writeln(data);
     },
     'connection:write': (options, data, context) => {
+      let localData = data;
       const {source, __sender__} = {...context};
 
       if (__sender__ === this.senderId) {
@@ -196,12 +197,12 @@ class ConsoleWidget extends PureComponent {
         return;
       }
 
-      data = String(data).trim();
+      localData = String(localData).trim();
 
       if (source) {
-        this.terminal.writeln(color.blackBright(source) + color.white(this.terminal.prompt + data));
+        this.terminal.writeln(color.blackBright(source) + color.white(this.terminal.prompt + localData));
       } else {
-        this.terminal.writeln(color.white(this.terminal.prompt + data));
+        this.terminal.writeln(color.white(this.terminal.prompt + localData));
       }
     },
   };

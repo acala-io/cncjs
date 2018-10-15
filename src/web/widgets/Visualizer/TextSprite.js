@@ -13,8 +13,9 @@ class TextSprite {
   // @param {number|string} [options.color] The color
   // @param {number} [options.opacity] The opacity of text [0,1]
   constructor(options) {
-    options = options || {};
-    const {opacity = 0.6, size = 10} = options;
+    let localOptions = options;
+    localOptions = localOptions || {};
+    const {opacity = 0.6, size = 10} = localOptions;
 
     const textObject = new THREE.Object3D();
     const textHeight = 100;
@@ -24,7 +25,7 @@ class TextSprite {
     const context = canvas.getContext('2d');
     context.font = 'normal ' + textHeight + 'px Arial';
 
-    const metrics = context.measureText(options.text);
+    const metrics = context.measureText(localOptions.text);
     textWidth = metrics.width;
 
     canvas.width = textWidth;
@@ -33,8 +34,8 @@ class TextSprite {
     context.font = 'normal ' + textHeight + 'px Arial';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.fillStyle = options.color;
-    context.fillText(options.text, textWidth / 2, textHeight / 2);
+    context.fillStyle = localOptions.color;
+    context.fillText(localOptions.text, textWidth / 2, textHeight / 2);
 
     const texture = new THREE.Texture(canvas);
     texture.needsUpdate = true;
@@ -50,25 +51,25 @@ class TextSprite {
     textObject.textWidth = (textWidth / textHeight) * textObject.textHeight;
 
     // Position X
-    if (options.textAlign === 'left') {
-      textObject.position.x = options.x + textObject.textWidth / 2;
-    } else if (options.textAlign === 'right') {
-      textObject.position.x = options.x - textObject.textWidth / 2;
+    if (localOptions.textAlign === 'left') {
+      textObject.position.x = localOptions.x + textObject.textWidth / 2;
+    } else if (localOptions.textAlign === 'right') {
+      textObject.position.x = localOptions.x - textObject.textWidth / 2;
     } else {
-      textObject.position.x = options.x || 0;
+      textObject.position.x = localOptions.x || 0;
     }
 
     // Position Y
-    if (options.textBaseline === 'top') {
-      textObject.position.y = options.y - textObject.textHeight / 2;
-    } else if (options.textBaseline === 'bottom') {
-      textObject.position.y = options.y + textObject.textHeight / 2;
+    if (localOptions.textBaseline === 'top') {
+      textObject.position.y = localOptions.y - textObject.textHeight / 2;
+    } else if (localOptions.textBaseline === 'bottom') {
+      textObject.position.y = localOptions.y + textObject.textHeight / 2;
     } else {
-      textObject.position.y = options.y || 0;
+      textObject.position.y = localOptions.y || 0;
     }
 
     // Position Z
-    textObject.position.z = options.z || 0;
+    textObject.position.z = localOptions.z || 0;
 
     const sprite = new THREE.Sprite(material);
     sprite.scale.set((textWidth / textHeight) * size, size, 1);

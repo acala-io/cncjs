@@ -17,25 +17,30 @@ class ShuttleControl extends events.EventEmitter {
   timer = null;
 
   accumulate(zone = 0, {axis = '', distance = 1, feedrateMin, feedrateMax, hertz, overshoot}) {
-    zone = Number(zone) || 0;
+    let localZone = zone;
+    let localFeedrateMin = feedrateMin;
+    let localFeedrateMax = feedrateMax;
+    let localHertz = hertz;
+    let localOvershoot = overshoot;
+    localZone = Number(localZone) || 0;
     axis = String(axis).toUpperCase();
-    feedrateMin = Number(feedrateMin) || DEFAULT_FEEDRATE_MIN;
-    feedrateMax = Number(feedrateMax) || DEFAULT_FEEDRATE_MAX;
-    hertz = Number(hertz) || DEFAULT_HERTZ;
-    overshoot = Number(overshoot) || DEFAULT_OVERSHOOT;
+    localFeedrateMin = Number(localFeedrateMin) || DEFAULT_FEEDRATE_MIN;
+    localFeedrateMax = Number(localFeedrateMax) || DEFAULT_FEEDRATE_MAX;
+    localHertz = Number(localHertz) || DEFAULT_HERTZ;
+    localOvershoot = Number(localOvershoot) || DEFAULT_OVERSHOOT;
 
-    if (this.zone !== zone || this.axis !== axis || this.queue.length >= QUEUE_LENGTH) {
+    if (this.zone !== localZone || this.axis !== axis || this.queue.length >= QUEUE_LENGTH) {
       this.flush();
     }
 
     const zoneMax = 7; // Shuttle Zone +7/-7
     const zoneMin = 1; // Shuttle Zone +1/-1
-    const direction = zone < 0 ? -1 : 1;
+    const direction = localZone < 0 ? -1 : 1;
     const feedrate =
-      (feedrateMax - feedrateMin) * distance * ((Math.abs(zone) - zoneMin) / (zoneMax - zoneMin)) + feedrateMin;
-    const relativeDistance = (direction * overshoot * (feedrate / 60.0)) / hertz;
+      (localFeedrateMax - localFeedrateMin) * distance * ((Math.abs(localZone) - zoneMin) / (zoneMax - zoneMin)) + localFeedrateMin;
+    const relativeDistance = (direction * localOvershoot * (feedrate / 60.0)) / localHertz;
 
-    this.zone = zone;
+    this.zone = localZone;
     this.axis = axis;
     this.queue.push({
       feedrate,

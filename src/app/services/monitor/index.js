@@ -67,10 +67,11 @@ const getFiles = searchPath => {
 };
 
 const readFile = (file, callback) => {
+  let localFile = file;
   const root = monitor.root;
-  file = path.join(root, file);
+  localFile = path.join(root, localFile);
 
-  fs.readFile(file, 'utf8', callback);
+  fs.readFile(localFile, 'utf8', callback);
 };
 
 export default {

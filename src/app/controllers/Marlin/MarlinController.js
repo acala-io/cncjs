@@ -233,6 +233,7 @@ class MarlinController {
   }
 
   constructor(engine, connectionType = 'serial', options) {
+    let localOptions = options;
     if (!engine) {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
@@ -244,8 +245,8 @@ class MarlinController {
     // Engine
     this.engine = engine;
 
-    options = {
-      ...options,
+    localOptions = {
+      ...localOptions,
       writeFilter: (data, context) => {
         const {source = null} = {...context};
         const line = data.trim();
@@ -351,9 +352,9 @@ class MarlinController {
 
     // Connection
     if (connectionType === 'serial') {
-      this.connection = new SerialConnection(options);
+      this.connection = new SerialConnection(localOptions);
     } else if (connectionType === 'socket') {
-      this.connection = new SocketConnection(options);
+      this.connection = new SocketConnection(localOptions);
     }
 
     // Event Trigger
@@ -369,13 +370,15 @@ class MarlinController {
     // Feeder
     this.feeder = new Feeder({
       dataFilter: (line, context) => {
+        let localLine = line;
+        let localContext = context;
         // Remove comments that start with a semicolon `;`
-        line = line.replace(/\s*;.*/g, '').trim();
-        context = this.populateContext(context);
+        localLine = localLine.replace(/\s*;.*/g, '').trim();
+        localContext = this.populateContext(localContext);
 
-        if (line[0] === '%') {
+        if (localLine[0] === '%') {
           // %wait
-          if (line === WAIT) {
+          if (localLine === WAIT) {
             log.debug('Wait for the planner to empty');
             // G4 [P<time in ms>] [S<time in sec>]
             // If both S and P are included, S takes precedence.
@@ -384,25 +387,25 @@ class MarlinController {
 
           // Expression
           // %_x=posx,_y=posy,_z=posz
-          evaluateExpression(line.slice(1), context);
+          evaluateExpression(localLine.slice(1), localContext);
           return '';
         }
 
         // line="G0 X[posx - 8] Y[ymax]"
         // > "G0 X2 Y50"
-        line = translateExpression(line, context);
-        const data = parser.parseLine(line, {flatten: true});
+        localLine = translateExpression(localLine, localContext);
+        const data = parser.parseLine(localLine, {flatten: true});
         const words = ensureArray(data.words);
 
         // M109 Set extruder temperature and wait for the target temperature to be reached
         if (_.includes(words, 'M109')) {
-          log.debug(`Wait for extruder temperature to reach target temperature (${line})`);
+          log.debug(`Wait for extruder temperature to reach target temperature (${localLine})`);
           this.feeder.hold({data: 'M109'}); // Hold reason
         }
 
         // M190 Set heated bed temperature and wait for the target temperature to be reached
         if (_.includes(words, 'M190')) {
-          log.debug(`Wait for heated bed temperature to reach target temperature (${line})`);
+          log.debug(`Wait for heated bed temperature to reach target temperature (${localLine})`);
           this.feeder.hold({data: 'M190'}); // Hold reason
         }
 
@@ -424,10 +427,11 @@ class MarlinController {
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
 
-        return line;
+        return localLine;
       },
     });
     this.feeder.on('data', (line = '', context = {}) => {
+      let localLine = line;
       if (this.isClose) {
         log.error(`Serial port "${this.options.port}" is not accessible`);
         return;
@@ -439,20 +443,20 @@ class MarlinController {
         return;
       }
 
-      line = String(line).trim();
-      if (line.length === 0) {
+      localLine = String(localLine).trim();
+      if (localLine.length === 0) {
         return;
       }
 
-      this.emit('connection:write', this.connectionOptions, line + '\n', {
+      this.emit('connection:write', this.connectionOptions, localLine + '\n', {
         ...context,
         source: WRITE_SOURCE_FEEDER,
       });
 
-      this.connection.write(line + '\n', {
+      this.connection.write(localLine + '\n', {
         source: WRITE_SOURCE_FEEDER,
       });
-      log.silly(`> ${line}`);
+      log.silly(`> ${localLine}`);
     });
     this.feeder.on('hold', noop);
     this.feeder.on('unhold', noop);
@@ -460,15 +464,17 @@ class MarlinController {
     // Sender
     this.sender = new Sender(SP_TYPE_SEND_RESPONSE, {
       dataFilter: (line, context) => {
+        let localLine = line;
+        let localContext = context;
         // Remove comments that start with a semicolon `;`
-        line = line.replace(/\s*;.*/g, '').trim();
-        context = this.populateContext(context);
+        localLine = localLine.replace(/\s*;.*/g, '').trim();
+        localContext = this.populateContext(localContext);
 
         const {sent, received} = this.sender.state;
 
-        if (line[0] === '%') {
+        if (localLine[0] === '%') {
           // %wait
-          if (line === WAIT) {
+          if (localLine === WAIT) {
             log.debug(`Wait for the planner to empty: line=${sent + 1}, sent=${sent}, received=${received}`);
             this.sender.hold({data: WAIT}); // Hold reason
 
@@ -479,20 +485,20 @@ class MarlinController {
 
           // Expression
           // %_x=posx,_y=posy,_z=posz
-          evaluateExpression(line.slice(1), context);
+          evaluateExpression(localLine.slice(1), localContext);
           return '';
         }
 
         // line="G0 X[posx - 8] Y[ymax]"
         // > "G0 X2 Y50"
-        line = translateExpression(line, context);
-        const data = parser.parseLine(line, {flatten: true});
+        localLine = translateExpression(localLine, localContext);
+        const data = parser.parseLine(localLine, {flatten: true});
         const words = ensureArray(data.words);
 
         // M109 Set extruder temperature and wait for the target temperature to be reached
         if (_.includes(words, 'M109')) {
           log.debug(
-            `Wait for extruder temperature to reach target temperature (${line}): line=${sent +
+            `Wait for extruder temperature to reach target temperature (${localLine}): line=${sent +
               1}, sent=${sent}, received=${received}`
           );
           const reason = {data: 'M109'};
@@ -502,7 +508,7 @@ class MarlinController {
         // M190 Set heated bed temperature and wait for the target temperature to be reached
         if (_.includes(words, 'M190')) {
           log.debug(
-            `Wait for heated bed temperature to reach target temperature (${line}): line=${sent +
+            `Wait for heated bed temperature to reach target temperature (${localLine}): line=${sent +
               1}, sent=${sent}, received=${received}`
           );
           const reason = {data: 'M190'};
@@ -527,10 +533,11 @@ class MarlinController {
           this.workflow.pause({data: 'M6'});
         }
 
-        return line;
+        return localLine;
       },
     });
     this.sender.on('data', (line = '') => {
+      let localLine = line;
       if (this.isClose) {
         log.error(`Serial port "${this.options.port}" is not accessible`);
         return;
@@ -541,16 +548,16 @@ class MarlinController {
         return;
       }
 
-      line = String(line).trim();
-      if (line.length === 0) {
+      localLine = String(localLine).trim();
+      if (localLine.length === 0) {
         log.warn(`Expected non-empty line: N=${this.sender.state.sent}`);
         return;
       }
 
-      this.connection.write(line + '\n', {
+      this.connection.write(localLine + '\n', {
         source: WRITE_SOURCE_SENDER,
       });
-      log.silly(`> ${line}`);
+      log.silly(`> ${localLine}`);
     });
     this.sender.on('hold', noop);
     this.sender.on('unhold', noop);

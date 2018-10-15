@@ -126,15 +126,16 @@ class GCodeVisualizer {
   }
 
   setFrameIndex(frameIndex) {
+    let localFrameIndex = frameIndex;
     if (this.frames.length === 0) {
       return;
     }
 
-    frameIndex = Math.min(frameIndex, this.frames.length - 1);
-    frameIndex = Math.max(frameIndex, 0);
+    localFrameIndex = Math.min(localFrameIndex, this.frames.length - 1);
+    localFrameIndex = Math.max(localFrameIndex, 0);
 
     const v1 = this.frames[this.frameIndex].vertexIndex;
-    const v2 = this.frames[frameIndex].vertexIndex;
+    const v2 = this.frames[localFrameIndex].vertexIndex;
 
     // Completed path is grayed out
     if (v1 < v2) {
@@ -154,7 +155,7 @@ class GCodeVisualizer {
       workpiece.geometry.colorsNeedUpdate = true;
     }
 
-    this.frameIndex = frameIndex;
+    this.frameIndex = localFrameIndex;
   }
 }
 

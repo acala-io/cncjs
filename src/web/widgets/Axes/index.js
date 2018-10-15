@@ -270,6 +270,8 @@ class AxesWidget extends PureComponent {
       return 0;
     },
     setWorkOffsets: (axis, value) => {
+      let localAxis = axis;
+      let localValue = value;
       const {wcs} = controller.getModalState();
       const p =
         {
@@ -280,10 +282,10 @@ class AxesWidget extends PureComponent {
           G58: 5,
           G59: 6,
         }[wcs] || 0;
-      axis = (axis || '').toUpperCase();
-      value = Number(value) || 0;
+      localAxis = (localAxis || '').toUpperCase();
+      localValue = Number(localValue) || 0;
 
-      const gcode = `G10 L20 P${p} ${axis}${value}`;
+      const gcode = `G10 L20 P${p} ${localAxis}${localValue}`;
       controller.command('gcode', gcode);
     },
     jog: (params = {}) => {
@@ -654,11 +656,13 @@ class AxesWidget extends PureComponent {
     // Shuttle Zone
     this.shuttleControl = new ShuttleControl();
     this.shuttleControl.on('flush', ({axis, feedrate, relativeDistance}) => {
-      feedrate = Number(feedrate.toFixed(3));
-      relativeDistance = Number(relativeDistance.toFixed(4));
+      let localFeedrate = feedrate;
+      let localRelativeDistance = relativeDistance;
+      localFeedrate = Number(localFeedrate.toFixed(3));
+      localRelativeDistance = Number(localRelativeDistance.toFixed(4));
 
       controller.command('gcode', 'G91'); // relative
-      controller.command('gcode', 'G1 F' + feedrate + ' ' + axis + relativeDistance);
+      controller.command('gcode', 'G1 F' + localFeedrate + ' ' + axis + localRelativeDistance);
       controller.command('gcode', 'G90'); // absolute
     });
   }

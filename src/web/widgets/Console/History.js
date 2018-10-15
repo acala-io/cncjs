@@ -5,9 +5,10 @@ class History {
   index = -1; // Current index of the history array
 
   constructor(maxLength) {
-    maxLength = Number(maxLength) || 0;
-    if (maxLength > 0) {
-      this.maxLength = maxLength;
+    let localMaxLength = maxLength;
+    localMaxLength = Number(localMaxLength) || 0;
+    if (localMaxLength > 0) {
+      this.maxLength = localMaxLength;
     }
   }
   current() {
@@ -37,11 +38,12 @@ class History {
     return this.history[index];
   }
   go(n) {
+    let localN = n;
     if (this.history.length === 0) {
       return undefined;
     }
-    n = Number(n) || 0;
-    this.index = Math.min(Math.max(0, this.index + n), this.history.length - 1);
+    localN = Number(localN) || 0;
+    this.index = Math.min(Math.max(0, this.index + localN), this.history.length - 1);
     const index = (this.start + this.index) % this.history.length;
     return this.history[index];
   }

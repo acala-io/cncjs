@@ -112,21 +112,22 @@ class TinyGRunner extends events.EventEmitter {
   parser = new TinyGLineParser();
 
   parse(data) {
-    data = String(data).replace(/\s+$/, '');
-    if (!data) {
+    let localData = data;
+    localData = String(localData).replace(/\s+$/, '');
+    if (!localData) {
       return;
     }
 
-    this.emit('raw', {raw: data});
+    this.emit('raw', {raw: localData});
 
-    if (data.match(/^{/)) {
+    if (localData.match(/^{/)) {
       try {
-        data = JSON.parse(data);
+        localData = JSON.parse(localData);
       } catch (err) {
-        data = {};
+        localData = {};
       }
 
-      const result = this.parser.parse(data) || {};
+      const result = this.parser.parse(localData) || {};
       const {type, payload} = result;
 
       if (type === TinyGLineParserResultMotorTimeout) {
