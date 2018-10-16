@@ -48,10 +48,15 @@
     }
 
     .widget-header {
-        clearfix();
         background-color: #f6f7f8;
         border: 1px solid #ccc;
         position: relative;
+
+        &:after {
+          content: "" !important;
+          display: block !important;
+          clear: both !important;
+        }
     }
     .widget-header-fixed {
         cursor: default;

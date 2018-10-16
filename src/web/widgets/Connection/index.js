@@ -13,7 +13,7 @@ import WidgetConfig from '../WidgetConfig';
 import Connection from './Connection';
 import Widget from '../../components/Widget';
 
-import styles from './index.styl';
+import './index.scss';
 
 class ConnectionWidget extends PureComponent {
   static propTypes = {
@@ -68,7 +68,7 @@ class ConnectionWidget extends PureComponent {
         <Widget.Header>
           <Widget.Title>{i18n._('Connection')}</Widget.Title>
         </Widget.Header>
-        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: this.state.minimized}])}>
+        <Widget.Content className={classcat(['widget-content', {hidden: this.state.minimized}])}>
           <Connection state={state} actions={actions} />
         </Widget.Content>
       </Widget>

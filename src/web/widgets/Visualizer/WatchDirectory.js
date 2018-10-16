@@ -11,7 +11,7 @@ import i18n from '../../lib/i18n';
 
 import Modal from '../../components/Modal';
 
-import styles from './renderer.styl';
+import './renderer.scss';
 
 class WatchDirectory extends PureComponent {
   static propTypes = {
@@ -51,8 +51,8 @@ class WatchDirectory extends PureComponent {
                 this.addColumnGroup();
               }
             }}
-            noDataClass={styles.noData}
-            togglerClass={styles.treeToggler}
+            noDataClass="no-data"
+            togglerClass="tree-toggler"
             autoOpen
             layout="table"
             loadNodes={(parentNode, done) => {

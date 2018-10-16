@@ -12,7 +12,7 @@ import Webcam from './Webcam';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class WebcamWidget extends PureComponent {
   static propTypes = {
@@ -134,10 +134,10 @@ class WebcamWidget extends PureComponent {
         </Widget.Header>
         <Widget.Content
           className={classcat([
-            styles.widgetContent,
+            'widget-content',
             {
-              [styles.hidden]: minimized,
-              [styles.fullscreen]: isFullscreen,
+              hidden: minimized,
+              fullscreen: isFullscreen,
             },
           ])}
         >

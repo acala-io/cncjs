@@ -23,7 +23,7 @@ import QuickAccessToolbar from './QuickAccessToolbar';
 import Space from '../../components/Space';
 import Tooltip from '../../components/Tooltip';
 
-import styles from './index.styl';
+import './index.scss';
 
 const releases = 'https://github.com/cncjs/cncjs/releases';
 
@@ -396,7 +396,7 @@ class Header extends PureComponent {
                   {pushPermission === Push.Permission.DEFAULT && (
                     <span className="pull-right">
                       <Anchor
-                        className={styles.btnIcon}
+                        className="btn-icon"
                         onClick={this.actions.requestPushPermission}
                         title={i18n._('Show notifications')}
                       >

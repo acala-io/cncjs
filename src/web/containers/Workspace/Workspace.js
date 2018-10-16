@@ -32,7 +32,7 @@ import FeederWait from './modals/FeederWait';
 import {MODAL_NONE, MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT, MODAL_SERVER_DISCONNECTED} from './constants';
 import {WORKFLOW_STATE_IDLE} from '../../constants';
 
-import styles from './index.styl';
+import './index.scss';
 
 const WAIT = '%wait';
 
@@ -443,13 +443,13 @@ class Workspace extends PureComponent {
     const hideSecondaryContainer = !showSecondaryContainer;
 
     return (
-      <div style={style} className={classcat([className, styles.workspace])}>
+      <div style={style} className={classcat([className, 'workspace'])}>
         {this.modals}
-        <div className={classcat([styles.dropzoneOverlay, {[styles.hidden]: !(connection.ident && isDraggingFile)}])}>
-          <div className={styles.textBlock}>{i18n._('Drop G-code file here')}</div>
+        <div className={classcat(['dropzone-overlay', {['hidden']: !(connection.ident && isDraggingFile)}])}>
+          <div className="text-block">{i18n._('Drop G-code file here')}</div>
         </div>
         <Dropzone
-          className={styles.dropzone}
+          className="dropzone"
           disabled={controller.workflow.state !== WORKFLOW_STATE_IDLE}
           multiple={false}
           onDragStart={() => {}}
@@ -501,11 +501,11 @@ class Workspace extends PureComponent {
           disableClick
           disablePreview
         >
-          <div className={styles.workspaceTable}>
-            <div className={styles.workspaceTableRow}>
+          <div className={'workspace-table'}>
+            <div className={'workspace-table-row'}>
               <div
                 ref={ref => (this.primaryContainer = ref)}
-                className={classcat([styles.primaryContainer, {[styles.hidden]: hidePrimaryContainer}])}
+                className={classcat(['primary-container', {hidden: hidePrimaryContainer}])}
               >
                 {/* this.manageContainerContent('primary') */}
                 {this.primaryWidgetsComponent}
@@ -515,7 +515,7 @@ class Workspace extends PureComponent {
               {/* this.secondaryContainerToggle */}
               <div
                 ref={ref => (this.secondaryContainer = ref)}
-                className={classcat([styles.secondaryContainer, {[styles.hidden]: hideSecondaryContainer}])}
+                className={classcat(['secondary-container', {hidden: hideSecondaryContainer}])}
               >
                 {/* this.manageContainerContent('secondary') */}
                 {this.secondaryWidgetsComponent}
@@ -546,7 +546,7 @@ class Workspace extends PureComponent {
     const defaultWidgets = ensureArray(store.get('workspace.container.default.widgets'));
 
     return (
-      <div ref={ref => (this.defaultContainer = ref)} className={classcat([styles.defaultContainer])}>
+      <div ref={ref => (this.defaultContainer = ref)} className="default-container">
         <DefaultWidgets defaultWidgets={defaultWidgets} />
       </div>
     );
@@ -558,7 +558,7 @@ class Workspace extends PureComponent {
     }
 
     return (
-      <div ref={node => (this.primaryToggler = node)} className={styles.primaryToggler}>
+      <div ref={node => (this.primaryToggler = node)} className="primary-toggler">
         <ButtonGroup btnSize="sm" btnStyle="flat">
           <Button style={{minWidth: 30}} compact onClick={this.togglePrimaryContainer}>
             <i className="fa fa-chevron-right" />
@@ -598,7 +598,7 @@ class Workspace extends PureComponent {
     }
 
     return (
-      <div ref={node => (this.secondaryToggler = node)} className={styles.secondaryToggler}>
+      <div ref={node => (this.secondaryToggler = node)} className="secondary-toggler">
         <ButtonGroup btnSize="sm" btnStyle="flat">
           <Button style={{minWidth: 30}} compact onClick={this.toggleSecondaryContainer}>
             <i className="fa fa-chevron-right" />

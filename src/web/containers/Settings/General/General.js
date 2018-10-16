@@ -1,4 +1,3 @@
-import classcat from 'classcat';
 import FacebookLoading from 'react-facebook-loading';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
@@ -8,7 +7,7 @@ import i18n from '../../../lib/i18n';
 
 import Space from '../../../components/Space';
 
-import styles from './index.styl';
+import './index.scss';
 
 class General extends PureComponent {
   static propTypes = {
@@ -27,8 +26,8 @@ class General extends PureComponent {
 
     return (
       <form style={{marginTop: -10}}>
-        <div className={styles.formFields}>
-          <div className={styles.formGroup}>
+        <div className="form-fields">
+          <div className="form-group">
             <div className="checkbox">
               <label>
                 <input
@@ -42,14 +41,10 @@ class General extends PureComponent {
             </div>
           </div>
         </div>
-        <div className={styles.formFields}>
-          <div className={styles.formGroup}>
+        <div className="form-fields">
+          <div className="form-group">
             <label>{i18n._('Language')}</label>
-            <select
-              className={classcat(['form-control', styles.formControl, styles.short])}
-              value={lang}
-              onChange={this.handlers.changeLanguage}
-            >
+            <select className="form-control form-control short" value={lang} onChange={this.handlers.changeLanguage}>
               <option value="cs">Čeština</option>
               <option value="de">Deutsch</option>
               <option value="en">English (US)</option>
@@ -67,7 +62,7 @@ class General extends PureComponent {
             </select>
           </div>
         </div>
-        <div className={styles.formActions}>
+        <div className={'form-actions'}>
           <div className="row">
             <div className="col-md-12">
               <button type="button" className="btn btn-default" onClick={this.handlers.cancel}>

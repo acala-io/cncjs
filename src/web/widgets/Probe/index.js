@@ -31,7 +31,7 @@ import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 import ZProbe from './ZProbe';
 
-import styles from './index.styl';
+import './index.scss';
 
 const gcode = (cmd, params) => {
   const s = map(params, (value, letter) => String(letter + value)).join(' ');
@@ -106,7 +106,7 @@ class ProbeWidget extends PureComponent {
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
+        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
           {state.modal.name === MODAL_PREVIEW && <ZProbe state={state} actions={actions} />}
           <Probe state={state} actions={actions} />
         </Widget.Content>

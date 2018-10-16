@@ -1,8 +1,8 @@
 import classcat from 'classcat';
 import React from 'react';
 
-import styles from './index.styl';
+import './index.scss';
 
-const Controls = ({className, ...props}) => <div {...props} className={classcat([className, styles.widgetControls])} />;
+const Controls = ({className, ...props}) => <div {...props} className={classcat([className, 'widget-controls'])} />;
 
 export default Controls;

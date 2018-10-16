@@ -9,7 +9,7 @@ import i18n from '../../lib/i18n';
 
 import Space from '../../components/Space';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Spindle extends PureComponent {
   static propTypes = {
@@ -103,7 +103,7 @@ class Spindle extends PureComponent {
                     title={i18n._('Mist Coolant On (M7)', {ns: 'gcode'})}
                     disabled={!canClick}
                   >
-                    <i className={classcat([styles.icon, styles.iconFan, {'fa-spin': mistCoolant}])} />
+                    <i className={classcat(['icon', 'icon-fan', {'fa-spin': mistCoolant}])} />
                     <Space width="4" />
                     M7
                   </button>
@@ -119,7 +119,7 @@ class Spindle extends PureComponent {
                     title={i18n._('Flood Coolant On (M8)', {ns: 'gcode'})}
                     disabled={!canClick}
                   >
-                    <i className={classcat([styles.icon, styles.iconFan, {'fa-spin': floodCoolant}])} />
+                    <i className={classcat(['icon', 'icon-fan', {'fa-spin': floodCoolant}])} />
                     <Space width="4" />
                     M8
                   </button>

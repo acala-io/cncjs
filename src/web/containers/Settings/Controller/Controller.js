@@ -6,7 +6,7 @@ import i18n from '../../../lib/i18n';
 
 import Space from '../../../components/Space';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Controller extends PureComponent {
   static propTypes = {
@@ -41,8 +41,8 @@ class Controller extends PureComponent {
     return (
       <form style={{marginTop: -10}}>
         <h5>{i18n._('Exception')}</h5>
-        <div className={styles.formFields}>
-          <div className={styles.formGroup}>
+        <div className="form-fields">
+          <div className="form-group">
             <div className="checkbox">
               <label>
                 <input
@@ -69,7 +69,7 @@ class Controller extends PureComponent {
             </div>
           </div>
         </div>
-        <div className={styles.formActions}>
+        <div className={'form-actions'}>
           <div className="row">
             <div className="col-md-12">
               <button type="button" className="btn btn-default" onClick={this.handlers.cancel}>

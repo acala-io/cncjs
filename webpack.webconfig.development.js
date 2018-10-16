@@ -6,9 +6,7 @@ const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const nib = require('nib');
 const path = require('path');
-const stylusLoader = require('stylus-loader');
 const webpack = require('webpack');
 const without = require('lodash/without');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
@@ -63,14 +61,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /(node_modules)/,
       },
-      {
-        test: /\.styl$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?camelCase&modules&importLoaders=1&localIdentName=[path][name]__[local]--[hash:base64:5]',
-          'stylus-loader',
-        ],
-      },
       // {
       //   test: /\.scss$/,
       //   use: [
@@ -114,12 +104,13 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          require.resolve('style-loader'),
+          MiniCssExtractPlugin.loader,
+          // require.resolve('style-loader'),
           {
             loader: 'css-loader',
             options: {
               camelCase: true,
-              // importLoaders: 1,
+              importLoaders: 1,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
               // modules: true, // generate locally scoped css modules
             },
@@ -192,14 +183,6 @@ module.exports = {
         LANGUAGES: JSON.stringify(buildConfig.languages),
         NODE_ENV: JSON.stringify('development'),
         TRACKING_ID: JSON.stringify(buildConfig.analytics.trackingId),
-      },
-    }),
-    new stylusLoader.OptionsPlugin({
-      default: {
-        // nib - CSS3 extensions for Stylus
-        use: [nib()],
-        // no need to have a '@import "nib"' in the stylesheet
-        import: ['~nib/lib/nib/index.styl'],
       },
     }),
     // https://github.com/gajus/write-file-webpack-plugin

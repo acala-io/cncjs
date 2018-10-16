@@ -1,30 +1,33 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import i18n from '../../lib/i18n';
+
 import Terminal from './Terminal';
-import styles from './index.styl';
+
+import './index.scss';
 
 class Console extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   terminal = null;
 
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {connection} = state;
 
     if (!connection.ident) {
-      return <div className={styles.noSerialConnection}>{i18n._('No serial connection')}</div>;
+      return <div className="no-serial-connection">{i18n._('No serial connection')}</div>;
     }
 
     return (
       <Terminal
-        ref={node => {
-          if (node) {
-            this.terminal = node;
+        ref={ref => {
+          if (ref) {
+            this.terminal = ref;
           }
         }}
         cols={state.terminal.cols}

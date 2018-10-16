@@ -1,4 +1,3 @@
-import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Slider from 'rc-slider';
@@ -13,7 +12,7 @@ import {Form, Input, Textarea} from '../../../..//components/Validation';
 import {FormGroup} from '../../../..//components/Forms';
 import {ToastNotification} from '../../../..//components/Notifications';
 
-import styles from '../form.styl';
+import '../form.scss';
 
 class UpdateRecord extends PureComponent {
   static propTypes = {
@@ -62,22 +61,15 @@ class UpdateRecord extends PureComponent {
               {alertMessage}
             </ToastNotification>
           )}
-          <Form
-            ref={node => {
-              this.form = node;
-            }}
-            onSubmit={event => {
-              event.preventDefault();
-            }}
-          >
-            <div className={styles.formFields}>
+          <Form ref={ref => (this.form = ref)} onSubmit={e => e.preventDefault()}>
+            <div className="form-fields">
               <FormGroup>
                 <label>{i18n._('Name')}</label>
                 <Input
                   type="text"
                   name="name"
                   value={name}
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control short"
                   validations={[validations.required]}
                 />
               </FormGroup>
@@ -87,7 +79,7 @@ class UpdateRecord extends PureComponent {
                   name="command"
                   value={command}
                   rows="5"
-                  className={classcat(['form-control', styles.formControl, styles.long])}
+                  className="form-control long"
                   validations={[validations.required]}
                 />
               </FormGroup>

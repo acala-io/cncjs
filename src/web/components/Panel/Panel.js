@@ -1,10 +1,8 @@
 import classcat from 'classcat';
 import React from 'react';
 
-import styles from './index.styl';
+import './index.scss';
 
-const Panel = ({className, ...props}) => (
-  <div {...props} className={classcat([className, styles.panel, styles.panelDefault])} />
-);
+const Panel = ({className, ...props}) => <div className={classcat([className, 'panel panel-default'])} {...props} />;
 
 export default Panel;

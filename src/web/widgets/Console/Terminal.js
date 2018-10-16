@@ -12,7 +12,7 @@ import log from '../../lib/log';
 
 import History from './History';
 
-import styles from './index.styl';
+import './index.scss';
 
 Terminal.applyAddon(fit);
 
@@ -374,7 +374,7 @@ class TerminalWrapper extends PureComponent {
     return (
       <div
         ref={ref => (this.terminalContainer = ref)}
-        className={classcat([className, styles.terminalContainer])}
+        className={classcat([className, 'terminal-container'])}
         style={style}
       />
     );

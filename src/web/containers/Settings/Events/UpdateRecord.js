@@ -1,4 +1,3 @@
-import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get, includes} from 'lodash';
@@ -12,7 +11,7 @@ import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Form, Select, Textarea} from '../../../components/Validation';
 import {ToastNotification} from '../../../components/Notifications';
 
-import styles from '../form.styl';
+import '../form.scss';
 
 const SYSTEM_EVENTS = [
   // The following events are only available with system trigger (i.e. scripts)
@@ -90,8 +89,8 @@ class UpdateRecord extends PureComponent {
               event.preventDefault();
             }}
           >
-            <div className={styles.formFields}>
-              <div className={styles.formGroup}>
+            <div className="form-fields">
+              <div className="form-group">
                 <label>{i18n._('Enabled')}</label>
                 <div>
                   <ToggleSwitch
@@ -103,12 +102,12 @@ class UpdateRecord extends PureComponent {
                   />
                 </div>
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Event')}</label>
                 <Select
                   name="event"
                   value={modal.params.event}
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   onChange={event => {
                     const value = event.target.value;
                     let trigger = modal.params.trigger;
@@ -140,12 +139,12 @@ class UpdateRecord extends PureComponent {
                   <option value="macro:load">{i18n._('Load Macro')}</option>
                 </Select>
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Trigger')}</label>
                 <Select
                   name="trigger"
                   value={modal.params.trigger}
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   disabled={disableTriggerOptions}
                   onChange={event => {
                     const value = event.target.value;
@@ -160,13 +159,13 @@ class UpdateRecord extends PureComponent {
                   <option value="gcode">{i18n._('G-code')}</option>
                 </Select>
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Commands')}</label>
                 <Textarea
                   name="commands"
                   value={modal.params.commands}
                   rows="5"
-                  className={classcat(['form-control', styles.formControl, styles.long])}
+                  className="form-control long"
                   placeholder={sampleCommands}
                   validations={[validations.required]}
                 />

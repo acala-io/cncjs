@@ -18,7 +18,7 @@ import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Button} from '../../../components/Buttons';
 import {TablePagination} from '../../../components/Paginations';
 
-import styles from './index.styl';
+import './index.scss';
 
 class TableRecords extends PureComponent {
   static propTypes = {
@@ -55,7 +55,7 @@ class TableRecords extends PureComponent {
           return i18n._('No data to display');
         }}
         title={() => (
-          <div className={styles.tableToolbar}>
+          <div className="table-toolbar">
             <button
               type="button"
               className="btn btn-default"

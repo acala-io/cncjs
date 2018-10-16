@@ -6,5 +6,9 @@
     border-bottom: 1px solid #ddd;
     padding: 8px 16px;
 
-    clearfix();
+    &:after {
+      content: "" !important;
+      display: block !important;
+      clear: both !important;
+    }
 }

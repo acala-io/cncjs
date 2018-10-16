@@ -1,13 +1,16 @@
 import moment from 'moment';
-import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 import semver from 'semver';
+
+import i18n from '../../../lib/i18n';
+
+import settings from '../../../config/settings';
+
 import Anchor from '../../../components/Anchor';
 import Space from '../../../components/Space';
-import settings from '../../../config/settings';
-import i18n from '../../../lib/i18n';
-import styles from './index.styl';
+
+import './index.scss';
 
 const UpdateStatusContainer = props => {
   const {checking, current, latest, lastUpdate} = props;
@@ -15,12 +18,12 @@ const UpdateStatusContainer = props => {
 
   if (checking) {
     return (
-      <div className={styles.updateStatusContainer}>
-        <div className={styles.updateStatusIcon}>
+      <div className="update-status-container">
+        <div className="update-status-icon">
           <i className="fa fa-fw fa-spin fa-circle-o-notch" />
         </div>
-        <div className={styles.updateStatusMessageContainer}>
-          <div className={styles.updateStatusMessage}>{i18n._('Checking for updates...')}</div>
+        <div className="update-status-message-container">
+          <div className="update-status-message">{i18n._('Checking for updates...')}</div>
         </div>
       </div>
     );
@@ -28,23 +31,23 @@ const UpdateStatusContainer = props => {
 
   if (newUpdateAvailable) {
     return (
-      <div className={styles.updateStatusContainer}>
-        <div className={classcat([styles.updateStatusIcon, styles.warning])}>
+      <div className="update-status-container">
+        <div className="update-status-icon warning">
           <i className="fa fa-exclamation-circle fa-fw" />
         </div>
-        <div className={styles.updateStatusMessageContainer}>
-          <div className={styles.updateStatusMessage}>
+        <div className="update-status-messageContainer">
+          <div className="update-status-message">
             {i18n._('A new version of {{name}} is available', {name: settings.productName})}
           </div>
-          <div className={styles.releaseLatest}>
+          <div className="release-latest">
             {i18n._('Version {{version}}', {version: latest})}
             <br />
             {moment(lastUpdate).format('LLL')}
           </div>
         </div>
-        <div className={styles.updateStatusActionContainer}>
+        <div className="update-status-action-container">
           <Anchor href="https://github.com/cncjs/cncjs/releases" target="_blank">
-            <span className={styles.label}>
+            <span className="label">
               {i18n._('Latest version')}
               <Space width="8" />
               <i className="fa fa-external-link fa-fw" />
@@ -56,12 +59,12 @@ const UpdateStatusContainer = props => {
   }
 
   return (
-    <div className={styles.updateStatusContainer}>
-      <div className={classcat([styles.updateStatusIcon, styles.info])}>
+    <div className="update-status-container">
+      <div className="update-status-icon info">
         <i className="fa fa-check-circle fa-fw" />
       </div>
-      <div className={styles.updateStatusMessageContainer}>
-        <div className={styles.updateStatusMessage}>
+      <div className="update-status-messageContainer">
+        <div className="update-status-message">
           {i18n._('You already have the newest version of {{name}}', {name: settings.productName})}
         </div>
       </div>
@@ -72,8 +75,8 @@ const UpdateStatusContainer = props => {
 UpdateStatusContainer.propTypes = {
   checking: PropTypes.bool,
   current: PropTypes.string,
-  latest: PropTypes.string,
   lastUpdate: PropTypes.string,
+  latest: PropTypes.string,
 };
 
 export default UpdateStatusContainer;

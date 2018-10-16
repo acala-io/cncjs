@@ -10,19 +10,14 @@ import {formatBytes} from '../../lib/numeral';
 
 import Space from '../../components/Space';
 
-import styles from './renderer.styl';
+import './renderer.scss';
 
 const TreeNode = props => {
   const {componentClass, id, selected, disabled, className, children, ...others} = props;
   const Component = componentClass || 'tr';
 
   return (
-    <Component
-      {...others}
-      className={classcat([className, styles.treeNode, {[styles.selected]: selected}])}
-      data-id={id}
-      disabled={disabled}
-    >
+    <Component {...others} className={classcat([className, 'tree-node', {selected}])} data-id={id} disabled={disabled}>
       {children}
     </Component>
   );
@@ -39,7 +34,7 @@ const TreeNodeColumn = props => {
   const Component = componentClass || 'td';
 
   return (
-    <Component {...others} className={classcat([className, styles.treeNodeColumn, {[styles.noPadding]: !padding}])}>
+    <Component {...others} className={classcat([className, 'tree-node-column', {'no-padding': !padding}])}>
       {children}
     </Component>
   );
@@ -55,7 +50,7 @@ const TreeNodeToggler = ({show, expanded}) => {
   }
 
   return (
-    <span className={styles.treeToggler}>
+    <span className="tree-toggler">
       <i
         className={classcat(['fa fa-fw', {'fa-chevron-down': expanded}, {'fa-chevron-right': !expanded}])}
         style={{

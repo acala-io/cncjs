@@ -1,17 +1,22 @@
-import {get} from 'lodash';
-import Uri from 'jsuri';
-import pubsub from 'pubsub-js';
 import PropTypes from 'prop-types';
+import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
+import Uri from 'jsuri';
+import {get} from 'lodash';
+
 import settings from '../../config/settings';
+
 import store from '../../store_old';
-import Iframe from '../../components/Iframe';
-import ResizeObserver from '../../lib/ResizeObserver';
+
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
-import styles from './index.styl';
+import ResizeObserver from '../../lib/ResizeObserver';
+
+import Iframe from '../../components/Iframe';
+
+import './index.scss';
 
 class Custom extends PureComponent {
   static propTypes = {
@@ -139,11 +144,11 @@ class Custom extends PureComponent {
     const {disabled, url} = this.props;
 
     if (!url) {
-      return <div className={styles.inactiveContent}>{i18n._('URL not configured')}</div>;
+      return <div className="inactive-content">{i18n._('URL not configured')}</div>;
     }
 
     if (disabled) {
-      return <div className={styles.inactiveContent}>{i18n._('The widget is currently disabled')}</div>;
+      return <div className="inactive-content">{i18n._('The widget is currently disabled')}</div>;
     }
 
     const token = store.get('session.token');

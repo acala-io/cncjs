@@ -9,10 +9,8 @@ const findImports = require('find-imports');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const nib = require('nib');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
-const stylusLoader = require('stylus-loader');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const without = require('lodash/without');
@@ -76,15 +74,6 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /(node_modules)/,
-      },
-      {
-        test: /\.styl$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?camelCase&modules&importLoaders=1&localIdentName=[path][name]__[local]--[hash:base64:5]',
-          'stylus-loader',
-        ],
-        exclude: [path.resolve(__dirname, 'src/web/styles')],
       },
       // {
       //   test: /\.scss$/,
@@ -213,18 +202,10 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
         BUILD_VERSION: JSON.stringify(buildVersion),
         LANGUAGES: JSON.stringify(buildConfig.languages),
+        NODE_ENV: JSON.stringify('production'),
         TRACKING_ID: JSON.stringify(buildConfig.analytics.trackingId),
-      },
-    }),
-    new stylusLoader.OptionsPlugin({
-      default: {
-        // nib - CSS3 extensions for Stylus
-        use: [nib()],
-        // no need to have a '@import "nib"' in the stylesheet
-        import: ['~nib/lib/nib/index.styl'],
       },
     }),
     new webpack.ContextReplacementPlugin(

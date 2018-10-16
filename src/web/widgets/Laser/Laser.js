@@ -2,51 +2,54 @@ import {get} from 'lodash';
 import Slider from 'rc-slider';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
+import controller from '../../lib/controller';
+import i18n from '../../lib/i18n';
+
+import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
+
 import Panel from '../../components/Panel';
 import Toggler from '../../components/Toggler';
 import RepeatButton from '../../components/RepeatButton';
-import controller from '../../lib/controller';
-import i18n from '../../lib/i18n';
-import {
-  // Grbl
-  GRBL,
-  // Marlin
-  MARLIN,
-  // Smoothie
-  SMOOTHIE,
-  // TinyG
-  TINYG,
-} from '../../constants';
-import styles from './index.styl';
+
+import './index.scss';
 
 class Laser extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   getLaserIntensityScale() {
     const {state} = this.props;
+
     const controllerType = state.controller.type;
     const controllerState = state.controller.state || {};
     const controllerSettings = state.controller.settings || {};
-    let scale = 0;
 
-    if (controllerType === GRBL) {
-      const ovS = get(controllerState, 'ov[2]', []);
-      scale = Number(ovS) || 0;
-    }
-    if (controllerType === MARLIN) {
-      const ovS = get(controllerState, 'ovS');
-      scale = Number(ovS) || 0;
-    }
-    if (controllerType === SMOOTHIE) {
-      const ovS = get(controllerState, 'ovS');
-      scale = Number(ovS) || 0;
-    }
-    if (controllerType === TINYG) {
-      const ovS = get(controllerSettings, 'sso');
-      scale = Math.round((Number(ovS) || 0) * 100);
+    let scale = 0;
+    let ovS;
+
+    switch (controllerType) {
+      case GRBL:
+        ovS = get(controllerState, 'ov[2]', []);
+        scale = Number(ovS) || 0;
+        break;
+
+      case MARLIN:
+        ovS = get(controllerState, 'ovS');
+        scale = Number(ovS) || 0;
+        break;
+
+      case SMOOTHIE:
+        ovS = get(controllerState, 'ovS');
+        scale = Number(ovS) || 0;
+        break;
+
+      case TINYG:
+        ovS = get(controllerSettings, 'sso');
+        scale = Math.round((Number(ovS) || 0) * 100);
+        break;
     }
 
     return scale;
@@ -63,10 +66,10 @@ class Laser extends PureComponent {
           <label className="control-label">{i18n._('Laser Intensity Control')}</label>
           <div className="row no-gutters">
             <div className="col-xs-3">
-              <div className={styles.droDisplay}>{laserIntensityScale ? `${laserIntensityScale}%` : none}</div>
+              <div className="dro-display">{laserIntensityScale ? `${laserIntensityScale}%` : none}</div>
             </div>
             <div className="col-xs-9">
-              <div className={styles.droBtnGroup}>
+              <div className="dro-btn-group">
                 <div className="btn-group btn-group-sm" role="group">
                   <RepeatButton
                     className="btn btn-default"
@@ -128,8 +131,8 @@ class Laser extends PureComponent {
             </div>
           </div>
         </div>
-        <Panel className={styles.panel}>
-          <Panel.Heading className={styles.panelHeading}>
+        <Panel className="panel">
+          <Panel.Heading className={'panel-heading'}>
             <Toggler
               className="clearfix"
               onToggle={actions.toggleLaserTest}

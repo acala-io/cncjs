@@ -1,12 +1,13 @@
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import styles from './index.styl';
+import './index.scss';
 
 class TogglerIcon extends PureComponent {
   static propTypes = {
     expanded: PropTypes.bool,
   };
+
   static defaultProps = {
     expanded: false,
   };
@@ -19,10 +20,11 @@ class TogglerIcon extends PureComponent {
         {...props}
         className={classcat([
           className,
-          styles.togglerIcon,
-          'fa',
-          {'fa-chevron-up': expanded},
-          {'fa-chevron-down': !expanded},
+          'toggler-icon fa',
+          {
+            'fa-chevron-up': expanded,
+            'fa-chevron-down': !expanded,
+          },
         ])}
       />
     );

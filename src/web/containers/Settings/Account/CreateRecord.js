@@ -1,4 +1,3 @@
-import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get} from 'lodash';
@@ -12,7 +11,7 @@ import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Form, Input} from '../../../components/Validation';
 import {ToastNotification} from '../../../components/Notifications';
 
-import styles from '../form.styl';
+import '../form.scss';
 
 class CreateRecord extends PureComponent {
   static propTypes = {
@@ -65,8 +64,8 @@ class CreateRecord extends PureComponent {
             </ToastNotification>
           )}
           <Form ref={ref => (this.form = ref)} onSubmit={e => e.preventDefault()}>
-            <div className={styles.formFields}>
-              <div className={styles.formGroup}>
+            <div className="form-fields">
+              <div className="form-group">
                 <label>{i18n._('Account status')}</label>
                 <div>
                   <ToggleSwitch
@@ -78,7 +77,7 @@ class CreateRecord extends PureComponent {
                   />
                 </div>
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Username')}</label>
                 <Input
                   ref={node => {
@@ -87,11 +86,11 @@ class CreateRecord extends PureComponent {
                   type="text"
                   name="name"
                   value=""
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   validations={[validations.required]}
                 />
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Password')}</label>
                 <Input
                   ref={node => {
@@ -100,17 +99,17 @@ class CreateRecord extends PureComponent {
                   type="password"
                   name="password"
                   value=""
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   validations={[validations.required, validations.password]}
                 />
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Confirm Password')}</label>
                 <Input
                   type="password"
                   name="confirm"
                   value=""
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   validations={[validations.required]}
                 />
               </div>

@@ -14,7 +14,7 @@ import Console from './Console';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 const appName = settings.productName;
 const appVersion = settings.version;
@@ -75,7 +75,7 @@ class ConsoleWidget extends PureComponent {
             {minimized ? null : (
               <Fragment>
                 <Widget.Button title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
-                  <i className={classcat([styles.icon, styles.selectAll])} />
+                  <i className="icon select-all" />
                 </Widget.Button>
                 <Widget.Button title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
                   <i className="fa fa-fw fa-window-close-o" />
@@ -90,7 +90,7 @@ class ConsoleWidget extends PureComponent {
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classcat([styles.widgetContent, {[styles.hidden]: minimized}])}>
+        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
           <Console
             ref={node => {
               if (node) {

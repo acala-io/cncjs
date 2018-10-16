@@ -1,37 +1,41 @@
 import chainedFunction from 'chained-function';
-import {get, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import {Dropdown, MenuItem} from 'react-bootstrap';
-import {Button} from '../../components/Buttons';
+import {get, uniqueId} from 'lodash';
+
+import * as validations from '../../lib/validations';
+import i18n from '../../lib/i18n';
+import insertAtCaret from './insertAtCaret';
+import portal from '../../lib/portal';
+
+import variables from './variables';
+
 import Modal from '../../components/Modal';
 import Space from '../../components/Space';
+import {Button} from '../../components/Buttons';
 import {Form, Input, Textarea} from '../../components/Validation';
-import i18n from '../../lib/i18n';
-import portal from '../../lib/portal';
-import * as validations from '../../lib/validations';
-import insertAtCaret from './insertAtCaret';
-import variables from './variables';
-import styles from './index.styl';
+
+import './index.scss';
 
 class EditMacro extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   fields = {
-    name: null,
     content: null,
+    name: null,
   };
 
   get value() {
-    const {name, content} = this.form.getValues();
+    const {content, name} = this.form.getValues();
 
     return {
-      name,
       content,
+      name,
     };
   }
 
@@ -85,14 +89,14 @@ class EditMacro extends PureComponent {
                   }}
                   pullRight
                 >
-                  <Dropdown.Toggle className={styles.btnLink} style={{boxShadow: 'none'}} useAnchor noCaret>
+                  <Dropdown.Toggle className="btn-link" style={{boxShadow: 'none'}} useAnchor noCaret>
                     <i className="fa fa-plus" />
                     <Space width="8" />
                     {i18n._('Macro Variables')}
                     <Space width="4" />
                     <i className="fa fa-caret-down" />
                   </Dropdown.Toggle>
-                  <Dropdown.Menu className={styles.macroVariablesDropdown}>
+                  <Dropdown.Menu className="macro-variables-dropdown">
                     {variables.map(v => {
                       if (typeof v === 'object') {
                         return (

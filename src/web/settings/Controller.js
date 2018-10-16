@@ -5,8 +5,6 @@ import i18n from '../lib/i18n';
 
 import Toggle from '../components_new/Toggle';
 
-// import styles from './index.styl';
-
 class Controller extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,
@@ -53,7 +51,7 @@ class Controller extends PureComponent {
           'Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.'
         )}
         {/*
-        <div className={styles.formActions}>
+        <div className={"form-actions"}>
           <div className="row">
             <div className="col-md-12">
               <button type="button" className="btn btn-default" onClick={this.handlers.cancel}>

@@ -13,7 +13,7 @@ import ActionLink from '../../components_new/ActionLink';
 import Modal from '../../components/Modal';
 import {Button} from '../../components/Buttons';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Macro extends PureComponent {
   static propTypes = {
@@ -69,13 +69,13 @@ class Macro extends PureComponent {
 
     return (
       <div>
-        <div className="{styles.tableContainer}">
+        <div className="table-container">
           <table className="table table--form table--row-hovers">
             <tbody>
               {macros.length === 0 && (
                 <tr>
                   <td colSpan="2">
-                    <div className={styles.emptyResult}>{i18n._('No macros')}</div>
+                    <div className="empty-result">{i18n._('No macros')}</div>
                   </td>
                 </tr>
               )}

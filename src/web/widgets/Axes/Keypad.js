@@ -1,4 +1,3 @@
-import classcat from 'classcat';
 import ensureArray from 'ensure-array';
 import frac from 'frac';
 import PropTypes from 'prop-types';
@@ -15,7 +14,7 @@ import {Button} from '../../components/Buttons';
 
 import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Keypad extends PureComponent {
   static propTypes = {
@@ -49,74 +48,74 @@ class Keypad extends PureComponent {
 
   render() {
     return (
-      <div className={styles.keypad}>
+      <div className="keypad">
         <div className="row no-gutters">
           <div>
-            <div className={styles.rowSpace}>
+            <div className="row-space">
               <div className="row no-gutters">
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>
+                  <div className="col-space">
                     {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '+', name: 'y'})}
                   </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '+', name: 'y'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '+', name: 'y'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>
+                  <div className="col-space">
                     {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '+', name: 'y'})}
                   </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '+', name: 'z'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '+', name: 'z'})}</div>
                 </div>
               </div>
             </div>
-            <div className={styles.rowSpace}>
+            <div className="row-space">
               <div className="row no-gutters">
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '-', name: 'x'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '-', name: 'x'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>
+                  <div className="col-space">
                     {jogButtonFactory(this.props, {direction: '0', name: 'x'}, {direction: '0', name: 'y'})}
                   </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '+', name: 'x'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '+', name: 'x'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '0', name: 'z'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '0', name: 'z'})}</div>
                 </div>
               </div>
             </div>
-            <div className={styles.rowSpace}>
+            <div className="row-space">
               <div className="row no-gutters">
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>
+                  <div className="col-space">
                     {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '-', name: 'y'})}
                   </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '-', name: 'y'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '-', name: 'y'})}</div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>
+                  <div className="col-space">
                     {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '-', name: 'y'})}
                   </div>
                 </div>
                 <div className="col-xs-3">
-                  <div className={styles.colSpace}>{jogButtonFactory(this.props, {direction: '-', name: 'z'})}</div>
+                  <div className="col-space">{jogButtonFactory(this.props, {direction: '-', name: 'z'})}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className={classcat([styles.rowSpace, 'u-margin-top'])}>
+          <div className="rowSpace u-margin-top">
             {this.stepSize}
             {this.unitSelect}
           </div>
-          <div className={styles.rowSpace}>
+          <div className="row-space">
             <div className="row no-gutters">
               <div className="col-xs-6">{this.buttonStepBackward}</div>
               <div className="col-xs-6">{this.buttonStepForward}</div>

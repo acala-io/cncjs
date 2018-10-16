@@ -3,31 +3,34 @@
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import Anchor from '../Anchor';
-import styles from './index.styl';
+
+import './index.scss';
 
 class Button extends PureComponent {
   static propTypes = {
     ...Anchor.propTypes,
     inverted: PropTypes.bool,
   };
+
   static defaultProps = {
     ...Anchor.defaultProps,
     inverted: false,
   };
 
   render() {
-    const {inverted, className, ...props} = this.props;
+    const {className, inverted, ...props} = this.props;
 
     return (
       <Anchor
         {...props}
         className={classcat([
           className,
-          styles.widgetButton,
+          'widget-button',
           {
-            [styles.disabled]: Boolean(props.disabled),
-            [styles.inverted]: inverted,
+            disabled: Boolean(props.disabled),
+            inverted: inverted,
           },
         ])}
       />

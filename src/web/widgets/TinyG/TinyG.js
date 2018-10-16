@@ -1,16 +1,13 @@
 import ensureArray from 'ensure-array';
-import {get, map, mapValues} from 'lodash';
-
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {get, map, mapValues} from 'lodash';
 import {ProgressBar} from 'react-bootstrap';
+
 import controller from '../../lib/controller';
-import mapGCodeToText from '../../lib/gcode-text';
 import i18n from '../../lib/i18n';
-import {Button} from '../../components/Buttons';
-import Panel from '../../components/Panel';
-import Toggler from '../../components/Toggler';
-import Overrides from './Overrides';
+import mapGCodeToText from '../../lib/gcode-text';
+
 import {
   TINYG_MACHINE_STATE_INITIALIZING,
   TINYG_MACHINE_STATE_READY,
@@ -27,7 +24,13 @@ import {
   TINYG_MACHINE_STATE_SHUTDOWN,
   TINYG_MACHINE_STATE_PANIC,
 } from '../../constants';
-import styles from './index.styl';
+
+import Overrides from './Overrides';
+import Panel from '../../components/Panel';
+import Toggler from '../../components/Toggler';
+import {Button} from '../../components/Buttons';
+
+import './index.scss';
 
 class TinyG extends PureComponent {
   static propTypes = {
@@ -93,8 +96,8 @@ class TinyG extends PureComponent {
     return (
       <div>
         <Overrides ovF={ovF} ovS={ovS} ovT={ovT} />
-        <Panel className={styles.panel}>
-          <Panel.Heading className={styles.panelHeading}>
+        <Panel className="panel">
+          <Panel.Heading className="panel-heading">
             <Toggler
               className="clearfix"
               onToggle={actions.togglePowerManagement}
@@ -110,7 +113,7 @@ class TinyG extends PureComponent {
                 <div className="row no-gutters" style={{marginBottom: 10}}>
                   <div className="col col-xs-6" style={{paddingRight: 5}}>
                     <Button
-                      className={styles.textEllipsis}
+                      className="text-ellipsis"
                       btnStyle="flat"
                       onClick={this.enableMotors}
                       title={i18n._('Enable Motors')}
@@ -121,7 +124,7 @@ class TinyG extends PureComponent {
                   </div>
                   <div className="col col-xs-6" style={{paddingLeft: 5}}>
                     <Button
-                      className={styles.textEllipsis}
+                      className="text-ellipsis"
                       btnStyle="flat"
                       onClick={this.disableMotors}
                       title={i18n._('Disable Motors')}
@@ -134,7 +137,7 @@ class TinyG extends PureComponent {
                 {map(pwr, (value, key) => (
                   <div key={key} className="row no-gutters">
                     <div className="col col-xs-4">
-                      <div className={styles.textEllipsis} title={i18n._('Motor {{n}}', {n: key})}>
+                      <div className="text-ellipsis" title={i18n._('Motor {{n}}', {n: key})}>
                         {i18n._('Motor {{n}}', {n: key})}
                       </div>
                     </div>
@@ -145,7 +148,7 @@ class TinyG extends PureComponent {
                         min={0}
                         max={1}
                         now={value}
-                        label={<span className={styles.progressbarLabel}>{value}</span>}
+                        label={<span className="progressbar-label">{value}</span>}
                       />
                     </div>
                   </div>
@@ -153,8 +156,8 @@ class TinyG extends PureComponent {
               </Panel.Body>
             )}
         </Panel>
-        <Panel className={styles.panel}>
-          <Panel.Heading className={styles['panel-heading']}>
+        <Panel className="panel">
+          <Panel.Heading className="panel-heading">
             <Toggler
               className="clearfix"
               onToggle={actions.toggleQueueReports}
@@ -179,15 +182,15 @@ class TinyG extends PureComponent {
                     min={this.plannerBufferMin}
                     max={this.plannerBufferMax}
                     now={plannerBuffer}
-                    label={<span className={styles.progressbarLabel}>{plannerBuffer}</span>}
+                    label={<span className="progressbar-label">{plannerBuffer}</span>}
                   />
                 </div>
               </div>
             </Panel.Body>
           )}
         </Panel>
-        <Panel className={styles.panel}>
-          <Panel.Heading className={styles['panel-heading']}>
+        <Panel className="panel">
+          <Panel.Heading className="panel-heading">
             <Toggler
               className="clearfix"
               onToggle={actions.toggleStatusReports}
@@ -201,49 +204,49 @@ class TinyG extends PureComponent {
             <Panel.Body>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('State')}>
+                  <div className="text-ellipsis" title={i18n._('State')}>
                     {i18n._('State')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well}>{machineStateText || none}</div>
+                  <div className="well">{machineStateText || none}</div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Feed Rate')}>
+                  <div className="text-ellipsis" title={i18n._('Feed Rate')}>
                     {i18n._('Feed Rate')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well}>{Number(feedrate) || 0}</div>
+                  <div className="well">{Number(feedrate) || 0}</div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Velocity')}>
+                  <div className="text-ellipsis" title={i18n._('Velocity')}>
                     {i18n._('Velocity')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well}>{Number(velocity) || 0}</div>
+                  <div className="well">{Number(velocity) || 0}</div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Line')}>
+                  <div className="text-ellipsis" title={i18n._('Line')}>
                     {i18n._('Line')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well}>{Number(line) || 0}</div>
+                  <div className="well">{Number(line) || 0}</div>
                 </div>
               </div>
             </Panel.Body>
           )}
         </Panel>
-        <Panel className={styles.panel}>
-          <Panel.Heading className={styles['panel-heading']}>
+        <Panel className="panel">
+          <Panel.Heading className="panel-heading">
             <Toggler
               className="clearfix"
               onToggle={actions.toggleModalGroups}
@@ -257,108 +260,108 @@ class TinyG extends PureComponent {
             <Panel.Body>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Motion')}>
+                  <div className="text-ellipsis" title={i18n._('Motion')}>
                     {i18n._('Motion')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.motion}>
+                  <div className="well" title={modal.motion}>
                     {modal.motion || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Coordinate')}>
+                  <div className="text-ellipsis" title={i18n._('Coordinate')}>
                     {i18n._('Coordinate')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.wcs}>
+                  <div className="well" title={modal.wcs}>
                     {modal.wcs || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Plane')}>
+                  <div className="text-ellipsis" title={i18n._('Plane')}>
                     {i18n._('Plane')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.plane}>
+                  <div className="well" title={modal.plane}>
                     {modal.plane || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Distance')}>
+                  <div className="text-ellipsis" title={i18n._('Distance')}>
                     {i18n._('Distance')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.distance}>
+                  <div className="well" title={modal.distance}>
                     {modal.distance || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Feed Rate')}>
+                  <div className="text-ellipsis" title={i18n._('Feed Rate')}>
                     {i18n._('Feed Rate')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.feedrate}>
+                  <div className="well" title={modal.feedrate}>
                     {modal.feedrate || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Units')}>
+                  <div className="text-ellipsis" title={i18n._('Units')}>
                     {i18n._('Units')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.units}>
+                  <div className="well" title={modal.units}>
                     {modal.units || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Path')}>
+                  <div className="text-ellipsis" title={i18n._('Path')}>
                     {i18n._('Path')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.path}>
+                  <div className="well" title={modal.path}>
                     {modal.path || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Spindle')}>
+                  <div className="text-ellipsis" title={i18n._('Spindle')}>
                     {i18n._('Spindle')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well} title={modal.spindle}>
+                  <div className="well" title={modal.spindle}>
                     {modal.spindle || none}
                   </div>
                 </div>
               </div>
               <div className="row no-gutters">
                 <div className="col col-xs-4">
-                  <div className={styles.textEllipsis} title={i18n._('Coolant')}>
+                  <div className="text-ellipsis" title={i18n._('Coolant')}>
                     {i18n._('Coolant')}
                   </div>
                 </div>
                 <div className="col col-xs-8">
-                  <div className={styles.well}>
+                  <div className="well">
                     {ensureArray(modal.coolant).map(coolant => (
                       <div title={coolant} key={coolant}>
                         {coolant || none}

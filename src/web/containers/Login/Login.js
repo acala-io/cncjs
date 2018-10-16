@@ -17,7 +17,7 @@ import Anchor from '../../components/Anchor';
 import Space from '../../components/Space';
 import {Notification} from '../../components/Notifications';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Login extends PureComponent {
   static propTypes = {
@@ -58,7 +58,7 @@ class Login extends PureComponent {
     }
 
     return (
-      <div className={styles.container}>
+      <div className="container">
         {alertMessage && (
           <Notification style={{marginBottom: 10}} type="error" onDismiss={actions.clearAlertMessage}>
             <div>
@@ -67,12 +67,12 @@ class Login extends PureComponent {
             <div>{alertMessage}</div>
           </Notification>
         )}
-        <div className={styles.login}>
-          <div className={styles.logo}>
+        <div className="login">
+          <div className="logo">
             <img src="images/logo-square-256x256.png" alt="" />
           </div>
-          <div className={styles.title}>{i18n._('Sign in to {{name}}', {name: settings.productName})}</div>
-          <form className={styles.form}>
+          <div className="title">{i18n._('Sign in to {{name}}', {name: settings.productName})}</div>
+          <form className="form">
             <div className="form-group">
               <input
                 ref={node => {

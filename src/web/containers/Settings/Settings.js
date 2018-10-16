@@ -22,7 +22,7 @@ import Events from './Events';
 import General from './General';
 import Workspace from './Workspace';
 
-import styles from './index.styl';
+import './index.scss';
 
 const mapSectionPathToId = (path = '') => {
   return camelCase(path.split('/')[0] || '');
@@ -158,7 +158,7 @@ class Settings extends PureComponent {
     const id = mapSectionPathToId(sectionPath || initialSectionPath);
     const activeSection = find(this.sections, {id}) || this.sections[0];
     const sectionItems = this.sections.map(section => (
-      <li key={section.id} className={classcat([{[styles.active]: activeSection.id === section.id}])}>
+      <li key={section.id} className={classcat([{active: activeSection.id === section.id}])}>
         <Link to={`/settings/${section.path}`}>{section.title}</Link>
       </li>
     ));
@@ -171,21 +171,21 @@ class Settings extends PureComponent {
     const sectionActions = actions[activeSection.id];
 
     return (
-      <div className={styles.settings}>
+      <div className="settings">
         <Breadcrumbs>
           <Breadcrumbs.Item active>{i18n._('Settings')}</Breadcrumbs.Item>
         </Breadcrumbs>
-        <div className={classcat([styles.container, styles.border])}>
-          <div className={styles.row}>
-            <div className={classcat([styles.col, styles.sidenav])}>
-              <nav className={styles.navbar}>
-                <ul className={styles.nav}>{sectionItems}</ul>
+        <div className="container border">
+          <div className="row">
+            <div className="col sidenav">
+              <nav className="navbar">
+                <ul className="nav">{sectionItems}</ul>
               </nav>
             </div>
-            <div className={classcat([styles.col, styles.splitter])} />
-            <div className={classcat([styles.col, styles.section])}>
-              <div className={styles.heading}>{activeSection.title}</div>
-              <div className={styles.content}>
+            <div className="col splitter" />
+            <div className="col section">
+              <div className="heading">{activeSection.title}</div>
+              <div className="content">
                 <Section
                   initialState={sectionInitialState}
                   state={sectionState}

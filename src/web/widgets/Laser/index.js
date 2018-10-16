@@ -29,7 +29,7 @@ import Laser from './Laser';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class LaserWidget extends PureComponent {
   static propTypes = {
@@ -97,7 +97,7 @@ class LaserWidget extends PureComponent {
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classcat([styles.widgetContent, {[styles.hidden]: minimized}])}>
+        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
           <Laser state={state} actions={actions} />
         </Widget.Content>
       </Widget>

@@ -27,7 +27,7 @@ import Button from '../../components_new/Button';
 import Icon from '../../components_new/Icon';
 import Space from '../../components/Space';
 
-import styles from './workflow-control.styl';
+import './workflow-control.scss';
 
 class WorkflowControl extends PureComponent {
   static propTypes = {
@@ -118,7 +118,7 @@ class WorkflowControl extends PureComponent {
     const canUpload = isReady ? canClose : canClick && !gcode.loading;
 
     return (
-      <div className={styles.workflowControl}>
+      <div className="workflow-control">
         <input
           ref={ref => (this.fileInputEl = ref)}
           type="file"
@@ -228,7 +228,7 @@ class WorkflowControl extends PureComponent {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <MenuItem>
-            <i className={classcat([styles.icon, styles.iconPerimeterTracingSquare])} />
+            <i className="icon icon-perimeter-tracing-square" />
             <Space width="4" />
           </MenuItem>
         </Dropdown.Menu>

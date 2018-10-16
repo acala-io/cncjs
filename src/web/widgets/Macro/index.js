@@ -34,7 +34,7 @@ import RunMacro from './RunMacro';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class MacroWidget extends PureComponent {
   static propTypes = {
@@ -101,7 +101,7 @@ class MacroWidget extends PureComponent {
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
+        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
           {state.modal.name === MODAL_ADD_MACRO && <AddMacro state={state} actions={actions} />}
           {state.modal.name === MODAL_EDIT_MACRO && <EditMacro state={state} actions={actions} />}
           {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}

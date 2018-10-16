@@ -8,7 +8,7 @@ import Modal from '../../components/Modal';
 import {Button} from '../../components/Buttons';
 import {Nav, NavItem} from '../../components/Navs';
 
-import styles from './index.styl';
+import './index.scss';
 
 const Controller = props => {
   const {actions, state} = props;
@@ -32,9 +32,9 @@ const Controller = props => {
           <NavItem eventKey="state">{i18n._('Controller State')}</NavItem>
           <NavItem eventKey="settings">{i18n._('Controller Settings')}</NavItem>
         </Nav>
-        <div className={styles.navContent} style={{height}}>
+        <div className="nav-content" style={{height}}>
           {activeTab === 'state' && (
-            <pre className={styles.pre}>
+            <pre className="pre">
               <code>{JSON.stringify(state.controller.state, null, 4)}</code>
             </pre>
           )}
@@ -55,7 +55,7 @@ const Controller = props => {
                 <i className="fa fa-refresh" />
                 {i18n._('Refresh')}
               </Button>
-              <pre className={styles.pre}>
+              <pre className="pre">
                 <code>{JSON.stringify(state.controller.settings, null, 4)}</code>
               </pre>
             </div>

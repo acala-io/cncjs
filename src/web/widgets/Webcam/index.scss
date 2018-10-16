@@ -98,7 +98,7 @@
         display: inline-block;
         height: 128px;
         width: 128px;
-        background: url("./images/webcam.svg") no-repeat 0 0;
+        // background: url("./images/webcam.svg") no-repeat 0 0;
     }
 }
 
@@ -113,24 +113,24 @@
         filter: invert(100%);
     }
     &.icon-unmute {
-        background: url("./images/unmute.svg") no-repeat 0 0;
+        // background: url('./images/unmute.svg') no-repeat 0 0;
     }
     &.icon-mute {
-        background: url("./images/mute.svg") no-repeat 0 0;
+        // background: url('./images/mute.svg') no-repeat 0 0;
     }
     &.icon-rotate-left {
-        background: url("./images/mono-rotate-left.svg") no-repeat 0 0;
+        // background: url('./images/mono-rotate-left.svg') no-repeat 0 0;
     }
     &.icon-rotate-right {
-        background: url("./images/mono-rotate-right.svg") no-repeat 0 0;
+        // background: url('./images/mono-rotate-right.svg') no-repeat 0 0;
     }
     &.icon-flip-vertically {
-        background: url("./images/flip-vertically.svg") no-repeat 0 0;
+        // background: url('./images/flip-vertically.svg') no-repeat 0 0;
     }
     &.icon-flip-horizontally {
-        background: url("./images/flip-horizontally.svg") no-repeat 0 0;
+        // background: url('./images/flip-horizontally.svg') no-repeat 0 0;
     }
     &.icon-crosshair {
-        background: url("./images/target.svg") no-repeat 0 0;
+        // background: url('./images/target.svg') no-repeat 0 0;
     }
 }

@@ -13,7 +13,7 @@ import TinyG from './TinyG';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class TinyGWidget extends PureComponent {
   static propTypes = {
@@ -145,7 +145,7 @@ class TinyGWidget extends PureComponent {
           </Widget.Controls>
         </Widget.Header>
         {isReady && (
-          <Widget.Content className={classcat([styles.widgetContent, {[styles.hidden]: minimized}])}>
+          <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
             {state.modal.name === MODAL_CONTROLLER && <Controller state={state} actions={actions} />}
             <TinyG state={state} actions={actions} />
           </Widget.Content>

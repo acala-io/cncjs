@@ -15,7 +15,7 @@
 .no-serial-connection {
     padding: 10px;
     color: #333;
-    opacity: .65;
+    opacity: 0.65;
 }
 
 .terminal-container {
@@ -30,6 +30,6 @@
     margin: 0 2px 2px 2px;
 
     &.select-all {
-        background: url("./images/select-all.svg") no-repeat 0 0;
+        // background: url("./images/select-all.svg") no-repeat 0 0;
     }
 }

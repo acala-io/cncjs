@@ -5,15 +5,6 @@
     right: 10px;
     bottom: 0;
 
-    :global {
-        .row {
-            margin-bottom: 5px;
-        }
-        .row:last-child {
-            margin-bottom: 0;
-        }
-    }
-
     .gcode-viewer {
         border: 1px solid #ccc;
         position: absolute;
@@ -34,7 +25,7 @@
 
         .label {
             display: inline;
-            padding: .2em .6em .3em;
+            padding: 0.2em 0.6em 0.3em;
             font-size: 75%;
             font-weight: bold;
             line-height: 1;
@@ -42,7 +33,7 @@
             text-align: center;
             white-space: nowrap;
             vertical-align: baseline;
-            border-radius: .25em;
+            border-radius: 0.25em;
             margin-right: 5px;
         }
         .label-default {

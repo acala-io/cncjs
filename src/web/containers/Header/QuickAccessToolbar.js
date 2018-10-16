@@ -5,7 +5,7 @@ import i18n from '../../lib/i18n';
 
 import Space from '../../components/Space';
 
-import styles from './index.styl';
+import './index.scss';
 
 class QuickAccessToolbar extends PureComponent {
   command = {
@@ -31,7 +31,7 @@ class QuickAccessToolbar extends PureComponent {
 
   render() {
     return (
-      <div className={styles.quickAccessToolbar}>
+      <div className="quick-access-toolbar">
         <ul className="nav navbar-nav">
           <li className="btn-group btn-group-sm" role="group">
             <button

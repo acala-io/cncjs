@@ -6,7 +6,7 @@ import i18n from '../../lib/i18n';
 
 import {Button} from '../../components/Buttons';
 
-import styles from './index.styl';
+import './index.scss';
 
 const KeypadText = styled.span`
   display: inline-block;
@@ -53,7 +53,7 @@ const getOnJogFunction = (props, axis1, axis2) => {
 const getJogButtonClasses = (props, axis1, axis2) => {
   const {axes, canClick, jog} = props.state;
 
-  const classNames = [styles.btnKeypad];
+  const classNames = ['btn-keypad'];
 
   if (axis1.direction !== '0' && [axis1, axis2].filter(Boolean).length === 1) {
     let highlight;
@@ -75,7 +75,7 @@ const getJogButtonClasses = (props, axis1, axis2) => {
         highlight = false;
     }
 
-    classNames.push({[styles.highlight]: highlight});
+    classNames.push({highlight});
   }
 
   return classcat(classNames);

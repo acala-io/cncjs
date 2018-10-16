@@ -1,9 +1,10 @@
+import DatePicker, {TimeInput, DateInput} from '@trendmicro/react-datepicker';
 import i18next from 'i18next';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import uncontrollable from 'uncontrollable';
-import DatePicker, {TimeInput, DateInput} from '@trendmicro/react-datepicker';
-import styles from './index.styl';
+
+import './index.scss';
 
 class DateTimeRangePicker extends PureComponent {
   static propTypes = {
@@ -19,6 +20,7 @@ class DateTimeRangePicker extends PureComponent {
     onChangeEndDate: PropTypes.func,
     onChangeEndTime: PropTypes.func,
   };
+
   static defaultProps = {
     locale: i18next.language,
     minDate: null,
@@ -41,24 +43,24 @@ class DateTimeRangePicker extends PureComponent {
     } = this.props;
 
     return (
-      <div className={styles.datePickerPane}>
-        <div className={styles.datePickerPaneHeader}>
-          <div className={styles.inputIconGroup}>
+      <div className="date-picker-pane-">
+        <div className="date-picker-pane-header">
+          <div className="input icon-group">
             <DateInput value={startDate} onChange={onChangeStartDate} />
           </div>
-          <div className={styles.inputIconGroup}>
+          <div className="input icon-group">
             <TimeInput value={startTime} onChange={onChangeStartTime} />
           </div>
-          <div className={styles.tilde}>~</div>
-          <div className={styles.inputIconGroup}>
+          <div className="tilde">~</div>
+          <div className="input icon-group">
             <DateInput value={endDate} onChange={onChangeEndDate} />
           </div>
-          <div className={styles.inputIconGroup}>
+          <div className="input icon-group">
             <TimeInput value={endTime} onChange={onChangeEndTime} />
           </div>
         </div>
-        <div className={styles.datePickerPaneBody}>
-          <div className={styles.datePickerPaneContainer}>
+        <div className="date-picker-pane-body">
+          <div className="date-picker-pane-container">
             <DatePicker
               locale={locale}
               date={startDate}
@@ -67,7 +69,7 @@ class DateTimeRangePicker extends PureComponent {
               onSelect={onChangeStartDate}
             />
           </div>
-          <div className={styles.datePickerPaneContainer}>
+          <div className="date-picker-pane-container">
             <DatePicker locale={locale} date={endDate} minDate={minDate} maxDate={maxDate} onSelect={onChangeEndDate} />
           </div>
         </div>

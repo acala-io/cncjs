@@ -22,7 +22,7 @@ import GCodeStats from './GCodeStats';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class GCodeWidget extends PureComponent {
   static propTypes = {
@@ -85,7 +85,7 @@ class GCodeWidget extends PureComponent {
         <Widget.Header>
           <Widget.Title>{i18n._('G-code')}</Widget.Title>
         </Widget.Header>
-        <Widget.Content className={styles['widget-content']}>
+        <Widget.Content className="widget-content">
           <GCodeStats state={state} actions={actions} />
         </Widget.Content>
       </Widget>

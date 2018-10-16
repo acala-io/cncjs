@@ -1,22 +1,21 @@
-import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from './index.styl';
+import './index.scss';
 
 const DigitalReadout = props => {
   const {children, label, value} = props;
 
   return (
-    <div className={classcat(['row no-gutters', styles.dro])}>
+    <div className="row no-gutters dro">
       <div className="col col-xs-1">
-        <div className={styles.droLabel}>{label}</div>
+        <div className="dro-label">{label}</div>
       </div>
       <div className="col col-xs-2">
-        <div className={classcat([styles.well, styles.droDisplay])}>{value}</div>
+        <div className="well dro-display">{value}</div>
       </div>
       <div className="col col-xs-9">
-        <div className={styles.droBtnGroup}>
+        <div className="dro-btn-group">
           <div className="input-group input-group-sm">
             <div className="input-group-btn">{children}</div>
           </div>

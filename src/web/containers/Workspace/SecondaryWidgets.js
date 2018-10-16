@@ -21,7 +21,7 @@ import Modal from '../../components/Modal';
 import Widget from './Widget';
 import {Button} from '../../components/Buttons';
 
-import styles from './widgets.styl';
+import './widgets.scss';
 
 class SecondaryWidgets extends Component {
   static propTypes = {
@@ -212,7 +212,7 @@ class SecondaryWidgets extends Component {
 
     return (
       <Sortable
-        className={classcat([className, styles.widgets])}
+        className={classcat([className, 'widgets'])}
         style={{
           overflowX: 'hidden',
         }}

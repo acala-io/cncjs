@@ -2,17 +2,17 @@ import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from './index.styl';
+import './index.scss';
 
-const Center = ({className, horizontal, vertical, stretched, ...props}) => (
+const Center = ({className, horizontal, stretched, vertical, ...props}) => (
   <div
     {...props}
     className={classcat([
       className,
       {
-        [styles.horizontal]: Boolean(horizontal),
-        [styles.vertical]: Boolean(vertical),
-        [styles.stretched]: Boolean(stretched),
+        horizontal: Boolean(horizontal),
+        stretched: Boolean(stretched),
+        vertical: Boolean(vertical),
       },
     ])}
   />

@@ -47,12 +47,11 @@ import {
 import Anchor from '../../components/Anchor';
 import Card from '../../components_new/Card';
 import Dashboard from './Dashboard';
-import Loading from './Loading';
+import LoadingIndicator from '../../components_new/LoadingIndicator';
 import Modal from '../../components/Modal';
 import ModalTemplate from '../../components/ModalTemplate';
 import Notifications from './Notifications';
 import PrimaryToolbar from './PrimaryToolbar';
-import Rendering from './Rendering';
 import SecondaryToolbar from './SecondaryToolbar';
 import Visualizer from './Visualizer';
 import WatchDirectory from './WatchDirectory';
@@ -60,7 +59,7 @@ import WidgetConfig from '../WidgetConfig';
 import WorkflowControl from './WorkflowControl';
 import {Button} from '../../components/Buttons';
 
-import styles from './index.styl';
+import './index.scss';
 
 const translateExpression = (function() {
   const {Parser} = ExpressionEvaluator;
@@ -232,13 +231,13 @@ class VisualizerWidget extends PureComponent {
     return (
       <Card
         ref={node => (this.widgetContent = node)}
-        className={classcat([{[styles.view3D]: capable.view3D}])}
+        className={classcat([{'view-3D': capable.view3D}])}
         style={{background: 'hsl(201, 5%, 42%)'}}
         noPad
         shadow
       >
-        {state.gcode.loading && <Loading />}
-        {state.gcode.rendering && <Rendering />}
+        {state.gcode.loading && <LoadingIndicator message={i18n._('Loading...')} />}
+        {state.gcode.rendering && <LoadingIndicator message={i18n._('3D rendering')} />}
         {state.modal.name === MODAL_WATCH_DIRECTORY && <WatchDirectory state={state} actions={actions} />}
         <WorkflowControl state={state} actions={actions} />
         <Dashboard show={showDashboard} state={state} />

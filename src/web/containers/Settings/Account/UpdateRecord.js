@@ -2,26 +2,29 @@ import {get} from 'lodash';
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import {ToastNotification} from '../../../components/Notifications';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import {Form, Input} from '../../../components/Validation';
+
 import i18n from '../../../lib/i18n';
 import * as validations from '../../../lib/validations';
-import styles from '../form.styl';
+
+import Modal from '../../../components/Modal';
+import Space from '../../../components/Space';
+import ToggleSwitch from '../../../components/ToggleSwitch';
+import {Form, Input} from '../../../components/Validation';
+import {ToastNotification} from '../../../components/Notifications';
+
+import '../form.scss';
 
 class UpdateRecord extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   fields = {
     enabled: null,
     name: null,
-    oldPassword: null,
     newPassword: null,
+    oldPassword: null,
   };
 
   get value() {
@@ -30,8 +33,8 @@ class UpdateRecord extends PureComponent {
     return {
       enabled: Boolean(get(this.fields.enabled, 'state.checked')),
       name,
-      oldPassword,
       newPassword,
+      oldPassword,
     };
   }
   render() {
@@ -70,8 +73,8 @@ class UpdateRecord extends PureComponent {
               event.preventDefault();
             }}
           >
-            <div className={styles.formFields}>
-              <div className={styles.formGroup}>
+            <div className="form-fields">
+              <div className="form-group">
                 <label>{i18n._('Account status')}</label>
                 <div>
                   <ToggleSwitch
@@ -83,7 +86,7 @@ class UpdateRecord extends PureComponent {
                   />
                 </div>
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Username')}</label>
                 <Input
                   ref={node => {
@@ -92,11 +95,11 @@ class UpdateRecord extends PureComponent {
                   type="text"
                   name="name"
                   value={name}
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   validations={[validations.required]}
                 />
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{changePassword ? i18n._('Old Password') : i18n._('Password')}</label>
                 <div className="clearfix">
                   <Input
@@ -105,12 +108,7 @@ class UpdateRecord extends PureComponent {
                     }}
                     type="password"
                     name="oldPassword"
-                    className={classcat([
-                      'form-control',
-                      {'pull-left': !changePassword},
-                      styles.formControl,
-                      styles.short,
-                    ])}
+                    className={classcat(['form-control', {'pull-left': !changePassword}, 'form-control', 'short'])}
                     validations={changePassword ? [validations.required] : []}
                     disabled={!changePassword}
                   />
@@ -128,7 +126,7 @@ class UpdateRecord extends PureComponent {
                 </div>
               </div>
               {changePassword && (
-                <div className={styles.formGroup}>
+                <div className="form-group">
                   <label>{i18n._('New Password')}</label>
                   <Input
                     ref={node => {
@@ -136,19 +134,19 @@ class UpdateRecord extends PureComponent {
                     }}
                     type="password"
                     name="password"
-                    className={classcat(['form-control', styles.formControl, styles.short])}
+                    className="form-control form-control short"
                     validations={[validations.required, validations.password]}
                   />
                 </div>
               )}
               {changePassword && (
-                <div className={styles.formGroup}>
+                <div className="form-group">
                   <label>{i18n._('Confirm Password')}</label>
                   <Input
                     type="password"
                     name="confirm"
                     value=""
-                    className={classcat(['form-control', styles.formControl, styles.short])}
+                    className="form-control form-control short"
                     validations={[validations.required]}
                   />
                 </div>

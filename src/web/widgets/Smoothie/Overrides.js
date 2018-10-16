@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import RepeatButton from '../../components/RepeatButton';
+
 import controller from '../../lib/controller';
+
 import DigitalReadout from './DigitalReadout';
-import styles from './index.styl';
+import RepeatButton from '../../components/RepeatButton';
+
+import './index.scss';
 
 const Overrides = props => {
   const {ovF, ovS} = props;
@@ -13,7 +16,7 @@ const Overrides = props => {
   }
 
   return (
-    <div className={styles.overrides}>
+    <div className="overrides">
       {Boolean(ovF) && (
         <DigitalReadout label="F" value={`${ovF}%`}>
           <RepeatButton

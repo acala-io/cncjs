@@ -1,21 +1,23 @@
-import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import React, {PureComponent} from 'react';
-import {Button} from 'web/components/Buttons';
-import Modal from 'web/components/Modal';
-import Space from 'web/components/Space';
-import {ToastNotification} from 'web/components/Notifications';
-import {Form, Input, Textarea} from 'web/components/Validation';
-import {FormGroup} from 'web/components/Forms';
+
 import i18n from 'web/lib/i18n';
 import * as validations from 'web/lib/validations';
-import styles from '../form.styl';
+
+import Modal from 'web/components/Modal';
+import Space from 'web/components/Space';
+import {Button} from 'web/components/Buttons';
+import {Form, Input, Textarea} from 'web/components/Validation';
+import {FormGroup} from 'web/components/Forms';
+import {ToastNotification} from 'web/components/Notifications';
+
+import '../form.scss';
 
 class CreateRecord extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     action: PropTypes.object,
+    state: PropTypes.object,
   };
 
   slider = null;
@@ -24,11 +26,11 @@ class CreateRecord extends PureComponent {
     const {name, command} = this.form.getValues();
 
     return {
-      name,
       command,
       grid: {
         xs: this.slider.state.value,
       },
+      name,
     };
   }
   render() {
@@ -73,7 +75,7 @@ class CreateRecord extends PureComponent {
                 type="text"
                 name="name"
                 value=""
-                className={classcat(['form-control', styles.formControl, styles.short])}
+                className="form-control form-control short"
                 validations={[validations.required]}
               />
             </FormGroup>
@@ -83,7 +85,7 @@ class CreateRecord extends PureComponent {
                 name="command"
                 value=""
                 rows="5"
-                className={classcat(['form-control', styles.formControl, styles.long])}
+                className="form-control long"
                 validations={[validations.required]}
               />
             </FormGroup>

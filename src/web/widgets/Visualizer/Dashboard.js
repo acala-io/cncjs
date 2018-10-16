@@ -14,7 +14,7 @@ import {formatBytes} from '../../lib/numeral';
 import Anchor from '../../components/Anchor';
 import Panel from '../../components/Panel';
 
-import styles from './dashboard.styl';
+import './dashboard.scss';
 
 class Dashboard extends PureComponent {
   static propTypes = {
@@ -36,8 +36,8 @@ class Dashboard extends PureComponent {
 
   renderItem = ({index, style}) => (
     <div key={index} style={style}>
-      <div className={styles.line}>
-        <span className={classcat([styles.label, styles.labelDefault])}>{index + 1}</span>
+      <div className="line">
+        <span className="label label-default">{index + 1}</span>
         {escape(this.lines[index])}
       </div>
     </div>
@@ -97,7 +97,7 @@ class Dashboard extends PureComponent {
     const rowHeight = 20;
 
     return (
-      <Panel className={styles.dashboard} style={style}>
+      <Panel className="dashboard" style={style}>
         <Panel.Heading style={{height: 30}}>{i18n._('G-code')}</Panel.Heading>
         <Panel.Body style={{height: 'calc(100% - 30px)'}}>
           <div className="clearfix" style={{marginBottom: 10}}>
@@ -125,7 +125,7 @@ class Dashboard extends PureComponent {
               now={sent}
               label={
                 total > 0 && (
-                  <span className={styles.progressbarLabel}>
+                  <span className="progressbar-label">
                     {sent}
                     &nbsp;/&nbsp;
                     {total}
@@ -138,7 +138,7 @@ class Dashboard extends PureComponent {
             ref={node => {
               this.node.virtualList = node;
             }}
-            className={classcat([styles.gcodeViewer, {[styles.gcodeViewerDisabled]: this.lines.length === 0}])}
+            className={classcat(['gcode-viewer', {'gcode-viewer-disabled': this.lines.length === 0}])}
           >
             {this.lines.length > 0 && (
               <VirtualList
@@ -152,7 +152,7 @@ class Dashboard extends PureComponent {
               />
             )}
             {this.lines.length === 0 && (
-              <div className={styles.absoluteCenter}>
+              <div className="absolute-center">
                 <img src="images/logo-square-256x256.png" alt="" />
               </div>
             )}

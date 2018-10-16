@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
 import Dropdown from '../Dropdown';
-import styles from './index.styl';
 import {Button} from '../Buttons';
+
+import './index.scss';
 
 class DropdownButton extends PureComponent {
   static propTypes = {
@@ -26,9 +27,10 @@ class DropdownButton extends PureComponent {
     // Whether to prevent a caret from being rendered next to the title.
     noCaret: PropTypes.bool,
   };
+
   static defaultProps = {
-    pullRight: true,
     noCaret: true,
+    pullRight: true,
   };
 
   render() {
@@ -37,6 +39,7 @@ class DropdownButton extends PureComponent {
     // Split component props
     const dropdownProps = {};
     const toggleProps = {};
+
     Object.keys(props).forEach(propName => {
       const propValue = props[propName];
       if (Dropdown.ControlledComponent.propTypes[propName]) {
@@ -55,7 +58,7 @@ class DropdownButton extends PureComponent {
         }}
         btnSize={btnSize}
       >
-        <Dropdown.Toggle {...toggleProps} className={styles.widgetButton} componentClass="a">
+        <Dropdown.Toggle {...toggleProps} className="widget-button" componentClass="a">
           {toggle}
         </Dropdown.Toggle>
         <Dropdown.Menu>{children}</Dropdown.Menu>

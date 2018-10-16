@@ -17,7 +17,7 @@ import RestoreDefaults from './RestoreDefaults';
 import Space from '../../../components/Space';
 import {Button} from '../../../components/Buttons';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Workspace extends PureComponent {
   static propTypes = {
@@ -144,12 +144,12 @@ class Workspace extends PureComponent {
             multiple={false}
             onChange={this.handleUploadFile}
           />
-          <div className={styles.formFields} style={{marginBottom: 50}}>
+          <div className="form-fields" style={{marginBottom: 50}}>
             <pre style={{height: 400}}>
               <code>{text}</code>
             </pre>
           </div>
-          <div className={styles.formActions}>
+          <div className="form-actions">
             <div className="pull-left">
               <Button btnStyle="danger" onClick={this.handleRestoreDefaults}>
                 {i18n._('Restore Defaults')}

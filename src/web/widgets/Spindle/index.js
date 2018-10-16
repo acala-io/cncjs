@@ -28,7 +28,7 @@ import Spindle from './Spindle';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class SpindleWidget extends PureComponent {
   static propTypes = {
@@ -88,7 +88,7 @@ class SpindleWidget extends PureComponent {
             </Widget.Button>
           </Widget.Controls>
         </Widget.Header>
-        <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
+        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
           <Spindle state={state} actions={actions} />
         </Widget.Content>
       </Widget>

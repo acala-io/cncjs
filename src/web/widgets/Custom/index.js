@@ -13,7 +13,7 @@ import Space from '../../components/Space';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class CustomWidget extends PureComponent {
   static propTypes = {
@@ -23,98 +23,17 @@ class CustomWidget extends PureComponent {
     widgetId: PropTypes.string.isRequired,
   };
 
-  // Public methods
   collapse = () => {
     this.setState({minimized: true});
   };
+
   expand = () => {
     this.setState({minimized: false});
   };
 
   config = new WidgetConfig(this.props.widgetId);
+
   state = this.getInitialState();
-  action = {
-    toggleDisabled: () => {
-      const {disabled} = this.state;
-      this.setState({disabled: !disabled});
-    },
-    toggleFullscreen: () => {
-      const {minimized, isFullscreen} = this.state;
-      this.setState({
-        minimized: isFullscreen ? minimized : false,
-        isFullscreen: !isFullscreen,
-      });
-    },
-    toggleMinimized: () => {
-      const {minimized} = this.state;
-      this.setState({minimized: !minimized});
-    },
-    openModal: (name = MODAL_NONE, params = {}) => {
-      this.setState({
-        modal: {
-          name,
-          params,
-        },
-      });
-    },
-    closeModal: () => {
-      this.setState({
-        modal: {
-          name: MODAL_NONE,
-          params: {},
-        },
-      });
-    },
-    refreshContent: () => {
-      if (this.content) {
-        const forceGet = true;
-        this.content.reload(forceGet);
-      }
-    },
-  };
-  controllerEvents = {
-    'connection:open': options => {
-      const {ident, type, settings} = options;
-      this.setState(state => ({
-        connection: {
-          ...state.connection,
-          ident,
-          type,
-          settings,
-        },
-      }));
-    },
-    'connection:close': () => {
-      const initialState = this.getInitialState();
-      this.setState({...initialState});
-    },
-    'workflow:state': workflowState => {
-      this.setState({
-        workflow: {
-          state: workflowState,
-        },
-      });
-    },
-  };
-  content = null;
-  component = null;
-
-  componentDidMount() {
-    this.addControllerEvents();
-  }
-
-  componentWillUnmount() {
-    this.removeControllerEvents();
-  }
-
-  componentDidUpdate() {
-    const {disabled, minimized, title, url} = this.state;
-
-    this.config.set('disabled', disabled);
-    this.config.set('minimized', minimized);
-    this.config.set('title', title);
-    this.config.set('url', url);
-  }
 
   getInitialState() {
     return {
@@ -140,20 +59,6 @@ class CustomWidget extends PureComponent {
         params: {},
       },
     };
-  }
-
-  addControllerEvents() {
-    Object.keys(this.controllerEvents).forEach(eventName => {
-      const callback = this.controllerEvents[eventName];
-      controller.addListener(eventName, callback);
-    });
-  }
-
-  removeControllerEvents() {
-    Object.keys(this.controllerEvents).forEach(eventName => {
-      const callback = this.controllerEvents[eventName];
-      controller.removeListener(eventName, callback);
-    });
   }
 
   render() {
@@ -249,10 +154,10 @@ class CustomWidget extends PureComponent {
         </Widget.Header>
         <Widget.Content
           className={classcat([
-            styles.widgetContent,
+            'widget-content',
             {
-              [styles.hidden]: minimized,
-              [styles.fullscreen]: isFullscreen,
+              hidden: minimized,
+              fullscreen: isFullscreen,
             },
           ])}
         >
@@ -284,6 +189,103 @@ class CustomWidget extends PureComponent {
         </Widget.Content>
       </Widget>
     );
+  }
+
+  action = {
+    toggleDisabled: () => {
+      const {disabled} = this.state;
+      this.setState({disabled: !disabled});
+    },
+    toggleFullscreen: () => {
+      const {minimized, isFullscreen} = this.state;
+      this.setState({
+        isFullscreen: !isFullscreen,
+        minimized: isFullscreen ? minimized : false,
+      });
+    },
+    toggleMinimized: () => {
+      const {minimized} = this.state;
+      this.setState({minimized: !minimized});
+    },
+    openModal: (name = MODAL_NONE, params = {}) => {
+      this.setState({
+        modal: {
+          name,
+          params,
+        },
+      });
+    },
+    closeModal: () => {
+      this.setState({
+        modal: {
+          name: MODAL_NONE,
+          params: {},
+        },
+      });
+    },
+    refreshContent: () => {
+      if (this.content) {
+        const forceGet = true;
+        this.content.reload(forceGet);
+      }
+    },
+  };
+  controllerEvents = {
+    'connection:open': options => {
+      const {ident, type, settings} = options;
+      this.setState(state => ({
+        connection: {
+          ...state.connection,
+          ident,
+          type,
+          settings,
+        },
+      }));
+    },
+    'connection:close': () => {
+      const initialState = this.getInitialState();
+      this.setState({...initialState});
+    },
+    'workflow:state': workflowState => {
+      this.setState({
+        workflow: {
+          state: workflowState,
+        },
+      });
+    },
+  };
+  content = null;
+  component = null;
+
+  componentDidMount() {
+    this.addControllerEvents();
+  }
+
+  componentWillUnmount() {
+    this.removeControllerEvents();
+  }
+
+  componentDidUpdate() {
+    const {disabled, minimized, title, url} = this.state;
+
+    this.config.set('disabled', disabled);
+    this.config.set('minimized', minimized);
+    this.config.set('title', title);
+    this.config.set('url', url);
+  }
+
+  addControllerEvents() {
+    Object.keys(this.controllerEvents).forEach(eventName => {
+      const callback = this.controllerEvents[eventName];
+      controller.addListener(eventName, callback);
+    });
+  }
+
+  removeControllerEvents() {
+    Object.keys(this.controllerEvents).forEach(eventName => {
+      const callback = this.controllerEvents[eventName];
+      controller.removeListener(eventName, callback);
+    });
   }
 }
 

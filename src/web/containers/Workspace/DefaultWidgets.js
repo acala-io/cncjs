@@ -2,12 +2,12 @@ import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import styles from './widgets.styl';
+import './widgets.scss';
 
 import Widget from './Widget';
 
 const DefaultWidgets = ({className, defaultWidgets}) => (
-  <div className={classcat([className, styles.widgets])}>
+  <div className={classcat([className, 'widgets'])}>
     {defaultWidgets.map(id => (
       <div data-widget-id={id} key={id}>
         <Widget widgetId={id} />

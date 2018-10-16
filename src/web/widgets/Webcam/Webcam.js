@@ -15,7 +15,7 @@ import Line from './Line';
 import WebcamComponent from '../../components/Webcam';
 import {Tooltip} from '../../components/Tooltip';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Webcam extends PureComponent {
   static propTypes = {
@@ -57,9 +57,9 @@ class Webcam extends PureComponent {
 
     if (disabled) {
       return (
-        <div className={styles['webcam-off-container']}>
+        <div className="webcam-off-container">
           <h4>
-            <i className={styles['icon-webcam']} />
+            <i className="icon-webcam" />
           </h4>
           <h5>{i18n._('Webcam is off')}</h5>
         </div>
@@ -74,12 +74,12 @@ class Webcam extends PureComponent {
     ].join(' ');
 
     return (
-      <div className={styles['webcam-on-container']}>
+      <div className="webcam-on-container">
         {mediaSource === MEDIA_SOURCE_LOCAL && (
           <div style={{width: '100%'}}>
             <WebcamComponent
               ref={ref => (this.mediaSource = ref)}
-              className={styles.center}
+              className="center"
               style={{transform: transformStyle}}
               width={`${(100 * scale).toFixed(0)}%`}
               height="auto"
@@ -96,60 +96,62 @@ class Webcam extends PureComponent {
               transform: transformStyle,
               width: `${(100 * scale).toFixed(0)}%`,
             }}
-            className={styles.center}
+            className="center"
           />
         )}
         {crosshair && (
           <div>
-            <Line className={classcat([styles.center, styles['line-shadow']])} length="100%" />
-            <Line className={classcat([styles.center, styles['line-shadow']])} length="100%" vertical />
-            <Circle className={classcat([styles.center, styles['line-shadow']])} diameter={20} />
-            <Circle className={classcat([styles.center, styles['line-shadow']])} diameter={40} />
+            <Line className={classcat(['center', 'line-shadow'])} length="100%" />
+            <Line className={classcat(['center', 'line-shadow'])} length="100%" vertical />
+            <Circle className={classcat(['center', 'line-shadow'])} diameter={20} />
+            <Circle className={classcat(['center', 'line-shadow'])} diameter={40} />
           </div>
         )}
-        <div className={styles.toolbar}>
-          <div className={styles.scaleText}>{scale}x</div>
+        <div className="toolbar">
+          <div className="scale-text">{scale}x</div>
           <div className="pull-right">
             {mediaSource === MEDIA_SOURCE_LOCAL && (
-              <Anchor className={styles.btnIcon} onClick={actions.toggleMute}>
+              <Anchor className="btn-icon" onClick={actions.toggleMute}>
                 <i
                   className={classcat([
-                    styles.icon,
-                    styles.inverted,
-                    {[styles.iconUnmute]: !muted},
-                    {[styles.iconMute]: muted},
+                    'icon',
+                    'inverted',
+                    {
+                      iconUnmute: !muted,
+                      iconMute: muted,
+                    },
                   ])}
                 />
               </Anchor>
             )}
             <Tooltip content={i18n._('Rotate Left')} placement="top">
-              <Anchor className={styles.btnIcon} onClick={actions.rotateLeft}>
-                <i className={classcat([styles.icon, styles.inverted, styles.iconRotateLeft])} />
+              <Anchor className={'btn-icon'} onClick={actions.rotateLeft}>
+                <i className="icon inverted icon-rotate-left" />
               </Anchor>
             </Tooltip>
             <Tooltip content={i18n._('Rotate Right')} placement="top">
-              <Anchor className={styles.btnIcon} onClick={actions.rotateRight}>
-                <i className={classcat([styles.icon, styles.inverted, styles.iconRotateRight])} />
+              <Anchor className={'btn-icon'} onClick={actions.rotateRight}>
+                <i className="icon inverted icon-rotate-right" />
               </Anchor>
             </Tooltip>
             <Tooltip content={i18n._('Flip Horizontally')} placement="top">
-              <Anchor className={styles.btnIcon} onClick={actions.toggleFlipHorizontally}>
-                <i className={classcat([styles.icon, styles.inverted, styles.iconFlipHorizontally])} />
+              <Anchor className={'btn-icon'} onClick={actions.toggleFlipHorizontally}>
+                <i className="icon inverted icon-flip-horizontally" />
               </Anchor>
             </Tooltip>
             <Tooltip content={i18n._('Flip Vertically')} placement="top">
-              <Anchor className={styles.btnIcon} onClick={actions.toggleFlipVertically}>
-                <i className={classcat([styles.icon, styles.inverted, styles.iconFlipVertically])} />
+              <Anchor className={'btn-icon'} onClick={actions.toggleFlipVertically}>
+                <i className="icon inverted icon-flip-vertically" />
               </Anchor>
             </Tooltip>
             <Tooltip content={i18n._('Crosshair')} placement="top">
-              <Anchor className={styles.btnIcon} onClick={actions.toggleCrosshair}>
-                <i className={classcat([styles.icon, styles.inverted, styles.iconCrosshair])} />
+              <Anchor className={'btn-icon'} onClick={actions.toggleCrosshair}>
+                <i className="icon inverted icon-crosshair" />
               </Anchor>
             </Tooltip>
           </div>
         </div>
-        <div className={styles['image-scale-slider']}>
+        <div className="image-scale-slider">
           <Slider
             defaultValue={scale}
             min={0.1}

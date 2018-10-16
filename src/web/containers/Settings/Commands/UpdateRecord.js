@@ -1,35 +1,38 @@
 import {get} from 'lodash';
-import classcat from 'classcat';
+
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import {ToastNotification} from '../../../components/Notifications';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import {Form, Input, Textarea} from '../../../components/Validation';
+
 import i18n from '../../../lib/i18n';
 import * as validations from '../../../lib/validations';
-import styles from '../form.styl';
+
+import Modal from '../../../components/Modal';
+import Space from '../../../components/Space';
+import ToggleSwitch from '../../../components/ToggleSwitch';
+import {Form, Input, Textarea} from '../../../components/Validation';
+import {ToastNotification} from '../../../components/Notifications';
+
+import '../form.scss';
 
 class UpdateRecord extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   fields = {
+    commands: null,
     enabled: null,
     title: null,
-    commands: null,
   };
 
   get value() {
     const {title, commands} = this.form.getValues();
 
     return {
+      commands,
       enabled: Boolean(get(this.fields.enabled, 'state.checked')),
       title,
-      commands,
     };
   }
   render() {
@@ -68,8 +71,8 @@ class UpdateRecord extends PureComponent {
               event.preventDefault();
             }}
           >
-            <div className={styles.formFields}>
-              <div className={styles.formGroup}>
+            <div className="form-fields">
+              <div className="form-group">
                 <label>{i18n._('Enabled')}</label>
                 <div>
                   <ToggleSwitch
@@ -81,23 +84,23 @@ class UpdateRecord extends PureComponent {
                   />
                 </div>
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Title')}</label>
                 <Input
                   type="text"
                   name="title"
                   value={title}
-                  className={classcat(['form-control', styles.formControl, styles.short])}
+                  className="form-control form-control short"
                   validations={[validations.required]}
                 />
               </div>
-              <div className={styles.formGroup}>
+              <div className="form-group">
                 <label>{i18n._('Commands')}</label>
                 <Textarea
                   name="commands"
                   value={commands}
                   rows="5"
-                  className={classcat(['form-control', styles.formControl, styles.long])}
+                  className="form-control long"
                   validations={[validations.required]}
                 />
               </div>

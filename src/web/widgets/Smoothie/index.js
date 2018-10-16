@@ -13,7 +13,7 @@ import Smoothie from './Smoothie';
 import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
-import styles from './index.styl';
+import './index.scss';
 
 class SmoothieWidget extends PureComponent {
   static propTypes = {
@@ -129,7 +129,7 @@ class SmoothieWidget extends PureComponent {
           </Widget.Controls>
         </Widget.Header>
         {isReady && (
-          <Widget.Content className={classcat([styles['widget-content'], {[styles.hidden]: minimized}])}>
+          <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
             {state.modal.name === MODAL_CONTROLLER && <Controller state={state} actions={actions} />}
             <Smoothie state={state} actions={actions} />
           </Widget.Content>

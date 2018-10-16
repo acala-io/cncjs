@@ -4,7 +4,7 @@ import React, {PureComponent} from 'react';
 
 import Anchor from '../Anchor';
 
-import styles from './index.styl';
+import './index.scss';
 
 class Toggler extends PureComponent {
   static propTypes = {
@@ -14,7 +14,7 @@ class Toggler extends PureComponent {
   render() {
     const {onToggle, className, ...props} = this.props;
 
-    return <Anchor {...props} className={classcat([className, styles.toggler])} onClick={onToggle} />;
+    return <Anchor {...props} className={classcat([className, 'toggler'])} onClick={onToggle} />;
   }
 }
 

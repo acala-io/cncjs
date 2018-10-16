@@ -48,7 +48,7 @@ import {
 
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 
-import styles from './index.styl';
+import './index.scss';
 
 class PrimaryToolbar extends PureComponent {
   static propTypes = {
@@ -64,7 +64,7 @@ class PrimaryToolbar extends PureComponent {
     const canSendCommand = this.canSendCommand();
 
     return (
-      <div className={styles.primaryToolbar}>
+      <div className="primary-toolbar">
         {controllerType}
         {controllerState}
         <div className="pull-right">
@@ -150,7 +150,7 @@ class PrimaryToolbar extends PureComponent {
     const {state} = this.props;
     const controllerType = state.controller.type;
 
-    return <div className={styles.controllerType}>{controllerType}</div>;
+    return <div className="controller-type">{controllerType}</div>;
   }
 
   renderControllerState() {
@@ -255,7 +255,7 @@ class PrimaryToolbar extends PureComponent {
       }[machineState];
     }
 
-    return <div className={classcat([styles.controllerState, styles[stateStyle]])}>{stateText}</div>;
+    return <div className={classcat(['controller-state', stateStyle])}>{stateText}</div>;
   }
 }
 
