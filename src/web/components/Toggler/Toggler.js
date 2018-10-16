@@ -1,7 +1,9 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import Anchor from '../Anchor';
+
 import styles from './index.styl';
 
 class Toggler extends PureComponent {
@@ -12,15 +14,7 @@ class Toggler extends PureComponent {
   render() {
     const {onToggle, className, ...props} = this.props;
 
-    return (
-      <Anchor
-        {...props}
-        className={classNames(className, styles.toggler)}
-        onClick={event => {
-          onToggle(event);
-        }}
-      />
-    );
+    return <Anchor {...props} className={classcat([className, styles.toggler])} onClick={onToggle} />;
   }
 }
 

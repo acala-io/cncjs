@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Anchor from '../Anchor';
@@ -22,10 +22,14 @@ class Button extends PureComponent {
     return (
       <Anchor
         {...props}
-        className={classNames(className, styles.widgetButton, {
-          [styles.disabled]: Boolean(props.disabled),
-          [styles.inverted]: inverted,
-        })}
+        className={classcat([
+          className,
+          styles.widgetButton,
+          {
+            [styles.disabled]: Boolean(props.disabled),
+            [styles.inverted]: inverted,
+          },
+        ])}
       />
     );
   }

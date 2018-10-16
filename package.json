@@ -171,7 +171,6 @@
     "chained-function": "~0.5.0",
     "chalk": "~2.4.1",
     "classcat": "^3.2.3",
-    "classnames": "~2.2.6",
     "cli-color": "~1.2.0",
     "cncjs-controller": "~2.0.0-alpha",
     "colornames": "~1.1.1",

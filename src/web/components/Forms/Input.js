@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
@@ -42,7 +42,7 @@ class Input extends Component {
   render() {
     const {componentClass: Component, innerRef, className, ...props} = this.props;
 
-    return <Component {...props} ref={innerRef} className={cx(className, 'form-control')} />;
+    return <Component {...props} ref={innerRef} className={classcat([className, 'form-control'])} />;
   }
 }
 

@@ -1,6 +1,7 @@
-import classNames from 'classnames';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import styles from './index.styl';
 
 class Widget extends PureComponent {
@@ -8,6 +9,7 @@ class Widget extends PureComponent {
     borderless: PropTypes.bool,
     fullscreen: PropTypes.bool,
   };
+
   static defaultProps = {
     borderless: false,
     fullscreen: false,
@@ -18,13 +20,13 @@ class Widget extends PureComponent {
 
     return (
       <div
-        {...props}
-        className={classNames(
+        className={classcat([
           className,
           styles.widget,
           {[styles.widgetBorderless]: borderless},
-          {[styles.widgetFullscreen]: fullscreen}
-        )}
+          {[styles.widgetFullscreen]: fullscreen},
+        ])}
+        {...props}
       />
     );
   }
