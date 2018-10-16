@@ -1,8 +1,8 @@
 import classcat from 'classcat';
 import FacebookLoading from 'react-facebook-loading';
-import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {get} from 'lodash';
 
 import i18n from '../../../lib/i18n';
 

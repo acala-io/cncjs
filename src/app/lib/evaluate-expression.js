@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import evaluate from 'static-eval';
-import get from 'lodash/get';
+import {get} from 'lodash';
 import {parse} from 'esprima';
 
 import logger from './logger';

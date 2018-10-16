@@ -4,8 +4,8 @@ import classcat from 'classcat';
 import Push from 'push.js';
 import React, {PureComponent} from 'react';
 import semver from 'semver';
-import without from 'lodash/without';
 import {Nav, Navbar, NavDropdown, MenuItem, OverlayTrigger} from 'react-bootstrap';
+import {without} from 'lodash';
 import {withRouter} from 'react-router-dom';
 
 import api from '../../api';

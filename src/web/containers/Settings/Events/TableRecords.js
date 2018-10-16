@@ -4,7 +4,7 @@ import chainedFunction from 'chained-function';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import take from 'lodash/take';
+import {take} from 'lodash';
 
 import i18n from '../../../lib/i18n';
 import portal from '../../../lib/portal';

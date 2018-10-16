@@ -1,28 +1,27 @@
 /* eslint-disable import/default */
 
 import ensureArray from 'ensure-array';
-import noop from 'lodash/noop';
-import reverse from 'lodash/reverse';
 import SerialPort from 'serialport';
 import socketIO from 'socket.io';
 import socketioJwt from 'socketio-jwt';
-import sortBy from 'lodash/sortBy';
-import uniq from 'lodash/uniq';
+import {noop, reverse, sortBy, uniq} from 'lodash';
 
-import config from '../configstore';
-import controllers from '../../store/controllers';
 import EventTrigger from '../../lib/EventTrigger';
 import logger from '../../lib/logger';
-import settings from '../../config/settings';
-import taskRunner from '../taskrunner';
 import {authorizeIPAddress, validateUser} from '../../access-control';
+import {toIdent as toSerialIdent} from '../../lib/SerialConnection';
+import {toIdent as toSocketIdent} from '../../lib/SocketConnection';
+
+import controllers from '../../store/controllers';
+import taskRunner from '../taskrunner';
 import {G2CORE, TINYG} from '../../controllers/TinyG/constants';
 import {GrblController, MarlinController, SmoothieController, TinyGController} from '../../controllers';
 import {GRBL} from '../../controllers/Grbl/constants';
 import {MARLIN} from '../../controllers/Marlin/constants';
 import {SMOOTHIE} from '../../controllers/Smoothie/constants';
-import {toIdent as toSerialIdent} from '../../lib/SerialConnection';
-import {toIdent as toSocketIdent} from '../../lib/SocketConnection';
+
+import config from '../configstore';
+import settings from '../../config/settings';
 
 const log = logger('service:cncengine');
 

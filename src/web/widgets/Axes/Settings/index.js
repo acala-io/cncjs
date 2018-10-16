@@ -1,17 +1,21 @@
 import ensureArray from 'ensure-array';
-import styled from 'styled-components';
-import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import api from '../../../api';
-import {Button} from '../../../components/Buttons';
-import Modal from '../../../components/Modal';
-import {Nav, NavItem} from '../../../components/Navs';
+import styled from 'styled-components';
+import {noop} from 'lodash';
+
 import i18n from '../../../lib/i18n';
+
+import api from '../../../api';
+
+import {DEFAULT_AXES} from '../constants';
+
 import General from './General';
 import MDI from './MDI';
+import Modal from '../../../components/Modal';
 import ShuttleXpress from './ShuttleXpress';
-import {DEFAULT_AXES} from '../constants';
+import {Button} from '../../../components/Buttons';
+import {Nav, NavItem} from '../../../components/Navs';
 
 const TabContent = styled.div`
   padding: 10px 15px;
@@ -25,12 +29,13 @@ const TabPane = styled.div`
 class Settings extends PureComponent {
   static propTypes = {
     config: PropTypes.object.isRequired,
-    onSave: PropTypes.func,
     onCancel: PropTypes.func,
+    onSave: PropTypes.func,
   };
+
   static defaultProps = {
-    onSave: noop,
     onCancel: noop,
+    onSave: noop,
   };
 
   config = this.props.config;

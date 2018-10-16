@@ -1,7 +1,7 @@
-import mapValues from 'lodash/mapValues';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
+import {mapValues} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';

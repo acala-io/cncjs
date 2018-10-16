@@ -1,7 +1,7 @@
-import _max from 'lodash/max';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {max} from 'lodash';
 
 import i18n from 'web/lib/i18n';
 
@@ -328,7 +328,7 @@ class DateTimeRangePickerDropdown extends PureComponent {
     const period = this.state.period !== undefined ? this.state.period : this.props.defaultPeriod;
     const showDateTimeRangePicker = this.state.open && period === 'custom';
 
-    const maxDays = _max(periods.map(period => parseInt(period, 10)));
+    const maxDays = max(periods.map(period => parseInt(period, 10)));
     const today = moment().startOf('day');
     const minDate = moment(today)
       .subtract(maxDays - 1, 'days')

@@ -1,18 +1,16 @@
 import ensureArray from 'ensure-array';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import map from 'lodash/map';
-import mapValues from 'lodash/mapValues';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {get, includes, map, mapValues} from 'lodash';
 
-import API from '../../api';
 import combokeys from '../../lib/combokeys';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import {in2mm, mapPositionToUnits} from '../../lib/units';
 import {limit} from '../../lib/normalize-range';
 import {preventDefault} from '../../lib/dom-events';
+
+import API from '../../api';
 
 import {
   // Units

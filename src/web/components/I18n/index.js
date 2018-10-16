@@ -1,6 +1,7 @@
-import omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import {omit} from 'lodash';
+
 import i18n from '../../lib/i18n';
 
 const REGEXP = /{{(.+?)}}/;

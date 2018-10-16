@@ -1,6 +1,5 @@
-import endsWith from 'lodash/endsWith';
-import mapKeys from 'lodash/mapKeys';
 import sha1 from 'sha1';
+import {endsWith, mapKeys} from 'lodash';
 
 import log from '../lib/log';
 

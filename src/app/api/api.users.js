@@ -2,11 +2,9 @@
 
 import bcrypt from 'bcrypt-nodejs';
 import ensureArray from 'ensure-array';
-import find from 'lodash/find';
-import isPlainObject from 'lodash/isPlainObject';
 import jwt from 'jsonwebtoken';
-import some from 'lodash/some';
 import uuid from 'uuid';
+import {find, isPlainObject, some} from 'lodash';
 
 import config from '../services/configstore';
 import logger from '../lib/logger';

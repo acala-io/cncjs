@@ -1,15 +1,17 @@
-import get from 'lodash/get';
-import includes from 'lodash/includes';
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {Form, Select, Textarea} from '../../../components/Validation';
-import Modal from '../../../components/Modal';
-import {ToastNotification} from '../../../components/Notifications';
-import Space from '../../../components/Space';
-import ToggleSwitch from '../../../components/ToggleSwitch';
+import {get, includes} from 'lodash';
+
 import i18n from '../../../lib/i18n';
 import * as validations from '../../../lib/validations';
+
+import Modal from '../../../components/Modal';
+import Space from '../../../components/Space';
+import ToggleSwitch from '../../../components/ToggleSwitch';
+import {Form, Select, Textarea} from '../../../components/Validation';
+import {ToastNotification} from '../../../components/Notifications';
+
 import styles from '../form.styl';
 
 const SYSTEM_EVENTS = [
@@ -21,25 +23,25 @@ const SYSTEM_EVENTS = [
 
 class UpdateRecord extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   fields = {
+    commands: null,
     enabled: null,
     event: null,
     trigger: null,
-    commands: null,
   };
 
   get value() {
     const {event, trigger, commands} = this.form.getValues();
 
     return {
+      commands,
       enabled: Boolean(get(this.fields.enabled, 'state.checked')),
       event,
       trigger,
-      commands,
     };
   }
   render() {

@@ -1,6 +1,6 @@
-import findIndex from 'lodash/findIndex';
 import React, {PureComponent} from 'react';
 import uuid from 'uuid';
+import {findIndex} from 'lodash';
 
 import api from '../../../../api';
 

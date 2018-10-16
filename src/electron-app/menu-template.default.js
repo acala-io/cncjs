@@ -1,5 +1,5 @@
 import {shell} from 'electron';
-import trimStart from 'lodash/trimStart';
+import {trimStart} from 'lodash';
 
 // https://github.com/electron/electron/blob/master/docs/api/menu/
 export default options => {

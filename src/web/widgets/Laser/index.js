@@ -1,8 +1,7 @@
 import classcat from 'classcat';
-import includes from 'lodash/includes';
-import isNumber from 'lodash/isNumber';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {includes, isNumber} from 'lodash';
 
 import controller from '../../lib/controller';
 import ensurePositiveNumber from '../../lib/ensure-positive-number';

@@ -1,10 +1,8 @@
-import _includes from 'lodash/includes';
-import _set from 'lodash/set';
-import _uniqueId from 'lodash/uniqueId';
 import ensureArray from 'ensure-array';
 import ForEach from 'react-foreach';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {includes, set, uniqueId} from 'lodash';
 
 import i18n from 'web/lib/i18n';
 
@@ -86,7 +84,7 @@ class General extends PureComponent {
   }
 
   withFieldRef = key => node => {
-    _set(this.field, key, node);
+    set(this.field, key, node);
   };
 
   addMetricJogDistance = () => () => {
@@ -174,7 +172,7 @@ class General extends PureComponent {
             </Col>
             <Col xs={4}>
               <FormGroup>
-                <Checkbox ref={this.withFieldRef('axisY')} defaultChecked={_includes(axes, 'y')}>
+                <Checkbox ref={this.withFieldRef('axisY')} defaultChecked={includes(axes, 'y')}>
                   <Space width="8" />
                   {i18n._('Y-axis')}
                 </Checkbox>
@@ -182,7 +180,7 @@ class General extends PureComponent {
             </Col>
             <Col xs={4}>
               <FormGroup>
-                <Checkbox ref={this.withFieldRef('axisZ')} defaultChecked={_includes(axes, 'z')}>
+                <Checkbox ref={this.withFieldRef('axisZ')} defaultChecked={includes(axes, 'z')}>
                   <Space width="8" />
                   {i18n._('Z-axis')}
                 </Checkbox>
@@ -192,7 +190,7 @@ class General extends PureComponent {
           <Row>
             <Col xs={4}>
               <FormGroup>
-                <Checkbox ref={this.withFieldRef('axisA')} defaultChecked={_includes(axes, 'a')}>
+                <Checkbox ref={this.withFieldRef('axisA')} defaultChecked={includes(axes, 'a')}>
                   <Space width="8" />
                   {i18n._('A-axis')}
                 </Checkbox>
@@ -200,7 +198,7 @@ class General extends PureComponent {
             </Col>
             <Col xs={4}>
               <FormGroup>
-                <Checkbox ref={this.withFieldRef('axisB')} defaultChecked={_includes(axes, 'b')}>
+                <Checkbox ref={this.withFieldRef('axisB')} defaultChecked={includes(axes, 'b')}>
                   <Space width="8" />
                   {i18n._('B-axis')}
                 </Checkbox>
@@ -208,7 +206,7 @@ class General extends PureComponent {
             </Col>
             <Col xs={4}>
               <FormGroup>
-                <Checkbox ref={this.withFieldRef('axisC')} defaultChecked={_includes(axes, 'c')}>
+                <Checkbox ref={this.withFieldRef('axisC')} defaultChecked={includes(axes, 'c')}>
                   <Space width="8" />
                   {i18n._('C-axis')}
                 </Checkbox>
@@ -224,7 +222,7 @@ class General extends PureComponent {
               </label>
               <ForEach items={metricJogDistances}>
                 {(value, index) => (
-                  <FormGroup key={_uniqueId()}>
+                  <FormGroup key={uniqueId()}>
                     <Row>
                       <Col>
                         <Input type="number" onChange={this.changeMetricJogDistance(index)} defaultValue={value} />
@@ -256,7 +254,7 @@ class General extends PureComponent {
               </label>
               <ForEach items={imperialJogDistances}>
                 {(value, index) => (
-                  <FormGroup key={_uniqueId()}>
+                  <FormGroup key={uniqueId()}>
                     <Row>
                       <Col>
                         <Input type="number" defaultValue={value} onChange={this.changeImperialJogDistance(index)} />

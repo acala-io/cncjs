@@ -1,24 +1,26 @@
-import difference from 'lodash/difference';
-import find from 'lodash/find';
-import includes from 'lodash/includes';
-import union from 'lodash/union';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Modal from '../../../components/Modal';
-import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../../constants';
+import {difference, find, includes, union} from 'lodash';
+
 import controller from '../../../lib/controller';
 import i18n from '../../../lib/i18n';
+
 import store from '../../../store_old';
+import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../../constants';
+
+import Modal from '../../../components/Modal';
 import WidgetList from './WidgetList';
 
 class WidgetManager extends PureComponent {
   static propTypes = {
-    onSave: PropTypes.func,
     onClose: PropTypes.func.isRequired,
+    onSave: PropTypes.func,
   };
+
   state = {
     show: true,
   };
+
   widgetList = [
     {
       id: 'visualizer',

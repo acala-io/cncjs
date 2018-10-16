@@ -1,8 +1,6 @@
-import difference from 'lodash/difference';
-import includes from 'lodash/includes';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import union from 'lodash/union';
+import {difference, includes, union} from 'lodash';
 
 import controller from '../../../lib/controller';
 

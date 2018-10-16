@@ -4,29 +4,26 @@ import bcrypt from 'bcrypt-nodejs';
 import chalk from 'chalk';
 import dns from 'dns';
 import ensureArray from 'ensure-array';
-import escapeRegExp from 'lodash/escapeRegExp';
 import expandTilde from 'expand-tilde';
 import express from 'express';
 import fs from 'fs';
 import httpProxy from 'http-proxy';
 import os from 'os';
 import path from 'path';
-import set from 'lodash/set';
-import size from 'lodash/size';
-import trimEnd from 'lodash/trimEnd';
 import url from 'url';
 import webappengine from 'webappengine';
+import {escapeRegExp, set, size, trimEnd} from 'lodash';
+
+import logger from './lib/logger';
+import urljoin from './lib/urljoin';
 
 import settings from './config/settings';
-
-import app from './app';
 
 import cncengine from './services/cncengine';
 import monitor from './services/monitor';
 import config from './services/configstore';
 
-import logger from './lib/logger';
-import urljoin from './lib/urljoin';
+import app from './app';
 
 const log = logger('init');
 

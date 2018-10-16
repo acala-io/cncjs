@@ -17,9 +17,9 @@
  */
 
 import classcat from 'classcat';
-import groupBy from 'lodash/groupBy';
 import React from 'react';
 import {array, bool, func, number, object, oneOfType, string} from 'prop-types';
+import {groupBy} from 'lodash';
 
 const renderOptions = (options, optionClasses, optionFormatter, optionValueMapper) =>
   Object.keys(options).map(k => {

@@ -3,7 +3,7 @@
 import defaultShell from 'spawn-default-shell';
 import events from 'events';
 import shortid from 'shortid';
-import without from 'lodash/without';
+import {without} from 'lodash';
 
 import logger from '../../lib/logger';
 

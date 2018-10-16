@@ -1,8 +1,8 @@
 import chainedFunction from 'chained-function';
 import ensureArray from 'ensure-array';
-import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {noop} from 'lodash';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';

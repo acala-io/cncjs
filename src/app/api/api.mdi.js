@@ -1,9 +1,8 @@
 /* eslint-disable import/default */
 
 import ensureArray from 'ensure-array';
-import find from 'lodash/find';
-import isPlainObject from 'lodash/isPlainObject';
 import uuid from 'uuid';
+import {find, isPlainObject} from 'lodash';
 
 import settings from '../config/settings';
 import logger from '../lib/logger';

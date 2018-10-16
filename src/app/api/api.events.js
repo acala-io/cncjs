@@ -1,9 +1,7 @@
 /* eslint-disable import/default */
 
-import castArray from 'lodash/castArray';
-import find from 'lodash/find';
-import isPlainObject from 'lodash/isPlainObject';
 import uuid from 'uuid';
+import {castArray, find, isPlainObject} from 'lodash';
 
 import config from '../services/configstore';
 import logger from '../lib/logger';
