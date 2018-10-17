@@ -31,7 +31,7 @@ const mockState = {
   },
 };
 
-storiesOf('Spindle', module)
+storiesOf('Widgets/Spindle', module)
   .addDecorator(backgroundsDecorator)
   .add('Default', () => (
     <div style={{width: 340}}>

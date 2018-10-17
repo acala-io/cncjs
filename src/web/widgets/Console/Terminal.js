@@ -12,8 +12,6 @@ import log from '../../lib/log';
 
 import History from './History';
 
-import './index.scss';
-
 Terminal.applyAddon(fit);
 
 class TerminalWrapper extends PureComponent {
@@ -42,6 +40,18 @@ class TerminalWrapper extends PureComponent {
   verticalScrollbar = null;
   terminalContainer = null;
   term = null;
+
+  render() {
+    const {className, style} = this.props;
+
+    return (
+      <div
+        ref={ref => (this.terminalContainer = ref)}
+        className={classcat([className, 'terminal-container'])}
+        style={style}
+      />
+    );
+  }
 
   eventHandler = {
     onResize: () => {
@@ -304,12 +314,14 @@ class TerminalWrapper extends PureComponent {
       this.term.setOption('tabStopWidth', nextProps.tabStopWidth);
     }
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.cols !== prevProps.cols || this.props.rows !== prevProps.rows) {
       const {cols, rows} = this.props;
       this.resize(cols, rows);
     }
   }
+
   // http://www.alexandre-gomes.com/?p=115
   getScrollbarWidth() {
     const inner = document.createElement('p');
@@ -334,6 +346,7 @@ class TerminalWrapper extends PureComponent {
 
     return w1 - w2;
   }
+
   resize(cols = this.props.cols, rows = this.props.rows) {
     let localCols = cols;
     let localRows = rows;
@@ -350,34 +363,28 @@ class TerminalWrapper extends PureComponent {
     localRows = !localRows || localRows === 'auto' ? geometry.rows : localRows;
     this.term.resize(localCols, localRows);
   }
+
   clear() {
     this.term.clear();
   }
+
   selectAll() {
     this.term.selectAll();
   }
+
   clearSelection() {
     this.term.clearSelection();
   }
+
   write(data) {
     this.term.write(data);
   }
+
   writeln(data) {
     this.term.eraseRight(0, this.term.buffer.y);
     this.term.write('\r');
     this.term.write(data);
     this.term.prompt();
-  }
-  render() {
-    const {className, style} = this.props;
-
-    return (
-      <div
-        ref={ref => (this.terminalContainer = ref)}
-        className={classcat([className, 'terminal-container'])}
-        style={style}
-      />
-    );
   }
 }
 

@@ -5,8 +5,6 @@ import i18n from '../../lib/i18n';
 
 import Terminal from './Terminal';
 
-import './index.scss';
-
 class Console extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,

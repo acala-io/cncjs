@@ -8,7 +8,7 @@ import screenshotsDecorator from './lib/screenshotsDecorator';
 
 import ButtonGroup from '../src/web/components_new/ButtonGroup';
 
-storiesOf('ButtonGroup', module)
+storiesOf('Components/ButtonGroup', module)
   .addDecorator(backgroundsDecorator)
   .addDecorator(screenshotsDecorator)
   // .addDecorator(withKnobs)

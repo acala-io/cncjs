@@ -22,8 +22,7 @@ class Macro extends PureComponent {
   };
 
   handleRunMacro = macro => () => {
-    const {actions} = this.props;
-    actions.openRunMacroModal(macro.id);
+    this.props.actions.openRunMacroModal(macro.id);
   };
 
   handleLoadMacro = macro => () => {
@@ -45,8 +44,7 @@ class Macro extends PureComponent {
           <Button
             btnStyle="primary"
             onClick={chainedFunction(() => {
-              const {actions} = this.props;
-              actions.loadMacro(id, {name});
+              this.propsactions.loadMacro(id, {name});
             }, onClose)}
           >
             {i18n._('Yes')}
@@ -62,7 +60,7 @@ class Macro extends PureComponent {
 
   render() {
     const {state} = this.props;
-    const {canClick, workflow, macros = []} = state;
+    const {canClick, macros = [], workflow} = state;
 
     const canRunMacro = canClick && includes([WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED], workflow.state);
     const canLoadMacro = canClick && includes([WORKFLOW_STATE_IDLE], workflow.state);

@@ -55,7 +55,7 @@ const mockState = {
   ],
 };
 
-storiesOf('Connection', module)
+storiesOf('Widgets/Connection', module)
   .addDecorator(backgroundsDecorator)
   .add('Default', () => <Connection actions={mockActions} state={mockState} widgetId="Connection" />)
   .add('Alert', () => (

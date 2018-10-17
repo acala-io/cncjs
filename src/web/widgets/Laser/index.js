@@ -62,7 +62,6 @@ class LaserWidget extends PureComponent {
         state,
         type,
       },
-      isFullscreen: false,
       minimized: this.config.get('minimized', false),
       panel: {
         laserTest: {

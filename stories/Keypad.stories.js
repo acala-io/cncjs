@@ -77,7 +77,7 @@ const mockState = {
   },
 };
 
-storiesOf('Keypad', module)
+storiesOf('Components/Keypad', module)
   .addDecorator(backgroundsDecorator)
   .add('Disabled', () => <Keypad actions={mockActions} state={mockState} />)
   .add('Enabled', () => <Keypad actions={mockActions} state={{...mockState, canClick: true}} />);

@@ -24,8 +24,6 @@ import GCodeStats from './GCodeStats';
 import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
 
-import './index.scss';
-
 class GCodeWidget extends PureComponent {
   static propTypes = {
     widgetId: PropTypes.string.isRequired,

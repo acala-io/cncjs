@@ -15,8 +15,6 @@ import Console from './Console';
 import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
 
-import './index.scss';
-
 const appName = settings.productName;
 const appVersion = settings.version;
 

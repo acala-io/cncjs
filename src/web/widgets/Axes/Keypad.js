@@ -17,7 +17,7 @@ import SplitButton from '../../components_new/SplitButton';
 
 import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
 
-import './index.scss';
+import './keypad.scss';
 
 class Keypad extends PureComponent {
   static propTypes = {
