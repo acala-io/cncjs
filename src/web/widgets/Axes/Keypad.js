@@ -8,9 +8,10 @@ import controller from '../../lib/controller';
 
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
+import Flexbox from '../../components_new/Flexbox';
 import Fraction from './components/Fraction';
-import KeypadXY from './KeypadXY';
-import KeypadZ from './KeypadZ';
+import KeypadXY from './components/KeypadXY';
+import KeypadZ from './components/KeypadZ';
 import Space from '../../components/Space';
 import SplitButton from '../../components_new/SplitButton';
 
@@ -48,22 +49,24 @@ class Keypad extends PureComponent {
     return <span>{quot > 0 ? quot : ''}</span>;
   }
 
-  // jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '+', name: 'y'})
-
   render() {
     return (
       <div>
-        <div className="keypads">
+        <Flexbox
+          flexDirection="row"
+          alignItems="center"
+          alignContent="space-between"
+          justifyContent="space-between"
+          className="u-padding-small"
+        >
           <KeypadXY height="200" {...this.props} />
           <KeypadZ height="200" {...this.props} />
-        </div>
-        <div className="rowSpace u-margin-top">{this.stepSize}</div>
-        <div className="row-space">
-          <SplitButton>
-            {this.buttonStepBackward}
-            {this.buttonStepForward}
-          </SplitButton>
-        </div>
+        </Flexbox>
+        <div>{this.stepSize}</div>
+        <SplitButton>
+          {this.buttonStepBackward}
+          {this.buttonStepForward}
+        </SplitButton>
         {this.unitSelect}
       </div>
     );
