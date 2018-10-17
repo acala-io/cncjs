@@ -94,7 +94,7 @@ class LaserWidget extends PureComponent {
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Laser')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             <Laser state={state} actions={actions} />
           </Padding>
         </div>

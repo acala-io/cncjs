@@ -83,7 +83,7 @@ class SpindleWidget extends PureComponent {
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Spindle')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             <Spindle state={state} actions={actions} />
           </Padding>
         </div>

@@ -103,7 +103,7 @@ class ProbeWidget extends PureComponent {
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Probe')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             <Probe state={state} actions={actions} />
             {state.modal.name === MODAL_PREVIEW && <ZProbe state={state} actions={actions} />}
           </Padding>

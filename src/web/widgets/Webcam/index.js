@@ -67,7 +67,7 @@ class WebcamWidget extends PureComponent {
           <h3 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             <Webcam ref={ref => (this.webcam = ref)} state={state} actions={actions} />
           </Padding>
         </div>

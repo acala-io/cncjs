@@ -1,6 +1,6 @@
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import {get} from 'lodash';
 
 import controller from '../../lib/controller';
@@ -9,8 +9,7 @@ import Button from '../../components_new/Button';
 import Flexbox from '../../components_new/Flexbox';
 import Padding from '../../components_new/Padding';
 import SplitButton from '../../components_new/SplitButton';
-
-import './index.scss';
+import SpindleAnimation from './SpindleAnimation';
 
 class Spindle extends PureComponent {
   static propTypes = {
@@ -20,13 +19,20 @@ class Spindle extends PureComponent {
 
   render() {
     return (
-      <Flexbox flexDirection="column">
-        <Flexbox flexDirection="row" alignItems="center">
+      <Fragment>
+        <Padding sides="bottom" size="small">
           {this.spindleSpeed}
-          {this.spindleControl}
+        </Padding>
+        <Flexbox flexDirection="row">
+          <SpindleAnimation spindle="off" coolant="off" />
+          <Flexbox flexDirection="column">
+            <Padding sides="bottom" size="small">
+              {this.spindleControl}
+            </Padding>
+            {this.coolantControl}
+          </Flexbox>
         </Flexbox>
-        {this.coolantControl}
-      </Flexbox>
+      </Fragment>
     );
   }
 
@@ -35,20 +41,18 @@ class Spindle extends PureComponent {
     const {spindleSpeed} = state;
 
     return (
-      <Padding sides="right" size="small">
-        <div className="input-group">
-          <input
-            type="number"
-            className="form-control number"
-            value={spindleSpeed}
-            placeholder="0"
-            min={0}
-            step={1}
-            onChange={actions.handleSpindleSpeedChange}
-          />
-          <span className="input-group-addon">RPM</span>
-        </div>
-      </Padding>
+      <div className="input-group">
+        <input
+          type="number"
+          className="form-control number"
+          value={spindleSpeed}
+          placeholder="0"
+          min={0}
+          step={1}
+          onChange={actions.handleSpindleSpeedChange}
+        />
+        <span className="input-group-addon">RPM</span>
+      </div>
     );
   }
 
@@ -73,9 +77,9 @@ class Spindle extends PureComponent {
 
     return (
       <SplitButton>
-        <Button text="Off" icon="on-off" isDisabled={!spindleIsOn} handleClick={turnOffSpindle} />
-        <Button text="Right" isDisabled={!canClick || spindleIsOn} handleClick={() => turnOnSpindle('right')} />
-        <Button text="Left" isDisabled={!canClick || spindleIsOn} handleClick={() => turnOnSpindle('left')} />
+        <Button text="Off" isDisabled={!spindleIsOn} handleClick={turnOffSpindle} />
+        <Button text="M3" isDisabled={!canClick || spindleIsOn} handleClick={() => turnOnSpindle('right')} />
+        <Button text="M4" isDisabled={!canClick || spindleIsOn} handleClick={() => turnOnSpindle('left')} />
       </SplitButton>
     );
   }
@@ -105,9 +109,9 @@ class Spindle extends PureComponent {
 
     return (
       <SplitButton>
-        <Button text="Off" icon="on-off" isDisabled={!coolantIsOn} handleClick={turnOffCoolant} />
-        <Button text="Mist" isDisabled={!canClick || mistCoolant} handleClick={() => turnOnCoolant('mist')} />
-        <Button text="Flood" isDisabled={!canClick || floodCoolant} handleClick={() => turnOnCoolant('flood')} />
+        <Button text="Off" isDisabled={!coolantIsOn} handleClick={turnOffCoolant} />
+        <Button text="M7" isDisabled={!canClick || mistCoolant} handleClick={() => turnOnCoolant('mist')} />
+        <Button text="M8" isDisabled={!canClick || floodCoolant} handleClick={() => turnOnCoolant('flood')} />
       </SplitButton>
     );
 

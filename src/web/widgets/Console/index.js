@@ -87,7 +87,7 @@ class ConsoleWidget extends PureComponent {
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Console')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             <Console
               ref={node => {
                 if (node) {

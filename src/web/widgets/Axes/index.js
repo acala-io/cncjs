@@ -210,7 +210,7 @@ class AxesWidget extends PureComponent {
     return (
       <Card noPad shadow>
         <Axes config={config} state={state} actions={actions} />
-        <Padding>
+        <Padding size="small">
           {this.widgetControls}
           {this.modalHasToBeMovedToGlobalModals}
         </Padding>

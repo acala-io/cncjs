@@ -1,0 +1,42 @@
+@import '../../scss/settings/variables';
+
+#spindle {
+    display: inline-block;
+    height: 200px;
+    width: auto;
+}
+
+.spindle__mill rect {
+    fill: black;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spindle__direction-wrapper1 {
+    transform: rotate(20deg) scale(0.66) translateY(3%);
+    transform-origin: 50.4% 62.4%;
+}
+
+.spindle__direction-wrapper2 {
+    transform: skewX(115deg);
+    transform-origin: 50.4% 62.4%;
+}
+
+.spindle__direction {
+    animation-fill-mode: both;
+    animation: $transition-time--very-slow spin linear infinite;
+    fill: $secondary;
+    transform-origin: 50.4% 62.4%;
+}
+
+.spindle__coolant-pipe {
+    fill: $background--darker;
+}

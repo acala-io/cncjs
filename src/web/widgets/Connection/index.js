@@ -69,7 +69,7 @@ class ConnectionWidget extends PureComponent {
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Connection')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             <Connection state={state} actions={actions} />
           </Padding>
         </div>

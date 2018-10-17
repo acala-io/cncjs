@@ -95,7 +95,7 @@ class MacroWidget extends PureComponent {
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Macro')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding>
+          <Padding size="small">
             {state.modal.name === MODAL_ADD_MACRO && <AddMacro state={state} actions={actions} />}
             {state.modal.name === MODAL_EDIT_MACRO && <EditMacro state={state} actions={actions} />}
             {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}
