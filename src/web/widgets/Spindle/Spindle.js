@@ -74,18 +74,10 @@ class Spindle extends PureComponent {
     return (
       <SplitButton>
         {spindle !== 'M4' && (
-          <Button
-            text="On (M3, right)"
-            isDisabled={!canClick || spindleIsOn}
-            handleClick={() => turnOnSpindle('right')}
-          />
+          <Button text="Right" isDisabled={!canClick || spindleIsOn} handleClick={() => turnOnSpindle('right')} />
         )}
         {spindle !== 'M3' && (
-          <Button
-            text="On (M4, left)"
-            isDisabled={!canClick || spindleIsOn}
-            handleClick={() => turnOnSpindle('left')}
-          />
+          <Button text="Left" isDisabled={!canClick || spindleIsOn} handleClick={() => turnOnSpindle('left')} />
         )}
         {spindleIsOn && <Button text="Off" icon="on-off" onClick={turnOffSpindle} />}
       </SplitButton>
@@ -118,10 +110,10 @@ class Spindle extends PureComponent {
     return (
       <SplitButton>
         {!floodCoolant && (
-          <Button text="Mist (M7)" isDisabled={!canClick || coolantIsOn} handleClick={() => turnOnCoolant('mist')} />
+          <Button text="Mist" isDisabled={!canClick || coolantIsOn} handleClick={() => turnOnCoolant('mist')} />
         )}
         {!mistCoolant && (
-          <Button text="Flood (M8)" isDisabled={!canClick || coolantIsOn} handleClick={() => turnOnCoolant('flood')} />
+          <Button text="Flood" isDisabled={!canClick || coolantIsOn} handleClick={() => turnOnCoolant('flood')} />
         )}
         {coolantIsOn && <Button text="Off" icon="on-off" onClick={turnOffCoolant} />}
       </SplitButton>
