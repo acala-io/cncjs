@@ -73,6 +73,16 @@
         line-height: 0;
         padding: $inuit-global-spacing-unit-small;
     }
+
+    &.has-units {
+        padding: $inuit-global-spacing-unit-tiny $inuit-global-spacing-unit-small;
+
+        .button-group__unit {
+            color: $text--lighter;
+            font-size: $font-size--tiny;
+            font-weight: normal;
+        }
+    }
 }
 
 .button-group__background {

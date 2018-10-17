@@ -61,11 +61,14 @@ const ButtonGroup = ({
   return (
     <div className={classes} style={style} data-sel-selector={selSelector}>
       {options.map(o => {
-        let value;
         let label;
+        let value;
+        let unit;
+
         if (typeof o === 'object') {
           value = o.value;
           label = o.label;
+          unit = o.unit ? o.unit : null;
         } else {
           value = o;
           label = o;
@@ -80,9 +83,19 @@ const ButtonGroup = ({
         };
 
         return (
-          <label key={value} className={classcat(['button-group__button', {'is-selected': isSelected}])}>
+          <label
+            key={value}
+            className={classcat([
+              'button-group__button',
+              {
+                'has-units': Boolean(unit),
+                'is-selected': isSelected,
+              },
+            ])}
+          >
             <input type="radio" {...radioContext} />
             {label}
+            {unit && <div className="button-group__unit">{unit}</div>}
           </label>
         );
       })}
