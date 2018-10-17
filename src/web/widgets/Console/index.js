@@ -10,8 +10,9 @@ import i18n from '../../lib/i18n';
 
 import settings from '../../config/settings';
 
+import Card, {CardHeader} from '../../components_new/Card';
 import Console from './Console';
-import Widget from '../../components/Widget';
+import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
 
 import './index.scss';
@@ -68,40 +69,37 @@ class ConsoleWidget extends PureComponent {
     const actions = {...this.actions};
 
     return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Console')}</Widget.Title>
-          <Widget.Controls>
-            {minimized ? null : (
-              <Fragment>
-                <Widget.Button title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
-                  <i className="icon select-all" />
-                </Widget.Button>
-                <Widget.Button title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
-                  <i className="fa fa-fw fa-window-close-o" />
-                </Widget.Button>
-                <Widget.Button title={i18n._('Clear all')} onClick={actions.clearAll}>
-                  <i className="fa fa-trash" />
-                </Widget.Button>
-              </Fragment>
-            )}
-            <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
-              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
-            </Widget.Button>
-          </Widget.Controls>
-        </Widget.Header>
-        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
-          <Console
-            ref={node => {
-              if (node) {
-                this.terminal = node.terminal;
-              }
-            }}
-            state={state}
-            actions={actions}
-          />
-        </Widget.Content>
-      </Widget>
+      <Card noPad shadow>
+        <CardHeader>
+          {minimized ? null : (
+            <Fragment>
+              <div className="right" title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
+                <i className="icon select-all" />
+              </div>
+              <div className="right" title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
+                <i className="fa fa-fw fa-window-close-o" />
+              </div>
+              <div className="right" title={i18n._('Clear all')} onClick={actions.clearAll}>
+                <i className="fa fa-trash" />
+              </div>
+            </Fragment>
+          )}
+          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('Console')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            <Console
+              ref={node => {
+                if (node) {
+                  this.terminal = node.terminal;
+                }
+              }}
+              state={state}
+              actions={actions}
+            />
+          </Padding>
+        </div>
+      </Card>
     );
   }
 

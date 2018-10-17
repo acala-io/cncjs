@@ -408,8 +408,6 @@
     "Z-Probe": "",
     "Apply tool length offset": "",
     "Run Z-Probe": "Выполнить пробу Z",
-    "Spindle Speed": "Скорость вращения шпинделя",
-    "RPM": "",
     "Queue Flush (%)": "",
     "Kill Job (^d)": "",
     "Clear Alarm ($clear)": "",

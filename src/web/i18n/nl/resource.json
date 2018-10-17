@@ -408,8 +408,6 @@
     "Z-Probe": "Z-As Peiler",
     "Apply tool length offset": "Pas gereedschap lengte offset toe",
     "Run Z-Probe": "Start Z-As Uit peilen",
-    "Spindle Speed": "Spindel Snelheid ",
-    "RPM": "Toeren Per Minuut",
     "Queue Flush (%)": "Queue Flush (%)",
     "Kill Job (^d)": "Stop Werk (^d)",
     "Clear Alarm ($clear)": "Alarm Uitzetten ($clear)",

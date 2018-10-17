@@ -27,11 +27,13 @@ import {
 } from '../../constants';
 import {MODAL_NONE, MODAL_ADD_MACRO, MODAL_EDIT_MACRO, MODAL_RUN_MACRO} from './constants';
 
+import ActionLink from '../../components_new/ActionLink';
 import AddMacro from './AddMacro';
+import Card, {CardHeader} from '../../components_new/Card';
 import EditMacro from './EditMacro';
 import Macro from './Macro';
+import Padding from '../../components_new/Padding';
 import RunMacro from './RunMacro';
-import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
 import './index.scss';
@@ -87,27 +89,20 @@ class MacroWidget extends PureComponent {
     const actions = {...this.actions};
 
     return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Macro')}</Widget.Title>
-          <Widget.Controls>
-            {minimized ? null : (
-              <Widget.Button title={i18n._('New Macro')} onClick={actions.openAddMacroModal}>
-                <i className="fa fa-plus" />
-              </Widget.Button>
-            )}
-            <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
-              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
-            </Widget.Button>
-          </Widget.Controls>
-        </Widget.Header>
-        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
-          {state.modal.name === MODAL_ADD_MACRO && <AddMacro state={state} actions={actions} />}
-          {state.modal.name === MODAL_EDIT_MACRO && <EditMacro state={state} actions={actions} />}
-          {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}
-          <Macro state={state} actions={actions} />
-        </Widget.Content>
-      </Widget>
+      <Card noPad shadow>
+        <CardHeader>
+          {minimized ? null : <ActionLink action="add" className="right" onClick={actions.openAddMacroModal} />}
+          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('Macro')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            {state.modal.name === MODAL_ADD_MACRO && <AddMacro state={state} actions={actions} />}
+            {state.modal.name === MODAL_EDIT_MACRO && <EditMacro state={state} actions={actions} />}
+            {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}
+            <Macro state={state} actions={actions} />
+          </Padding>
+        </div>
+      </Card>
     );
   }
 
@@ -216,8 +211,9 @@ class MacroWidget extends PureComponent {
       });
     },
     toggleMinimized: () => {
-      const {minimized} = this.state;
-      this.setState({minimized: !minimized});
+      this.setState({
+        minimized: !this.state.minimized,
+      });
     },
   };
 

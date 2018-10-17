@@ -408,8 +408,6 @@
     "Z-Probe": "",
     "Apply tool length offset": "",
     "Run Z-Probe": "Lancer le palpage en Z",
-    "Spindle Speed": "Vitesse de broche",
-    "RPM": "",
     "Queue Flush (%)": "",
     "Kill Job (^d)": "",
     "Clear Alarm ($clear)": "",

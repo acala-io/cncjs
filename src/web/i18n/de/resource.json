@@ -408,8 +408,6 @@
     "Z-Probe": "Werkzeuglängensensor",
     "Apply tool length offset": "Werkzeuglängen-Offset anwenden",
     "Run Z-Probe": "Starte Z-Antastung",
-    "Spindle Speed": "Spindeldrehzahl",
-    "RPM": "UPM",
     "Queue Flush (%)": "",
     "Kill Job (^d)": "Job (^d) abbrechen",
     "Clear Alarm ($clear)": "Alarm ($clear) quittieren",

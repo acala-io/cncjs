@@ -8,12 +8,10 @@ import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import promisify from '../../lib/promisify';
 
-import WidgetConfig from '../WidgetConfig';
-
+import Card, {CardHeader} from '../../components_new/Card';
 import Connection from './Connection';
-import Widget from '../../components/Widget';
-
-import './index.scss';
+import Padding from '../../components_new/Padding';
+import WidgetConfig from '../WidgetConfig';
 
 class ConnectionWidget extends PureComponent {
   static propTypes = {
@@ -60,18 +58,22 @@ class ConnectionWidget extends PureComponent {
   }
 
   render() {
+    const {minimized} = this.state;
+
     const state = {...this.state};
     const actions = {...this.actions};
 
     return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Connection')}</Widget.Title>
-        </Widget.Header>
-        <Widget.Content className={classcat(['widget-content', {hidden: this.state.minimized}])}>
-          <Connection state={state} actions={actions} />
-        </Widget.Content>
-      </Widget>
+      <Card noPad shadow>
+        <CardHeader>
+          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('Connection')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            <Connection state={state} actions={actions} />
+          </Padding>
+        </div>
+      </Card>
     );
   }
 
@@ -147,6 +149,11 @@ class ConnectionWidget extends PureComponent {
           },
         },
       }));
+    },
+    toggleMinimized: () => {
+      this.setState({
+        minimized: !this.state.minimized,
+      });
     },
   };
 

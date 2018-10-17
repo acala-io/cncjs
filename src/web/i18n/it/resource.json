@@ -408,8 +408,6 @@
     "Z-Probe": "",
     "Apply tool length offset": "",
     "Run Z-Probe": "Avvia sonda in Z",
-    "Spindle Speed": "Velocità rotazione elettromandrino",
-    "RPM": "",
     "Queue Flush (%)": "",
     "Kill Job (^d)": "Blocca il lavoro (^d)",
     "Clear Alarm ($clear)": "Cancella Alarme ($clear)",

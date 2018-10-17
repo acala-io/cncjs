@@ -1,6 +1,6 @@
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import {get, includes, map, mapValues} from 'lodash';
 
 import combokeys from '../../lib/combokeys';
@@ -37,11 +37,11 @@ import {
 import {MODAL_NONE, MODAL_SETTINGS, DEFAULT_AXES} from './constants';
 
 import Axes from './Axes';
+import Card from '../../components_new/Card';
 import KeypadOverlay from './KeypadOverlay';
+import Padding from '../../components_new/Padding';
 import Settings from './Settings';
 import ShuttleControl from './ShuttleControl';
-import Space from '../../components/Space';
-import Widget from '../../components/Widget';
 import WidgetConfig from '../../widgets/WidgetConfig';
 
 const getControllerState = (type, controllerState, state) => {
@@ -208,11 +208,13 @@ class AxesWidget extends PureComponent {
     const actions = {...this.actions};
 
     return (
-      <div>
+      <Card noPad shadow>
         <Axes config={config} state={state} actions={actions} />
-        {this.widgetControls}
-        {this.modalHasToBeMovedToGlobalModals}
-      </div>
+        <Padding>
+          {this.widgetControls}
+          {this.modalHasToBeMovedToGlobalModals}
+        </Padding>
+      </Card>
     );
   }
 
@@ -724,30 +726,23 @@ class AxesWidget extends PureComponent {
       // Output work position with the display units
       workPosition: mapValues(this.state.workPosition, pos => String(mapPositionToUnits(pos, this.state.units))),
     };
-    const {canClick, jog, mdi} = state;
+    const {canClick, jog} = state;
     const {openModal, toggleKeypadJogging, toggleMDIMode} = this.actions;
 
     return (
-      <Widget.Controls>
+      <Fragment>
         <KeypadOverlay show={canClick && jog.keypad}>
-          <Widget.Button
-            title={i18n._('Keypad jogging')}
-            onClick={toggleKeypadJogging}
-            inverted={jog.keypad}
-            disabled={!canClick}
-          >
+          <div className="right" title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
             <i className="fa fa-keyboard-o" />
-          </Widget.Button>
+          </div>
         </KeypadOverlay>
-        <Widget.Button title={i18n._('Manual Data Input')} onClick={toggleMDIMode} inverted={!mdi.disabled}>
-          <Space width="4" />
+        <div className="right" title={i18n._('Manual Data Input')} onClick={toggleMDIMode}>
           {i18n._('MDI')}
-          <Space width="4" />
-        </Widget.Button>
-        <Widget.Button title={i18n._('Edit')} onClick={() => openModal(MODAL_SETTINGS)}>
+        </div>
+        <div className="right" title={i18n._('Settings')} onClick={() => openModal(MODAL_SETTINGS)}>
           <i className="fa fa-cog" />
-        </Widget.Button>
-      </Widget.Controls>
+        </div>
+      </Fragment>
     );
   }
 

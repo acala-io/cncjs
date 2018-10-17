@@ -1,15 +1,16 @@
 import classcat from 'classcat';
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 
 import i18n from '../../lib/i18n';
 import portal from '../../lib/portal';
 
 import {MEDIA_SOURCE_LOCAL} from './constants';
 
+import Card, {CardHeader} from '../../components_new/Card';
+import Padding from '../../components_new/Padding';
 import Settings from './Settings';
 import Webcam from './Webcam';
-import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 
 import './index.scss';
@@ -20,11 +21,15 @@ class WebcamWidget extends PureComponent {
   };
 
   collapse = () => {
-    this.setState({minimized: true});
+    this.setState({
+      minimized: true,
+    });
   };
 
   expand = () => {
-    this.setState({minimized: false});
+    this.setState({
+      minimized: false,
+    });
   };
 
   config = new WidgetConfig(this.props.widgetId);
@@ -49,107 +54,93 @@ class WebcamWidget extends PureComponent {
   }
 
   render() {
-    const {disabled, minimized, isFullscreen} = this.state;
+    const {isFullscreen, minimized} = this.state;
     const state = {...this.state};
     const actions = {...this.actions};
 
+    // TODO: fullscreen={isFullscreen}
+
     return (
-      <Widget fullscreen={isFullscreen}>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Webcam')}</Widget.Title>
-          <Widget.Controls>
-            <Widget.Button
-              title={disabled ? i18n._('Enable') : i18n._('Disable')}
-              type="default"
-              onClick={() => this.setState({disabled: !disabled})}
-            >
-              <i
-                className={classcat([
-                  'fa fa-fw',
-                  {
-                    'fa-toggle-on': !disabled,
-                    'fa-toggle-off': disabled,
-                  },
-                ])}
-              />
-            </Widget.Button>
-            <Widget.Button disabled={disabled} title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
-              <i className="fa fa-refresh" />
-            </Widget.Button>
-            <Widget.Button
-              title={i18n._('Edit')}
-              onClick={() => {
-                const {mediaSource, deviceId, url} = this.state;
+      <Card noPad shadow>
+        <CardHeader>
+          {this.widgetButtons}
+          <h2 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            <Webcam ref={ref => (this.webcam = ref)} state={state} actions={actions} />
+          </Padding>
+        </div>
+      </Card>
+    );
+  }
 
-                portal(({onClose}) => (
-                  <Settings
-                    mediaSource={mediaSource}
-                    deviceId={deviceId}
-                    url={url}
-                    onSave={data => {
-                      const {deviceId, mediaSource, url} = data;
+  get widgetButtons() {
+    const {disabled, isFullscreen} = this.state;
 
-                      this.setState({deviceId, mediaSource, url});
-                      onClose();
-                    }}
-                    onCancel={onClose}
-                  />
-                ));
-              }}
-            >
-              <i className="fa fa-cog" />
-            </Widget.Button>
-            <Widget.Button
-              disabled={isFullscreen}
-              title={minimized ? i18n._('Expand') : i18n._('Collapse')}
-              onClick={actions.toggleMinimized}
-            >
-              <i
-                className={classcat([
-                  'fa fa-fw',
-                  {
-                    'fa-chevron-up': !minimized,
-                    'fa-chevron-down': minimized,
-                  },
-                ])}
-              />
-            </Widget.Button>
-
-            <Widget.Button
-              disabled={isFullscreen}
-              title={isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
-              onClick={() => actions.toggleFullscreen()}
-            >
-              <i
-                className={classcat([
-                  'fa fa-fw',
-                  {
-                    'fa-expand': !isFullscreen,
-                    'fa-compress': isFullscreen,
-                  },
-                ])}
-              />
-            </Widget.Button>
-          </Widget.Controls>
-        </Widget.Header>
-        <Widget.Content
-          className={classcat([
-            'widget-content',
-            {
-              hidden: minimized,
-              fullscreen: isFullscreen,
-            },
-          ])}
+    return (
+      <Fragment>
+        <div
+          className="right"
+          title={disabled ? i18n._('Enable') : i18n._('Disable')}
+          onClick={() => this.setState({disabled: !disabled})}
         >
-          <Webcam
-            ref={node => {
-              this.webcam = node;
-            }}
-            state={state}
-            actions={actions}
+          <i
+            className={classcat([
+              'fa fa-fw',
+              {
+                'fa-toggle-on': !disabled,
+                'fa-toggle-off': disabled,
+              },
+            ])}
           />
-        </Widget.Content>
-      </Widget>
+        </div>
+        {!disabled && (
+          <div className="right" title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
+            <i className="fa fa-refresh" />
+          </div>
+        )}
+        <div
+          className="right"
+          title={i18n._('Edit')}
+          onClick={() => {
+            const {mediaSource, deviceId, url} = this.state;
+
+            portal(({onClose}) => (
+              <Settings
+                mediaSource={mediaSource}
+                deviceId={deviceId}
+                url={url}
+                onSave={data => {
+                  const {deviceId, mediaSource, url} = data;
+
+                  this.setState({deviceId, mediaSource, url});
+                  onClose();
+                }}
+                onCancel={onClose}
+              />
+            ));
+          }}
+        >
+          <i className="fa fa-cog" />
+        </div>
+
+        <div
+          className="right"
+          title={isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
+          onClick={this.actions.toggleFullscreen}
+        >
+          <i
+            className={classcat([
+              'fa fa-fw',
+              {
+                'fa-expand': !isFullscreen,
+                'fa-compress': isFullscreen,
+              },
+            ])}
+          />
+        </div>
+      </Fragment>
     );
   }
 

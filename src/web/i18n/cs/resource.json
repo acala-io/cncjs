@@ -408,8 +408,6 @@
     "Z-Probe": "",
     "Apply tool length offset": "",
     "Run Z-Probe": "Spustit sondu osy Z",
-    "Spindle Speed": "Otáčky nástroje",
-    "RPM": "",
     "Queue Flush (%)": "",
     "Kill Job (^d)": "",
     "Clear Alarm ($clear)": "",

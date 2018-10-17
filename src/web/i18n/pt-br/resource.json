@@ -408,8 +408,6 @@
     "Z-Probe": "Sensor Z",
     "Apply tool length offset": "Aplicar offset de comprimento da ferramenta",
     "Run Z-Probe": "Rodar o referenciamento de Z",
-    "Spindle Speed": "Velocidade do Spindle",
-    "RPM": "RPM",
     "Queue Flush (%)": "Fluxo da fila (%)",
     "Kill Job (^d)": "Matar Trabalho (^d)",
     "Clear Alarm ($clear)": "Limpar alarme ($clear)",

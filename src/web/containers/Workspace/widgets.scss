@@ -1,3 +1,7 @@
 .widgets {
     min-height: 240px; // Keep a minimum space for dropping widgets
+
+    .card + .card {
+        margin-top: 28px;
+    }
 }

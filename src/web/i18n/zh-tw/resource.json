@@ -408,8 +408,6 @@
     "Z-Probe": "",
     "Apply tool length offset": "",
     "Run Z-Probe": "執行Ｚ軸探測",
-    "Spindle Speed": "主軸轉速",
-    "RPM": "每分鐘轉速",
     "Queue Flush (%)": "清除工作佇列",
     "Kill Job (^d)": "終止工作 (^d)",
     "Clear Alarm ($clear)": "解除警報 ($clear)",

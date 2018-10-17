@@ -25,8 +25,9 @@ import {
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
 
+import Card, {CardHeader} from '../../components_new/Card';
 import Laser from './Laser';
-import Widget from '../../components/Widget';
+import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
 
 import './index.scss';
@@ -77,7 +78,7 @@ class LaserWidget extends PureComponent {
   }
 
   render() {
-    const {isFullscreen, minimized} = this.state;
+    const {minimized} = this.state;
 
     const state = {
       ...this.state,
@@ -88,19 +89,16 @@ class LaserWidget extends PureComponent {
     };
 
     return (
-      <Widget fullscreen={isFullscreen}>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Laser')}</Widget.Title>
-          <Widget.Controls>
-            <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
-              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
-            </Widget.Button>
-          </Widget.Controls>
-        </Widget.Header>
-        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
-          <Laser state={state} actions={actions} />
-        </Widget.Content>
-      </Widget>
+      <Card noPad shadow>
+        <CardHeader>
+          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('Laser')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            <Laser state={state} actions={actions} />
+          </Padding>
+        </div>
+      </Card>
     );
   }
 

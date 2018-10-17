@@ -26,8 +26,9 @@ import {
 } from '../../constants';
 import {MODAL_NONE, MODAL_PREVIEW} from './constants';
 
+import Card, {CardHeader} from '../../components_new/Card';
+import Padding from '../../components_new/Padding';
 import Probe from './Probe';
-import Widget from '../../components/Widget';
 import WidgetConfig from '../WidgetConfig';
 import ZProbe from './ZProbe';
 
@@ -97,20 +98,17 @@ class ProbeWidget extends PureComponent {
     const actions = {...this.actions};
 
     return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('Probe')}</Widget.Title>
-          <Widget.Controls>
-            <Widget.Button title={minimized ? i18n._('Expand') : i18n._('Collapse')} onClick={actions.toggleMinimized}>
-              <i className={classcat(['fa', {'fa-chevron-up': !minimized}, {'fa-chevron-down': minimized}])} />
-            </Widget.Button>
-          </Widget.Controls>
-        </Widget.Header>
-        <Widget.Content className={classcat(['widget-content', {hidden: minimized}])}>
-          {state.modal.name === MODAL_PREVIEW && <ZProbe state={state} actions={actions} />}
-          <Probe state={state} actions={actions} />
-        </Widget.Content>
-      </Widget>
+      <Card noPad shadow>
+        <CardHeader>
+          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('Probe')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            <Probe state={state} actions={actions} />
+            {state.modal.name === MODAL_PREVIEW && <ZProbe state={state} actions={actions} />}
+          </Padding>
+        </div>
+      </Card>
     );
   }
 

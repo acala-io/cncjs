@@ -1,3 +1,4 @@
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {PureComponent} from 'react';
@@ -18,8 +19,9 @@ import {
   TINYG,
 } from '../../constants';
 
+import Card, {CardHeader} from '../../components_new/Card';
 import GCodeStats from './GCodeStats';
-import Widget from '../../components/Widget';
+import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
 
 import './index.scss';
@@ -27,6 +29,14 @@ import './index.scss';
 class GCodeWidget extends PureComponent {
   static propTypes = {
     widgetId: PropTypes.string.isRequired,
+  };
+
+  collapse = () => {
+    this.setState({minimized: true});
+  };
+
+  expand = () => {
+    this.setState({minimized: false});
   };
 
   config = new WidgetConfig(this.props.widgetId);
@@ -71,24 +81,32 @@ class GCodeWidget extends PureComponent {
   pubsubTokens = [];
 
   render() {
-    const {bbox, units} = this.state;
+    const {bbox, minimized, units} = this.state;
 
     const state = {
       ...this.state,
       bbox: mapValues(bbox, position => mapValues(position, pos => mapPositionToUnits(pos, units))),
     };
 
-    const actions = {};
+    const actions = {
+      toggleMinimized: () => {
+        this.setState({
+          minimized: !this.state.minimized,
+        });
+      },
+    };
 
     return (
-      <Widget>
-        <Widget.Header>
-          <Widget.Title>{i18n._('G-code')}</Widget.Title>
-        </Widget.Header>
-        <Widget.Content className="widget-content">
-          <GCodeStats state={state} actions={actions} />
-        </Widget.Content>
-      </Widget>
+      <Card noPad shadow>
+        <CardHeader>
+          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('G-code')}</h2>
+        </CardHeader>
+        <div className={classcat([{hidden: minimized}])}>
+          <Padding>
+            <GCodeStats state={state} actions={actions} />
+          </Padding>
+        </div>
+      </Card>
     );
   }
 

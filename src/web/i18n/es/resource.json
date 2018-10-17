@@ -408,8 +408,6 @@
     "Z-Probe": "",
     "Apply tool length offset": "Aplicar desplazamiento de la longitud de la herramienta",
     "Run Z-Probe": "",
-    "Spindle Speed": "Velocidad del Spindle",
-    "RPM": "RPM",
     "Queue Flush (%)": "",
     "Kill Job (^d)": "Detener proceso (^d)",
     "Clear Alarm ($clear)": "Borrar alarma ($clear)",
