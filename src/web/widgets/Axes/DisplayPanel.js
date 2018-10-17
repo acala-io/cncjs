@@ -2,6 +2,7 @@ import chainedFunction from 'chained-function';
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import styled from 'styled-components';
 import {noop} from 'lodash';
 
 import controller from '../../lib/controller';
@@ -9,7 +10,6 @@ import i18n from '../../lib/i18n';
 
 import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C} from '../../constants';
 
-import AxisLabel from './components/AxisLabel';
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Image from '../../components/Image';
 import PositionInput from './components/PositionInput';
@@ -23,6 +23,11 @@ import iconMinus from './images/minus.svg';
 import iconPencil from './images/pencil.svg';
 import iconPin from './images/pin.svg';
 import iconPlus from './images/plus.svg';
+
+const AxisLabel = styled.div`
+  font-size: 28px;
+  font-weight: ${props => (props.highlight ? 'bold' : 'normal')};
+`;
 
 class DisplayPanel extends PureComponent {
   static propTypes = {
