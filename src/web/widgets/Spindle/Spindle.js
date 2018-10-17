@@ -1,5 +1,4 @@
 import ensureArray from 'ensure-array';
-import Flexbox from 'flexbox-react';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get} from 'lodash';
@@ -7,6 +6,7 @@ import {get} from 'lodash';
 import controller from '../../lib/controller';
 
 import Button from '../../components_new/Button';
+import Flexbox from '../../components_new/Flexbox';
 import Padding from '../../components_new/Padding';
 import SplitButton from '../../components_new/SplitButton';
 
