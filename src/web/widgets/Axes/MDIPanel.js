@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
+import controller from '../../lib/controller';
+
 import {Container, Row, Col} from '../../components/GridSystem';
 import {Button} from '../../components/Buttons';
 import Tooltip from '../../components/Tooltip';
-import controller from '../../lib/controller';
-import Panel from './components/Panel';
 
 class MDIPanel extends PureComponent {
   static propTypes = {
+    actions: PropTypes.object,
     config: PropTypes.object,
     state: PropTypes.object,
-    actions: PropTypes.object,
   };
 
   renderMDIButtons() {
@@ -23,6 +24,7 @@ class MDIPanel extends PureComponent {
           if (c.grid[size] >= 1 && c.grid[size] <= 12) {
             acc[size] = Math.floor(c.grid[size]);
           }
+
           return acc;
         }, {});
 
@@ -62,11 +64,9 @@ class MDIPanel extends PureComponent {
   }
   render() {
     return (
-      <Panel>
-        <Container fluid style={{padding: 0, margin: '-5px -4px 0 -4px'}}>
-          <Row gutterWidth={0}>{this.renderMDIButtons()}</Row>
-        </Container>
-      </Panel>
+      <Container fluid style={{padding: 0, margin: '-5px -4px 0 -4px'}}>
+        <Row gutterWidth={0}>{this.renderMDIButtons()}</Row>
+      </Container>
     );
   }
 }
