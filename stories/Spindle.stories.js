@@ -17,6 +17,7 @@ const mockState = {
   },
   controller: {
     modal: {
+      coolant: '',
       spindle: '',
     },
     settings: {},
@@ -54,6 +55,36 @@ storiesOf('Spindle', module)
           ...mockState.controller,
           modal: {
             spindle: 'M4',
+          },
+        },
+      }}
+    />
+  ))
+  .add('Mist (M7)', () => (
+    <Spindle
+      actions={mockActions}
+      state={{
+        ...mockState,
+        controller: {
+          ...mockState.controller,
+          modal: {
+            coolant: 'M7',
+            spindle: 'M3',
+          },
+        },
+      }}
+    />
+  ))
+  .add('Flood (M8)', () => (
+    <Spindle
+      actions={mockActions}
+      state={{
+        ...mockState,
+        controller: {
+          ...mockState.controller,
+          modal: {
+            coolant: 'M8',
+            spindle: 'M3',
           },
         },
       }}
