@@ -1,7 +1,8 @@
 import React from 'react';
-
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
+
+import backgroundsDecorator from './lib/backgroundsDecorator';
 
 import Spindle from '../src/web/widgets/Spindle/Spindle';
 
@@ -31,6 +32,7 @@ const mockState = {
 };
 
 storiesOf('Spindle', module)
+  .addDecorator(backgroundsDecorator)
   .add('Default', () => (
     <div style={{width: 340}}>
       <Spindle actions={mockActions} state={mockState} />

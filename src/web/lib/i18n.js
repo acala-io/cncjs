@@ -22,14 +22,18 @@ const _ = (...args) => {
   const key = ((value, options) => {
     let localValue = value;
     const {context, count} = {...options};
+
     const containsContext = context !== undefined && context !== null;
     const containsPlural = typeof count === 'number';
+
     if (containsContext) {
       localValue = localValue + i18next.options.contextSeparator + options.context;
     }
+
     if (containsPlural) {
       localValue = `${localValue + i18next.options.pluralSeparator}plural`;
     }
+
     return sha1(localValue);
   })(value, options);
 

@@ -1,7 +1,8 @@
 import React from 'react';
-
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
+
+import backgroundsDecorator from './lib/backgroundsDecorator';
 
 import Keypad from '../src/web/widgets/Axes/Keypad';
 
@@ -77,5 +78,6 @@ const mockState = {
 };
 
 storiesOf('Keypad', module)
+  .addDecorator(backgroundsDecorator)
   .add('Disabled', () => <Keypad actions={mockActions} state={mockState} />)
   .add('Enabled', () => <Keypad actions={mockActions} state={{...mockState, canClick: true}} />);
