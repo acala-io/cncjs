@@ -20,7 +20,10 @@ class Header extends PureComponent {
       <div className="header">
         <div>{this.machineConnect}</div>
         <div>{this.gcodePlayer}</div>
-        <div>{this.settings}</div>
+        <div>
+          <MachineControlFunctions />
+          {/* this.settings */}
+        </div>
       </div>
     );
   }
@@ -49,7 +52,7 @@ class Header extends PureComponent {
   }
 
   get gcodePlayer() {
-    return <MachineControlFunctions />;
+    return null;
   }
 
   get settings() {

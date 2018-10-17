@@ -1,5 +1,4 @@
 .display-panel {
-    // background: $background--slightly-off-black;
     background: linear-gradient(
         352deg,
         $background--slightly-off-black 0%,
@@ -7,7 +6,8 @@
         lighten($background--slightly-off-black, 5%) 51%,
         lighten($background--slightly-off-black, 13%) 100%
     );
-    border-radius: 6px;
+    border-top-left-radius: $border-radius--large;
+    border-top-right-radius: $border-radius--large;
     color: $text--lighter;
 
     th {

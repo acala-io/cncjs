@@ -99,7 +99,7 @@ class GCodeWidget extends PureComponent {
     return (
       <Card noPad shadow>
         <CardHeader>
-          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('G-code')}</h2>
+          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('G-code')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding>

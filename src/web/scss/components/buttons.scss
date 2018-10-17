@@ -71,7 +71,7 @@ a.button,
     }
 
     /*
-     * 1 - Equalize left / top / bottom spacing
+     * 1 - Equalize spacing around icon
      */
     > .icon {
         display: inline-block;
@@ -79,9 +79,12 @@ a.button,
         filter: drop-shadow(
             0 -1px 0 darken($clickable, 13)
         ); /* stylelint-disable-line plugin/no-unsupported-browser-features */
-        margin-left: -$inuit-global-spacing-unit-tiny; /* 1 */
-        margin-right: $inuit-global-spacing-unit-small;
+        margin-bottom: -$inuit-global-spacing-unit-tiny; /* 1 */
+        margin-left: -$inuit-global-spacing-unit-small; /* 1 */
+        margin-right: $inuit-global-spacing-unit-tiny; /* 1 */
+        margin-top: -$inuit-global-spacing-unit-tiny; /* 1 */
         position: relative;
+        top: -1px;
         vertical-align: middle;
     }
 

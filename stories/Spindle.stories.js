@@ -31,62 +31,74 @@ const mockState = {
 };
 
 storiesOf('Spindle', module)
-  .add('Default', () => <Spindle actions={mockActions} state={mockState} />)
+  .add('Default', () => (
+    <div style={{width: 340}}>
+      <Spindle actions={mockActions} state={mockState} />
+    </div>
+  ))
   .add('On (M3)', () => (
-    <Spindle
-      actions={mockActions}
-      state={{
-        ...mockState,
-        controller: {
-          ...mockState.controller,
-          modal: {
-            spindle: 'M3',
+    <div style={{width: 340}}>
+      <Spindle
+        actions={mockActions}
+        state={{
+          ...mockState,
+          controller: {
+            ...mockState.controller,
+            modal: {
+              spindle: 'M3',
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   ))
   .add('On (M4)', () => (
-    <Spindle
-      actions={mockActions}
-      state={{
-        ...mockState,
-        controller: {
-          ...mockState.controller,
-          modal: {
-            spindle: 'M4',
+    <div style={{width: 340}}>
+      <Spindle
+        actions={mockActions}
+        state={{
+          ...mockState,
+          controller: {
+            ...mockState.controller,
+            modal: {
+              spindle: 'M4',
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   ))
   .add('Mist (M7)', () => (
-    <Spindle
-      actions={mockActions}
-      state={{
-        ...mockState,
-        controller: {
-          ...mockState.controller,
-          modal: {
-            coolant: 'M7',
-            spindle: 'M3',
+    <div style={{width: 340}}>
+      <Spindle
+        actions={mockActions}
+        state={{
+          ...mockState,
+          controller: {
+            ...mockState.controller,
+            modal: {
+              coolant: 'M7',
+              spindle: 'M3',
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   ))
   .add('Flood (M8)', () => (
-    <Spindle
-      actions={mockActions}
-      state={{
-        ...mockState,
-        controller: {
-          ...mockState.controller,
-          modal: {
-            coolant: 'M8',
-            spindle: 'M3',
+    <div style={{width: 340}}>
+      <Spindle
+        actions={mockActions}
+        state={{
+          ...mockState,
+          controller: {
+            ...mockState.controller,
+            modal: {
+              coolant: 'M8',
+              spindle: 'M3',
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   ));

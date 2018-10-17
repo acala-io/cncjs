@@ -64,7 +64,7 @@ class WebcamWidget extends PureComponent {
       <Card noPad shadow>
         <CardHeader>
           {this.widgetButtons}
-          <h2 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h2>
+          <h3 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding>

@@ -92,7 +92,7 @@ class MacroWidget extends PureComponent {
       <Card noPad shadow>
         <CardHeader>
           {minimized ? null : <ActionLink action="add" className="right" onClick={actions.openAddMacroModal} />}
-          <h2 onMouseDown={actions.toggleMinimized}>{i18n._('Macro')}</h2>
+          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Macro')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding>

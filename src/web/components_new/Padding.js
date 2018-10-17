@@ -19,7 +19,7 @@ import {arrayOf, node, oneOf, oneOfType} from 'prop-types';
 import React from 'react';
 
 const Padding = ({children, sides = '', size = ''}) => (
-  <span className={['u-padding', sides, size].filter(Boolean).join('-')}>{children}</span>
+  <div className={['u-padding', sides, size].filter(Boolean).join('-')}>{children}</div>
 );
 
 Padding.propTypes = {

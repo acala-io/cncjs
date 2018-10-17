@@ -50,7 +50,8 @@
     padding: $inuit-global-spacing-unit-small;
     position: relative; /* 1 */
 
-    h2 {
+    h2,
+    h3 {
         line-height: 1.5;
         margin: 0;
     }

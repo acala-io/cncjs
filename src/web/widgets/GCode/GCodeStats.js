@@ -24,67 +24,63 @@ class GCodeStats extends PureComponent {
 
     return (
       <div>
-        <div className="row no-gutters" style={{marginBottom: 10}}>
-          <div className="col-xs-12">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th />
-                  <th className="number-cell">{i18n._('Min')}</th>
-                  <th className="number-cell">{i18n._('Max')}</th>
-                  <th className="number-cell">{i18n._('Dimension')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>X</th>
-                  <td className="number-cell">
-                    {bbox.min.x}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                  <td className="number-cell">
-                    {bbox.max.x}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                  <td className="number-cell">
-                    {bbox.delta.x}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Y</th>
-                  <td className="number-cell">
-                    {bbox.min.y}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                  <td className="number-cell">
-                    {bbox.max.y}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                  <td className="number-cell">
-                    {bbox.delta.y}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Z</th>
-                  <td className="number-cell">
-                    {bbox.min.z}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                  <td className="number-cell">
-                    {bbox.max.z}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                  <td className="number-cell">
-                    {bbox.delta.z}
-                    <span className="unit">{displayUnits}</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <table className="table" style={{width: '100%'}}>
+          <thead>
+            <tr>
+              <th />
+              <th className="number-cell">{i18n._('Min')}</th>
+              <th className="number-cell">{i18n._('Max')}</th>
+              <th className="number-cell">{i18n._('Dimension')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>X</th>
+              <td className="number-cell">
+                {bbox.min.x}
+                <span className="unit">{displayUnits}</span>
+              </td>
+              <td className="number-cell">
+                {bbox.max.x}
+                <span className="unit">{displayUnits}</span>
+              </td>
+              <td className="number-cell">
+                {bbox.delta.x}
+                <span className="unit">{displayUnits}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Y</th>
+              <td className="number-cell">
+                {bbox.min.y}
+                <span className="unit">{displayUnits}</span>
+              </td>
+              <td className="number-cell">
+                {bbox.max.y}
+                <span className="unit">{displayUnits}</span>
+              </td>
+              <td className="number-cell">
+                {bbox.delta.y}
+                <span className="unit">{displayUnits}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Z</th>
+              <td className="number-cell">
+                {bbox.min.z}
+                <span className="unit">{displayUnits}</span>
+              </td>
+              <td className="number-cell">
+                {bbox.max.z}
+                <span className="unit">{displayUnits}</span>
+              </td>
+              <td className="number-cell">
+                {bbox.delta.z}
+                <span className="unit">{displayUnits}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div className="row no-gutters" style={{marginBottom: 10}}>
           <div className="col-xs-6">
             <div>{i18n._('Sent')}</div>
