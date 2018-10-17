@@ -71,7 +71,9 @@
     "prettier": "prettier --write --list-different 'src/**/*.{js,jsx,scss}'",
     "test": "tap test/*.js --no-timeout --node-arg=--require --node-arg=babel-register --node-arg=--require --node-arg=babel-polyfill",
     "coveralls": "tap test/*.js --coverage --coverage-report=text-lcov --nyc-arg=--require --nyc-arg=babel-register --nyc-arg=--require --nyc-arg=babel-polyfill | coveralls",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective postinstall",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "build": {
     "appId": "org.cncjs",
@@ -140,6 +142,7 @@
     "socket.io"
   ],
   "dependencies": {
+    "@storybook/cli": "^4.0.0-alpha.25",
     "@trendmicro/react-anchor": "~0.5.6",
     "@trendmicro/react-breadcrumbs": "~0.5.5",
     "@trendmicro/react-buttons": "~1.3.1",
@@ -372,7 +375,11 @@
     "webpack-hot-middleware": "~2.22.3",
     "webpack-manifest-plugin": "~2.0.3",
     "webpack-node-externals": "~1.7.2",
-    "write-file-webpack-plugin": "~4.3.2"
+    "write-file-webpack-plugin": "~4.3.2",
+    "@storybook/react": "^4.0.0-alpha.25",
+    "@storybook/addon-actions": "^4.0.0-alpha.25",
+    "@storybook/addon-links": "^4.0.0-alpha.25",
+    "@storybook/addons": "^4.0.0-alpha.25"
   },
   "collective": {
     "type": "opencollective",
