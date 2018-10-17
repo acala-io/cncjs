@@ -57,16 +57,14 @@ class Keypad extends PureComponent {
           <KeypadXY height="200" {...this.props} />
           <KeypadZ height="200" {...this.props} />
         </div>
-        <div className="rowSpace u-margin-top">
-          {this.stepSize}
-          {this.unitSelect}
-        </div>
+        <div className="rowSpace u-margin-top">{this.stepSize}</div>
         <div className="row-space">
           <SplitButton>
             <div className="col-xs-6">{this.buttonStepBackward}</div>
             <div className="col-xs-6">{this.buttonStepForward}</div>
           </SplitButton>
         </div>
+        {this.unitSelect}
       </div>
     );
   }
@@ -105,7 +103,7 @@ class Keypad extends PureComponent {
     return (
       <ButtonGroup
         optionName="step-size"
-        options={isImperial ? imperialJogSteps : metricJogSteps}
+        options={(isImperial ? imperialJogSteps : metricJogSteps).map(s => ({label: s, unit: units, value: s}))}
         selectedValue={isImperial ? jog.imperial.step : jog.metric.step}
         onChange={onSelectStepSize}
         // isDisabled={!canClick}
