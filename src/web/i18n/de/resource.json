@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "",
     "Remove Widget": "Widget entfernen",
     "Are you sure you want to remove this widget?": "Sind Sie sicher, dass Sie dieses Widget entfernen wollen?",
-    "On": "Ein",
-    "Off": "Aus",
     "Visualizer Widget": "Visualisierungs-Widget",
     "This widget visualizes a G-code file and simulates the tool path.": "Dieses Widget visualisiert eine G-Code-Datei und simuliert den Fahrweg des Werkzeugs.",
     "Connection Widget": "Verbindungs-Widget",

@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "Weet U zeker dat U deze widget wil binnenhalen?",
     "Remove Widget": "Widget Verwijderen",
     "Are you sure you want to remove this widget?": "Weet U zeker dat U deze widget wil verwijderen?",
-    "On": "Aan",
-    "Off": "Uit",
     "Visualizer Widget": "Visualiseer Widget",
     "This widget visualizes a G-code file and simulates the tool path.": "Deze widget visualiseert een G-code bestand en simuleert het pad van het gereedscap",
     "Connection Widget": "Verbindings Widget",

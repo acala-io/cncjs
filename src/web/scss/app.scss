@@ -105,7 +105,10 @@ $mq-breakpoints: (
 @import 'vendor/infinite-tree';
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/xterm';
-@import 'vendor/old-vendors';
+@import url('~bootstrap/dist/css/bootstrap.css');
+@import url('~rc-slider/assets/index.css');
+@import url('~react-select/dist/react-select.css');
+@import url('~react-facebook-loading/dist/react-facebook-loading.css');
 
 // UTILITIES
 @import '~inuitcss/utilities/utilities.clearfix';

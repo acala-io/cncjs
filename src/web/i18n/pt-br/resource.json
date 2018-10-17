@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "Tem certeza de que deseja copiar esse módulo?",
     "Remove Widget": "Remover Módulo",
     "Are you sure you want to remove this widget?": "Tem certeza de que deseja remover esse módulo?",
-    "On": "Ativado",
-    "Off": "Desativado",
     "Visualizer Widget": "Módulo Visualizar",
     "This widget visualizes a G-code file and simulates the tool path.": "Este Módulo visualiza um arquivo G-code e simula a trajetória da ferramenta.",
     "Connection Widget": "Módulo Conexão",

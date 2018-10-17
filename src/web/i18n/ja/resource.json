@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "本当にウィジェットを複製しますか？",
     "Remove Widget": "ウィジェットの削除",
     "Are you sure you want to remove this widget?": "本当にウィジェットを削除しますか？",
-    "On": "オン",
-    "Off": "オフ",
     "Visualizer Widget": "視覚化 ウィジェット",
     "This widget visualizes a G-code file and simulates the tool path.": "このウィジェットはGコードファイルを視覚化し、ツールパスをシミュレートします。",
     "Connection Widget": "接続 ウィジェット",

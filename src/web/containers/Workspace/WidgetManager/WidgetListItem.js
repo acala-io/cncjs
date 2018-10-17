@@ -1,23 +1,25 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import Toggle from 'react-toggle';
-import i18n from '../../../lib/i18n';
+
+import Toggle from '../../../components_new/Toggle';
 
 class WidgetListItem extends PureComponent {
   static propTypes = {
-    id: PropTypes.string,
     caption: PropTypes.string,
-    details: PropTypes.string,
     checked: PropTypes.bool,
+    details: PropTypes.string,
     disabled: PropTypes.bool,
+    id: PropTypes.string,
     onChange: PropTypes.func,
   };
+
   state = {
     checked: this.props.checked,
   };
 
   handleChange = event => {
     const checked = event.target.checked;
+
     this.setState({checked});
     this.props.onChange(this.props.id, checked);
   };
@@ -56,9 +58,7 @@ class WidgetListItem extends PureComponent {
               <span style={styles.caption}>{this.props.caption}</span>
             </div>
             <div className="col-sm-4 text-right">
-              <span title={checked ? i18n._('On') : i18n._('Off')}>
-                <Toggle disabled={this.props.disabled} defaultChecked={checked} onChange={this.handleChange} />
-              </span>
+              <Toggle value={checked} handleClick={this.handleChange} isDisabled={this.props.disabled} />
             </div>
           </div>
           <div style={styles.details}>

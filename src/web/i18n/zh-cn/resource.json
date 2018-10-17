@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "你确定需要复制该组件吗？",
     "Remove Widget": "移除组件",
     "Are you sure you want to remove this widget?": "你确定要移除该组件吗？",
-    "On": "开启",
-    "Off": "关闭",
     "Visualizer Widget": "可视化组件",
     "This widget visualizes a G-code file and simulates the tool path.": "此组件可形象化 G-code 文档以及模拟刀具路径。",
     "Connection Widget": "连接组件",

@@ -1,9 +1,5 @@
-button + button {
-    margin-left: 5px;
-}
-
 .learnmore {
-    color: #0060AC;
+    color: #0060ac;
     font-size: 14px;
 
     > * {
@@ -13,8 +9,8 @@ button + button {
 
 .label {
     display: inline-block;
-    color: #0060AC;
-    border: 1px solid rgba(0, 0, 0, .1);
+    color: #0060ac;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     border-color: #8daed9;
     padding: 4px 8px;

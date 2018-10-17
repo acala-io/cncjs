@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "Bu pencere öğesini çoğaltmak istediğinizden emin misiniz?",
     "Remove Widget": "Pencere Öğesini Kaldır",
     "Are you sure you want to remove this widget?": "Bu pencere öğesini kaldırmak istediğinizden emin misiniz?",
-    "On": "Aç",
-    "Off": "Kapat",
     "Visualizer Widget": "Görselleştirme pencere öğesi",
     "This widget visualizes a G-code file and simulates the tool path.": "Bu pencere öğesi bir G-kodu dosyasını görselleştirir ve takım yolunu taklit eder.",
     "Connection Widget": "Bağlantı pencere öğesi",

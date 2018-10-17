@@ -111,8 +111,6 @@
     "Are you sure you want to fork this widget?": "",
     "Remove Widget": "",
     "Are you sure you want to remove this widget?": "",
-    "On": "Sì",
-    "Off": "No",
     "Visualizer Widget": "Visualizza widget",
     "This widget visualizes a G-code file and simulates the tool path.": "Questo widget visualizza un file G-code e simula il percorso utensile.",
     "Connection Widget": "Widget connettività",

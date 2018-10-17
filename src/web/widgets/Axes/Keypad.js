@@ -60,8 +60,8 @@ class Keypad extends PureComponent {
         <div className="rowSpace u-margin-top">{this.stepSize}</div>
         <div className="row-space">
           <SplitButton>
-            <div className="col-xs-6">{this.buttonStepBackward}</div>
-            <div className="col-xs-6">{this.buttonStepForward}</div>
+            {this.buttonStepBackward}
+            {this.buttonStepForward}
           </SplitButton>
         </div>
         {this.unitSelect}
@@ -128,7 +128,6 @@ class Keypad extends PureComponent {
     return (
       <Repeatable
         disabled={!canStepForward}
-        style={{marginLeft: 2.5}}
         repeatDelay={500}
         repeatInterval={Math.floor(1000 / 15)}
         onHold={actions.stepForward}
@@ -150,7 +149,6 @@ class Keypad extends PureComponent {
     return (
       <Repeatable
         disabled={!canStepBackward}
-        style={{marginRight: 2.5}}
         repeatDelay={500}
         repeatInterval={Math.floor(1000 / 15)}
         onHold={actions.stepBackward}

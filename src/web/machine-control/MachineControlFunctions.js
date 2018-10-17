@@ -6,6 +6,7 @@ import controller from '../lib/controller';
 import i18n from '../lib/i18n';
 
 import Button from '../components_new/Button';
+import SplitButton from '../components_new/SplitButton';
 
 const cyclestart = () => {
   controller.command('cyclestart');
@@ -37,13 +38,13 @@ const MachineControlFunctions = ({}) => {
   const canClose = true; // isReady && includes([WORKFLOW_STATE_IDLE], workflow.state);
 
   return (
-    <div>
+    <SplitButton>
       {canRun && <Button text={i18n._('Cycle Start')} icon="cyclestart" handleClick={cyclestart} />}
       {(canPause || canStop) && <Button text={i18n._('Feedhold')} handleClick={feedhold} />}
       {canClose && <Button text={i18n._('Sleep')} handleClick={sleep} />}
       <Button text={i18n._('Unlock')} handleClick={unlock} />
       <Button text={i18n._('Reset')} icon="undo" handleClick={reset} />
-    </div>
+    </SplitButton>
   );
 };
 

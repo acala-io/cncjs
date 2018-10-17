@@ -103,22 +103,22 @@ a.button,
 .split-button {
     display: table;
 
+    /*
+     * 1 - Remove border-radius from inner buttons
+     * 2 - Keep outer border-radius on left- and rightmost buttons
+     */
     button,
     .button {
-        /*
-         * 1 - Remove right border-radius from first button
-         */
-        &:first-of-type {
-            border-bottom-right-radius: 0; /* 1 */
-            border-top-right-radius: 0; /* 1 */
+        border-radius: 0; /* 1 */
+
+        &:first-child {
+            border-bottom-left-radius: $border-radius--large; /* 2 */
+            border-top-left-radius: $border-radius--large; /* 2 */
         }
 
-        /*
-         * 1 - Remove left border-radius from last button
-         */
-        &:last-of-type {
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
+        &:last-child {
+            border-bottom-right-radius: $border-radius--large; /* 2 */
+            border-top-right-radius: $border-radius--large; /* 2 */
         }
     }
 }
