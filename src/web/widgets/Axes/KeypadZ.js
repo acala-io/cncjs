@@ -48,6 +48,7 @@ class KeypadZ extends PureComponent {
             c1.4,0,2.8-0.7,3.6-2.1l12.9-22.3C83.2,354,81.2,350.6,78,350.6L78,350.6z"
           />
         </svg>
+        <div className="keypad__axis-label">Z</div>
         <div className="keypad-button__wrapper">
           {jogButtonFactory(this.props, {direction: '+', name: 'z'})}
           {jogButtonFactory(this.props, {direction: '-', name: 'z'})}

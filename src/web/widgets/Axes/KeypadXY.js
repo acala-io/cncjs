@@ -70,6 +70,7 @@ class KeypadXY extends PureComponent {
             c-2.7,1.6-2.7,5.5,0,7.1L67,228.3c0.7,0.4,1.4,0.6,2,0.6c2.1,0,4.1-1.7,4.1-4.1V199C73.2,196.6,71.2,194.9,69,194.9L69,194.9z"
           />
         </svg>
+        <div className="keypad__axis-label">XY</div>
       </div>
     );
   }

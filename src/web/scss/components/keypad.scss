@@ -36,6 +36,14 @@
         }
     }
 
+    .keypad__axis-label {
+        @include center--xy;
+
+        color: transparentize($text--inverse, 0.4);
+        font-size: $font-size--huge;
+        text-shadow: 0 -1px 0 darken($clickable, 13);
+    }
+
     .keypad-button__wrapper {
         bottom: 0;
         left: 0;
