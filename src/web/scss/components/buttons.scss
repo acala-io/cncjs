@@ -10,6 +10,15 @@
  * <button class="button">
  *     Save
  * </button>
+ *
+ * <div class="split-button">
+ *     <button class="button">
+ *         Save
+ *     </button>
+ *     <button class="button">
+ *         Save as draft
+ *     </button>
+ * </div>
  */
 
 $visualZHeight: 1.5px;
@@ -87,6 +96,29 @@ a.button,
             filter: drop-shadow(
                 0 -1px 0 darken($background, 13)
             ); /* stylelint-disable-line plugin/no-unsupported-browser-features */
+        }
+    }
+}
+
+.split-button {
+    display: table;
+
+    button,
+    .button {
+        /*
+         * 1 - Remove right border-radius from first button
+         */
+        &:first-of-type {
+            border-bottom-right-radius: 0; /* 1 */
+            border-top-right-radius: 0; /* 1 */
+        }
+
+        /*
+         * 1 - Remove left border-radius from last button
+         */
+        &:last-of-type {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
         }
     }
 }
