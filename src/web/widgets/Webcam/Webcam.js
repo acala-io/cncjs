@@ -13,7 +13,7 @@ import Circle from './Circle';
 import Image from './Image';
 import Line from './Line';
 import WebcamComponent from '../../components/Webcam';
-import {Tooltip} from '../../components/Tooltip';
+import Tooltip from '../../components/Tooltip';
 
 import './index.scss';
 

@@ -1,28 +1,28 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import DisplayPanel from './DisplayPanel';
-import ControlPanel from './ControlPanel';
+import Keypad from './Keypad';
 import MDIPanel from './MDIPanel';
 
 const Axes = props => {
-  const {config, state, actions} = props;
+  const {actions, config, state} = props;
+
   const showMDIPanel = !state.mdi.disabled && state.mdi.commands.length > 0;
 
   return (
     <div>
       <DisplayPanel config={config} state={state} actions={actions} />
-      <div style={{padding: 7}}>
-        <ControlPanel config={config} state={state} actions={actions} />
-        {showMDIPanel && <MDIPanel config={config} state={state} actions={actions} />}
-      </div>
+      <Keypad config={config} state={state} actions={actions} />
+      {showMDIPanel && <MDIPanel config={config} state={state} actions={actions} />}
     </div>
   );
 };
 
 Axes.propTypes = {
+  actions: PropTypes.object,
   config: PropTypes.object,
   state: PropTypes.object,
-  actions: PropTypes.object,
 };
 
 export default Axes;

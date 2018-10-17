@@ -1,3 +1,5 @@
 import '@trendmicro/react-tooltip/dist/react-tooltip.css';
 
-export {Tooltip, Infotip} from '@trendmicro/react-tooltip';
+import {Tooltip} from '@trendmicro/react-tooltip';
+
+export default Tooltip;

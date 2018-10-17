@@ -16,7 +16,7 @@ import PositionInput from './components/PositionInput';
 import PositionLabel from './components/PositionLabel';
 import Taskbar from './components/Taskbar';
 import TaskbarButton from './components/TaskbarButton';
-import {Tooltip} from '../../components/Tooltip';
+import Tooltip from '../../components/Tooltip';
 
 import iconHome from './images/home.svg';
 import iconMinus from './images/minus.svg';

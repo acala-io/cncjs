@@ -1,0 +1,55 @@
+.keypads {
+    align-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: $inuit-global-spacing-unit-small;
+}
+
+.keypad {
+    position: relative;
+
+    svg.keypad-image {
+        display: inline-block;
+        height: 200px;
+        width: auto;
+
+        &.keypad-image--xy {
+        }
+
+        &.keypad-image--z {
+        }
+
+        .keypad-image__button {
+            fill: $background--darkest;
+            stroke: transparent;
+        }
+
+        .keypad-image__button--inner {
+            fill: red;
+        }
+
+        .keypad-image__arrow {
+            fill: $border--lightest;
+            stroke: transparent;
+        }
+    }
+
+    .keypad-button__wrapper {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        align-content: stretch;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        position: absolute;
+    }
+
+    .keypad-button {
+        cursor: pointer;
+        flex-grow: 1;
+    }
+}

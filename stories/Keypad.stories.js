@@ -77,4 +77,6 @@ const mockState = {
   },
 };
 
-storiesOf('Keypad', module).add('default', () => <Keypad actions={mockActions} state={mockState} />);
+storiesOf('Keypad', module)
+  .add('disabled', () => <Keypad actions={mockActions} state={mockState} />)
+  .add('enabled', () => <Keypad actions={mockActions} state={{...mockState, canClick: true}} />);

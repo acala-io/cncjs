@@ -6,11 +6,13 @@ import Repeatable from 'react-repeatable';
 
 import controller from '../../lib/controller';
 
+import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
 import Fraction from './components/Fraction';
-import jogButtonFactory from './jogButtonFactory';
+import KeypadXY from './KeypadXY';
+import KeypadZ from './KeypadZ';
 import Space from '../../components/Space';
-import {Button} from '../../components/Buttons';
+import SplitButton from '../../components_new/SplitButton';
 
 import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
 
@@ -46,81 +48,24 @@ class Keypad extends PureComponent {
     return <span>{quot > 0 ? quot : ''}</span>;
   }
 
+  // jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '+', name: 'y'})
+
   render() {
     return (
-      <div className="keypad">
-        <div className="row no-gutters">
-          <div>
-            <div className="row-space">
-              <div className="row no-gutters">
-                <div className="col-xs-3">
-                  <div className="col-space">
-                    {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '+', name: 'y'})}
-                  </div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '+', name: 'y'})}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">
-                    {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '+', name: 'y'})}
-                  </div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '+', name: 'z'})}</div>
-                </div>
-              </div>
-            </div>
-            <div className="row-space">
-              <div className="row no-gutters">
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '-', name: 'x'})}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">
-                    {jogButtonFactory(this.props, {direction: '0', name: 'x'}, {direction: '0', name: 'y'})}
-                  </div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '+', name: 'x'})}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '0', name: 'z'})}</div>
-                </div>
-              </div>
-            </div>
-            <div className="row-space">
-              <div className="row no-gutters">
-                <div className="col-xs-3">
-                  <div className="col-space">
-                    {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '-', name: 'y'})}
-                  </div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '-', name: 'y'})}</div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">
-                    {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '-', name: 'y'})}
-                  </div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="col-space">{jogButtonFactory(this.props, {direction: '-', name: 'z'})}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="rowSpace u-margin-top">
-            {this.stepSize}
-            {this.unitSelect}
-          </div>
-          <div className="row-space">
-            <div className="row no-gutters">
-              <div className="col-xs-6">{this.buttonStepBackward}</div>
-              <div className="col-xs-6">{this.buttonStepForward}</div>
-            </div>
-          </div>
+      <div>
+        <div className="keypads">
+          <KeypadXY height="200" {...this.props} />
+          <KeypadZ height="200" {...this.props} />
+        </div>
+        <div className="rowSpace u-margin-top">
+          {this.stepSize}
+          {this.unitSelect}
+        </div>
+        <div className="row-space">
+          <SplitButton>
+            <div className="col-xs-6">{this.buttonStepBackward}</div>
+            <div className="col-xs-6">{this.buttonStepForward}</div>
+          </SplitButton>
         </div>
       </div>
     );
@@ -191,9 +136,7 @@ class Keypad extends PureComponent {
         onHold={actions.stepForward}
         onRelease={actions.stepForward}
       >
-        <Button disabled={!canStepForward} style={{width: '100%'}} compact btnStyle="flat" className="pull-right">
-          <i className="fa fa-plus" />
-        </Button>
+        <Button text="+" isDisabled={!canStepForward} />
       </Repeatable>
     );
   }
@@ -215,9 +158,7 @@ class Keypad extends PureComponent {
         onHold={actions.stepBackward}
         onRelease={actions.stepBackward}
       >
-        <Button disabled={!canStepBackward} style={{width: '100%'}} compact btnStyle="flat" className="pull-left">
-          <i className="fa fa-minus" />
-        </Button>
+        <Button text="-" isDisabled={!canStepBackward} />
       </Repeatable>
     );
   }

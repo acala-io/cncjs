@@ -1,28 +1,9 @@
 import classcat from 'classcat';
-import React, {Fragment} from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 import i18n from '../../lib/i18n';
 
-import {Button} from '../../components/Buttons';
-
-import './index.scss';
-
-const KeypadText = styled.span`
-  display: inline-block;
-  position: relative;
-  vertical-align: baseline;
-`;
-
-const KeypadDirectionText = styled(KeypadText)`
-  min-width: 10px;
-`;
-
-const KeypadSubscriptText = styled(KeypadText)`
-  min-width: 10px;
-  font-size: 80%;
-  line-height: 0;
-`;
+import Tooltip from '../../components/Tooltip';
 
 const getOnJogFunction = (props, axis1, axis2) => {
   const {getJogDistance, jog} = props.actions;
@@ -53,7 +34,7 @@ const getOnJogFunction = (props, axis1, axis2) => {
 const getJogButtonClasses = (props, axis1, axis2) => {
   const {axes, canClick, jog} = props.state;
 
-  const classNames = ['btn-keypad'];
+  const classNames = ['keypad-button'];
 
   if (axis1.direction !== '0' && [axis1, axis2].filter(Boolean).length === 1) {
     let highlight;
@@ -102,21 +83,18 @@ const jogButtonFactory = (props, axis1 = {direction: '+', name: 'x'}, axis2) => 
   const disabled = isDisabled(givenArgs.map(a => a.name));
   const title = i18n._(`Move ${givenArgs.map(a => `${a.name.toUpperCase()}${a.direction}`).join(' ')}`);
 
-  const renderButtonText = a => (
-    <Fragment key={`${a.name}${a.direction}`}>
-      <KeypadText>{a.name.toUpperCase()}</KeypadText>
-      {a.direction === '0' ? (
-        <KeypadSubscriptText>{a.direction}</KeypadSubscriptText>
-      ) : (
-        <KeypadDirectionText>{a.direction}</KeypadDirectionText>
-      )}
-    </Fragment>
-  );
+  // const renderButtonText = a => <Fragment key={a.direction}>{`${a.name.toUpperCase()}${a.direction}`}</Fragment>;
+
+  if (disabled) {
+    return null;
+  }
+
+  // return <div className={classes} handleClick={onJog} />;
 
   return (
-    <Button btnStyle="flat" className={classes} onClick={onJog} disabled={disabled} title={title} compact>
-      {givenArgs.map(renderButtonText)}
-    </Button>
+    <Tooltip placement="top" content={title} hideOnClick>
+      <div className={classes} handleClick={onJog} />
+    </Tooltip>
   );
 };
 

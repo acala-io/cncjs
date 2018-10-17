@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {Container, Row, Col} from '../../components/GridSystem';
 import {Button} from '../../components/Buttons';
-import {Tooltip} from '../../components/Tooltip';
+import Tooltip from '../../components/Tooltip';
 import controller from '../../lib/controller';
 import Panel from './components/Panel';
 

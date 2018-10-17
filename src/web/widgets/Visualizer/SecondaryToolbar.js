@@ -15,7 +15,7 @@ import Icon from '../../components_new/Icon';
 import Interpolate from '../../components/Interpolate';
 import Space from '../../components/Space';
 import {Button} from '../../components/Buttons';
-import {Tooltip} from '../../components/Tooltip';
+import Tooltip from '../../components/Tooltip';
 
 class SecondaryToolbar extends PureComponent {
   static propTypes = {
