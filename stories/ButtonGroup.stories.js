@@ -6,7 +6,7 @@ import {action} from '@storybook/addon-actions';
 import ButtonGroup from '../src/web/components_new/ButtonGroup';
 
 storiesOf('ButtonGroup', module)
-  .add('default', () => (
+  .add('Default', () => (
     <ButtonGroup
       optionName="whatever"
       options={[{value: 24, label: 24}, {value: 36, label: 36}, {value: 48, label: 48}]}
@@ -14,7 +14,7 @@ storiesOf('ButtonGroup', module)
       onChange={action('selected')}
     />
   ))
-  .add('with units', () => (
+  .add('With units', () => (
     <ButtonGroup
       optionName="whatever"
       options={[

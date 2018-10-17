@@ -199,6 +199,7 @@
     "express-jwt": "~5.3.1",
     "express-session": "~1.15.6",
     "fast-sass-loader": "^1.4.6",
+    "flexbox-react": "^4.4.0",
     "font-awesome": "~4.7.0",
     "frac": "~1.1.2",
     "gcode-interpreter": "~2.1.0",

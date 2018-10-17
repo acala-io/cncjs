@@ -2,7 +2,6 @@ import React from 'react';
 
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-// import {linkTo} from '@storybook/addon-links';
 
 import Keypad from '../src/web/widgets/Axes/Keypad';
 
@@ -78,5 +77,5 @@ const mockState = {
 };
 
 storiesOf('Keypad', module)
-  .add('disabled', () => <Keypad actions={mockActions} state={mockState} />)
-  .add('enabled', () => <Keypad actions={mockActions} state={{...mockState, canClick: true}} />);
+  .add('Disabled', () => <Keypad actions={mockActions} state={mockState} />)
+  .add('Enabled', () => <Keypad actions={mockActions} state={{...mockState, canClick: true}} />);
