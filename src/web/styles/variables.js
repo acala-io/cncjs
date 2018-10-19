@@ -86,6 +86,13 @@ export default {
       bold: '700',
     },
   },
+  globalSpacingUnit: {
+    default: '14px',
+    tiny: '3.5px',
+    small: '7px',
+    large: '28px',
+    huge: '56px',
+  },
   transition: {
     time: {
       veryFast: `${75 * transitionTimeMultiplier}ms`,

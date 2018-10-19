@@ -8,15 +8,14 @@
  * </svg>
  */
 
-
 .icon {
     display: inline-block;
     fill: currentColor;
-    height: $inuit-global-spacing-unit-large;
+    height: $inuit-global-spacing-unit * 1.5;
     position: relative;
     transition: $transition-time--fast transform;
     vertical-align: middle;
-    width: $inuit-global-spacing-unit-large;
+    width: $inuit-global-spacing-unit * 1.5;
 
     &--tiny {
         height: $inuit-global-spacing-unit-small;
@@ -37,7 +36,6 @@
         fill: $text--lightest;
     }
 }
-
 
 // Alignment fixes -----------------------------------------------------------------------------------------------------
 .icon--company {
@@ -62,7 +60,6 @@
 
 // Special icons -------------------------------------------------------------------------------------------------------
 .icon--logo {
-
     .icon--logo__frame {
         fill: #f7b11a;
     }

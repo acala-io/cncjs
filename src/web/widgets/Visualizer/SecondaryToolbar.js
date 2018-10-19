@@ -30,7 +30,7 @@ class SecondaryToolbar extends PureComponent {
     const canToggleOptions = Detector.webgl && !disabled;
 
     return (
-      <div className="clearfix u-padding-tiny">
+      <div className="clearfix u-padding">
         {this.visualizationSettings}
         {canToggleOptions && (
           <div className="left">
@@ -139,7 +139,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Top View')} hideOnClick>
-                <Icon name="view-top" size="small" />
+                <Icon name="view-top" />
               </Tooltip>
             ),
             value: 'top',
@@ -147,7 +147,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Front View')} hideOnClick>
-                <Icon name="view-front" size="small" />
+                <Icon name="view-front" />
               </Tooltip>
             ),
             value: 'front',
@@ -155,7 +155,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Left Side View')} hideOnClick>
-                <Icon name="view-left" size="small" />
+                <Icon name="view-left" />
               </Tooltip>
             ),
             value: 'left',
@@ -163,7 +163,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Right Side View')} hideOnClick>
-                <Icon name="view-right" size="small" />
+                <Icon name="view-right" />
               </Tooltip>
             ),
             value: 'right',
@@ -171,7 +171,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('3D View')} hideOnClick>
-                <Icon name="view-3d" size="small" />
+                <Icon name="view-3d" />
               </Tooltip>
             ),
             value: '3d',
@@ -213,20 +213,20 @@ class SecondaryToolbar extends PureComponent {
         <label className="button-group__button">
           <Repeatable onMouseDown={camera.zoomIn} onHold={camera.zoomIn}>
             <Tooltip placement="top" content={i18n._('Zoom In')} hideOnClick>
-              <Icon name="zoom-in" size="small" />
+              <Icon name="zoom-in" />
             </Tooltip>
           </Repeatable>
         </label>
         <label className="button-group__button">
           <Repeatable onMouseDown={camera.zoomOut} onHold={camera.zoomOut}>
             <Tooltip placement="top" content={i18n._('Zoom Out')} hideOnClick>
-              <Icon name="zoom-out" size="small" />
+              <Icon name="zoom-out" />
             </Tooltip>
           </Repeatable>
         </label>
         <label className="button-group__button" onMouseDown={camera.zoomFit}>
           <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
-            <Icon name="zoom-fit" size="small" />
+            <Icon name="zoom-fit" />
           </Tooltip>
         </label>
       </div>
@@ -245,7 +245,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Move the camera')} hideOnClick>
-                <Icon name="camera-move" size="small" />
+                <Icon name="camera-move" />
               </Tooltip>
             ),
             value: CAMERA_MODE_PAN,
@@ -253,7 +253,7 @@ class SecondaryToolbar extends PureComponent {
           {
             label: (
               <Tooltip placement="top" content={i18n._('Rotate the camera')} hideOnClick>
-                <Icon name="camera-rotate" size="small" />
+                <Icon name="camera-rotate" />
               </Tooltip>
             ),
             value: CAMERA_MODE_ROTATE,

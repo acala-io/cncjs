@@ -14,6 +14,7 @@ import Settings from './Settings';
 import Toggle from '../../components_new/Toggle';
 import Webcam from './Webcam';
 import WidgetConfig from '../WidgetConfig';
+import WidgetHeaderButton from '../WidgetHeaderButton';
 
 import './index.scss';
 
@@ -65,7 +66,7 @@ class WebcamWidget extends PureComponent {
     return (
       <Card noPad shadow>
         <CardHeader>
-          {this.widgetButtons}
+          {this.widgetHeaderButtons}
           <h3 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
@@ -77,48 +78,45 @@ class WebcamWidget extends PureComponent {
     );
   }
 
-  get widgetButtons() {
+  get widgetHeaderButtons() {
     const {disabled, isFullscreen} = this.state;
+
+    const editSettings = () => {
+      const {mediaSource, deviceId, url} = this.state;
+
+      portal(({onClose}) => (
+        <Settings
+          mediaSource={mediaSource}
+          deviceId={deviceId}
+          url={url}
+          onSave={data => {
+            const {deviceId, mediaSource, url} = data;
+
+            this.setState({deviceId, mediaSource, url});
+            onClose();
+          }}
+          onCancel={onClose}
+        />
+      ));
+    };
 
     return (
       <Fragment>
-        <div
-          className="link right u-padding-tiny"
-          title={i18n._('Edit Settings')}
-          onClick={() => {
-            const {mediaSource, deviceId, url} = this.state;
-
-            portal(({onClose}) => (
-              <Settings
-                mediaSource={mediaSource}
-                deviceId={deviceId}
-                url={url}
-                onSave={data => {
-                  const {deviceId, mediaSource, url} = data;
-
-                  this.setState({deviceId, mediaSource, url});
-                  onClose();
-                }}
-                onCancel={onClose}
-              />
-            ));
-          }}
-        >
-          <Icon name="settings" size="small" />
-        </div>
+        <WidgetHeaderButton className="u--margin-right" title={i18n._('Edit Settings')} onClick={editSettings}>
+          <Icon name="settings" />
+        </WidgetHeaderButton>
         <Toggle value={!disabled} className="right" handleClick={() => this.setState({disabled: !disabled})} />
         {!disabled && (
           <Fragment>
-            <div className="link right u-padding-tiny" title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
-              <Icon name="refresh" size="small" className="u-margin-right-tiny" />
-            </div>
-            <div
-              className="link right u-padding-tiny"
+            <WidgetHeaderButton title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
+              <Icon name="refresh" />
+            </WidgetHeaderButton>
+            <WidgetHeaderButton
               title={isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
               onClick={this.actions.toggleFullscreen}
             >
-              <Icon name={isFullscreen ? 'fullscreen-leave' : 'fullscreen-enter'} size="small" />
-            </div>
+              <Icon name={isFullscreen ? 'fullscreen-leave' : 'fullscreen-enter'} />
+            </WidgetHeaderButton>
           </Fragment>
         )}
       </Fragment>
