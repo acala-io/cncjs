@@ -1,4 +1,3 @@
-// @flow
 /*
  * Renders a row with the actions for a form.
  *
@@ -19,43 +18,46 @@ import PropTypes from 'prop-types';
 
 import ActionLink from './ActionLink';
 import Button from './Button';
+import Flexbox from './Flexbox';
 
-export type Props = {
-  children: ?any,
-  className: ?string,
-  noPad: boolean,
-  primaryAction: any,
-  secondaryAction: any,
-};
-
-const FormActions = ({children, className, noPad, primaryAction, secondaryAction}: Props) => {
+const FormActions = ({children, className, primaryAction, secondaryAction}) => {
   const primaryActionProps = {text: 'save', ...primaryAction};
-  const classes = classcat(['form-actions', {'form-actions--no-padding': noPad}, className]);
+  const classes = classcat(['form-actions', className]);
 
   return (
-    <div className={classes}>
-      <div className="form-actions__primary">
+    <Flexbox
+      alignContent="flex-start"
+      alignItems="center"
+      flexDirection="row"
+      flexWrap="wrap"
+      justifyContent="flex-start"
+      style={{width: '100%'}}
+      className={classes}
+    >
+      <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
         {primaryActionProps.handleClick && <Button {...primaryActionProps} />}
-      </div>
-      <div className="form-actions__secondary">
+      </Flexbox>
+      <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
         {secondaryAction.handleClick && <ActionLink action="cancel" onClick={secondaryAction.handleClick} />}
-      </div>
-      <div className="form-actions__tertiary">{children}</div>
-    </div>
+      </Flexbox>
+      <Flexbox flexGrow={100} flexShrink={0} style={{textAlign: 'right'}}>
+        {children}
+      </Flexbox>
+    </Flexbox>
   );
 };
 
 FormActions.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   className: PropTypes.string,
-  noPad: PropTypes.bool,
+  primaryAction: PropTypes.object,
+  secondaryAction: PropTypes.object,
 };
 
 /* eslint-disable react/default-props-match-prop-types */
 FormActions.defaultProps = {
   children: null,
   className: '',
-  noPad: false,
 };
 
 export default FormActions;

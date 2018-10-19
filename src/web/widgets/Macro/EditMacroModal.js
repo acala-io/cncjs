@@ -15,8 +15,9 @@ import variables from './variables';
 
 import Dialog, {DialogHeader, DialogActions} from '../../components_new/Dialog';
 import FormActions from '../../components_new/FormActions';
-import Space from '../../components/Space';
-import {Form, Input, Textarea} from '../../components/Validation';
+import Input from '../../components_new/Input';
+import Padding from '../../components_new/Padding';
+import {Form, Textarea} from '../../components/Validation';
 
 import './index.scss';
 
@@ -31,93 +32,44 @@ class EditMacroModal extends PureComponent {
   };
 
   fields = {
-    content: null,
-    name: null,
+    content: this.props.content,
+    name: this.props.name,
   };
-
-  get value() {
-    const {content, name} = this.form.getValues();
-
-    return {
-      content,
-      name,
-    };
-  }
 
   render() {
     const {onClose, updateMacro, updateModalParams} = this.props;
-    const {id, name, content} = this.props;
+    const {content, id, name} = this.props;
 
     return (
       <Dialog onClose={onClose}>
         <DialogHeader heading={i18n._('Edit Macro')} />
-        <Form ref={ref => (this.form = ref)} onSubmit={e => e.preventDefault()}>
-          <div className="form-group">
-            <label>{i18n._('Macro Name')}</label>
-            <Input
-              ref={ref => (this.fields.name = ref)}
-              type="text"
-              className="form-control"
-              name="name"
-              value={name}
-              validations={[validations.required]}
-            />
-          </div>
-          <div className="form-group">
-            <div>
-              <label>{i18n._('Macro Commands')}</label>
-              <Dropdown
-                id="edit-macro-dropdown"
-                className="pull-right"
-                onSelect={eventKey => {
-                  // eslint-disable-next-line react/no-find-dom-node
-                  const textarea = ReactDOM.findDOMNode(this.fields.content).querySelector('textarea');
-                  if (textarea) {
-                    insertAtCaret(textarea, eventKey);
-                  }
-
+        <Padding>
+          <Form ref={ref => (this.form = ref)} onSubmit={e => e.preventDefault()}>
+            <div className="form-group">
+              <Input
+                className="input--huge input--long"
+                placeholder={i18n._('Macro Name')}
+                value={name}
+                onChange={value => {
                   updateModalParams({
-                    content: textarea.value,
+                    content: value,
                   });
                 }}
-                pullRight
-              >
-                <Dropdown.Toggle className="btn-link" style={{boxShadow: 'none'}} useAnchor noCaret>
-                  <i className="fa fa-plus" />
-                  <Space width="8" />
-                  {i18n._('Macro Variables')}
-                  <Space width="4" />
-                  <i className="fa fa-caret-down" />
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="macro-variables-dropdown">
-                  {variables.map(v => {
-                    if (typeof v === 'object') {
-                      return (
-                        <MenuItem header={v.type === 'header'} key={uniqueId()}>
-                          {v.text}
-                        </MenuItem>
-                      );
-                    }
-
-                    return (
-                      <MenuItem eventKey={v} key={uniqueId()}>
-                        {v}
-                      </MenuItem>
-                    );
-                  })}
-                </Dropdown.Menu>
-              </Dropdown>
+                autoFocus
+              />
             </div>
-            <Textarea
-              ref={ref => (this.fields.content = ref)}
-              rows="10"
-              className="form-control"
-              name="content"
-              value={content}
-              validations={[validations.required]}
-            />
-          </div>
-        </Form>
+            <div className="form-group">
+              {this.macroCommands}
+              <Textarea
+                ref={ref => (this.fields.content = ref)}
+                rows="10"
+                name="content"
+                value={content}
+                validations={[validations.required]}
+              />
+            </div>
+          </Form>
+        </Padding>
         <DialogActions>
           <FormActions
             primaryAction={{
@@ -137,7 +89,6 @@ class EditMacroModal extends PureComponent {
             secondaryAction={{
               handleClick: onClose,
             }}
-            noPad
           >
             {/*
               <Button
@@ -177,6 +128,58 @@ class EditMacroModal extends PureComponent {
           </FormActions>
         </DialogActions>
       </Dialog>
+    );
+  }
+
+  get value() {
+    const {content, name} = this.form.getValues();
+
+    return {
+      content,
+      name,
+    };
+  }
+
+  get macroCommands() {
+    const {updateModalParams} = this.props;
+
+    return (
+      <Dropdown
+        id="edit-macro-dropdown"
+        className="right"
+        onSelect={eventKey => {
+          // eslint-disable-next-line react/no-find-dom-node
+          const textarea = ReactDOM.findDOMNode(this.fields.content).querySelector('textarea');
+          if (textarea) {
+            insertAtCaret(textarea, eventKey);
+          }
+
+          updateModalParams({
+            content: textarea.value,
+          });
+        }}
+      >
+        <Dropdown.Toggle className="btn-link" style={{boxShadow: 'none'}} useAnchor noCaret>
+          <i className="fa fa-plus" /> {i18n._('Macro Variables')} <i className="fa fa-caret-down" />
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="macro-variables-dropdown">
+          {variables.map(v => {
+            if (typeof v === 'object') {
+              return (
+                <MenuItem header={v.type === 'header'} key={uniqueId()}>
+                  {v.text}
+                </MenuItem>
+              );
+            }
+
+            return (
+              <MenuItem eventKey={v} key={uniqueId()}>
+                {v}
+              </MenuItem>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 }
