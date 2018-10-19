@@ -21,67 +21,6 @@ class KeypadXY extends PureComponent {
 
     return (
       <div className="keypad">
-        {/* https://fvsch.com/svg-gradient-fill */}
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          style={{
-            height: 0,
-            position: 'absolute',
-            width: 0,
-          }}
-        >
-          <radialGradient
-            id="svg-radial-gradient"
-            cx="211.8629"
-            cy="211.8629"
-            r="211.8629"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0.21" style={{stopColor: 'hsl(207, 67%, 64%)'}} />
-            <stop offset="1" style={{stopColor: 'hsl(207, 69%, 62%)'}} />
-          </radialGradient>
-
-          <radialGradient
-            id="svg-radial-gradient--darker"
-            cx="211.8629"
-            cy="211.8629"
-            r="211.8629"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0.34" style={{stopColor: 'hsl(207, 67%, 63%)'}} />
-            <stop offset="1" style={{stopColor: 'hsl(207, 69%, 58%)'}} />
-          </radialGradient>
-
-          <filter id="svg-dropshadow" height="130%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
-            <feOffset dx="1" dy="2" result="offsetblur" />
-            <feComponentTransfer>
-              <feFuncA type="linear" slope="0.13" />
-            </feComponentTransfer>
-            <feMerge>
-              <feMergeNode />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-
-          {/* https://www.xanthir.com/b4Yv0 */}
-          <filter id="svg-dropshadow--inset" x="-50%" y="-50%" width="200%" height="200%">
-            <feComponentTransfer in="SourceAlpha">
-              <feFuncA type="table" tableValues="0.8 0" />
-            </feComponentTransfer>
-            <feGaussianBlur stdDeviation="3" />
-            <feOffset dx="1" dy="1" result="offsetblur" />
-            {/* <feFlood flood-color="rgb(20, 0, 0)" result="color"/> the shadow color */}
-            <feComposite in2="offsetblur" operator="in" />
-            <feComposite in2="SourceAlpha" operator="in" />
-            <feMerge>
-              <feMergeNode in="SourceGraphic" />
-              <feMergeNode />
-            </feMerge>
-          </filter>
-        </svg>
-
         <svg
           role="img"
           viewBox="0 0 423.7 424.6"
@@ -100,6 +39,55 @@ class KeypadXY extends PureComponent {
           ])}
           style={{height: this.props.height}}
         >
+          <defs>
+            <radialGradient
+              id="svg-radial-gradient"
+              cx="211.8629"
+              cy="211.8629"
+              r="211.8629"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.21" style={{stopColor: 'hsl(207, 67%, 64%)'}} />
+              <stop offset="1" style={{stopColor: 'hsl(207, 69%, 62%)'}} />
+            </radialGradient>
+            <radialGradient
+              id="svg-radial-gradient--darker"
+              cx="211.8629"
+              cy="211.8629"
+              r="211.8629"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.34" style={{stopColor: 'hsl(207, 67%, 63%)'}} />
+              <stop offset="1" style={{stopColor: 'hsl(207, 69%, 58%)'}} />
+            </radialGradient>
+            <filter id="svg-dropshadow" height="130%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+              <feOffset dx="1" dy="2" result="offsetblur" />
+              <feComponentTransfer>
+                <feFuncA type="linear" slope="0.13" />
+              </feComponentTransfer>
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            {/* https://www.xanthir.com/b4Yv0 */}
+            <filter id="svg-dropshadow--inset" x="-50%" y="-50%" width="200%" height="200%">
+              <feComponentTransfer in="SourceAlpha">
+                <feFuncA type="table" tableValues="0.8 0" />
+              </feComponentTransfer>
+              <feGaussianBlur stdDeviation="3" />
+              <feOffset dx="1" dy="1" result="offsetblur" />
+              {/* <feFlood flood-color="rgb(20, 0, 0)" result="color"/> the shadow color */}
+              <feComposite in2="offsetblur" operator="in" />
+              <feComposite in2="SourceAlpha" operator="in" />
+              <feMerge>
+                <feMergeNode in="SourceGraphic" />
+                <feMergeNode />
+              </feMerge>
+            </filter>
+          </defs>
+
           <circle className="keypad-image__button" cx="211.9" cy="211.9" r="211.9" />
 
           <path
