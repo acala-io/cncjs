@@ -12,6 +12,7 @@ import Flexbox from '../../components_new/Flexbox';
 import Fraction from './components/Fraction';
 import KeypadXY from './components/KeypadXY';
 import KeypadZ from './components/KeypadZ';
+import Padding from '../../components_new/Padding';
 import Space from '../../components/Space';
 import SplitButton from '../../components_new/SplitButton';
 
@@ -51,24 +52,20 @@ class Keypad extends PureComponent {
 
   render() {
     return (
-      <div>
-        <Flexbox
-          flexDirection="row"
-          alignItems="center"
-          alignContent="space-between"
-          justifyContent="space-between"
-          className="u-padding-small"
-        >
-          <KeypadXY height="200" {...this.props} />
-          <KeypadZ height="200" {...this.props} />
+      <Padding size="small">
+        <Flexbox flexDirection="row" alignItems="center" alignContent="space-between" justifyContent="space-between">
+          <KeypadXY height="180" {...this.props} />
+          <KeypadZ height="180" {...this.props} />
         </Flexbox>
-        <div>{this.stepSize}</div>
+        <Padding size="small" sides="vertical">
+          {this.stepSize}
+        </Padding>
         <SplitButton>
           {this.buttonStepBackward}
           {this.buttonStepForward}
         </SplitButton>
         {this.unitSelect}
-      </div>
+      </Padding>
     );
   }
 

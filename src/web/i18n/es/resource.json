@@ -508,5 +508,6 @@
     "Baud rate [kilobaud]": "",
     "Probe Z-Position": "",
     "Probe XYZ-Position": "",
-    "Save Macro": ""
+    "Save Macro": "",
+    "Edit Settings": ""
 }

@@ -8,8 +8,10 @@ import portal from '../../lib/portal';
 import {MEDIA_SOURCE_LOCAL} from './constants';
 
 import Card, {CardHeader} from '../../components_new/Card';
+import Icon from '../../components_new/Icon';
 import Padding from '../../components_new/Padding';
 import Settings from './Settings';
+import Toggle from '../../components_new/Toggle';
 import Webcam from './Webcam';
 import WidgetConfig from '../WidgetConfig';
 
@@ -81,28 +83,8 @@ class WebcamWidget extends PureComponent {
     return (
       <Fragment>
         <div
-          className="right"
-          title={disabled ? i18n._('Enable') : i18n._('Disable')}
-          onClick={() => this.setState({disabled: !disabled})}
-        >
-          <i
-            className={classcat([
-              'fa fa-fw',
-              {
-                'fa-toggle-on': !disabled,
-                'fa-toggle-off': disabled,
-              },
-            ])}
-          />
-        </div>
-        {!disabled && (
-          <div className="right" title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
-            <i className="fa fa-refresh" />
-          </div>
-        )}
-        <div
-          className="right"
-          title={i18n._('Edit')}
+          className="link right u-padding-tiny"
+          title={i18n._('Edit Settings')}
           onClick={() => {
             const {mediaSource, deviceId, url} = this.state;
 
@@ -122,24 +104,27 @@ class WebcamWidget extends PureComponent {
             ));
           }}
         >
-          <i className="fa fa-cog" />
+          <Icon name="settings" size="small" />
         </div>
-
-        <div
-          className="right"
-          title={isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
-          onClick={this.actions.toggleFullscreen}
-        >
-          <i
-            className={classcat([
-              'fa fa-fw',
-              {
-                'fa-expand': !isFullscreen,
-                'fa-compress': isFullscreen,
-              },
-            ])}
-          />
-        </div>
+        <Toggle value={!disabled} className="right" handleClick={() => this.setState({disabled: !disabled})} />
+        {!disabled && (
+          <Fragment>
+            <div className="link right u-padding-tiny" title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
+              <Icon name="refresh" size="small" className="u-margin-right-tiny" />
+            </div>
+            <div
+              className="link right u-padding-tiny"
+              title={isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
+              onClick={this.actions.toggleFullscreen}
+            >
+              <Icon
+                name={isFullscreen ? 'fullscreen-leave' : 'fullscreen-enter'}
+                size="small"
+                className="u-margin-right-tiny"
+              />
+            </div>
+          </Fragment>
+        )}
       </Fragment>
     );
   }

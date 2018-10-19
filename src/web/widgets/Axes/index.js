@@ -732,14 +732,14 @@ class AxesWidget extends PureComponent {
     return (
       <Fragment>
         <KeypadOverlay show={canClick && jog.keypad}>
-          <div className="right" title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
+          <div className="inline-block" title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
             <i className="fa fa-keyboard-o" />
           </div>
         </KeypadOverlay>
-        <div className="right" title={i18n._('Manual Data Input')} onClick={toggleMDIMode}>
+        <div className="inline-block" title={i18n._('Manual Data Input')} onClick={toggleMDIMode}>
           {i18n._('MDI')}
         </div>
-        <div className="right" title={i18n._('Settings')} onClick={() => openModal(MODAL_SETTINGS)}>
+        <div className="inline-block" title={i18n._('Settings')} onClick={() => openModal(MODAL_SETTINGS)}>
           <i className="fa fa-cog" />
         </div>
       </Fragment>

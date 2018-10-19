@@ -107,17 +107,6 @@ tr.details-row {
         border-bottom: thin solid $border--darker;
     }
 
-    tbody {
-        tr {
-            /*
-             * 1 - Separate rows with a border (border-bottom except on last row)
-             */
-            &:not(:last-of-type) {
-                border-bottom: 1px solid $border--lightest; /* 1 */
-            }
-        }
-    }
-
     tfoot tr {
         border-top: thin solid $border--darker;
     }

@@ -7,7 +7,7 @@ import controller from '../../lib/controller';
 
 import Button from '../../components_new/Button';
 import Flexbox from '../../components_new/Flexbox';
-import Padding from '../../components_new/Padding';
+import NumberInput from '../../components_new/NumberInput';
 import SplitButton from '../../components_new/SplitButton';
 import SpindleAnimation from './SpindleAnimation';
 
@@ -20,15 +20,13 @@ class Spindle extends PureComponent {
   render() {
     return (
       <Fragment>
-        <Padding sides="bottom" size="small">
-          {this.spindleSpeed}
-        </Padding>
-        <Flexbox flexDirection="row">
-          <SpindleAnimation spindle="off" coolant="off" />
-          <Flexbox flexDirection="column">
-            <Padding sides="bottom" size="small">
-              {this.spindleControl}
-            </Padding>
+        <Flexbox flexDirection="column">
+          <Flexbox flexDirection="row">
+            {this.spindleSpeed}
+            {this.spindleControl}
+          </Flexbox>
+          <Flexbox flexDirection="row">
+            <SpindleAnimation spindle="off" coolant="off" />
             {this.coolantControl}
           </Flexbox>
         </Flexbox>
@@ -41,17 +39,15 @@ class Spindle extends PureComponent {
     const {spindleSpeed} = state;
 
     return (
-      <div className="input-group">
-        <input
-          type="number"
-          className="form-control number"
+      <div>
+        <NumberInput
           value={spindleSpeed}
+          defaultValue={0}
+          digits={0}
           placeholder="0"
-          min={0}
-          step={1}
           onChange={actions.handleSpindleSpeedChange}
         />
-        <span className="input-group-addon">RPM</span>
+        RPM
       </div>
     );
   }
