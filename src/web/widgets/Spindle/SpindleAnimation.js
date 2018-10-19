@@ -21,7 +21,13 @@ class SpindleAnimation extends PureComponent {
 
   render() {
     return (
-      <svg id="spindle" role="img" viewBox="0 0 393.1 393.1" style={{height: this.props.height}}>
+      <svg
+        id="spindle"
+        className={this.props.spindle === 'left' ? 'reverse' : ''}
+        role="img"
+        viewBox="0 0 393.1 393.1"
+        style={{height: this.props.height}}
+      >
         {this.props.spindle !== 'off' && (
           <g className="spindle__direction-wrapper1">
             <g className="spindle__direction-wrapper2">

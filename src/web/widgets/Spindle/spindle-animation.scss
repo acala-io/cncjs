@@ -10,13 +10,23 @@
     fill: black;
 }
 
-@keyframes spin {
+@keyframes spin--right {
     0% {
         transform: rotate(0deg);
     }
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes spin--left {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
     }
 }
 
@@ -32,9 +42,21 @@
 
 .spindle__direction {
     animation-fill-mode: both;
-    animation: $transition-time--very-slow spin linear infinite;
     fill: $secondary;
     transform-origin: 50.4% 62.4%;
+
+    &:not(.reverse) {
+        animation: $transition-time--very-slow spin--right linear infinite;
+    }
+}
+
+#spindle.reverse {
+    .spindle__direction-wrapper1 {
+    }
+
+    .spindle__direction {
+        animation: $transition-time--very-slow spin--left linear infinite;
+    }
 }
 
 .spindle__coolant-pipe {

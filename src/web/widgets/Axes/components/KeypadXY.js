@@ -1,3 +1,4 @@
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
@@ -7,6 +8,7 @@ import Flexbox from '../../../components_new/Flexbox';
 
 class KeypadXY extends PureComponent {
   static propTypes = {
+    clicked: PropTypes.string,
     height: PropTypes.string,
   };
 
@@ -15,12 +17,26 @@ class KeypadXY extends PureComponent {
   };
 
   render() {
+    const {clicked} = this.props;
+
     return (
       <div className="keypad">
         <svg
           role="img"
           viewBox="0 0 423.7 424.6"
-          className="keypad-image keypad-image--xy"
+          className={classcat([
+            'keypad-image keypad-image--xy',
+            {
+              'tilted--x-plus': clicked === 'x-plus',
+              'tilted--x-minus': clicked === 'x-minus',
+              'tilted--y-plus': clicked === 'y-plus',
+              'tilted--y-minus': clicked === 'y-minus',
+              'tilted--x-plus-y-plus': clicked === 'x-plus-y-plus',
+              'tilted--x-plus-y-minus': clicked === 'x-plus-y-minus',
+              'tilted--x-minus-y-plus': clicked === 'x-minus-y-plus',
+              'tilted--x-minus-y-minus': clicked === 'x-minus-y-minus',
+            },
+          ])}
           style={{height: this.props.height}}
         >
           <radialGradient id="SVGID_2_" cx="211.8631" cy="211.8627" r="210.8629" gradientUnits="userSpaceOnUse">
