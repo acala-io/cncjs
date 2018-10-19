@@ -65,15 +65,15 @@ class SpindleAnimation extends PureComponent {
         </g>
 
         {this.props.coolant === 'mist' && (
-          <polygon
+          <path
             className="spindle__coolant spindle__coolant--mist"
-            points="290.5,177.6 169.2,263.6 199,295.8 294.5,181.4"
+            d="M294.5,181.4l-4-3.8l-114.3,96.8l0,0c-0.7,0.5-1,1.1-1,1.7c0,3.1,9.6,5.6,21.4,5.6c10.5,0,19.3-2,21.1-4.6l0,0L294.5,181.4z"
           />
         )}
         {this.props.coolant === 'flood' && (
-          <polygon
+          <path
             className="spindle__coolant spindle__coolant--flood"
-            points="290.5,177.6 150.5,258.6 201.6,314.9 294.5,181.4 "
+            d="M294.5,181.4l-4-3.8l-133.9,94.5l0,0c-1.8,1.3-2.8,2.6-2.8,4c0,6.2,19.2,11.3,42.9,11.3c21.5,0,39.3-4.2,42.4-9.6l0,0L294.5,181.4z"
           />
         )}
         <path

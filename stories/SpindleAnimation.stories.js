@@ -15,6 +15,7 @@ storiesOf('Components/SpindleAnimation', module)
   .add('Spindle Left', () => <SpindleAnimation height="400" coolant="off" spindle="left" />)
   .add('Coolant Mist', () => <SpindleAnimation height="400" coolant="mist" spindle="off" />)
   .add('Coolant Flood', () => <SpindleAnimation height="400" coolant="flood" spindle="off" />)
+  .add('Spindle Right Coolant Mist', () => <SpindleAnimation height="400" coolant="mist" spindle="right" />)
   .add('Spindle Right Coolant Flood', () => <SpindleAnimation height="400" coolant="flood" spindle="right" />)
   .add('With Knobs', () => {
     const coolant = select(
