@@ -102,14 +102,14 @@ class WebcamWidget extends PureComponent {
 
     return (
       <Fragment>
-        <WidgetHeaderButton className="u--margin-right" title={i18n._('Edit Settings')} onClick={editSettings}>
-          <Icon name="settings" />
-        </WidgetHeaderButton>
         <Toggle
           value={!disabled}
           className="right"
           handleClick={() => this.setState({disabled: !disabled, minimized: false})}
         />
+        <WidgetHeaderButton className="u--margin-right" title={i18n._('Edit Settings')} onClick={editSettings}>
+          <Icon name="settings" />
+        </WidgetHeaderButton>
         {!disabled && (
           <Fragment>
             <WidgetHeaderButton title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>

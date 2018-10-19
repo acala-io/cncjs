@@ -13,7 +13,9 @@ import settings from '../../config/settings';
 
 import Card, {CardHeader} from '../../components_new/Card';
 import Console from './Console';
+import Icon from '../../components_new/Icon';
 import Padding from '../../components_new/Padding';
+import WidgetHeaderButton from '../WidgetHeaderButton';
 import WidgetConfig from '../WidgetConfig';
 
 const appName = settings.productName;
@@ -76,15 +78,15 @@ class ConsoleWidget extends PureComponent {
         <CardHeader>
           {minimized ? null : (
             <Fragment>
-              <div className="right" title={i18n._('Clear Selection')} onClick={() => this.terminal.selectAll()}>
-                <i className="icon select-all" />
-              </div>
-              <div className="right" title={i18n._('Select All')} onClick={() => this.terminal.clearSelection()}>
-                <i className="fa fa-fw fa-window-close-o" />
-              </div>
-              <div className="right" title={i18n._('Clear all')} onClick={actions.clearAll}>
-                <i className="fa fa-trash" />
-              </div>
+              <WidgetHeaderButton title={i18n._('Select All')} onClick={() => this.terminal.selectAll()}>
+                <Icon name="select-all" />
+              </WidgetHeaderButton>
+              <WidgetHeaderButton title={i18n._('Clear Selection')} onClick={() => this.terminal.clearSelection()}>
+                <Icon name="clear-selection" />
+              </WidgetHeaderButton>
+              <WidgetHeaderButton title={i18n._('Clear all')} onClick={actions.clearAll}>
+                <Icon name="clear-all" />
+              </WidgetHeaderButton>
             </Fragment>
           )}
           <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Console')}</h3>
