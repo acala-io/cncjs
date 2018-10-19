@@ -7,6 +7,7 @@ import uuid from 'uuid';
 
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
+import log from '../../lib/log';
 
 import settings from '../../config/settings';
 
@@ -30,11 +31,15 @@ class ConsoleWidget extends PureComponent {
   senderId = uuid.v4();
 
   collapse = () => {
-    this.setState({minimized: true});
+    this.setState({
+      minimized: true,
+    });
   };
 
   expand = () => {
-    this.setState({minimized: false});
+    this.setState({
+      minimized: false,
+    });
   };
 
   config = new WidgetConfig(this.props.widgetId);
@@ -134,6 +139,7 @@ class ConsoleWidget extends PureComponent {
     },
     'connection:open': options => {
       const {ident} = options;
+
       this.setState(state => ({
         connection: {
           ...state.connection,
@@ -186,6 +192,7 @@ class ConsoleWidget extends PureComponent {
 
       if (__sender__ === this.senderId) {
         // Do not write to the terminal console if the sender is the widget itself
+        log.info('Sender is widget itself');
         return;
       }
 

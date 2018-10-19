@@ -15,9 +15,11 @@ class Console extends PureComponent {
 
   render() {
     const {actions, state} = this.props;
-    const {connection} = state;
+    const {ident} = state.connection;
+    const {cols, rows, cursorBlink, scrollback, tabStopWidth} = state.terminal;
+    const {onTerminalData} = actions;
 
-    if (!connection.ident) {
+    if (!ident) {
       return <div className="no-serial-connection">{i18n._('No serial connection')}</div>;
     }
 
@@ -28,15 +30,25 @@ class Console extends PureComponent {
             this.terminal = ref;
           }
         }}
-        cols={state.terminal.cols}
-        rows={state.terminal.rows}
-        cursorBlink={state.terminal.cursorBlink}
-        scrollback={state.terminal.scrollback}
-        tabStopWidth={state.terminal.tabStopWidth}
-        onData={actions.onTerminalData}
+        cols={cols}
+        rows={rows}
+        cursorBlink={cursorBlink}
+        scrollback={scrollback}
+        tabStopWidth={tabStopWidth}
+        onData={onTerminalData}
       />
     );
   }
+
+  // componentDidMount() {
+  //   // TODO: it would be nicer to render the Terminal and write 'No serial connection' there
+  //   const {connection} = this.props.state;
+  //   const {onTerminalData} = this.props.actions;
+
+  //   if (!connection.ident) {
+  //     onTerminalData('No serial connection');
+  //   }
+  // }
 }
 
 export default Console;

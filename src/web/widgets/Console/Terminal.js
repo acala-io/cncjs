@@ -258,6 +258,7 @@ class TerminalWrapper extends PureComponent {
 
   componentDidMount() {
     const {cursorBlink, scrollback, tabStopWidth} = this.props;
+
     this.term = new Terminal({
       cursorBlink,
       scrollback,
@@ -295,6 +296,7 @@ class TerminalWrapper extends PureComponent {
       this.verticalScrollbar.destroy();
       this.verticalScrollbar = null;
     }
+
     if (this.term) {
       this.term.off('resize', this.eventHandler.onResize);
       this.term.off('key', this.eventHandler.onKey);
@@ -307,17 +309,20 @@ class TerminalWrapper extends PureComponent {
     if (nextProps.cursorBlink !== this.props.cursorBlink) {
       this.term.setOption('cursorBlink', nextProps.cursorBlink);
     }
+
     if (nextProps.scrollback !== this.props.scrollback) {
       this.term.setOption('scrollback', nextProps.scrollback);
     }
+
     if (nextProps.tabStopWidth !== this.props.tabStopWidth) {
       this.term.setOption('tabStopWidth', nextProps.tabStopWidth);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.cols !== prevProps.cols || this.props.rows !== prevProps.rows) {
-      const {cols, rows} = this.props;
+    const {cols, rows} = this.props;
+
+    if (cols !== prevProps.cols || rows !== prevProps.rows) {
       this.resize(cols, rows);
     }
   }

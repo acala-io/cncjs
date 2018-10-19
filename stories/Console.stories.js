@@ -35,4 +35,17 @@ const mockState = {
 storiesOf('Widgets/Console', module)
   .addDecorator(backgroundsDecorator)
   .add('Default', () => <Console actions={mockActions} state={mockState} widgetId="Console" />)
-  .add('No Connection', () => <Console actions={mockActions} state={mockState} widgetId="Console" />);
+  .add('No Connection', () => (
+    <Console
+      actions={mockActions}
+      state={{
+        ...mockState,
+        connection: {
+          ident: '',
+          settings: {},
+          type: '',
+        },
+      }}
+      widgetId="Console"
+    />
+  ));

@@ -1,4 +1,5 @@
 @import '../../scss/settings/variables';
+@import '../../scss/base/animations';
 
 #spindle {
     display: inline-block;
@@ -8,26 +9,6 @@
 
 .spindle__mill rect {
     fill: black;
-}
-
-@keyframes spin--right {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes spin--left {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(-360deg);
-    }
 }
 
 .spindle__direction-wrapper1 {
