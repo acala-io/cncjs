@@ -19,7 +19,6 @@ import Taskbar from './components/Taskbar';
 import TaskbarButton from './components/TaskbarButton';
 import Tooltip from '../../components/Tooltip';
 
-import iconHome from './images/home.svg';
 import iconMinus from './images/minus.svg';
 import iconPlus from './images/plus.svg';
 
@@ -693,7 +692,7 @@ class DisplayPanel extends PureComponent {
                   }}
                 >
                   <Tooltip placement="bottom" content={i18n._('Home Machine')} disabled={!canHomeMachine} hideOnClick>
-                    <Image src={iconHome} width="14" height="14" />
+                    <Icon name="home" size="small" />
                   </Tooltip>
                 </TaskbarButton>
               </div>
