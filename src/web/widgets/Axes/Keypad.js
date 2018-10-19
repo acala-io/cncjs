@@ -1,7 +1,7 @@
 import ensureArray from 'ensure-array';
 import frac from 'frac';
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
 
 import controller from '../../lib/controller';
@@ -52,20 +52,24 @@ class Keypad extends PureComponent {
 
   render() {
     return (
-      <Padding size="small">
-        <Flexbox flexDirection="row" alignItems="center" alignContent="space-between" justifyContent="space-between">
-          <KeypadXY height="180" {...this.props} />
-          <KeypadZ height="180" {...this.props} />
-        </Flexbox>
-        <Padding size="small" sides="vertical">
-          {this.stepSize}
+      <Fragment>
+        <Padding sides="top">
+          <Flexbox flexDirection="row" alignItems="center" justifyContent="space-around">
+            <KeypadXY height="168" {...this.props} />
+            <KeypadZ height="168" {...this.props} />
+          </Flexbox>
         </Padding>
-        <SplitButton>
-          {this.buttonStepBackward}
-          {this.buttonStepForward}
-        </SplitButton>
-        {this.unitSelect}
-      </Padding>
+        <Padding size="small">
+          <Padding size="small" sides="bottom">
+            {this.stepSize}
+          </Padding>
+          <SplitButton>
+            {this.buttonStepBackward}
+            {this.buttonStepForward}
+          </SplitButton>
+          {this.unitSelect}
+        </Padding>
+      </Fragment>
     );
   }
 
