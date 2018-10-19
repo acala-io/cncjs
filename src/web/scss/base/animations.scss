@@ -175,7 +175,7 @@ $transition-time--fast: 150ms !default;
     }
 }
 
-@keyframes spin--right {
+@keyframes spinRight {
     0% {
         transform: rotate(0deg);
     }
@@ -185,13 +185,25 @@ $transition-time--fast: 150ms !default;
     }
 }
 
-@keyframes spin--left {
+@keyframes spinLeft {
     0% {
         transform: rotate(0deg);
     }
 
     100% {
         transform: rotate(-360deg);
+    }
+}
+
+@keyframes attention--seeker {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0 $inuit-global-spacing-unit 0 $attention;
+    }
+
+    40% {
+        box-shadow: 0 0 $inuit-global-spacing-unit $inuit-global-spacing-unit $attention;
     }
 }
 

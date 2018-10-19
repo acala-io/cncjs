@@ -27,7 +27,7 @@
     transform-origin: 49.85% 67.5%;
 
     &:not(.reverse) {
-        animation: $transition-time--very-slow spin--right linear infinite;
+        animation: $transition-time--very-slow spinRight linear infinite;
     }
 }
 
@@ -36,7 +36,7 @@
     }
 
     .spindle__direction {
-        animation: $transition-time--very-slow spin--left linear infinite;
+        animation: $transition-time--very-slow spinLeft linear infinite;
     }
 }
 
