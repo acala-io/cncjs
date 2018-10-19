@@ -192,7 +192,7 @@ class SecondaryWidgets extends Component {
     };
 
     const widgets = this.state.widgets.filter(removeUnavailableControllers).map(widgetId => (
-      <div data-widget-id={widgetId} key={widgetId}>
+      <div key={widgetId} data-widget-id={widgetId} className="u-margin-bottom-small">
         <Widget
           ref={node => {
             if (node && node.widget) {
@@ -200,12 +200,7 @@ class SecondaryWidgets extends Component {
             }
           }}
           widgetId={widgetId}
-          onFork={this.forkWidget(widgetId)}
           onRemove={this.removeWidget(widgetId)}
-          sortable={{
-            handleClassName: 'sortable-handle',
-            filterClassName: 'sortable-filter',
-          }}
         />
       </div>
     ));

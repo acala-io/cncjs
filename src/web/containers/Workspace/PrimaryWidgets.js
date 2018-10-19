@@ -160,42 +160,42 @@ class PrimaryWidgets extends Component {
   }
 
   render() {
-    const widgets = this.state.widgets
-      .filter(widgetId => {
-        // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"
-        const name = widgetId.split(':')[0];
+    const removeUnavailableControllers = widgetId => {
+      // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"
+      const name = widgetId.split(':')[0];
 
-        if (name === 'grbl' && !includes(controller.availableControllers, GRBL)) {
-          return false;
-        }
+      if (name === 'grbl' && !includes(controller.availableControllers, GRBL)) {
+        return false;
+      }
 
-        if (name === 'marlin' && !includes(controller.availableControllers, MARLIN)) {
-          return false;
-        }
+      if (name === 'marlin' && !includes(controller.availableControllers, MARLIN)) {
+        return false;
+      }
 
-        if (name === 'smoothie' && !includes(controller.availableControllers, SMOOTHIE)) {
-          return false;
-        }
+      if (name === 'smoothie' && !includes(controller.availableControllers, SMOOTHIE)) {
+        return false;
+      }
 
-        if (name === 'tinyg' && !includes(controller.availableControllers, TINYG)) {
-          return false;
-        }
+      if (name === 'tinyg' && !includes(controller.availableControllers, TINYG)) {
+        return false;
+      }
 
-        return true;
-      })
-      .map(widgetId => (
-        <div key={widgetId} data-widget-id={widgetId} className="u-margin-bottom-small">
-          <Widget
-            ref={node => {
-              if (node && node.widget) {
-                this.widgetMap[widgetId] = node.widget;
-              }
-            }}
-            widgetId={widgetId}
-            onRemove={this.removeWidget(widgetId)}
-          />
-        </div>
-      ));
+      return true;
+    };
+
+    const widgets = this.state.widgets.filter(removeUnavailableControllers).map(widgetId => (
+      <div key={widgetId} data-widget-id={widgetId} className="u-margin-bottom-small">
+        <Widget
+          ref={node => {
+            if (node && node.widget) {
+              this.widgetMap[widgetId] = node.widget;
+            }
+          }}
+          widgetId={widgetId}
+          onRemove={this.removeWidget(widgetId)}
+        />
+      </div>
+    ));
 
     return <Fragment>{widgets}</Fragment>;
   }
