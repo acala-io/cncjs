@@ -24,11 +24,11 @@ $inuit-global-spacing-unit-factor-huge: 16 !default; // 96px
 // It is not recommended that you modify these following variables
 // (it can break your vertical rhythm), but if you need to, you can.
 
-$inuit-global-spacing-unit: $inuit-global-baseline * $inuit-global-spacing-unit-factor !default;
-$inuit-global-spacing-unit-tiny: $inuit-global-baseline * $inuit-global-spacing-unit-factor-tiny !default;
-$inuit-global-spacing-unit-small: $inuit-global-baseline * $inuit-global-spacing-unit-factor-small !default;
-$inuit-global-spacing-unit-large: $inuit-global-baseline * $inuit-global-spacing-unit-factor-large !default;
-$inuit-global-spacing-unit-huge: $inuit-global-baseline * $inuit-global-spacing-unit-factor-huge !default;
+$inuit-global-spacing-unit: $inuit-global-baseline * $inuit-global-spacing-unit-factor / 2 !default;
+$inuit-global-spacing-unit-tiny: $inuit-global-baseline * $inuit-global-spacing-unit-factor-tiny / 2 !default;
+$inuit-global-spacing-unit-small: $inuit-global-baseline * $inuit-global-spacing-unit-factor-small / 2 !default;
+$inuit-global-spacing-unit-large: $inuit-global-baseline * $inuit-global-spacing-unit-factor-large / 2 !default;
+$inuit-global-spacing-unit-huge: $inuit-global-baseline * $inuit-global-spacing-unit-factor-huge / 2 !default;
 
 // Base typographical styles.
 

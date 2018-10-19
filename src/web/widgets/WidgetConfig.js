@@ -24,6 +24,7 @@ class WidgetConfig {
       throw new Error('The widget id cannot be an empty string');
     }
     localKey = this.translateKey(localKey);
+
     return store.get(localKey, defaultValue);
   }
 
@@ -33,6 +34,7 @@ class WidgetConfig {
       throw new Error('The widget id cannot be an empty string');
     }
     localKey = this.translateKey(localKey);
+
     return store.set(localKey, value);
   }
 
@@ -42,6 +44,7 @@ class WidgetConfig {
       throw new Error('The widget id cannot be an empty string');
     }
     localKey = this.translateKey(localKey);
+
     return store.unset(localKey);
   }
 
@@ -51,6 +54,7 @@ class WidgetConfig {
       throw new Error('The widget id cannot be an empty string');
     }
     localKey = this.translateKey(localKey);
+
     return store.replace(localKey, value);
   }
 }

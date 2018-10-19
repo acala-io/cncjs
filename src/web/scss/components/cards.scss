@@ -47,7 +47,8 @@
  * 1 - Enabled absolute positioning of children
  */
 .card__header {
-    padding: $inuit-global-spacing-unit-small;
+    background: $background--slightly-off-white;
+    padding: $inuit-global-spacing-unit-small $inuit-global-spacing-unit;
     position: relative; /* 1 */
 
     h2,

@@ -62,7 +62,7 @@ export default {
       default: '3px',
       tiny: '2px',
       small: '1px',
-      large: '$border-radius * 2',
+      large: '6px', // 2x
       huge: '$border-radius * 3',
       circle: '50%',
       pill: '999px',

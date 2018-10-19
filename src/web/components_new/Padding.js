@@ -25,7 +25,7 @@ const Padding = ({children, sides = '', size = ''}) => (
 Padding.propTypes = {
   children: oneOfType([arrayOf(node), node]).isRequired,
   sides: oneOf(['bottom', 'horizontal', 'left', 'right', 'top', 'vertical']),
-  size: oneOf(['tiny', 'small', 'large', 'huge']),
+  size: oneOf(['tiny', 'small', 'large', 'huge', 'none']),
 };
 
 export default Padding;

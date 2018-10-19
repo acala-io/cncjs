@@ -164,22 +164,27 @@ class PrimaryWidgets extends Component {
       .filter(widgetId => {
         // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"
         const name = widgetId.split(':')[0];
+
         if (name === 'grbl' && !includes(controller.availableControllers, GRBL)) {
           return false;
         }
+
         if (name === 'marlin' && !includes(controller.availableControllers, MARLIN)) {
           return false;
         }
+
         if (name === 'smoothie' && !includes(controller.availableControllers, SMOOTHIE)) {
           return false;
         }
+
         if (name === 'tinyg' && !includes(controller.availableControllers, TINYG)) {
           return false;
         }
+
         return true;
       })
       .map(widgetId => (
-        <div data-widget-id={widgetId} key={widgetId}>
+        <div key={widgetId} data-widget-id={widgetId} className="u-margin-bottom-small">
           <Widget
             ref={node => {
               if (node && node.widget) {

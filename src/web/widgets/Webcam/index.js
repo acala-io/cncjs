@@ -69,7 +69,7 @@ class WebcamWidget extends PureComponent {
           <h3 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding size="small">
+          <Padding size="none">
             <Webcam ref={ref => (this.webcam = ref)} state={state} actions={actions} />
           </Padding>
         </div>
@@ -117,11 +117,7 @@ class WebcamWidget extends PureComponent {
               title={isFullscreen ? i18n._('Exit Full Screen') : i18n._('Enter Full Screen')}
               onClick={this.actions.toggleFullscreen}
             >
-              <Icon
-                name={isFullscreen ? 'fullscreen-leave' : 'fullscreen-enter'}
-                size="small"
-                className="u-margin-right-tiny"
-              />
+              <Icon name={isFullscreen ? 'fullscreen-leave' : 'fullscreen-enter'} size="small" />
             </div>
           </Fragment>
         )}

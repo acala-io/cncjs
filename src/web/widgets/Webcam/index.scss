@@ -31,10 +31,13 @@
 
 .webcam-on-container {
     background-color: #000;
+    border-bottom-left-radius: 6px - 1px;
+    border-bottom-right-radius: 6px - 1px;
     min-height: 240px;
-    text-align: center;
     overflow: hidden;
     position: relative;
+    text-align: center;
+    width: 100%;
 
     .line-shadow {
         box-shadow: 0 0 2px #333;

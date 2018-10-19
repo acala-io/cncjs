@@ -31,7 +31,7 @@
     line-height: 1;
     margin: 0;
     min-width: $inuit-global-spacing-unit-large;
-    padding: $inuit-global-spacing-unit-small $inuit-global-spacing-unit-tiny * 1.5;
+    padding: $inuit-global-spacing-unit;
     position: relative;
     text-align: center;
 
@@ -75,8 +75,6 @@
     }
 
     &.has-units {
-        padding: $inuit-global-spacing-unit-small;
-
         .button-group__unit {
             color: $text--lighter;
             font-size: $font-size--tiny;
