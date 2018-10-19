@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     children: ownProps.children,
-    hasOverlay: currentDialog,
+    hasOverlay: Boolean(currentDialog),
   };
 };
 

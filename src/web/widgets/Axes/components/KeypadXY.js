@@ -91,23 +91,18 @@ class KeypadXY extends PureComponent {
           />
         </svg>
         <AxisLabel>XY</AxisLabel>
-        <Flexbox
-          flexDirection="column"
-          alignContent="stretch"
-          justifyContent="stretch"
-          className="keypad-button__wrapper"
-        >
-          <Flexbox flexDirection="row" alignContent="stretch" justifyContent="stretch" flexGrow="1">
+        <Flexbox flexDirection="column" alignContent="stretch" className="keypad-button__wrapper">
+          <Flexbox flexDirection="row" alignContent="stretch" flexGrow={1}>
             {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '-', name: 'Y'})}
             {jogButtonFactory(this.props, {direction: '-', name: 'y'})}
             {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '-', name: 'y'})}
           </Flexbox>
-          <Flexbox flexDirection="row" alignContent="stretch" justifyContent="stretch" flexGrow="1">
+          <Flexbox flexDirection="row" alignContent="stretch" flexGrow={1}>
             {jogButtonFactory(this.props, {direction: '-', name: 'x'})}
-            <Flexbox flexGrow="1" />
+            <Flexbox flexGrow={1} />
             {jogButtonFactory(this.props, {direction: '+', name: 'x'})}
           </Flexbox>
-          <Flexbox flexDirection="row" alignContent="stretch" justifyContent="stretch" flexGrow="1">
+          <Flexbox flexDirection="row" alignContent="stretch" flexGrow={1}>
             {jogButtonFactory(this.props, {direction: '-', name: 'x'}, {direction: '+', name: 'y'})}
             {jogButtonFactory(this.props, {direction: '+', name: 'y'})}
             {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '+', name: 'y'})}

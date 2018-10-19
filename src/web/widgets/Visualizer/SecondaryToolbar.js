@@ -2,7 +2,7 @@ import classcat from 'classcat';
 import colornames from 'colornames';
 import Detector from 'three/examples/js/Detector';
 import PropTypes from 'prop-types';
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
 
 import i18n from '../../lib/i18n';
@@ -224,12 +224,10 @@ class SecondaryToolbar extends PureComponent {
             </Tooltip>
           </Repeatable>
         </label>
-        <label className="button-group__button">
-          <Fragment onMouseDown={camera.zoomFit}>
-            <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
-              <Icon name="zoom-fit" size="small" />
-            </Tooltip>
-          </Fragment>
+        <label className="button-group__button" onMouseDown={camera.zoomFit}>
+          <Tooltip placement="top" content={i18n._('Zoom to Fit')} hideOnClick>
+            <Icon name="zoom-fit" size="small" />
+          </Tooltip>
         </label>
       </div>
     );

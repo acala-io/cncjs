@@ -12,8 +12,6 @@ import {Form, Input, Textarea} from '../../../..//components/Validation';
 import {FormGroup} from '../../../..//components/Forms';
 import {ToastNotification} from '../../../..//components/Notifications';
 
-import '../form.scss';
-
 class UpdateRecord extends PureComponent {
   static propTypes = {
     action: PropTypes.object,

@@ -1,16 +1,19 @@
-import chainedFunction from 'chained-function';
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 import {includes} from 'lodash';
 
 import i18n from '../../lib/i18n';
-import portal from '../../lib/portal';
+
+import * as dialogActions from '../../dialogs/actions';
 
 import {WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED} from '../../constants';
 
 import ActionLink from '../../components_new/ActionLink';
-import Modal from '../../components/Modal';
+import AddMacroModal from './AddMacroModal';
+import EditMacroModal from './EditMacroModal';
+import LoadMacroModal from './LoadMacroModal';
 import {Button} from '../../components/Buttons';
 
 import './index.scss';
@@ -18,6 +21,9 @@ import './index.scss';
 class Macro extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,
+    // showAddMacroModal: PropTypes.func,
+    showEditMacroModal: PropTypes.func,
+    showLoadMacroModal: PropTypes.func,
     state: PropTypes.object,
   };
 
@@ -25,93 +31,100 @@ class Macro extends PureComponent {
     this.props.actions.openRunMacroModal(macro.id);
   };
 
-  handleLoadMacro = macro => () => {
-    const {id, name} = macro;
-
-    portal(({onClose}) => (
-      <Modal size="xs" onClose={onClose}>
-        <Modal.Header>
-          <Modal.Title>{i18n._('Load Macro')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {i18n._('Are you sure you want to load this macro?')}
-          <p>
-            <strong>{name}</strong>
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onClose}>{i18n._('No')}</Button>
-          <Button
-            btnStyle="primary"
-            onClick={chainedFunction(() => {
-              this.propsactions.loadMacro(id, {name});
-            }, onClose)}
-          >
-            {i18n._('Yes')}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    ));
-  };
-
-  handleEditMacro = macro => () => {
-    this.props.actions.openEditMacroModal(macro.id);
-  };
-
   render() {
-    const {state} = this.props;
+    const {showEditMacroModal, showLoadMacroModal, state} = this.props;
     const {canClick, macros = [], workflow} = state;
 
     const canRunMacro = canClick && includes([WORKFLOW_STATE_IDLE, WORKFLOW_STATE_PAUSED], workflow.state);
-    const canLoadMacro = canClick && includes([WORKFLOW_STATE_IDLE], workflow.state);
+    const canLoadMacro = true; // canClick && includes([WORKFLOW_STATE_IDLE], workflow.state);
 
     return (
-      <div>
-        <div className="table-container">
-          <table className="table table--form table--row-hovers">
-            <tbody>
-              {macros.length === 0 && (
-                <tr>
-                  <td colSpan="2">
-                    <div className="empty-result">{i18n._('No macros')}</div>
-                  </td>
-                </tr>
-              )}
-              {ensureArray(macros).map(macro => (
-                <tr key={macro.id}>
-                  <td>
-                    <ActionLink
-                      action="run"
-                      className="u-margin-right-tiny"
-                      onClick={this.handleRunMacro(macro)}
-                      label={macro.name}
-                      isDisabled={!canRunMacro}
-                      renderWithLabel
-                    />
-                  </td>
-                  <td style={{width: '1%'}}>
-                    <div className="nowrap">
-                      <Button
-                        compact
-                        btnSize="xs"
-                        btnStyle="flat"
-                        disabled={!canLoadMacro}
-                        onClick={this.handleLoadMacro(macro)}
-                        title={i18n._('Load Macro')}
-                      >
-                        <i className="fa fa-chevron-up" />
-                      </Button>
-                      <ActionLink action="edit" onClick={this.handleEditMacro(macro)} />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <table className="table table--form table--row-hovers table--scrollable">
+        <tbody>
+          {macros.length === 0 && (
+            <tr>
+              <td colSpan="2">
+                <div className="empty-result">{i18n._('No macros')}</div>
+              </td>
+            </tr>
+          )}
+          {ensureArray(macros).map(macro => (
+            <tr key={macro.id}>
+              <td>
+                <ActionLink
+                  action="run"
+                  className="u-margin-right-tiny"
+                  onClick={this.handleRunMacro(macro)}
+                  label={macro.name}
+                  isDisabled={!canRunMacro}
+                  renderWithLabel
+                />
+              </td>
+              <td style={{width: '1%'}}>
+                <div className="nowrap">
+                  <Button
+                    compact
+                    btnSize="xs"
+                    btnStyle="flat"
+                    disabled={!canLoadMacro}
+                    onClick={() => showLoadMacroModal(macro)}
+                    title={i18n._('Load Macro')}
+                  >
+                    <i className="fa fa-chevron-up" />
+                  </Button>
+                  <ActionLink action="edit" onClick={() => showEditMacroModal(macro)} />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     );
   }
 }
 
-export default Macro;
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  ...state,
+});
+
+const mapDispatchToProps = (dispatch, state) => ({
+  hideModals: () => {
+    dispatch(dialogActions.hide());
+  },
+  showAddMacroModal: () => {
+    const modalProps = {
+      // onClose: dispatch(dialogActions.hide()),
+    };
+
+    dispatch(dialogActions.show(AddMacroModal, modalProps));
+  },
+  showEditMacroModal: macro => {
+    const macroDetails = state.actions.getMacroDetails(macro.id);
+
+    const modalProps = {
+      deleteMacro: state.actions.deleteMacro,
+      macro: macroDetails,
+      onClose: dispatch(dialogActions.hide()),
+      updateMacro: state.actions.updateMacro,
+      updateModalParams: state.actions.updateModalParams,
+    };
+
+    dispatch(dialogActions.show(EditMacroModal, modalProps));
+  },
+  showLoadMacroModal: macro => {
+    const modalProps = {
+      id: macro.id,
+      loadMacro: state.actions.loadMacro,
+      name: macro.name,
+      onClose: dispatch(dialogActions.hide()),
+    };
+
+    dispatch(dialogActions.show(LoadMacroModal, modalProps));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Macro);

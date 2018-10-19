@@ -1,7 +1,9 @@
-import Slider from 'rc-slider';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import Slider from 'rc-slider';
+
 import i18n from 'web/lib/i18n';
+
 import {FormGroup} from 'web/components/Forms';
 
 const FEEDRATE_RANGE = [100, 2500];
@@ -11,8 +13,8 @@ const OVERSHOOT_STEP = 0.01;
 
 class ShuttleXpress extends PureComponent {
   static propTypes = {
-    feedrateMin: PropTypes.number,
     feedrateMax: PropTypes.number,
+    feedrateMin: PropTypes.number,
     hertz: PropTypes.number,
     overshoot: PropTypes.number,
   };
@@ -23,8 +25,8 @@ class ShuttleXpress extends PureComponent {
     const [min, max] = value;
 
     this.setState({
-      feedrateMin: min,
       feedrateMax: max,
+      feedrateMin: min,
     });
   };
 

@@ -25,12 +25,11 @@ import {
   // Workflow
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
-import {MODAL_NONE, MODAL_ADD_MACRO, MODAL_EDIT_MACRO, MODAL_RUN_MACRO} from './constants';
+import {MODAL_NONE, MODAL_ADD_MACRO, MODAL_RUN_MACRO} from './constants';
 
 import ActionLink from '../../components_new/ActionLink';
-import AddMacro from './AddMacro';
+import AddMacroModal from './AddMacroModal';
 import Card, {CardHeader} from '../../components_new/Card';
-import EditMacro from './EditMacro';
 import Macro from './Macro';
 import Padding from '../../components_new/Padding';
 import RunMacro from './RunMacro';
@@ -96,8 +95,7 @@ class MacroWidget extends PureComponent {
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
-            {state.modal.name === MODAL_ADD_MACRO && <AddMacro state={state} actions={actions} />}
-            {state.modal.name === MODAL_EDIT_MACRO && <EditMacro state={state} actions={actions} />}
+            {state.modal.name === MODAL_ADD_MACRO && <AddMacroModal state={state} actions={actions} />}
             {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}
             <Macro state={state} actions={actions} />
           </Padding>
@@ -196,11 +194,12 @@ class MacroWidget extends PureComponent {
     openAddMacroModal: () => {
       this.actions.openModal(MODAL_ADD_MACRO);
     },
-    openEditMacroModal: id => {
+    getMacroDetails: id => {
       api.macros.read(id).then(res => {
         const {content, id, name} = res.body;
+        const macro = {content, id, name};
 
-        this.actions.openModal(MODAL_EDIT_MACRO, {content, id, name});
+        return macro;
       });
     },
     openRunMacroModal: id => {

@@ -17,7 +17,7 @@ import {Form, Input, Textarea} from '../../components/Validation';
 
 import './index.scss';
 
-class AddMacro extends PureComponent {
+class AddMacroModal extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,
     state: PropTypes.object,
@@ -154,4 +154,4 @@ class AddMacro extends PureComponent {
   }
 }
 
-export default AddMacro;
+export default AddMacroModal;

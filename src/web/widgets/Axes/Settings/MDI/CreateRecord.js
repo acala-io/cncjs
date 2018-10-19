@@ -12,8 +12,6 @@ import {Form, Input, Textarea} from 'web/components/Validation';
 import {FormGroup} from 'web/components/Forms';
 import {ToastNotification} from 'web/components/Notifications';
 
-import '../form.scss';
-
 class CreateRecord extends PureComponent {
   static propTypes = {
     action: PropTypes.object,
@@ -75,7 +73,7 @@ class CreateRecord extends PureComponent {
                 type="text"
                 name="name"
                 value=""
-                className="form-control form-control short"
+                className="form-control short"
                 validations={[validations.required]}
               />
             </FormGroup>
