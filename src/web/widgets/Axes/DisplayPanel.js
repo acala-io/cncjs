@@ -11,6 +11,7 @@ import i18n from '../../lib/i18n';
 import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C} from '../../constants';
 
 import Dropdown, {MenuItem} from '../../components/Dropdown';
+import Icon from '../../components_new/Icon';
 import Image from '../../components/Image';
 import PositionInput from './components/PositionInput';
 import PositionLabel from './components/PositionLabel';
@@ -20,8 +21,6 @@ import Tooltip from '../../components/Tooltip';
 
 import iconHome from './images/home.svg';
 import iconMinus from './images/minus.svg';
-import iconPencil from './images/pencil.svg';
-import iconPin from './images/pin.svg';
 import iconPlus from './images/plus.svg';
 
 const AxisLabel = styled.div`
@@ -684,7 +683,7 @@ class DisplayPanel extends PureComponent {
                     disabled={!canZeroOutMachine}
                     hideOnClick
                   >
-                    <Image src={iconPin} width="14" height="14" />
+                    <Icon name="location" size="small" />
                   </Tooltip>
                 </TaskbarButton>
                 <TaskbarButton
@@ -749,7 +748,7 @@ class DisplayPanel extends PureComponent {
                     disabled={!canZeroOutWorkOffsets}
                     hideOnClick
                   >
-                    <Image src={iconPin} width="14" height="14" />
+                    <Icon name="location" size="small" />
                   </Tooltip>
                 </TaskbarButton>
                 <TaskbarButton
@@ -763,7 +762,7 @@ class DisplayPanel extends PureComponent {
                     disabled={!canModifyWorkPosition}
                     hideOnClick
                   >
-                    <Image src={iconPencil} width="14" height="14" />
+                    <Icon name="edit" size="small" />
                   </Tooltip>
                 </TaskbarButton>
               </div>

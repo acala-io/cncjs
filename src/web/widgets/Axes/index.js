@@ -1,6 +1,6 @@
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import {get, includes, map, mapValues} from 'lodash';
 
 import combokeys from '../../lib/combokeys';
@@ -38,11 +38,13 @@ import {MODAL_NONE, MODAL_SETTINGS, DEFAULT_AXES} from './constants';
 
 import Axes from './Axes';
 import Card from '../../components_new/Card';
+import Icon from '../../components_new/Icon';
 import KeypadOverlay from './KeypadOverlay';
 import Padding from '../../components_new/Padding';
 import Settings from './Settings';
 import ShuttleControl from './ShuttleControl';
 import WidgetConfig from '../../widgets/WidgetConfig';
+import WidgetHeaderButton from '../WidgetHeaderButton';
 
 const getControllerState = (type, controllerState, state) => {
   const {machinePosition, workPosition} = state;
@@ -730,19 +732,19 @@ class AxesWidget extends PureComponent {
     const {openModal, toggleKeypadJogging, toggleMDIMode} = this.actions;
 
     return (
-      <Fragment>
+      <div>
         <KeypadOverlay show={canClick && jog.keypad}>
-          <div className="inline-block" title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
-            <i className="fa fa-keyboard-o" />
-          </div>
+          <WidgetHeaderButton title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
+            <Icon name="keyboard" />
+          </WidgetHeaderButton>
         </KeypadOverlay>
-        <div className="inline-block" title={i18n._('Manual Data Input')} onClick={toggleMDIMode}>
+        <WidgetHeaderButton title={i18n._('Manual Data Input')} onClick={toggleMDIMode}>
           {i18n._('MDI')}
-        </div>
-        <div className="inline-block" title={i18n._('Settings')} onClick={() => openModal(MODAL_SETTINGS)}>
-          <i className="fa fa-cog" />
-        </div>
-      </Fragment>
+        </WidgetHeaderButton>
+        <WidgetHeaderButton title={i18n._('Settings')} onClick={() => openModal(MODAL_SETTINGS)}>
+          <Icon name="settings" />
+        </WidgetHeaderButton>
+      </div>
     );
   }
 

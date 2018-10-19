@@ -50,7 +50,7 @@ const defaultState = {
       minimized: false,
     },
     console: {
-      minimized: false,
+      minimized: true,
     },
     custom: {
       disabled: true,
@@ -189,7 +189,7 @@ const defaultState = {
         scale: 1.0,
       },
       mediaSource: 'local', // local (built-in camera or connected webcam)|mjpeg (M-JPEG stream over HTTP)
-      minimized: false,
+      minimized: true,
       muted: false,
       url: '', // required for M-JPEG streams
     },
@@ -201,11 +201,11 @@ const defaultState = {
       },
       primary: {
         show: true,
-        widgets: ['connection', 'console', 'grbl', 'marlin', 'smoothie', 'tinyg', 'webcam'],
+        widgets: ['connection', 'grbl', 'marlin', 'smoothie', 'tinyg', 'spindle', 'laser', 'console', 'webcam'],
       },
       secondary: {
         show: true,
-        widgets: ['axes', 'gcode', 'macro', 'probe', 'spindle', 'laser'],
+        widgets: ['axes', 'macro', 'probe', 'gcode'],
       },
     },
   },

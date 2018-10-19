@@ -53,7 +53,7 @@ function getOptions(action: string): {icon: string, text: string} {
   return options[action] || defaultOptions;
 }
 
-const ActionLinkIcon = ({type}: {type: string}) => <Icon name={type} size="small" />;
+const ActionLinkIcon = ({type}: {type: string}) => <Icon name={type} />;
 
 export default class ActionLink extends React.Component<Props> {
   static defaultProps = {
