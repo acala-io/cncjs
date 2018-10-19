@@ -13,18 +13,18 @@
 
 .spindle__direction-wrapper1 {
     transform: rotate(20deg) scale(0.66) translateY(3%);
-    transform-origin: 50.4% 62.4%;
+    transform-origin: 49.85% 67.5%;
 }
 
 .spindle__direction-wrapper2 {
     transform: skewX(115deg);
-    transform-origin: 50.4% 62.4%;
+    transform-origin: 49.85% 67.5%;
 }
 
 .spindle__direction {
     animation-fill-mode: both;
     fill: $secondary;
-    transform-origin: 50.4% 62.4%;
+    transform-origin: 49.85% 67.5%;
 
     &:not(.reverse) {
         animation: $transition-time--very-slow spin--right linear infinite;
@@ -42,4 +42,12 @@
 
 .spindle__coolant-pipe {
     fill: $background--darker;
+}
+
+.spindle__coolant--mist {
+    fill: transparentize($secondary, 0.67);
+}
+
+.spindle__coolant--flood {
+    fill: transparentize($secondary, 0.13);
 }
