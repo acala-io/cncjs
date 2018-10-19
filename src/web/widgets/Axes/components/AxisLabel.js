@@ -10,8 +10,9 @@ const AxisLabel = styled(props => <div {...props} />)`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  color: rgba(255, 255, 255, 0.5); // transparentize(s.color.text.inverse, 0.4);
+  color: rgba(255, 255, 255, 0.34);
   font-size: ${s.font.size.huge};
+  font-weight: bold;
 `;
 
 export default AxisLabel;

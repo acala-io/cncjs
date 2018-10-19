@@ -3,7 +3,7 @@
 
     svg.keypad-image {
         display: inline-block;
-        filter: drop-shadow(1px 1.5px hsl(207, 89%, 34%));
+        filter: drop-shadow(1px 1.5px darken($clickable, 21%));
         height: 200px;
         width: auto;
 
@@ -48,26 +48,26 @@
         }
 
         .keypad-image__button {
-            fill: $background--darkest;
-            stroke: transparent;
+            fill: url(#svg-radial-gradient--darker) $clickable;
         }
 
         .keypad-image__button--inner {
-            fill: red;
+            fill: url(#svg-radial-gradient) $clickable;
+            filter: url(#svg-dropshadow);
+        }
+
+        // FIXME:
+        &.keypad-image--z {
+            .keypad-image__button {
+                fill: url(#svg-radial-gradient) $clickable;
+                filter: none;
+            }
         }
 
         .keypad-image__arrow {
-            fill: $border--lightest;
-            stroke: transparent;
+            fill: darken($clickable, 3%);
+            filter: url(#svg-dropshadow--inset);
         }
-    }
-
-    .keypad__axis-label {
-        @include center--xy;
-
-        color: transparentize($text--inverse, 0.4);
-        font-size: $font-size--huge;
-        text-shadow: 0 -1px 0 darken($clickable, 13);
     }
 
     .keypad-button__wrapper {

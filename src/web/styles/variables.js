@@ -23,7 +23,7 @@ export default {
     clickable: {
       // colors for clickable items (links, buttons, etc.)
       default: 'hsl(207, 67%, 64%)',
-      highlight: 'lighten(saturate($clickable, 13%), 5%)',
+      highlight: 'hsl(207, 80%, 69%)', // 'lighten(saturate($clickable, 13%), 5%)',
       background: 'transparentize($clickable--highlight, 0.72)',
     },
     text: {
