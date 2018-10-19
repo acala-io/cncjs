@@ -1,3 +1,6 @@
+/*
+ * 1 - Needs to be slightly smaller than radius of enclosing card to prevent background bleeding through
+ */
 .display-panel {
     background: linear-gradient(
         352deg,
@@ -6,8 +9,8 @@
         lighten($background--slightly-off-black, 5%) 51%,
         lighten($background--slightly-off-black, 13%) 100%
     );
-    border-top-left-radius: $border-radius--large;
-    border-top-right-radius: $border-radius--large;
+    border-top-left-radius: $border-radius--large - 1px; /* 1 */
+    border-top-right-radius: $border-radius--large - 1px; /* 1 */
     color: $text--lighter;
 
     th {
