@@ -75,9 +75,11 @@
     }
 
     &.has-units {
+        padding-bottom: $inuit-global-spacing-unit-small;
+        padding-top: $inuit-global-spacing-unit-small;
+
         .button-group__unit {
             color: $text--lighter;
-            font-size: $font-size--tiny;
             font-weight: normal;
         }
     }
