@@ -29,7 +29,7 @@ export default class ActionDropdown extends Component {
               this.setState({collapsed: !collapsed});
             }}
           >
-            <Icon name="show-hide" size="small" rotate={collapsed ? 0 : 180} />
+            <Icon name="show-hide" rotate={collapsed ? 0 : 180} />
           </div>
         </div>
         <div className={classcat(['action-dropdown__items', {'is-collapsed': collapsed}])}>{children}</div>
