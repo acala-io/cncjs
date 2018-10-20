@@ -1,25 +1,20 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
-import classcat from 'classcat';
 import i18next from 'i18next';
 import React, {PureComponent} from 'react';
 import Uri from 'jsuri';
 import {camelCase, find, findIndex, get, isEqual} from 'lodash';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import api from '../../api';
 import i18n from '../../lib/i18n';
 
-import settings from '../../config/settings';
+import getInitialState from './getInitialState';
+import getSections from './getSections';
 import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../../api/constants';
 
-import About from './About';
-import Account from './Account';
-import Commands from './Commands';
-import Controller from './Controller';
-import Events from './Events';
-import General from './General';
-import Workspace from './Workspace';
+import Flexbox from '../../components_new/Flexbox';
+import {Nav, NavItem} from './Nav';
 
 import './index.scss';
 
@@ -32,108 +27,11 @@ class Settings extends PureComponent {
     ...withRouter.propTypes,
   };
 
-  initialState = this.getInitialState();
+  initialState = getInitialState();
 
-  state = this.getInitialState();
+  state = getInitialState();
 
-  getInitialState() {
-    return {
-      general: {
-        api: {
-          err: false,
-          loading: true,
-          saving: false,
-        },
-        // data
-        checkForUpdates: true,
-        lang: i18next.language,
-      },
-      workspace: {
-        modal: {
-          name: '',
-          params: {},
-        },
-      },
-      account: {
-        api: {
-          err: false,
-          fetching: false,
-        },
-        // data
-        pagination: {
-          page: 1,
-          pageLength: 10,
-          totalRecords: 0,
-        },
-        modal: {
-          name: '',
-          params: {
-            alertMessage: '',
-            changePassword: false,
-          },
-        },
-        records: [],
-      },
-      controller: {
-        api: {
-          err: false,
-          loading: true,
-          saving: false,
-        },
-        // followed by data
-        ignoreErrors: false,
-      },
-      // Commands
-      commands: {
-        // followed by api state
-        api: {
-          err: false,
-          fetching: false,
-        },
-        // followed by data
-        pagination: {
-          page: 1,
-          pageLength: 10,
-          totalRecords: 0,
-        },
-        records: [],
-        // Modal
-        modal: {
-          name: '',
-          params: {},
-        },
-      },
-      // Events
-      events: {
-        // followed by api state
-        api: {
-          err: false,
-          fetching: false,
-        },
-        // followed by data
-        pagination: {
-          page: 1,
-          pageLength: 10,
-          totalRecords: 0,
-        },
-        records: [],
-        // Modal
-        modal: {
-          name: '',
-          params: {},
-        },
-      },
-      // About
-      about: {
-        version: {
-          checking: false,
-          current: settings.version,
-          latest: settings.version,
-          lastUpdate: '',
-        },
-      },
-    };
-  }
+  sections = null;
 
   render() {
     const state = {
@@ -143,98 +41,59 @@ class Settings extends PureComponent {
       ...this.actions,
     };
 
+    // respective Section component
+    const {component, id} = this.activeSection;
+    const Section = component;
+    const sectionInitialState = this.initialState[id];
+    const sectionState = state[id];
+    const sectionStateChanged = !isEqual(sectionInitialState, sectionState);
+    const sectionActions = actions[id];
+
+    return (
+      <Flexbox flexDirection="row">
+        <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
+          {this.nav}
+        </Flexbox>
+        <Flexbox flexBasis="auto" flexGrow={10} flexShrink={1}>
+          <Section
+            initialState={sectionInitialState}
+            state={sectionState}
+            stateChanged={sectionStateChanged}
+            actions={sectionActions}
+          />
+        </Flexbox>
+      </Flexbox>
+    );
+  }
+
+  get nav() {
+    const activeSectionId = this.activeSection.id;
+
+    return (
+      <Nav>
+        {this.sections.map(section => (
+          <NavItem
+            key={section.id}
+            path={section.path}
+            title={section.title}
+            isActive={activeSectionId === section.id}
+          />
+        ))}
+      </Nav>
+    );
+  }
+
+  get activeSection() {
     const {pathname = ''} = this.props.location;
     const initialSectionPath = this.sections[0].path;
     const sectionPath = pathname.replace(/^\/settings(\/)?/, ''); // TODO
     const id = mapSectionPathToId(sectionPath || initialSectionPath);
     const activeSection = find(this.sections, {id}) || this.sections[0];
-    const sectionItems = this.sections.map(section => (
-      <li key={section.id} className={classcat([{active: activeSection.id === section.id}])}>
-        <Link to={`/settings/${section.path}`}>{section.title}</Link>
-      </li>
-    ));
 
-    // Section component
-    const Section = activeSection.component;
-    const sectionInitialState = this.initialState[activeSection.id];
-    const sectionState = state[activeSection.id];
-    const sectionStateChanged = !isEqual(sectionInitialState, sectionState);
-    const sectionActions = actions[activeSection.id];
-
-    return (
-      <div className="settings">
-        <div className="container border">
-          <div className="row">
-            <div className="col sidenav">
-              <nav className="navbar">
-                <ul className="nav">{sectionItems}</ul>
-              </nav>
-            </div>
-            <div className="col splitter" />
-            <div className="col section">
-              <div className="heading">{activeSection.title}</div>
-              <div className="content">
-                <Section
-                  initialState={sectionInitialState}
-                  state={sectionState}
-                  stateChanged={sectionStateChanged}
-                  actions={sectionActions}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return activeSection;
   }
 
-  sections = [
-    {
-      id: 'general',
-      path: 'general',
-      title: i18n._('General'),
-      component: props => <General {...props} />,
-    },
-    {
-      id: 'workspace',
-      path: 'workspace',
-      title: i18n._('Workspace'),
-      component: props => <Workspace {...props} />,
-    },
-    {
-      id: 'controller',
-      path: 'controller',
-      title: i18n._('Controller'),
-      component: props => <Controller {...props} />,
-    },
-    {
-      id: 'account',
-      path: 'account',
-      title: i18n._('My Account'),
-      component: props => <Account {...props} />,
-    },
-    {
-      id: 'commands',
-      path: 'commands',
-      title: i18n._('Commands'),
-      component: props => <Commands {...props} />,
-    },
-    {
-      id: 'events',
-      path: 'events',
-      title: i18n._('Events'),
-      component: props => <Events {...props} />,
-    },
-    {
-      id: 'about',
-      path: 'about',
-      title: i18n._('About'),
-      component: props => <About {...props} />,
-    },
-  ];
-
   actions = {
-    // General
     general: {
       load: () => {
         this.setState({
@@ -260,7 +119,6 @@ class Settings extends PureComponent {
                 err: false,
                 loading: false,
               },
-              // followed by data
               checkForUpdates: Boolean(checkForUpdates),
               lang: i18next.language,
             };
@@ -365,7 +223,6 @@ class Settings extends PureComponent {
         });
       },
     },
-    // Workspace
     workspace: {
       openModal: (name = '', params = {}) => {
         this.setState({
@@ -390,7 +247,6 @@ class Settings extends PureComponent {
         });
       },
     },
-    // Controller
     controller: {
       load: () => {
         this.setState(state => ({
@@ -416,7 +272,7 @@ class Settings extends PureComponent {
                 err: false,
                 loading: false,
               },
-              // followed by data
+              // data
               ignoreErrors: Boolean(ignoreErrors),
             };
 
@@ -502,7 +358,6 @@ class Settings extends PureComponent {
         }));
       },
     },
-    // My Account
     account: {
       fetchRecords: options => {
         const state = this.state.account;
@@ -664,7 +519,6 @@ class Settings extends PureComponent {
         });
       },
     },
-    // Commands
     commands: {
       fetchRecords: options => {
         const state = this.state.commands;
@@ -825,7 +679,6 @@ class Settings extends PureComponent {
         });
       },
     },
-    // Events
     events: {
       fetchRecords: options => {
         const state = this.state.events;
@@ -986,7 +839,6 @@ class Settings extends PureComponent {
         });
       },
     },
-    // About
     about: {
       checkLatestVersion: () => {
         this.setState({
@@ -1025,6 +877,10 @@ class Settings extends PureComponent {
       },
     },
   };
+
+  UNSAFE_componentWillMount() {
+    this.sections = getSections();
+  }
 
   componentDidMount() {
     this.mounted = true;
