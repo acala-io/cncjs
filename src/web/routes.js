@@ -1,14 +1,4 @@
-const routes = [
-  '/settings',
-  '/settings/about',
-  '/settings/account',
-  '/settings/commands',
-  '/settings/controller',
-  '/settings/events',
-  '/settings/general',
-  '/settings/workspace',
-  '/workspace',
-];
+const routes = ['/workspace'];
 
 export const isAuthorizedRoute = pathname => routes.indexOf(pathname) >= 0;
 
