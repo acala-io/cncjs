@@ -1,7 +1,7 @@
 import {addDecorator, configure} from '@storybook/react';
-import {initScreenshot} from 'storybook-chrome-screenshot';
+// import {initScreenshot} from 'storybook-chrome-screenshot';
 
-addDecorator(initScreenshot());
+// addDecorator(initScreenshot());
 
 import '../src/web/scss/app.scss';
 
