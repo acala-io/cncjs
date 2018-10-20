@@ -23,7 +23,6 @@ import * as widgetManager from './WidgetManager';
 import DefaultWidgets from './DefaultWidgets';
 import PrimaryWidgets from './PrimaryWidgets';
 import SecondaryWidgets from './SecondaryWidgets';
-import {Button, ButtonGroup, ButtonToolbar} from '../../components/Buttons';
 
 import FeederPaused from './modals/FeederPaused';
 import FeederWait from './modals/FeederWait';
@@ -56,6 +55,114 @@ class Workspace extends PureComponent {
   };
 
   state = this.getInitialState();
+
+  getInitialState() {
+    return {
+      connection: {
+        ident: controller.connection.ident,
+      },
+      inactiveCount: size(widgetManager.getInactiveWidgets()),
+      isDraggingFile: false,
+      isDraggingWidget: false,
+      isUploading: false,
+      modal: {
+        name: MODAL_NONE,
+        params: {},
+      },
+      mounted: false,
+      showPrimaryContainer: store.get('workspace.container.primary.show'),
+      showSecondaryContainer: store.get('workspace.container.secondary.show'),
+    };
+  }
+
+  render() {
+    const {className, style} = this.props;
+    const {connection, isDraggingFile, isDraggingWidget, showPrimaryContainer, showSecondaryContainer} = this.state;
+    const hidePrimaryContainer = !showPrimaryContainer;
+    const hideSecondaryContainer = !showSecondaryContainer;
+
+    return (
+      <div style={style} className={classcat([className, 'workspace'])}>
+        {this.modals}
+        <div className={classcat(['dropzone-overlay', {['hidden']: !(connection.ident && isDraggingFile)}])}>
+          <div className="text-block">{i18n._('Drop G-code file here')}</div>
+        </div>
+        <Dropzone
+          className="dropzone"
+          disabled={controller.workflow.state !== WORKFLOW_STATE_IDLE}
+          multiple={false}
+          onDragStart={() => {}}
+          onDragEnter={() => {
+            if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
+              return;
+            }
+
+            if (isDraggingWidget) {
+              return;
+            }
+
+            if (!isDraggingFile) {
+              this.setState({
+                isDraggingFile: true,
+              });
+            }
+          }}
+          onDragLeave={() => {
+            if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
+              return;
+            }
+
+            if (isDraggingWidget) {
+              return;
+            }
+
+            if (isDraggingFile) {
+              this.setState({
+                isDraggingFile: false,
+              });
+            }
+          }}
+          onDrop={acceptedFiles => {
+            if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
+              return;
+            }
+
+            if (isDraggingWidget) {
+              return;
+            }
+
+            if (isDraggingFile) {
+              this.setState({
+                isDraggingFile: false,
+              });
+            }
+
+            this.onDrop(acceptedFiles);
+          }}
+          disableClick
+          disablePreview
+        >
+          <div className={'workspace-table'}>
+            <div className={'workspace-table-row'}>
+              <div
+                ref={ref => (this.primaryContainer = ref)}
+                className={classcat(['primary-container', {hidden: hidePrimaryContainer}])}
+              >
+                {this.primaryWidgetsComponent}
+              </div>
+              {this.defaultWidgetsComponent}
+              <div
+                ref={ref => (this.secondaryContainer = ref)}
+                className={classcat(['secondary-container', {hidden: hideSecondaryContainer}])}
+              >
+                {this.secondaryWidgetsComponent}
+              </div>
+            </div>
+          </div>
+        </Dropzone>
+      </div>
+    );
+  }
 
   sortableGroup = {
     primary: null,
@@ -393,140 +500,6 @@ class Workspace extends PureComponent {
     this.resizeDefaultContainer();
   }
 
-  getInitialState() {
-    return {
-      connection: {
-        ident: controller.connection.ident,
-      },
-      inactiveCount: size(widgetManager.getInactiveWidgets()),
-      isDraggingFile: false,
-      isDraggingWidget: false,
-      isUploading: false,
-      modal: {
-        name: MODAL_NONE,
-        params: {},
-      },
-      mounted: false,
-      showPrimaryContainer: store.get('workspace.container.primary.show'),
-      showSecondaryContainer: store.get('workspace.container.secondary.show'),
-    };
-  }
-
-  addControllerEvents() {
-    Object.keys(this.controllerEvents).forEach(eventName => {
-      const callback = this.controllerEvents[eventName];
-      controller.addListener(eventName, callback);
-    });
-  }
-
-  removeControllerEvents() {
-    Object.keys(this.controllerEvents).forEach(eventName => {
-      const callback = this.controllerEvents[eventName];
-      controller.removeListener(eventName, callback);
-    });
-  }
-
-  addResizeEventListener() {
-    this.onResizeThrottled = throttle(this.resizeDefaultContainer, 50);
-    window.addEventListener('resize', this.onResizeThrottled);
-  }
-
-  removeResizeEventListener() {
-    window.removeEventListener('resize', this.onResizeThrottled);
-    this.onResizeThrottled = null;
-  }
-
-  render() {
-    const {className, style} = this.props;
-    const {connection, isDraggingFile, isDraggingWidget, showPrimaryContainer, showSecondaryContainer} = this.state;
-    const hidePrimaryContainer = !showPrimaryContainer;
-    const hideSecondaryContainer = !showSecondaryContainer;
-
-    return (
-      <div style={style} className={classcat([className, 'workspace'])}>
-        {this.modals}
-        <div className={classcat(['dropzone-overlay', {['hidden']: !(connection.ident && isDraggingFile)}])}>
-          <div className="text-block">{i18n._('Drop G-code file here')}</div>
-        </div>
-        <Dropzone
-          className="dropzone"
-          disabled={controller.workflow.state !== WORKFLOW_STATE_IDLE}
-          multiple={false}
-          onDragStart={() => {}}
-          onDragEnter={() => {
-            if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
-              return;
-            }
-
-            if (isDraggingWidget) {
-              return;
-            }
-
-            if (!isDraggingFile) {
-              this.setState({isDraggingFile: true});
-            }
-          }}
-          onDragLeave={() => {
-            if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
-              return;
-            }
-
-            if (isDraggingWidget) {
-              return;
-            }
-
-            if (isDraggingFile) {
-              this.setState({
-                isDraggingFile: false,
-              });
-            }
-          }}
-          onDrop={acceptedFiles => {
-            if (controller.workflow.state !== WORKFLOW_STATE_IDLE) {
-              return;
-            }
-
-            if (isDraggingWidget) {
-              return;
-            }
-
-            if (isDraggingFile) {
-              this.setState({
-                isDraggingFile: false,
-              });
-            }
-
-            this.onDrop(acceptedFiles);
-          }}
-          disableClick
-          disablePreview
-        >
-          <div className={'workspace-table'}>
-            <div className={'workspace-table-row'}>
-              <div
-                ref={ref => (this.primaryContainer = ref)}
-                className={classcat(['primary-container', {hidden: hidePrimaryContainer}])}
-              >
-                {/* this.manageContainerContent('primary') */}
-                {this.primaryWidgetsComponent}
-              </div>
-              {/* this.primaryContainerToggle */}
-              {this.defaultWidgetsComponent}
-              {/* this.secondaryContainerToggle */}
-              <div
-                ref={ref => (this.secondaryContainer = ref)}
-                className={classcat(['secondary-container', {hidden: hideSecondaryContainer}])}
-              >
-                {/* this.manageContainerContent('secondary') */}
-                {this.secondaryWidgetsComponent}
-              </div>
-            </div>
-          </div>
-        </Dropzone>
-      </div>
-    );
-  }
-
   get modals() {
     const {modal} = this.state;
     const modalName = modal.name;
@@ -548,22 +521,6 @@ class Workspace extends PureComponent {
     return (
       <div ref={ref => (this.defaultContainer = ref)} className="default-container">
         <DefaultWidgets defaultWidgets={defaultWidgets} />
-      </div>
-    );
-  }
-
-  get primaryContainerToggle() {
-    if (this.state.showPrimaryContainer) {
-      return null;
-    }
-
-    return (
-      <div ref={node => (this.primaryToggler = node)} className="primary-toggler">
-        <ButtonGroup btnSize="sm" btnStyle="flat">
-          <Button style={{minWidth: 30}} compact onClick={this.togglePrimaryContainer}>
-            <i className="fa fa-chevron-right" />
-          </Button>
-        </ButtonGroup>
       </div>
     );
   }
@@ -592,57 +549,28 @@ class Workspace extends PureComponent {
     );
   }
 
-  get secondaryContainerToggle() {
-    if (this.state.showSecondaryContainer) {
-      return null;
-    }
-
-    return (
-      <div ref={node => (this.secondaryToggler = node)} className="secondary-toggler">
-        <ButtonGroup btnSize="sm" btnStyle="flat">
-          <Button style={{minWidth: 30}} compact onClick={this.toggleSecondaryContainer}>
-            <i className="fa fa-chevron-right" />
-          </Button>
-        </ButtonGroup>
-      </div>
-    );
+  addControllerEvents() {
+    Object.keys(this.controllerEvents).forEach(eventName => {
+      const callback = this.controllerEvents[eventName];
+      controller.addListener(eventName, callback);
+    });
   }
 
-  manageContainerContent(container = 'primary') {
-    const {inactiveCount} = this.state;
+  removeControllerEvents() {
+    Object.keys(this.controllerEvents).forEach(eventName => {
+      const callback = this.controllerEvents[eventName];
+      controller.removeListener(eventName, callback);
+    });
+  }
 
-    const isSecondary = container === 'secondary';
+  addResizeEventListener() {
+    this.onResizeThrottled = throttle(this.resizeDefaultContainer, 50);
+    window.addEventListener('resize', this.onResizeThrottled);
+  }
 
-    const collapseAll = () => {}; // isSecondary ? this.secondaryWidgets.collapseAll : this.primaryWidgets.collapseAll;
-    const expandAll = () => {}; // isSecondary ? this.secondaryWidgets.expandAll : this.primaryWidgets.expandAll;
-    const updateWidgets = isSecondary ? this.updateWidgetsForSecondaryContainer : this.updateWidgetsForPrimaryContainer;
-    const toggleContainer = isSecondary ? this.toggleSecondaryContainer : this.togglePrimaryContainer;
-
-    return (
-      <ButtonToolbar style={{margin: '5px 0'}}>
-        <div className={classcat([{'pull-left': isSecondary}])}>
-          <ButtonGroup style={{marginLeft: 0, marginRight: 10}} btnSize="sm" btnStyle="flat">
-            <Button style={{minWidth: 30}} title={i18n._('Collapse All')} onClick={collapseAll} compact>
-              <i className="fa fa-chevron-up" style={{fontSize: 14}} />
-            </Button>
-            <Button style={{minWidth: 30}} title={i18n._('Expand All')} onClick={expandAll} compact>
-              <i className="fa fa-chevron-down" style={{fontSize: 14}} />
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup style={{marginLeft: 0, marginRight: 10}} btnSize="sm" btnStyle="flat">
-            <Button style={{width: 230}} onClick={updateWidgets}>
-              <i className="fa fa-list-alt" />
-              {i18n._('Manage Widgets ({{inactiveCount}})', {inactiveCount})}
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup style={{marginLeft: 0, marginRight: 0}} btnSize="sm" btnStyle="flat">
-            <Button style={{minWidth: 30}} compact onClick={toggleContainer}>
-              <i className="fa fa-chevron-right" />
-            </Button>
-          </ButtonGroup>
-        </div>
-      </ButtonToolbar>
-    );
+  removeResizeEventListener() {
+    window.removeEventListener('resize', this.onResizeThrottled);
+    this.onResizeThrottled = null;
   }
 }
 
