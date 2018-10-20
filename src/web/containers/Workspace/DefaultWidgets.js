@@ -7,7 +7,7 @@ import './widgets.scss';
 import Widget from './Widget';
 
 const DefaultWidgets = ({className, defaultWidgets}) => (
-  <div className={classcat([className, 'widgets'])}>
+  <div className={classcat(['widgets', className])}>
     {defaultWidgets.map(id => (
       <div data-widget-id={id} key={id}>
         <Widget widgetId={id} />

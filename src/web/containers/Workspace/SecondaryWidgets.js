@@ -1,107 +1,22 @@
-import chainedFunction from 'chained-function';
-import classcat from 'classcat';
-import ensureArray from 'ensure-array';
-import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
-import React, {Component} from 'react';
-import Sortable from 'react-sortablejs';
-import uuid from 'uuid';
-import {get, includes, isEqual} from 'lodash';
+import React, {Component, Fragment} from 'react';
+import {includes, isEqual} from 'lodash';
 
 import controller from '../../lib/controller';
-import i18n from '../../lib/i18n';
-import log from '../../lib/log';
-import portal from '../../lib/portal';
 
 import store from '../../store_old';
 
 import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 
-import Modal from '../../components/Modal';
 import Widget from './Widget';
-import {Button} from '../../components/Buttons';
 
 import './widgets.scss';
 
 class SecondaryWidgets extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    onDragEnd: PropTypes.func.isRequired,
-    onDragStart: PropTypes.func.isRequired,
-    onForkWidget: PropTypes.func.isRequired,
-    onRemoveWidget: PropTypes.func.isRequired,
-  };
-
   state = {
     widgets: store.get('workspace.container.secondary.widgets'),
   };
 
-  forkWidget = widgetId => () => {
-    portal(({onClose}) => (
-      <Modal size="xs" onClose={onClose}>
-        <Modal.Header>
-          <Modal.Title>{i18n._('Fork Widget')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{i18n._('Are you sure you want to fork this widget?')}</Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onClose}>{i18n._('Cancel')}</Button>
-          <Button
-            btnStyle="primary"
-            onClick={chainedFunction(() => {
-              const name = widgetId.split(':')[0];
-              if (!name) {
-                log.error(`Failed to fork widget: widgetId=${widgetId}`);
-                return;
-              }
-
-              // Use the same widget settings in a new widget
-              const forkedWidgetId = `${name}:${uuid.v4()}`;
-              const defaultSettings = store.get(`widgets["${name}"]`);
-              const clonedSettings = store.get(`widgets["${widgetId}"]`, defaultSettings);
-              store.set(`widgets["${forkedWidgetId}"]`, clonedSettings);
-
-              const widgets = [...this.state.widgets, forkedWidgetId];
-              this.setState({widgets});
-
-              this.props.onForkWidget(widgetId);
-            }, onClose)}
-          >
-            {i18n._('OK')}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    ));
-  };
-
-  removeWidget = widgetId => () => {
-    portal(({onClose}) => (
-      <Modal size="xs" onClose={onClose}>
-        <Modal.Header>
-          <Modal.Title>{i18n._('Remove Widget')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{i18n._('Are you sure you want to remove this widget?')}</Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onClose}>{i18n._('Cancel')}</Button>
-          <Button
-            btnStyle="primary"
-            onClick={chainedFunction(() => {
-              const widgets = this.state.widgets.filter(n => n !== widgetId);
-              this.setState({widgets});
-
-              if (widgetId.match(/\w+:[\w\-]+/)) {
-                // Remove forked widget settings
-                store.unset(`widgets["${widgetId}"]`);
-              }
-
-              this.props.onRemoveWidget(widgetId);
-            }, onClose)}
-          >
-            {i18n._('OK')}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    ));
-  };
   pubsubTokens = [];
   widgetMap = {};
 
@@ -143,31 +58,7 @@ class SecondaryWidgets extends Component {
     this.pubsubTokens = [];
   }
 
-  expandAll() {
-    const len = this.state.widgets.length;
-    for (let i = 0; i < len; ++i) {
-      const widget = this.widgetMap[this.state.widgets[i]];
-      const expand = get(widget, 'expand');
-      if (typeof expand === 'function') {
-        expand();
-      }
-    }
-  }
-
-  collapseAll() {
-    const len = this.state.widgets.length;
-    for (let i = 0; i < len; ++i) {
-      const widget = this.widgetMap[this.state.widgets[i]];
-      const collapse = get(widget, 'collapse');
-      if (typeof collapse === 'function') {
-        collapse();
-      }
-    }
-  }
-
   render() {
-    const {className} = this.props;
-
     const removeUnavailableControllers = widgetId => {
       // e.g. "webcam" or "webcam:d8e6352f-80a9-475f-a4f5-3e9197a48a23"
       const name = widgetId.split(':')[0];
@@ -200,40 +91,11 @@ class SecondaryWidgets extends Component {
             }
           }}
           widgetId={widgetId}
-          onRemove={this.removeWidget(widgetId)}
         />
       </div>
     ));
 
-    return (
-      <Sortable
-        className={classcat([className, 'widgets'])}
-        style={{
-          overflowX: 'hidden',
-        }}
-        options={{
-          animation: 150,
-          delay: 0, // Touch and hold delay
-          group: {
-            name: 'secondary',
-            pull: true,
-            put: ['primary'],
-          },
-          handle: '.sortable-handle', // Drag handle selector within list items
-          filter: '.sortable-filter', // Selectors that do not lead to dragging
-          chosenClass: 'sortable-chosen', // Class name for the chosen item
-          ghostClass: 'sortable-ghost', // Class name for the drop placeholder
-          dataIdAttr: 'data-widget-id',
-          onStart: this.props.onDragStart,
-          onEnd: this.props.onDragEnd,
-        }}
-        onChange={order => {
-          this.setState({widgets: ensureArray(order)});
-        }}
-      >
-        {widgets}
-      </Sortable>
-    );
+    return <Fragment>{widgets}</Fragment>;
   }
 }
 

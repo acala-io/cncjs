@@ -7,47 +7,47 @@ $toggler-width: 50px;
 
 .workspace {
     .dropzone-overlay {
-        position: fixed;
-        top: $navbar-height;
-        bottom: 0;
-        left: $sidebar-width;
-        right: 0;
-        z-index: 100;
         background-color: rgba(255, 255, 255, 0.5);
         border: 4px dashed #286090;
-        text-align: center;
+        bottom: 0;
+        left: $sidebar-width;
         pointer-events: none;
+        position: fixed;
+        right: 0;
+        text-align: center;
+        top: $navbar-height;
+        z-index: 100;
 
         &.hidden {
             display: none;
         }
 
         .text-block {
-            position: absolute;
-            top: 25%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             color: #666;
             font-size: 32px;
+            left: 50%;
+            position: absolute;
+            top: 25%;
+            transform: translate(-50%, -50%);
         }
     }
+
     .dropzone {
         height: 100%;
     }
 
     .workspace-table {
         display: table;
-        width: 100%;
         height: calc(100vh - #{$navbar-height});
+        width: 100%;
     }
+
     .workspace-table-row {
         display: table-row;
     }
 
     .primary-container,
     .secondary-container,
-    .primary-toggler,
-    .secondary-toggler,
     .default-container {
         display: table-cell;
         position: relative;
@@ -65,20 +65,7 @@ $toggler-width: 50px;
             display: none;
         }
     }
-    .primary-toggler,
-    .secondary-toggler {
-        background-color: #f6f7f8;
-        height: calc(100vh - #{$navbar-height});
-        padding-top: 5px;
-        text-align: center;
-        width: $toggler-width;
-    }
-    .primary-toggler {
-        border-right: 1px solid #ccc;
-    }
-    .secondary-toggler {
-        border-left: 1px solid #ccc;
-    }
+
     .default-container {
         min-width: 360px;
 
