@@ -61,7 +61,6 @@
     "and more...": "もっと見る",
     "Delete": "削除",
     "Are you sure you want to delete this item?": "本当にこの項目を削除しますか？",
-    "Exception": "例外",
     "Continue execution when an error is detected in the G-code program": "Gコードにエラーが検出されても動作を継続する",
     "Save Changes": "変更を保存",
     "Events": "イベント",
@@ -457,8 +456,10 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": "",
     "Feed Rate Range": "",
     "Repeat Rate": "",
-    "Distance Overshoot": ""
+    "Distance Overshoot": "",
+    "Loading data": "",
+    "New value": "",
+    "New command": ""
 }

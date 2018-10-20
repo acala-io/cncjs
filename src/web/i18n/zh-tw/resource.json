@@ -61,7 +61,6 @@
     "and more...": "及更多...",
     "Delete": "刪除",
     "Are you sure you want to delete this item?": "你確定要刪除這個項目？",
-    "Exception": "",
     "Continue execution when an error is detected in the G-code program": "",
     "Save Changes": "儲存變更",
     "Events": "事件",
@@ -457,8 +456,10 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": "",
     "Feed Rate Range": "",
     "Repeat Rate": "",
-    "Distance Overshoot": ""
+    "Distance Overshoot": "",
+    "Loading data": "",
+    "New value": "",
+    "New command": ""
 }

@@ -61,7 +61,6 @@
     "and more...": "en meer...",
     "Delete": "Verwijder",
     "Are you sure you want to delete this item?": "Weet U zeker dat U dit item wil verwijderen?",
-    "Exception": "",
     "Continue execution when an error is detected in the G-code program": "",
     "Save Changes": "Sla veranderingen op",
     "Events": "Evenementen",
@@ -457,8 +456,10 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": "",
     "Feed Rate Range": "",
     "Repeat Rate": "",
-    "Distance Overshoot": ""
+    "Distance Overshoot": "",
+    "Loading data": "",
+    "New value": "",
+    "New command": ""
 }
