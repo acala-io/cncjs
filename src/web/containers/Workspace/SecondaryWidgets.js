@@ -10,8 +10,6 @@ import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 
 import Widget from './Widget';
 
-import './widgets.scss';
-
 class SecondaryWidgets extends Component {
   state = {
     widgets: store.get('workspace.container.secondary.widgets'),

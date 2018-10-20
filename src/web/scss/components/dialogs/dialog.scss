@@ -46,7 +46,17 @@
 }
 
 .dialog--extra-wide {
-    width: $inuit-global-spacing-unit * 40;
+    width: $inuit-global-spacing-unit * 70;
+
+    /*
+     * 1 - Assign a minimum height to dialog to avoid ridiculously small dialogs
+     */
+    .dialog__shadow-wrapper {
+        /* stylelint-disable plugin/no-unsupported-browser-features */
+        min-height: 500px;
+        min-height: 70vh;
+        /* stylelint-enable plugin/no-unsupported-browser-features */
+    }
 }
 
 .dialog--full-width {
@@ -54,8 +64,18 @@
     /* stylelint-disable plugin/no-unsupported-browser-features */
     /* bloody UC browser for Android 11 can't deal with calc, but it can fall back to 95% width */
     width: 95%;
-    width: calc(100% - 56px);
+    width: calc(100% - #{$inuit-global-spacing-unit-huge});
     /* stylelint-enable plugin/no-unsupported-browser-features */
+
+    /*
+     * 1 - Assign a minimum height to dialog to avoid ridiculously small dialogs
+     */
+    .dialog__shadow-wrapper {
+        /* stylelint-disable plugin/no-unsupported-browser-features */
+        min-height: 600px;
+        min-height: 80vh;
+        /* stylelint-enable plugin/no-unsupported-browser-features */
+    }
 }
 
 .dialog--animation-appear {

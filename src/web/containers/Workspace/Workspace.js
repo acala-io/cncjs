@@ -10,25 +10,26 @@ import {connect} from 'react-redux';
 import {includes, pick, throttle} from 'lodash';
 import {withRouter} from 'react-router-dom';
 
-import * as dialogActions from '../../dialogs/actions';
-
 import api from '../../api';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 
+import * as dialogActions from '../../dialogs/actions';
+
 import store from '../../store_old';
-
-import DefaultWidgets from './DefaultWidgets';
-import PrimaryWidgets from './PrimaryWidgets';
-import SecondaryWidgets from './SecondaryWidgets';
-
-import FeederPausedModal from './FeederPausedModal';
-import FeederWaitModal from './FeederWaitModal';
-import ServerDisconnectedModal from './ServerDisconnectedModal';
 
 import {MODAL_NONE, MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT} from './constants';
 import {WORKFLOW_STATE_IDLE} from '../../constants';
+
+import DefaultWidgets from './DefaultWidgets';
+import FeederPausedModal from './FeederPausedModal';
+import FeederWaitModal from './FeederWaitModal';
+import Icon from '../../components_new/Icon';
+import PrimaryWidgets from './PrimaryWidgets';
+import SecondaryWidgets from './SecondaryWidgets';
+import ServerDisconnectedModal from './ServerDisconnectedModal';
+import SettingsModal from '../../settings/SettingsModal';
 
 import './index.scss';
 
@@ -51,7 +52,8 @@ const stopWaiting = () => {
 class Workspace extends PureComponent {
   static propTypes = {
     ...withRouter.propTypes,
-    currentDialog: PropTypes.string, // ?
+    currentDialog: PropTypes.func,
+    onEditSettings: PropTypes.func,
     hideModals: PropTypes.func,
     showFeederPausedModal: PropTypes.func,
     showFeederWaitModal: PropTypes.func,
@@ -132,6 +134,7 @@ class Workspace extends PureComponent {
             <div className="workspace-table-row">
               <div ref={ref => (this.primaryContainer = ref)} className="primary-container">
                 {this.primaryWidgetsComponent}
+                {this.editSettings}
               </div>
               {this.defaultWidgetsComponent}
               <div ref={ref => (this.secondaryContainer = ref)} className="secondary-container">
@@ -140,6 +143,15 @@ class Workspace extends PureComponent {
             </div>
           </div>
         </Dropzone>
+      </div>
+    );
+  }
+
+  get editSettings() {
+    return (
+      <div className="link u-padding-small" onClick={this.props.editSettings}>
+        <Icon name="settings" size="small" className="u-margin-right-tiny" />
+        {i18n._('Settings')}
       </div>
     );
   }
@@ -420,6 +432,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  editSettings: () => {
+    dispatch(dialogActions.show(SettingsModal, {}));
+  },
   hideModals: () => {
     dispatch(dialogActions.hide());
   },

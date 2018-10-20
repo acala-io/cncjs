@@ -54,6 +54,7 @@ const getInitialState = () => ({
     },
     ignoreErrors: false,
   },
+  currentSection: 'general',
   events: {
     api: {
       err: false,

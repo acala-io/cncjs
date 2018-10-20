@@ -3,7 +3,7 @@
 import i18next from 'i18next';
 import React, {PureComponent} from 'react';
 import Uri from 'jsuri';
-import {camelCase, find, findIndex, get, isEqual} from 'lodash';
+import {findIndex, get, isEqual} from 'lodash';
 import {withRouter} from 'react-router-dom';
 
 import api from '../../api';
@@ -15,12 +15,6 @@ import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../../api/constants';
 
 import Flexbox from '../../components_new/Flexbox';
 import {Nav, NavItem} from './Nav';
-
-import './index.scss';
-
-const mapSectionPathToId = (path = '') => {
-  return camelCase(path.split('/')[0] || '');
-};
 
 class Settings extends PureComponent {
   static propTypes = {
@@ -34,18 +28,17 @@ class Settings extends PureComponent {
   sections = null;
 
   render() {
-    const state = {
-      ...this.state,
-    };
     const actions = {
       ...this.actions,
     };
 
+    const currentSectionId = this.state.currentSection;
+    const {component, id} = this.sections.find(s => s.id === currentSectionId);
+
     // respective Section component
-    const {component, id} = this.activeSection;
     const Section = component;
     const sectionInitialState = this.initialState[id];
-    const sectionState = state[id];
+    const sectionState = this.state[id];
     const sectionStateChanged = !isEqual(sectionInitialState, sectionState);
     const sectionActions = actions[id];
 
@@ -67,31 +60,26 @@ class Settings extends PureComponent {
   }
 
   get nav() {
-    const activeSectionId = this.activeSection.id;
+    const currentSectionId = this.state.currentSection;
 
     return (
       <Nav>
         {this.sections.map(section => (
           <NavItem
             key={section.id}
-            path={section.path}
             title={section.title}
-            isActive={activeSectionId === section.id}
+            isActive={currentSectionId === section.id}
+            onClick={() => this.selectSection(section.id)}
           />
         ))}
       </Nav>
     );
   }
 
-  get activeSection() {
-    const {pathname = ''} = this.props.location;
-    const initialSectionPath = this.sections[0].path;
-    const sectionPath = pathname.replace(/^\/settings(\/)?/, ''); // TODO
-    const id = mapSectionPathToId(sectionPath || initialSectionPath);
-    const activeSection = find(this.sections, {id}) || this.sections[0];
-
-    return activeSection;
-  }
+  selectSection = id =>
+    this.setState({
+      currentSection: id,
+    });
 
   actions = {
     general: {

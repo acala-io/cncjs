@@ -28,43 +28,11 @@
     }
 
     &--large {
-        height: $inuit-global-spacing-unit-huge;
-        width: $inuit-global-spacing-unit-huge;
+        height: $inuit-global-spacing-unit-large;
+        width: $inuit-global-spacing-unit-large;
     }
 
     &--light {
         fill: $text--lightest;
-    }
-}
-
-// Alignment fixes -----------------------------------------------------------------------------------------------------
-.icon--company {
-    top: -3px;
-}
-
-.icon--credit-card {
-    top: -2px;
-}
-
-.icon--logout {
-    left: -3px;
-}
-
-.icon--profile {
-    top: -3px;
-}
-
-.icon--templates {
-    top: -2px;
-}
-
-// Special icons -------------------------------------------------------------------------------------------------------
-.icon--logo {
-    .icon--logo__frame {
-        fill: #f7b11a;
-    }
-
-    .icon--logo__letter {
-        fill: #868d93;
     }
 }

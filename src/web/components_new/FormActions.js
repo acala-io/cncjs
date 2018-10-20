@@ -48,7 +48,7 @@ const FormActions = ({children, className, primaryAction, secondaryAction}) => {
 };
 
 FormActions.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   className: PropTypes.string,
   primaryAction: PropTypes.object,
   secondaryAction: PropTypes.object,

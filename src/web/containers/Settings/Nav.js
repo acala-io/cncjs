@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {arrayOf, bool, node, oneOfType, string} from 'prop-types';
+import {arrayOf, bool, func, node, oneOfType, string} from 'prop-types';
 
 import s from '../../styles/variables';
 
 import Flexbox from '../../components_new/Flexbox';
-import {Link} from 'react-router-dom';
 
-const NavLink = styled(Link)`
+const NavLink = styled.div`
   background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.transparent)};
   color: ${({isActive}) => (isActive ? s.color.text.default : s.color.clickable.default)} !important;
   cursor: ${({isActive}) => (isActive ? 'default' : 'pointer')};
@@ -21,15 +20,15 @@ const NavLink = styled(Link)`
   }
 `;
 
-export const NavItem = ({isActive = false, path, title}) => (
-  <NavLink to={`/settings/${path}`} isActive={isActive}>
+export const NavItem = ({isActive = false, onClick, title}) => (
+  <NavLink isActive={isActive} onClick={onClick}>
     {title}
   </NavLink>
 );
 
 NavItem.propTypes = {
   isActive: bool,
-  path: string,
+  onClick: func,
   title: string,
 };
 

@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react';
 import {func} from 'prop-types';
 
-import Controller from './Controller';
+import i18n from '../lib/i18n';
+
+import Settings from '../containers/Settings/';
 import {Dialog, DialogHeader} from '../components_new/Dialog';
 
 class SettingsModal extends PureComponent {
@@ -16,28 +18,11 @@ class SettingsModal extends PureComponent {
   render() {
     return (
       <Dialog onClose={this.closeDialog} width="extraWide">
-        <DialogHeader heading={'Settings'} />
-        {this.content}
+        <DialogHeader heading={i18n._('Settings')} />
+        <div className="u-padding-right u-padding-top">
+          <Settings />
+        </div>
       </Dialog>
-    );
-  }
-
-  get content() {
-    return (
-      <div className="text--centered u-padding">
-        <Controller
-          actions={{
-            load: () => {},
-            restoreSettings: () => {},
-            save: () => {},
-            toggleIgnoreErrors: () => {},
-          }}
-          state={{
-            ignoreErrors: true,
-          }}
-          stateChanged={false}
-        />
-      </div>
     );
   }
 }

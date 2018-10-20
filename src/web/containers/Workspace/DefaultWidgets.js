@@ -2,8 +2,6 @@ import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import './widgets.scss';
-
 import Widget from './Widget';
 
 const DefaultWidgets = ({className, defaultWidgets}) => (

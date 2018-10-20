@@ -21,7 +21,7 @@ $primary--lighter: lighten(desaturate($primary, 8%), 8%);
 $primary--lightest: lighten(desaturate($primary, 13%), 34%);
 
 // secondary color
-$secondary: hsl(100, 67%, 64%);
+$secondary: #868d93; // hsl(100, 67%, 64%);
 $secondary--darker: darken(saturate($secondary, 3%), 13%);
 $secondary--darkest: darken(saturate($secondary, 5%), 34%);
 $secondary--lighter: lighten(desaturate($secondary, 8%), 13%);

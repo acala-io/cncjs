@@ -69,7 +69,7 @@ class ActualDialog extends PureComponent {
 
     return (
       <span className="dialog__close-link tooltip tooltip--left" data-title={'cancel'} onClick={this.handleClosing}>
-        <Icon name="cancel" />
+        <Icon name="cancel" size="large" />
       </span>
     );
   }
