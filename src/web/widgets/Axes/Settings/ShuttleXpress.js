@@ -4,6 +4,7 @@ import Slider from 'rc-slider';
 
 import i18n from '../../../lib/i18n';
 
+import Select from '../../../components_new/Select';
 import {FormGroup} from '../../../components/Forms';
 
 const FEEDRATE_RANGE = [100, 2500];
@@ -61,6 +62,17 @@ class ShuttleXpress extends PureComponent {
   render() {
     const {feedrateMax, feedrateMin, hertz, overshoot} = this.state;
 
+    const repeatRateOptions = {
+      60: i18n._('60 Times per Second'),
+      45: i18n._('45 Times per Second'),
+      30: i18n._('30 Times per Second'),
+      15: i18n._('15 Times per Second'),
+      10: i18n._('10 Times per Second'),
+      5: i18n._('5 Times per Second'),
+      2: i18n._('2 Times per Second'),
+      1: i18n._('Once Every Second'),
+    };
+
     return (
       <div>
         <FormGroup>
@@ -81,16 +93,7 @@ class ShuttleXpress extends PureComponent {
         </FormGroup>
         <FormGroup>
           <label>{i18n._('Repeat Rate: {{hertz}}Hz', {hertz})}</label>
-          <select className="form-control" defaultValue={hertz} onChange={this.onChangeHertz}>
-            <option value="60">{i18n._('60 Times per Second')}</option>
-            <option value="45">{i18n._('45 Times per Second')}</option>
-            <option value="30">{i18n._('30 Times per Second')}</option>
-            <option value="15">{i18n._('15 Times per Second')}</option>
-            <option value="10">{i18n._('10 Times per Second')}</option>
-            <option value="5">{i18n._('5 Times per Second')}</option>
-            <option value="2">{i18n._('2 Times per Second')}</option>
-            <option value="1">{i18n._('Once Every Second')}</option>
-          </select>
+          <Select options={repeatRateOptions} selectedOption={hertz} onChange={this.onChangeHertz} />
         </FormGroup>
         <FormGroup>
           <p>{i18n._('Distance Overshoot: {{overshoot}}x', {overshoot})}</p>
