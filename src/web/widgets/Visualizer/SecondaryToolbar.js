@@ -4,6 +4,7 @@ import Detector from 'three/examples/js/Detector';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Repeatable from 'react-repeatable';
+import styled from 'styled-components';
 
 import i18n from '../../lib/i18n';
 
@@ -14,8 +15,19 @@ import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Icon from '../../components_new/Icon';
 import Interpolate from '../../components/Interpolate';
 import Space from '../../components/Space';
-import {Button} from '../../components/Buttons';
 import Tooltip from '../../components/Tooltip';
+import {Button} from '../../components/Buttons';
+
+import mixin from '../../styles/mixins';
+
+const HiddenToolbar = styled(props => <div {...props} />)`
+  ${mixin.pinBottomLeft} opacity: 0.08;
+  width: 100%;
+
+  :hover {
+    opacity: 1;
+  }
+`;
 
 class SecondaryToolbar extends PureComponent {
   static propTypes = {
@@ -30,7 +42,7 @@ class SecondaryToolbar extends PureComponent {
     const canToggleOptions = Detector.webgl && !disabled;
 
     return (
-      <div className="clearfix u-padding">
+      <HiddenToolbar className="clearfix u-padding">
         {this.visualizationSettings}
         {canToggleOptions && (
           <div className="left">
@@ -41,7 +53,7 @@ class SecondaryToolbar extends PureComponent {
             {this.zoomFunctions}
           </div>
         )}
-      </div>
+      </HiddenToolbar>
     );
   }
 

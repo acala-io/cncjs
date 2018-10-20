@@ -15,10 +15,14 @@
  * </div>
  */
 
+/*
+  * 1 - Allow absolute positioning of children
+  */
 .card,
 %card {
     background: $background--white;
     border-radius: $border-radius--large;
+    position: relative; /* 1 */
     overflow: hidden;
 
     &:not(.card--shadow) {
