@@ -27,7 +27,6 @@
     "Password": "Heslo",
     "Sign In": "Přihlásit se",
     "Forgot your password?": "",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, or TinyG": "",
     "Learn more": "Další informace",
     "Downloads": "Stažené soubory",
     "Checking for updates...": "Vyhledávají se aktualizace...",
@@ -461,5 +460,6 @@
     "Distance Overshoot": "",
     "Loading data": "",
     "New value": "",
-    "New command": ""
+    "New command": "",
+    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
 }

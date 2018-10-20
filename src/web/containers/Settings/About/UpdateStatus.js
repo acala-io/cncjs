@@ -12,7 +12,7 @@ import Space from '../../../components/Space';
 
 import './index.scss';
 
-const UpdateStatusContainer = props => {
+const UpdateStatus = props => {
   const {checking, current, latest, lastUpdate} = props;
   const newUpdateAvailable = checking === false && semver.lt(current, latest);
 
@@ -59,24 +59,20 @@ const UpdateStatusContainer = props => {
   }
 
   return (
-    <div className="update-status-container">
-      <div className="update-status-icon info">
+    <span>
+      <span className="update-status-icon info">
         <i className="fa fa-check-circle fa-fw" />
-      </div>
-      <div className="update-status-messageContainer">
-        <div className="update-status-message">
-          {i18n._('You already have the newest version of {{name}}', {name: settings.productName})}
-        </div>
-      </div>
-    </div>
+      </span>
+      {i18n._('You already have the newest version of {{name}}', {name: settings.productName})}
+    </span>
   );
 };
 
-UpdateStatusContainer.propTypes = {
+UpdateStatus.propTypes = {
   checking: PropTypes.bool,
   current: PropTypes.string,
   lastUpdate: PropTypes.string,
   latest: PropTypes.string,
 };
 
-export default UpdateStatusContainer;
+export default UpdateStatus;

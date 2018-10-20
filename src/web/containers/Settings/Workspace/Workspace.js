@@ -10,18 +10,34 @@ import store from '../../../store_old';
 
 import {MODAL_RESTORE_DEFAULTS, MODAL_IMPORT_SETTINGS} from './constants';
 
+import Button from '../../../components_new/Button';
+import FormActions from '../../../components_new/FormActions';
 import ImportSettings from './ImportSettings';
 import Modal from '../../../components/Modal';
 import ModalTemplate from '../../../components/ModalTemplate';
 import RestoreDefaults from './RestoreDefaults';
 import Space from '../../../components/Space';
-import {Button} from '../../../components/Buttons';
 
 class Workspace extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,
     state: PropTypes.object,
   };
+
+  render() {
+    const {actions, state} = this.props;
+
+    return (
+      <div>
+        {state.modal.name === MODAL_RESTORE_DEFAULTS && <RestoreDefaults state={state} actions={actions} />}
+        {state.modal.name === MODAL_IMPORT_SETTINGS && <ImportSettings state={state} actions={actions} />}
+        <form>
+          {this.configurationPreview}
+          {this.formActions}
+        </form>
+      </div>
+    );
+  }
 
   fileInput = null;
 
@@ -69,7 +85,7 @@ class Workspace extends PureComponent {
               </ModalTemplate>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={onClose}>{i18n._('Close')}</Button>
+              <Button text={i18n._('Close')} onClick={onClose} />
             </Modal.Footer>
           </Modal>
         ));
@@ -85,6 +101,7 @@ class Workspace extends PureComponent {
       // Ignore error
     }
   };
+
   handleRestoreDefaults = () => {
     this.props.actions.openModal(MODAL_RESTORE_DEFAULTS);
   };
@@ -116,56 +133,39 @@ class Workspace extends PureComponent {
     }
   };
 
-  render() {
-    const {state, actions} = this.props;
-
-    const text = JSON.stringify(
-      {
-        state: store.state,
-        version: settings.version,
-      },
-      null,
-      2
-    );
+  get configurationPreview() {
+    const text = JSON.stringify({state: store.state, version: settings.version}, null, 2);
 
     return (
-      <div>
-        {state.modal.name === MODAL_RESTORE_DEFAULTS && <RestoreDefaults state={state} actions={actions} />}
-        {state.modal.name === MODAL_IMPORT_SETTINGS && <ImportSettings state={state} actions={actions} />}
-        <form>
-          <input
-            ref={node => {
-              this.fileInput = node;
-            }}
-            type="file"
-            style={{display: 'none'}}
-            multiple={false}
-            onChange={this.handleUploadFile}
-          />
-          <div className="form-fields" style={{marginBottom: 50}}>
-            <pre style={{height: 400}}>
-              <code>{text}</code>
-            </pre>
-          </div>
-          <div className="form-actions">
-            <div className="pull-left">
-              <Button btnStyle="danger" onClick={this.handleRestoreDefaults}>
-                {i18n._('Restore Defaults')}
-              </Button>
-            </div>
-            <div className="pull-right">
-              <Button onClick={this.handleImport}>
-                <i className="fa fa-upload" />
-                {i18n._('Import')}
-              </Button>
-              <Button onClick={this.handleExport}>
-                <i className="fa fa-download" />
-                {i18n._('Export')}
-              </Button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <pre style={{height: 400, margin: '14px', padding: '7px 14px'}}>
+        <code>{text}</code>
+      </pre>
+    );
+  }
+
+  get formActions() {
+    return (
+      <FormActions
+        primaryAction={{
+          icon: 'upload',
+          onClick: this.handleImport,
+          text: i18n._('Import'),
+        }}
+        secondaryAction={{
+          icon: 'download',
+          onClick: this.handleExport,
+          text: i18n._('Export'),
+        }}
+      >
+        <Button text={i18n._('Restore Defaults')} onClick={this.handleRestoreDefaults} danger />
+        <input
+          ref={ref => (this.fileInput = ref)}
+          type="file"
+          style={{display: 'none'}}
+          multiple={false}
+          onChange={this.handleUploadFile}
+        />
+      </FormActions>
     );
   }
 }

@@ -54,7 +54,7 @@ class Settings extends PureComponent {
         <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
           {this.nav}
         </Flexbox>
-        <Flexbox flexBasis="auto" flexGrow={10} flexShrink={1}>
+        <Flexbox flexBasis="auto" flexGrow={5} flexShrink={1}>
           <Section
             initialState={sectionInitialState}
             state={sectionState}

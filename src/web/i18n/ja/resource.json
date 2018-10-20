@@ -27,7 +27,6 @@
     "Password": "パスワード",
     "Sign In": "サインイン",
     "Forgot your password?": "パスワードを忘れましたか？",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, or TinyG": "",
     "Learn more": "詳細情報",
     "Downloads": "ダウンロード",
     "Checking for updates...": "更新プログラムを確認しています...",
@@ -461,5 +460,6 @@
     "Distance Overshoot": "",
     "Loading data": "",
     "New value": "",
-    "New command": ""
+    "New command": "",
+    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
 }
