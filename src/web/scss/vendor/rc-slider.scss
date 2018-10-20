@@ -2,7 +2,7 @@ $rail-height: $inuit-global-spacing-unit-small !default;
 
 .rc-slider {
     box-sizing: border-box;
-    max-width: 40 * $inuit-global-spacing-unit;
+    max-width: 25 * $inuit-global-spacing-unit;
     min-width: 5 * $inuit-global-spacing-unit;
     padding: $inuit-global-spacing-unit;
     position: relative;

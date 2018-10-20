@@ -6,9 +6,10 @@ import i18n from '../../../../lib/i18n';
 
 import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
 
+import Button from '../../../../components_new/Button';
 import Space from '../../../../components/Space';
 import Table from '../../../../components/Table';
-import {Button, ButtonGroup} from '../../../../components/Buttons';
+import {ButtonGroup} from '../../../../components/Buttons';
 
 class TableRecords extends PureComponent {
   static propTypes = {
@@ -49,15 +50,12 @@ class TableRecords extends PureComponent {
         }}
         title={() => (
           <Button
-            btnStyle="flat"
+            text={i18n._('New command')}
+            icon="new-value"
             onClick={() => {
               action.openModal(MODAL_CREATE_RECORD);
             }}
-          >
-            <i className="fa fa-plus" />
-            <Space width="8" />
-            {i18n._('New')}
-          </Button>
+          />
         )}
         columns={[
           {

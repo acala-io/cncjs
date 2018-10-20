@@ -212,7 +212,7 @@ class General extends PureComponent {
             </FormGroup>
           )}
         </ForEach>
-        {items.length < maxItems && <Button text={i18n._('Add a value')} onClick={onAdd} />}
+        {items.length < maxItems && <Button text={i18n._('New value')} icon="new-value" onClick={onAdd} />}
       </Col>
     );
   }

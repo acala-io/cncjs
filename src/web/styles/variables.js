@@ -28,7 +28,7 @@ export default {
     },
     text: {
       default: 'hsl(201, 13%, 21%)',
-      lighter: 'lighten(desaturate($text, 5%), 55%)',
+      lighter: 'hsl(204, 8%, 76%)', // 'lighten(desaturate($text, 5%), 55%)',
       lightest: 'lighten(desaturate($text, 5%), 68%)',
       inverse: 'hsl(0, 0%, 100%)',
     },

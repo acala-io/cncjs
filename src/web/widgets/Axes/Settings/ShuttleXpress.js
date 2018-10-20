@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import Slider from 'rc-slider';
 
 import i18n from '../../../lib/i18n';
 
+import Flexbox from '../../../components_new/Flexbox';
 import Select from '../../../components_new/Select';
-import {FormGroup} from '../../../components/Forms';
+import SettingsRow from './SettingsRow';
 
 const FEEDRATE_RANGE = [100, 2500];
 const FEEDRATE_STEP = 50;
 const OVERSHOOT_RANGE = [1, 1.5];
-const OVERSHOOT_STEP = 0.01;
+const OVERSHOOT_STEP = 0.1;
 
 class ShuttleXpress extends PureComponent {
   static propTypes = {
@@ -31,21 +32,24 @@ class ShuttleXpress extends PureComponent {
     });
   };
 
-  onChangeHertz = event => {
-    const {value} = event.target;
-    const hertz = Number(value);
-    this.setState({hertz});
+  onChangeHertz = e => {
+    this.setState({
+      hertz: Number(e.target.value),
+    });
   };
 
   onChangeOvershootSlider = value => {
     const overshoot = value;
-    this.setState({overshoot});
+
+    this.setState({
+      overshoot,
+    });
   };
 
   getInitialState() {
-    const {feedrateMin, feedrateMax, hertz, overshoot} = this.props;
+    const {feedrateMax, feedrateMin, hertz, overshoot} = this.props;
 
-    return {feedrateMin, feedrateMax, hertz, overshoot};
+    return {feedrateMax, feedrateMin, hertz, overshoot};
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -62,50 +66,65 @@ class ShuttleXpress extends PureComponent {
   render() {
     const {feedrateMax, feedrateMin, hertz, overshoot} = this.state;
 
-    const repeatRateOptions = {
-      60: i18n._('60 Times per Second'),
-      45: i18n._('45 Times per Second'),
-      30: i18n._('30 Times per Second'),
-      15: i18n._('15 Times per Second'),
-      10: i18n._('10 Times per Second'),
-      5: i18n._('5 Times per Second'),
-      2: i18n._('2 Times per Second'),
-      1: i18n._('Once Every Second'),
-    };
+    const repeatRateOptions = [60, 45, 30, 15, 10, 5, 2, 1];
 
     return (
-      <div>
-        <FormGroup>
-          <p>
-            {i18n._('Feed Rate Range: {{min}} - {{max}} mm/min', {
-              max: feedrateMax,
-              min: feedrateMin,
-            })}
-          </p>
-          <Slider.Range
-            allowCross={false}
-            defaultValue={[feedrateMin, feedrateMax]}
-            min={FEEDRATE_RANGE[0]}
-            max={FEEDRATE_RANGE[1]}
-            step={FEEDRATE_STEP}
-            onChange={this.onChangeFeedrateSlider}
-          />
-        </FormGroup>
-        <FormGroup>
-          <label>{i18n._('Repeat Rate: {{hertz}}Hz', {hertz})}</label>
-          <Select options={repeatRateOptions} selectedOption={hertz} onChange={this.onChangeHertz} />
-        </FormGroup>
-        <FormGroup>
-          <p>{i18n._('Distance Overshoot: {{overshoot}}x', {overshoot})}</p>
-          <Slider
-            defaultValue={overshoot}
-            min={OVERSHOOT_RANGE[0]}
-            max={OVERSHOOT_RANGE[1]}
-            step={OVERSHOOT_STEP}
-            onChange={this.onChangeOvershootSlider}
-          />
-        </FormGroup>
-      </div>
+      <Flexbox flexDirection="column">
+        <SettingsRow
+          input={
+            <Slider.Range
+              allowCross={false}
+              defaultValue={[feedrateMin, feedrateMax]}
+              min={FEEDRATE_RANGE[0]}
+              max={FEEDRATE_RANGE[1]}
+              step={FEEDRATE_STEP}
+              onChange={this.onChangeFeedrateSlider}
+            />
+          }
+          label={i18n._('Feed Rate Range')}
+          value={
+            <Fragment>
+              {feedrateMin} - {feedrateMax}
+              <span className="unit">mm/min</span>
+            </Fragment>
+          }
+        />
+        <SettingsRow
+          input={
+            <Select
+              options={repeatRateOptions}
+              selectedOption={hertz}
+              optionFormatter={v => i18n._(`${v !== 1 ? v : 'Once'} ${v !== 1 ? 'Times' : ''} per Second`)}
+              onChange={this.onChangeHertz}
+            />
+          }
+          label={i18n._('Repeat Rate')}
+          value={
+            <Fragment>
+              {hertz}
+              <span className="unit">Hz</span>
+            </Fragment>
+          }
+        />
+        <SettingsRow
+          input={
+            <Slider
+              defaultValue={overshoot}
+              min={OVERSHOOT_RANGE[0]}
+              max={OVERSHOOT_RANGE[1]}
+              step={OVERSHOOT_STEP}
+              onChange={this.onChangeOvershootSlider}
+            />
+          }
+          label={i18n._('Distance Overshoot')}
+          value={
+            <Fragment>
+              {overshoot}
+              <span className="unit">×</span>
+            </Fragment>
+          }
+        />
+      </Flexbox>
     );
   }
 }
