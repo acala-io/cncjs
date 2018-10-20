@@ -246,17 +246,6 @@
     "Custom Commands": "",
     "Axes Settings": "Settaggio assi",
     "ShuttleXpress": "",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "",
-    "Repeat Rate: {{hertz}}Hz": "",
-    "60 Times per Second": "60 volte al secondo",
-    "45 Times per Second": "45 volte al secondo",
-    "30 Times per Second": "30 volte al secondo",
-    "15 Times per Second": "15 volte al secondo",
-    "10 Times per Second": "10 volte al secondo",
-    "5 Times per Second": "5 volte al secondo",
-    "2 Times per Second": "2 volte al secondo",
-    "Once Every Second": "Ogni secondo",
-    "Distance Overshoot: {{overshoot}}x": "",
     "Manufacturer: {{manufacturer}}": "",
     "Port": "Porta",
     "No ports available": "Nessuna porta disponibile",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

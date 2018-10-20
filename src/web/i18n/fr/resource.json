@@ -246,17 +246,6 @@
     "Custom Commands": "",
     "Axes Settings": "Configuration des axes",
     "ShuttleXpress": "",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "Gamme de vitesses d'usinage: {{min}} - {{max}} mm/min",
-    "Repeat Rate: {{hertz}}Hz": "Vitesse de répétition: {{hertz}}Hz",
-    "60 Times per Second": "60 fois par seconde",
-    "45 Times per Second": "45 fois par seconde",
-    "30 Times per Second": "30 fois par seconde",
-    "15 Times per Second": "15 fois par seconde",
-    "10 Times per Second": "10 fois par seconde",
-    "5 Times per Second": "5 fois par seconde",
-    "2 Times per Second": "2 fois par seconde",
-    "Once Every Second": "Une fos par seconde",
-    "Distance Overshoot: {{overshoot}}x": "Distance de dépassement: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "",
     "Port": "Port",
     "No ports available": "Aucun port disponible",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

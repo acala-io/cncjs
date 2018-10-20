@@ -246,17 +246,6 @@
     "Custom Commands": "",
     "Axes Settings": "Tengelyek beállítása",
     "ShuttleXpress": "",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "Előtolási határok: {{min}} - {{max}} mm/min",
-    "Repeat Rate: {{hertz}}Hz": "Ismétlődés mértéke: {{hertz}}Hz",
-    "60 Times per Second": "60 szor másodpercenként",
-    "45 Times per Second": "45 szer másodpercenként",
-    "30 Times per Second": "30 szor másodpercenként",
-    "15 Times per Second": "15 ször másodpercenként",
-    "10 Times per Second": "10 szer másodpercenként",
-    "5 Times per Second": "5 ször másodpercenként",
-    "2 Times per Second": "2 szer másodpercenként",
-    "Once Every Second": "Másodpercenként egyszer",
-    "Distance Overshoot: {{overshoot}}x": "Túllőtt távolság: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "Gyártó: {{manufacturer}}",
     "Port": "Port",
     "No ports available": "Nincs elérhető port",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

@@ -246,17 +246,6 @@
     "Custom Commands": "",
     "Axes Settings": "Настройки осей",
     "ShuttleXpress": "",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "Диапазон подачи: {{min}} - {{max}} мм/мин",
-    "Repeat Rate: {{hertz}}Hz": "Частота повтора: {{hertz}}Гц",
-    "60 Times per Second": "60 раз в секунду",
-    "45 Times per Second": "45 раз в секунду",
-    "30 Times per Second": "30 раз в секунду",
-    "15 Times per Second": "15 раз в секунду",
-    "10 Times per Second": "10 раз в секунду",
-    "5 Times per Second": "5 раз в секунду",
-    "2 Times per Second": "2 раза в секунду",
-    "Once Every Second": "Один раз в секунду",
-    "Distance Overshoot: {{overshoot}}x": "Перелет расстояния: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "Производитель: {{manufacturer}}",
     "Port": "Порт",
     "No ports available": "Нет доступных портов",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

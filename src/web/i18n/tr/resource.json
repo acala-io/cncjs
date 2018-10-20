@@ -246,17 +246,6 @@
     "Custom Commands": "Özel Komutlar",
     "Axes Settings": "Makina Kontrol Ayarları",
     "ShuttleXpress": "ShuttleXpress",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "Besleme Hızı Oranı: {{min}} - {{max}} mm/min",
-    "Repeat Rate: {{hertz}}Hz": "Oranı Tekrarla: {{hertz}}Hz",
-    "60 Times per Second": "60 Saniyede başa dön",
-    "45 Times per Second": "45 Saniyede başa dön",
-    "30 Times per Second": "30 Saniyede başa dön",
-    "15 Times per Second": "15 Saniyede başa dön",
-    "10 Times per Second": "10 Saniyede başa dön",
-    "5 Times per Second": "5 Saniyede başa dön",
-    "2 Times per Second": "2 Saniyede başa dön",
-    "Once Every Second": "Her Saniyede Bir",
-    "Distance Overshoot: {{overshoot}}x": "Mesafeyi ileriye at: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "Üretici firma: {{manufacturer}}",
     "Port": "Port",
     "No ports available": "Bağlantı noktası yok",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

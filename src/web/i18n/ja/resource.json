@@ -246,17 +246,6 @@
     "Custom Commands": "カスタムコマンド",
     "Axes Settings": "軸の設定",
     "ShuttleXpress": "シャトルエクスプレス(ShuttleXpress)",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "",
-    "Repeat Rate: {{hertz}}Hz": "繰り返しレート: {{hertz}}Hz",
-    "60 Times per Second": "60回/秒",
-    "45 Times per Second": "45回/秒",
-    "30 Times per Second": "30回/秒",
-    "15 Times per Second": "15回/秒",
-    "10 Times per Second": "10回/秒",
-    "5 Times per Second": "5回/秒",
-    "2 Times per Second": "2回/秒",
-    "Once Every Second": "1回/秒",
-    "Distance Overshoot: {{overshoot}}x": "オーバーシュート距離: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "メーカー: {{manufacturer}}",
     "Port": "ポート",
     "No ports available": "ポートが見つかりません",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

@@ -246,17 +246,6 @@
     "Custom Commands": "",
     "Axes Settings": "座標軸設定",
     "ShuttleXpress": "",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "進給率範圍：{{min}} - {{max}} mm/min",
-    "Repeat Rate: {{hertz}}Hz": "重複率：{{hertz}}Hz",
-    "60 Times per Second": "每秒60次",
-    "45 Times per Second": "每秒45次",
-    "30 Times per Second": "每秒30次",
-    "15 Times per Second": "每秒15次",
-    "10 Times per Second": "每秒10次",
-    "5 Times per Second": "每秒5次",
-    "2 Times per Second": "每秒2次",
-    "Once Every Second": "每秒1次",
-    "Distance Overshoot: {{overshoot}}x": "超調量距離：{{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "製造商：{{manufacturer}}",
     "Port": "序列埠",
     "No ports available": "找不到可用的序列埠",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

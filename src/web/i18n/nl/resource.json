@@ -246,17 +246,6 @@
     "Custom Commands": "Eigen Commando’s",
     "Axes Settings": "Instellingen Assen",
     "ShuttleXpress": "ShuttleXpress",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "Voedingssnelheid bereik:  {{min}} - {{max}} mm/min",
-    "Repeat Rate: {{hertz}}Hz": "Herhaal Snelheid: {{hertz}}Hz",
-    "60 Times per Second": "60 Maal per Seconde",
-    "45 Times per Second": "45 Maal per Seconde",
-    "30 Times per Second": "30 Maal per Seconde",
-    "15 Times per Second": "15 Maal per Seconde",
-    "10 Times per Second": "10 Maal per Seconde",
-    "5 Times per Second": "5 Maal per Seconde",
-    "2 Times per Second": "2 Maal per Seconde",
-    "Once Every Second": "Eens Elke Seconde",
-    "Distance Overshoot: {{overshoot}}x": "Overschiet Afstand: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "Producent: {{manufacturer}}",
     "Port": "Poort",
     "No ports available": "Geen poorten beschikbaar",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }

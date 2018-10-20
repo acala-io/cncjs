@@ -246,17 +246,6 @@
     "Custom Commands": "",
     "Axes Settings": "Nastavení os",
     "ShuttleXpress": "",
-    "Feed Rate Range: {{min}} - {{max}} mm/min": "",
-    "Repeat Rate: {{hertz}}Hz": "Rychlost obnovení: {{hertz}}Hz",
-    "60 Times per Second": "60x za vteřinu",
-    "45 Times per Second": "45x za vteřinu",
-    "30 Times per Second": "30x za vteřinu",
-    "15 Times per Second": "15x za vteřinu",
-    "10 Times per Second": "10x za vteřinu",
-    "5 Times per Second": "5x za vteřinu",
-    "2 Times per Second": "2x za vteřinu",
-    "Once Every Second": "Jednou za vteřinu",
-    "Distance Overshoot: {{overshoot}}x": "Vzdálenost přesazení: {{overshoot}}x",
     "Manufacturer: {{manufacturer}}": "Výrobce: {{manufacturer}}",
     "Port": "Port",
     "No ports available": "Nejsou dostupné žádné porty",
@@ -468,5 +457,8 @@
     "Waiting for the planner to empty ...": "",
     "If you don´t want to wait, you can force the planner to stop.": "",
     "This will cause ... !?": "",
-    "Add a value": ""
+    "Add a value": "",
+    "Feed Rate Range": "",
+    "Repeat Rate": "",
+    "Distance Overshoot": ""
 }
