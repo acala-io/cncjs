@@ -45,7 +45,7 @@ class Controller extends PureComponent {
 
     return (
       <Fragment>
-        <Toggle value={state.ignoreErrors} handleClick={this.handlers.handleChangeIgnoreErrors} />
+        <Toggle value={state.ignoreErrors} onClick={this.handlers.handleChangeIgnoreErrors} />
         <label>{i18n._('Continue execution when an error is detected in the G-code program')}</label>
         {i18n._(
           'Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.'

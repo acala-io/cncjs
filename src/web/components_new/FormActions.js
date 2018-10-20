@@ -4,8 +4,8 @@
  * Usage:
  *
  * <FormActions
- *   primaryAction={text: 'save', handleClick: save}
- *   secondaryAction={handleClick: cancel}
+ *   primaryAction={text: 'save', onClick: save}
+ *   secondaryAction={onClick: cancel}
  *   className="u-p-"
  * >
  *   ... tertiary action(s) go here
@@ -35,10 +35,10 @@ const FormActions = ({children, className, primaryAction, secondaryAction}) => {
       className={classes}
     >
       <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
-        {primaryActionProps.handleClick && <Button {...primaryActionProps} />}
+        {primaryActionProps.onClick && <Button {...primaryActionProps} />}
       </Flexbox>
       <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
-        {secondaryAction.handleClick && <ActionLink action="cancel" onClick={secondaryAction.handleClick} />}
+        {secondaryAction.onClick && <ActionLink action="cancel" onClick={secondaryAction.onClick} />}
       </Flexbox>
       <Flexbox flexGrow={100} flexShrink={0} style={{textAlign: 'right'}}>
         {children}

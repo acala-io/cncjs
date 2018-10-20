@@ -4,7 +4,7 @@
  * Uses a checkbox input in the background.
  *
  * Usage:
- * <Toggle value={aBoolVariable} handleClick={() => { alert('toggled'); }}/>
+ * <Toggle value={aBoolVariable} onClick={() => { alert('toggled'); }}/>
  */
 
 import classcat from 'classcat';
@@ -12,7 +12,7 @@ import * as React from 'react';
 
 export type Props = {
   className?: string,
-  handleClick: Function,
+  onClick: Function,
   hint?: string,
   isDisabled?: boolean,
   textOff?: string,
@@ -31,14 +31,14 @@ export default class Toggle extends React.Component<Props> {
 
   // eslint-disable-next-line no-undef
   toggleValue = (e: SyntheticEvent<HTMLInputElement>) => {
-    const {handleClick, isDisabled} = this.props;
+    const {onClick, isDisabled} = this.props;
 
     if (isDisabled) {
       e.preventDefault();
       return;
     }
 
-    handleClick();
+    onClick();
   };
 
   render() {

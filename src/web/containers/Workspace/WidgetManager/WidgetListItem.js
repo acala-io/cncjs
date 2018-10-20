@@ -58,7 +58,7 @@ class WidgetListItem extends PureComponent {
               <span style={styles.caption}>{this.props.caption}</span>
             </div>
             <div className="col-sm-4 text-right">
-              <Toggle value={checked} handleClick={this.handleChange} isDisabled={this.props.disabled} />
+              <Toggle value={checked} onClick={this.handleChange} isDisabled={this.props.disabled} />
             </div>
           </div>
           <div style={styles.details}>

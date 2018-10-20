@@ -21,11 +21,11 @@ const Confirm = ({buttonText = 'ok', heading, onClose, onConfirm, text, width = 
     <DialogActions>
       <FormActions
         primaryAction={{
-          handleClick: onConfirm,
+          onClick: onConfirm,
           text: buttonText,
         }}
         secondaryAction={{
-          handleClick: onClose,
+          onClick: onClose,
         }}
         noPad
       />

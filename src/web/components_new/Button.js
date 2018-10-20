@@ -2,9 +2,9 @@
  * Button component.
  *
  * Usage:
- * <Button text="Save" size="large" isDisabled={!this.isValid} handleClick={() => { alert('hi'); }}/>
+ * <Button text="Save" size="large" isDisabled={!this.isValid} onClick={() => { alert('hi'); }}/>
  *
- * <Button text="Save" width="full-width" isInProgress={this.isLoading} handleClick={() => { alert('hi'); }}/>
+ * <Button text="Save" width="full-width" isInProgress={this.isLoading} onClick={() => { alert('hi'); }}/>
  */
 
 import classcat from 'classcat';
@@ -19,7 +19,7 @@ const Button = ({
   danger = false,
   disabledMessage = false,
   disabledMessageHandler = window.alert,
-  handleClick,
+  onClick,
   icon,
   isDisabled = false,
   isInProgress = false,
@@ -59,7 +59,7 @@ const Button = ({
           return e && e.preventDefault();
         }
 
-        handleClick();
+        onClick();
       }}
     >
       {icon ? <Icon name={icon} className="none-lap" size="small" /> : null}
@@ -73,7 +73,7 @@ Button.propTypes = {
   danger: bool,
   disabledMessage: oneOfType([string, bool]),
   disabledMessageHandler: func,
-  handleClick: func.isRequired,
+  onClick: func.isRequired,
   icon: string,
   isDisabled: bool,
   isInProgress: bool,

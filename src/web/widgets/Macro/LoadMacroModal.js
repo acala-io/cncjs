@@ -18,13 +18,13 @@ const LoadMacroModal = ({onClose, id, loadMacro, name}) => (
     <DialogActions>
       <FormActions
         primaryAction={{
-          handleClick: chainedFunction(() => {
+          onClick: chainedFunction(() => {
             loadMacro(id, {name});
           }, onClose),
           text: i18n._('Load Macro'),
         }}
         secondaryAction={{
-          handleClick: onClose,
+          onClick: onClose,
         }}
         noPad
       />

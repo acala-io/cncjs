@@ -220,7 +220,7 @@ class Connection extends PureComponent {
     return (
       <div className="form-group">
         <label className="label--option">
-          <Toggle value={enableHardwareFlowControl} handleClick={toggleHardwareFlowControl} />
+          <Toggle value={enableHardwareFlowControl} onClick={toggleHardwareFlowControl} />
           {i18n._('Enable hardware flow control')}
         </label>
       </div>
@@ -234,7 +234,7 @@ class Connection extends PureComponent {
     return (
       <div className="form-group">
         <label className="label--option">
-          <Toggle value={autoReconnect} handleClick={toggleAutoReconnect} />
+          <Toggle value={autoReconnect} onClick={toggleAutoReconnect} />
           {i18n._('Connect automatically')}
         </label>
       </div>
@@ -255,7 +255,7 @@ class Connection extends PureComponent {
             text={i18n._('Connect Machine')}
             width="full-width"
             isDisabled={!canOpenPort}
-            handleClick={handleOpenPort}
+            onClick={handleOpenPort}
           />
         )}
         {connected && (
@@ -263,7 +263,7 @@ class Connection extends PureComponent {
             text={i18n._('Disconnect')}
             width="full-width"
             isDisabled={!canClosePort}
-            handleClick={handleClosePort}
+            onClick={handleClosePort}
             danger
           />
         )}

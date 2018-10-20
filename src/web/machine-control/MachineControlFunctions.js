@@ -39,11 +39,11 @@ const MachineControlFunctions = ({}) => {
 
   return (
     <SplitButton>
-      {canRun && <Button text={i18n._('Cycle Start')} icon="cyclestart" handleClick={cyclestart} />}
-      {(canPause || canStop) && <Button text={i18n._('Feedhold')} handleClick={feedhold} />}
-      {canClose && <Button text={i18n._('Sleep')} handleClick={sleep} />}
-      <Button text={i18n._('Unlock')} handleClick={unlock} />
-      <Button text={i18n._('Reset')} icon="undo" handleClick={reset} />
+      {canRun && <Button text={i18n._('Cycle Start')} icon="cyclestart" onClick={cyclestart} />}
+      {(canPause || canStop) && <Button text={i18n._('Feedhold')} onClick={feedhold} />}
+      {canClose && <Button text={i18n._('Sleep')} onClick={sleep} />}
+      <Button text={i18n._('Unlock')} onClick={unlock} />
+      <Button text={i18n._('Reset')} icon="undo" onClick={reset} />
     </SplitButton>
   );
 };

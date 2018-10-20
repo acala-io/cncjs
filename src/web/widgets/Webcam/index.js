@@ -105,7 +105,7 @@ class WebcamWidget extends PureComponent {
         <Toggle
           value={!disabled}
           className="right"
-          handleClick={() => this.setState({disabled: !disabled, minimized: false})}
+          onClick={() => this.setState({disabled: !disabled, minimized: false})}
         />
         <WidgetHeaderButton className="u--margin-right" title={i18n._('Edit Settings')} onClick={editSettings}>
           <Icon name="settings" />

@@ -89,11 +89,11 @@ const jogButtonFactory = (props, axis1 = {direction: '+', name: 'x'}, axis2) => 
     return null;
   }
 
-  // return <div className={classes} handleClick={onJog} />;
+  // return <div className={classes} onClick={onJog} />;
 
   return (
     <Tooltip placement="top" content={title} hideOnClick>
-      <div className={classes} handleClick={onJog} />
+      <div className={classes} onClick={onJog} />
     </Tooltip>
   );
 };

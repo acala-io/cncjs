@@ -248,7 +248,7 @@ class DateTimeRangePickerDropdown extends PureComponent {
     });
   };
 
-  handleClickApplyForCustomRange = () => {
+  onClickApplyForCustomRange = () => {
     this.setState(
       state => ({
         open: false,
@@ -276,7 +276,7 @@ class DateTimeRangePickerDropdown extends PureComponent {
     );
   };
 
-  handleClickCancelForCustomRange = () => {
+  onClickCancelForCustomRange = () => {
     this.setState(state => ({
       open: false,
 
@@ -374,10 +374,10 @@ class DateTimeRangePickerDropdown extends PureComponent {
               />
               <div className="clearfix">
                 <div className="pull-right">
-                  <Button btnStyle="primary" style={{marginRight: 8}} onClick={this.handleClickApplyForCustomRange}>
+                  <Button btnStyle="primary" style={{marginRight: 8}} onClick={this.onClickApplyForCustomRange}>
                     {i18n._('Apply')}
                   </Button>
-                  <Button onClick={this.handleClickCancelForCustomRange}>{i18n._('Cancel')}</Button>
+                  <Button onClick={this.onClickCancelForCustomRange}>{i18n._('Cancel')}</Button>
                 </div>
               </div>
             </div>

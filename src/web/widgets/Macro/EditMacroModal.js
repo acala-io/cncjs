@@ -73,7 +73,7 @@ class EditMacroModal extends PureComponent {
         <DialogActions>
           <FormActions
             primaryAction={{
-              handleClick: chainedFunction(() => {
+              onClick: chainedFunction(() => {
                 this.form.validate(err => {
                   if (err) {
                     return;
@@ -87,13 +87,13 @@ class EditMacroModal extends PureComponent {
               text: i18n._('Save Macro'),
             }}
             secondaryAction={{
-              handleClick: onClose,
+              onClick: onClose,
             }}
           >
             {/*
               <Button
                 text={i18n._('Delete')}
-                handleClick={() => {
+                onClick={() => {
                   const name = get(this.fields.name, 'value');
 
                   portal(() => (

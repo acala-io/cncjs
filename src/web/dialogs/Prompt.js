@@ -111,7 +111,7 @@ class Prompt extends Component {
         <Button
           text={this.props.buttonText}
           isDisabled={this.state.userInput.length < 2}
-          handleClick={this.confirmValidity}
+          onClick={this.confirmValidity}
         />
       </DialogActions>
     );

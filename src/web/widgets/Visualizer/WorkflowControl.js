@@ -37,7 +37,7 @@ class WorkflowControl extends PureComponent {
 
   fileInputEl = null;
 
-  handleClickUpload = () => {
+  onClickUpload = () => {
     this.fileInputEl.value = null;
     this.fileInputEl.click();
   };
@@ -214,7 +214,7 @@ class WorkflowControl extends PureComponent {
     return (
       <div>
         {playerActions.map(a => (
-          <Button key={a.title} icon={a.icon} isDisabled={a.disabled} handleClick={a.action} />
+          <Button key={a.title} icon={a.icon} isDisabled={a.disabled} onClick={a.action} />
         ))}
       </div>
     );
