@@ -1,7 +1,4 @@
 .updateStatusContainer {
-    margin-top: 30px;
-    position: relative;
-
     .updateStatusIcon {
         position: absolute;
         left: 0;
@@ -23,20 +20,21 @@
 
     .updateStatusMessageContainer {
         display: inline-block;
-        position: relative;
         padding-left: 26px;
+        position: relative;
     }
 
     .updateStatusMessage {
         color: #222;
     }
+
     .releaseLatest {
         color: #767676;
     }
 
     .updateStatusActionContainer {
         display: inline-block;
-        vertical-align: top;
         margin-left: 40px;
+        vertical-align: top;
     }
 }

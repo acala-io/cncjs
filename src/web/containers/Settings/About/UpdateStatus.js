@@ -30,7 +30,7 @@ const UpdateStatus = props => {
 
   if (newUpdateAvailable) {
     return (
-      <div className="update-status-container">
+      <span className="update-status-container">
         <div className="update-status-icon warning">
           <i className="fa fa-exclamation-circle fa-fw" />
         </div>
@@ -53,7 +53,7 @@ const UpdateStatus = props => {
             </span>
           </Anchor>
         </div>
-      </div>
+      </span>
     );
   }
 
