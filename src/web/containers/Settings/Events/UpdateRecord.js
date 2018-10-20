@@ -11,8 +11,6 @@ import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Form, Select, Textarea} from '../../../components/Validation';
 import {ToastNotification} from '../../../components/Notifications';
 
-import '../form.scss';
-
 const SYSTEM_EVENTS = [
   // The following events are only available with system trigger (i.e. scripts)
   'startup',

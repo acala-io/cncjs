@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import FacebookLoading from 'react-facebook-loading';
 
 import i18n from '../../../lib/i18n';
 
-import Space from '../../../components/Space';
-
-import './index.scss';
+import FormActions from '../../../components_new/FormActions';
+import LoadingIndicator from '../../../components_new/LoadingIndicator';
+import Toggle from '../../../components_new/Toggle';
 
 class Controller extends PureComponent {
   static propTypes = {
@@ -18,6 +17,60 @@ class Controller extends PureComponent {
   fields = {
     ignoreErrors: null,
   };
+
+  render() {
+    if (this.props.state.api.loading) {
+      return <LoadingIndicator message={i18n._('Loading data')} fullScreen />;
+    }
+
+    return (
+      <form>
+        {this.settingExceptionHandling}
+        {this.formActions}
+      </form>
+    );
+  }
+
+  get settingExceptionHandling() {
+    return (
+      <div>
+        <label className="label--option">
+          <Toggle
+            ref={ref => (this.fields.ignoreErrors = ref)}
+            value={this.props.state.ignoreErrors}
+            onClick={this.handlers.handleChangeIgnoreErrors}
+          />
+          {i18n._('Continue execution when an error is detected in the G-code program')}
+        </label>
+        <p>
+          <span className="text-warning">
+            <i className="fa fa-exclamation-circle" />
+          </span>
+          <span>
+            {i18n._(
+              'Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.'
+            )}
+          </span>
+        </p>
+      </div>
+    );
+  }
+
+  get formActions() {
+    return (
+      <FormActions
+        primaryAction={{
+          isDisabled: !this.props.stateChanged,
+          onClick: this.handlers.save,
+          text: i18n._('Save Changes'),
+        }}
+        secondaryAction={{
+          onClick: this.handlers.cancel,
+          text: i18n._('Cancel'),
+        }}
+      />
+    );
+  }
 
   handlers = {
     cancel: () => {
@@ -31,65 +84,8 @@ class Controller extends PureComponent {
     },
   };
 
-  render() {
-    const {state, stateChanged} = this.props;
-
-    if (state.api.loading) {
-      return <FacebookLoading delay={400} zoom={2} style={{margin: '15px auto'}} />;
-    }
-
-    return (
-      <form style={{marginTop: -10}}>
-        <h5>{i18n._('Exception')}</h5>
-        <div className="form-fields">
-          <div className="form-group">
-            <div className="checkbox">
-              <label>
-                <input
-                  ref={node => {
-                    this.fields.ignoreErrors = node;
-                  }}
-                  type="checkbox"
-                  checked={state.ignoreErrors}
-                  onChange={this.handlers.handleChangeIgnoreErrors}
-                />
-                {i18n._('Continue execution when an error is detected in the G-code program')}
-              </label>
-              <p style={{marginLeft: 20}}>
-                <span className="text-warning">
-                  <i className="fa fa-exclamation-circle" />
-                </span>
-                <Space width="4" />
-                <span>
-                  {i18n._(
-                    'Enabling this option may cause machine damage if you don´t have an Emergency Stop button to prevent a dangerous situation.'
-                  )}
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className={'form-actions'}>
-          <div className="row">
-            <div className="col-md-12">
-              <button type="button" className="btn btn-default" onClick={this.handlers.cancel}>
-                {i18n._('Cancel')}
-              </button>
-              <button type="button" className="btn btn-primary" disabled={!stateChanged} onClick={this.handlers.save}>
-                {state.api.saving ? <i className="fa fa-circle-o-notch fa-spin" /> : <i className="fa fa-save" />}
-                <Space width="8" />
-                {i18n._('Save Changes')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    );
-  }
-
   componentDidMount() {
-    const {actions} = this.props;
-    actions.load();
+    this.props.actions.load();
   }
 }
 

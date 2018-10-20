@@ -19,8 +19,6 @@ import {TablePagination} from '../../../components/Paginations';
 
 import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
 
-import './index.scss';
-
 class TableRecords extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,

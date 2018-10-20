@@ -2,9 +2,9 @@ import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import {arrayOf, string, node, oneOfType} from 'prop-types';
 
-import s from '../../../styles/variables';
+import s from '../../styles/variables';
 
-import Flexbox from '../../../components_new/Flexbox';
+import Flexbox from '../../components_new/Flexbox';
 
 const Label = styled.div`
   color: ${s.color.text.lighter};
@@ -38,7 +38,7 @@ const SettingsRow = ({input, label, value}) => (
 SettingsRow.propTypes = {
   input: oneOfType([node, arrayOf(node)]).isRequired,
   label: string.isRequired,
-  value: oneOfType([string, node, arrayOf(node)]).isRequired,
+  value: oneOfType([string, node, arrayOf(node)]),
 };
 
 export default SettingsRow;

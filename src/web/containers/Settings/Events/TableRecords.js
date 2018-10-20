@@ -18,8 +18,6 @@ import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Button} from '../../../components/Buttons';
 import {TablePagination} from '../../../components/Paginations';
 
-import './index.scss';
-
 class TableRecords extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,

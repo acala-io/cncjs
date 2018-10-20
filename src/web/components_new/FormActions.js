@@ -12,8 +12,8 @@
  * </FormActions>
  */
 
-import classcat from 'classcat';
 import * as React from 'react';
+import classcat from 'classcat';
 import PropTypes from 'prop-types';
 
 import ActionLink from './ActionLink';
@@ -38,7 +38,7 @@ const FormActions = ({children, className, primaryAction, secondaryAction}) => {
         {primaryActionProps.onClick && <Button {...primaryActionProps} />}
       </Flexbox>
       <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
-        {secondaryAction.onClick && <ActionLink action="cancel" onClick={secondaryAction.onClick} />}
+        {secondaryAction.onClick && <ActionLink action="cancel" onClick={secondaryAction.onClick} renderWithLabel />}
       </Flexbox>
       <Flexbox flexGrow={100} flexShrink={0} style={{textAlign: 'right'}}>
         {children}

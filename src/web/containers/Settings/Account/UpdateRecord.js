@@ -12,8 +12,6 @@ import ToggleSwitch from '../../../components/ToggleSwitch';
 import {Form, Input} from '../../../components/Validation';
 import {ToastNotification} from '../../../components/Notifications';
 
-import '../form.scss';
-
 class UpdateRecord extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,

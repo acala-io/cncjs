@@ -17,8 +17,6 @@ import RestoreDefaults from './RestoreDefaults';
 import Space from '../../../components/Space';
 import {Button} from '../../../components/Buttons';
 
-import './index.scss';
-
 class Workspace extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,

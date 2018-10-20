@@ -32,7 +32,7 @@ class CreateRecord extends PureComponent {
     };
   }
   render() {
-    const {state, action} = this.props;
+    const {action, state} = this.props;
     const {modal} = state;
     const {alertMessage} = modal.params;
 
