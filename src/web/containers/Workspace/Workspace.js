@@ -25,9 +25,9 @@ import SecondaryWidgets from './SecondaryWidgets';
 
 import FeederPausedModal from './FeederPausedModal';
 import FeederWaitModal from './FeederWaitModal';
-// import ServerDisconnectedModal from './ServerDisconnectedModal';
+import ServerDisconnectedModal from './ServerDisconnectedModal';
 
-import {MODAL_NONE, MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT, MODAL_SERVER_DISCONNECTED} from './constants';
+import {MODAL_NONE, MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT} from './constants';
 import {WORKFLOW_STATE_IDLE} from '../../constants';
 
 import './index.scss';
@@ -51,7 +51,10 @@ const stopWaiting = () => {
 class Workspace extends PureComponent {
   static propTypes = {
     ...withRouter.propTypes,
+    currentDialog: PropTypes.string, // ?
     hideModals: PropTypes.func,
+    showFeederPausedModal: PropTypes.func,
+    showFeederWaitModal: PropTypes.func,
     showServerDisconnectedModal: PropTypes.func,
   };
 
@@ -189,14 +192,14 @@ class Workspace extends PureComponent {
       if (controller.connected) {
         this.action.closeModal();
       } else {
-        this.action.openModal(MODAL_SERVER_DISCONNECTED);
+        this.props.showServerDisconnectedModal();
       }
     },
     disconnect: () => {
       if (controller.connected) {
         this.action.closeModal();
       } else {
-        this.action.openModal(MODAL_SERVER_DISCONNECTED);
+        this.props.showServerDisconnectedModal();
       }
     },
     'connection:open': options => {
@@ -221,6 +224,7 @@ class Workspace extends PureComponent {
         if (includes([MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT], modal.name)) {
           this.action.closeModal();
         }
+
         return;
       }
 
@@ -349,21 +353,6 @@ class Workspace extends PureComponent {
     this.resizeDefaultContainer();
   }
 
-  get modals() {
-    const {modal} = this.state;
-    const modalName = modal.name;
-    const {title} = modal.params;
-    const onClose = this.action.closeModal;
-
-    return (
-      <Fragment>
-        {modalName === MODAL_FEEDER_PAUSED && <FeederPausedModal title={title} onClose={onClose} />}
-        {modalName === MODAL_FEEDER_WAIT && <FeederWaitModal title={title} onClose={onClose} />}
-        {/* modalName === MODAL_SERVER_DISCONNECTED && <ServerDisconnectedModal /> */}
-      </Fragment>
-    );
-  }
-
   get defaultWidgetsComponent() {
     const defaultWidgets = ensureArray(store.get('workspace.container.default.widgets'));
 
@@ -408,19 +397,51 @@ class Workspace extends PureComponent {
     window.removeEventListener('resize', this.onResizeThrottled);
     this.onResizeThrottled = null;
   }
+
+  get modals() {
+    const {modal} = this.state;
+    const modalName = modal.name;
+    const {title} = modal.params;
+    const onClose = this.action.closeModal;
+
+    return (
+      <Fragment>
+        {modalName === MODAL_FEEDER_PAUSED && <FeederPausedModal title={title} onClose={onClose} />}
+        {modalName === MODAL_FEEDER_WAIT && <FeederWaitModal title={title} onClose={onClose} />}
+      </Fragment>
+    );
+  }
 }
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = state => {
+  const {currentDialog} = state.dialogs;
+
+  return {currentDialog};
 };
 
 const mapDispatchToProps = dispatch => ({
   hideModals: () => {
     dispatch(dialogActions.hide());
   },
+  showFeederPausedModal: () => {
+    dispatch(
+      dialogActions.show(FeederPausedModal, {
+        onClose: () => {}, // TODO
+        title: '???', // TODO
+      })
+    );
+  },
+  showFeederWaitModal: () => {
+    dispatch(
+      dialogActions.show(FeederWaitModal, {
+        onClose: () => {}, // TODO
+        title: '???', // TODO
+      })
+    );
+  },
   showServerDisconnectedModal: () => {
     dispatch(
-      dialogActions.alert({
+      dialogActions.show(ServerDisconnectedModal, {
         buttonText: i18n._('Reload Page'),
         heading: i18n._('Server has stopped working'),
         onClose: window.location.reload(true),
