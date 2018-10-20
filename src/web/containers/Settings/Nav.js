@@ -8,7 +8,7 @@ import Flexbox from '../../components_new/Flexbox';
 import {Link} from 'react-router-dom';
 
 const NavLink = styled(Link)`
-  background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.background.darker)};
+  background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.transparent)};
   color: ${({isActive}) => (isActive ? s.color.text.default : s.color.clickable.default)} !important;
   cursor: ${({isActive}) => (isActive ? 'default' : 'pointer')};
   padding: ${s.globalSpacingUnit.default};

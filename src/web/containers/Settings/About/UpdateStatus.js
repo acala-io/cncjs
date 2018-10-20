@@ -14,18 +14,17 @@ import './index.scss';
 
 const UpdateStatus = props => {
   const {checking, current, latest, lastUpdate} = props;
+
   const newUpdateAvailable = checking === false && semver.lt(current, latest);
 
   if (checking) {
     return (
-      <div className="update-status-container">
-        <div className="update-status-icon">
+      <span>
+        <span className="update-status-icon">
           <i className="fa fa-fw fa-spin fa-circle-o-notch" />
-        </div>
-        <div className="update-status-message-container">
-          <div className="update-status-message">{i18n._('Checking for updates...')}</div>
-        </div>
-      </div>
+        </span>
+        {i18n._('Checking for updates')} &hellip;
+      </span>
     );
   }
 
@@ -58,14 +57,7 @@ const UpdateStatus = props => {
     );
   }
 
-  return (
-    <span>
-      <span className="update-status-icon info">
-        <i className="fa fa-check-circle fa-fw" />
-      </span>
-      {i18n._('You already have the newest version of {{name}}', {name: settings.productName})}
-    </span>
-  );
+  return <span>({i18n._('up to date')})</span>;
 };
 
 UpdateStatus.propTypes = {

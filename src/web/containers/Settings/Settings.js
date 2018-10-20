@@ -858,7 +858,8 @@ class Settings extends PureComponent {
               return;
             }
 
-            const {version, time} = res.body;
+            const {time, version} = res.body;
+
             this.setState({
               about: {
                 ...this.state.about,
