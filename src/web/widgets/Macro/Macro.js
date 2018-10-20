@@ -14,7 +14,6 @@ import ActionLink from '../../components_new/ActionLink';
 import AddMacroModal from './AddMacroModal';
 import EditMacroModal from './EditMacroModal';
 import LoadMacroModal from './LoadMacroModal';
-import {Button} from '../../components/Buttons';
 
 import './index.scss';
 
@@ -53,7 +52,6 @@ class Macro extends PureComponent {
               <td>
                 <ActionLink
                   action="run"
-                  className="u-margin-right-tiny"
                   onClick={this.handleRunMacro(macro)}
                   label={macro.name}
                   isDisabled={!canRunMacro}
@@ -62,16 +60,7 @@ class Macro extends PureComponent {
               </td>
               <td style={{width: '1%'}}>
                 <div className="nowrap">
-                  <Button
-                    compact
-                    btnSize="xs"
-                    btnStyle="flat"
-                    disabled={!canLoadMacro}
-                    onClick={() => showLoadMacroModal(macro)}
-                    title={i18n._('Load Macro')}
-                  >
-                    <i className="fa fa-chevron-up" />
-                  </Button>
+                  <ActionLink action="download" onClick={() => showLoadMacroModal(macro)} isDisabled={!canLoadMacro} />
                   <ActionLink action="edit" onClick={() => showEditMacroModal(macro)} />
                 </div>
               </td>
