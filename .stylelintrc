@@ -1,0 +1,159 @@
+{
+  {
+    "extends": "stylelint-config-sass-guidelines",
+  },
+  "plugins": [
+    "stylelint-declaration-use-variable",
+    "stylelint-no-unsupported-browser-features",
+    "stylelint-order",
+    "stylelint-scss"
+  ],
+  "rules": {
+    "sh-waqar/declaration-use-variable":                  [
+                                                            [
+                                                              "/color/",
+                                                              "z-index",
+                                                              "font-size"
+                                                            ]
+                                                          ],
+
+    "font-family-name-quotes":                            "always-where-required",
+    "font-weight-notation":                               "named-where-possible",
+
+    "function-comma-newline-after":                       "never-multi-line",
+    "function-comma-newline-before":                      "never-multi-line",
+    "function-comma-space-before":                        "never",
+    "function-max-empty-lines":                           0,
+    "function-parentheses-newline-inside":                "always-multi-line",
+    "function-whitespace-after":                          "always",
+
+    # "number-leading-zero":                                "never", #### taken care of by prettier
+    "number-max-precision":                               3,
+
+    "string-no-newline":                                  true,
+
+    "time-min-milliseconds":                              100,
+
+    "unit-blacklist":                                     [],
+    "unit-case":                                          "lower",
+    "unit-no-unknown":                                    true,
+    "unit-whitelist":                                     ["em", "rem", "vh", "vw", "deg", "%", "ms", "px", "ch"],
+
+    "value-keyword-case":                                 "lower",
+    "value-list-comma-newline-after":                     "always-multi-line",
+    "value-list-comma-newline-before":                    "never-multi-line",
+    "value-list-comma-space-after":                       "always",
+    "value-list-comma-space-before":                      "never",
+
+    "property-no-unknown":                                true,
+    "property-blacklist":                                 [],
+    "property-case":                                      "lower",
+    "declaration-property-unit-blacklist":                {
+                                                            "font-size":    ["px"],
+                                                            "line-height":  ["px", "em", "rem", "%"],
+                                                            "/^animation/": ["s"]
+                                                          },
+    "declaration-property-unit-whitelist":                {},
+    "declaration-property-value-blacklist":               {
+                                                            "transform": ["height", "width", "box-shadow"],
+                                                            "/^border/": ["none"]
+                                                          },
+    "declaration-property-value-whitelist":               {},
+
+    # "declaration-colon-newline-after":                    "always-multi-line", #### taken care of by prettier
+    "declaration-no-important":                           true,
+
+    "declaration-block-no-duplicate-properties":          [
+                                                            true,
+                                                            {
+                                                              "ignore": [
+                                                                "consecutive-duplicates"
+                                                              ]
+                                                            }
+                                                          ],
+    "declaration-block-no-shorthand-property-overrides":  true,
+    "declaration-block-semicolon-space-before":           "never",
+
+    "block-closing-brace-newline-after":                  "never",
+    "block-closing-brace-newline-before":                 "always",
+    "block-opening-brace-newline-after":                  "always",
+
+    "selector-attribute-brackets-space-inside":           "never",
+    "selector-combinator-space-after":                    "always",
+    "selector-combinator-space-before":                   "always",
+    "selector-max-specificity":                           "0,3,2", #### max: 0 id, 3 class, 2 type selectors
+    "selector-max-attribute":                             2,
+    "selector-max-universal":                             0,
+    "selector-pseudo-class-case":                         "lower",
+    "selector-pseudo-class-parentheses-space-inside":     "never",
+    "selector-pseudo-element-case":                       "lower",
+    "selector-type-case":                                 "lower",
+
+    "selector-list-comma-newline-before":                 "never-multi-line",
+    "selector-list-comma-space-before":                   "never",
+
+    #### taken care of by prettier
+    # "rule-empty-line-before":                             [
+    #                                                       "always",
+    #                                                       {
+    #                                                         ignore: [
+    #                                                           "after-comment"
+    #                                                         ]
+    #                                                       }
+    #                                                     ],
+
+    "media-feature-colon-space-after":                    "always",
+    "media-feature-colon-space-before":                   "never",
+    "media-feature-range-operator-space-after":           "always",
+    "media-feature-range-operator-space-before":          "always",
+
+    #### taken care of by prettier
+    # "at-rule-empty-line-before":                          [
+    #                                                         "always",
+    #                                                         {
+    #                                                           except: [
+    #                                                             "blockless-after-blockless",
+    #                                                             "first-nested"
+    #                                                           ],
+    #                                                           ignore: [
+    #                                                             "after-comment"
+    #                                                           ]
+    #                                                         }
+    #                                                       ],
+    "at-rule-name-case":                                  "lower",
+    "at-rule-semicolon-newline-after":                    "always",
+
+    #### taken care of by prettier
+    # "comment-empty-line-before":                          [
+    #                                                         "always",
+    #                                                         {
+    #                                                           ignore: [
+    #                                                             "stylelint-commands",
+    #                                                             "after-comment"
+    #                                                           ]
+    #                                                         }
+    #                                                       ],
+    "comment-whitespace-inside":                          "always",
+    "comment-word-blacklist":                             ["/^TODO/", "/^todo/", "/^FIXME/", "/^fixme/"],
+    "no-invalid-double-slash-comments":                   true,
+
+    "indentation":                                        [
+                                                            4,
+                                                            {
+                                                              "indentClosingBrace": false
+                                                            }
+                                                          ],
+    "max-empty-lines":                                    2,
+    "max-line-length":                                    120,
+    "max-nesting-depth":                                  3, #### stylelint-config-sass-guidelines is 1!
+    "no-descending-specificity":                          true,
+    "no-duplicate-selectors":                             true,
+    "no-eol-whitespace":                                  true,
+    "no-unknown-animations":                              true,
+    "plugin/no-unsupported-browser-features":             true,
+
+    "scss/at-import-partial-extension-blacklist":         ["css", scss"],
+
+    "scss/at-mixin-argumentless-call-parentheses":        "never",
+  }
+}

@@ -1,5 +1,5 @@
 import classcat from 'classcat';
-import PropTypes from 'prop-types';
+import {arrayOf, node, oneOfType, string} from 'prop-types';
 import React, {Component} from 'react';
 
 import Button from './Button';
@@ -7,8 +7,9 @@ import Icon from './Icon';
 
 export default class ActionDropdown extends Component {
   static defaultProps = {
-    buttonProps: PropTypes.node.isRequired,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+    buttonProps: node.isRequired,
+    children: oneOfType([arrayOf(node), node]).isRequired,
+    className: string,
   };
 
   state = {
@@ -16,11 +17,11 @@ export default class ActionDropdown extends Component {
   };
 
   render() {
-    const {buttonProps, children} = this.props;
+    const {buttonProps, children, className} = this.props;
     const {collapsed} = this.state;
 
     return (
-      <div className="action-dropdown">
+      <div className={classcat(['action-dropdown', className])}>
         <div className="action-dropdown__buttons">
           <Button {...buttonProps} />
           <div

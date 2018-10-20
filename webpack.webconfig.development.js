@@ -3,10 +3,12 @@ const browserslist = require('browserslist');
 const cssnano = require('cssnano');
 const CSSSplitWebpackPlugin = require('css-split-webpack-plugin').default;
 const dotenv = require('dotenv');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const webpack = require('webpack');
 const without = require('lodash/without');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
@@ -206,11 +208,15 @@ module.exports = {
       filename: '[name]-[part].[ext]?[hash]',
       preserve: false,
     }),
+    new StylelintPlugin({
+      files: ['src/web/**/*.scss'],
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.hbs',
       template: path.resolve(__dirname, 'src/web/assets/index.hbs'),
       chunksSortMode: 'dependency', // Sort chunks by dependency
     }),
+    new FriendlyErrorsWebpackPlugin(),
   ],
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],

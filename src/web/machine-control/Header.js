@@ -37,6 +37,7 @@ class Header extends PureComponent {
       <Fragment>
         <div className="relative">
           <ActionDropdown
+            className="animation--attention-seeker"
             buttonProps={{
               handleClick: connectMachine,
               isDisabled,

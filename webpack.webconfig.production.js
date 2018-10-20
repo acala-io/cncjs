@@ -6,6 +6,7 @@ const cssnano = require('cssnano');
 const CSSSplitWebpackPlugin = require('css-split-webpack-plugin').default;
 const dotenv = require('dotenv');
 const findImports = require('find-imports');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -231,6 +232,7 @@ module.exports = {
       template: path.resolve(__dirname, 'src/web/assets/index.hbs'),
       chunksSortMode: 'dependency', // Sort chunks by dependency
     }),
+    new FriendlyErrorsWebpackPlugin(),
   ],
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],

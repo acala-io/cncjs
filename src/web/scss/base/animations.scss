@@ -305,6 +305,11 @@ $transition-time--fast: 150ms !default;
     &--float-up-down {
         animation: $transition-time--very-slow floatUpDown infinite;
     }
+
+    &--attention-seeker {
+        animation: 1700ms attention-seeker infinite ease-in-out;
+        animation-fill-mode: both;
+    }
 }
 
 @mixin animation--pulsate {
@@ -353,4 +358,8 @@ $transition-time--fast: 150ms !default;
 
 @mixin animation--float-up-down {
     @extend %animation--float-up-down;
+}
+
+@mixin animation--attention-seeker {
+    @extend %animation--attention-seeker;
 }
