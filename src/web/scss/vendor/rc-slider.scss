@@ -39,6 +39,7 @@ $rail-height: $inuit-global-spacing-unit-small !default;
     border: 0;
     cursor: pointer;
     height: 3 * $rail-height;
+    outline: none;
     position: absolute;
     touch-action: pan-x;
     transform: translate(-50%, -50%);
@@ -48,8 +49,15 @@ $rail-height: $inuit-global-spacing-unit-small !default;
     &:hover,
     &:focus,
     &:active {
-        box-shadow: 0 0 0 5px transparentize($clickable, 0.58);
         outline: none;
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 5px transparentize($clickable, 0.58);
+    }
+
+    &:active {
+        cursor: grabbing;
     }
 }
 
