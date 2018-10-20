@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const Fraction = props => {
-  const {numerator, denominator} = props;
+  const {denominator, numerator} = props;
 
   return (
     <span
       style={{
-        whiteSpace: 'nowrap',
         display: 'inline-block',
-        verticalAlign: '-0.5em',
         fontSize: '85%',
         textAlign: 'center',
+        verticalAlign: '-0.5em',
+        whiteSpace: 'nowrap',
       }}
     >
       <span
@@ -25,12 +25,12 @@ const Fraction = props => {
       </span>
       <span
         style={{
-          position: 'absolute',
+          height: 1,
           left: -10000,
+          overflow: 'hidden',
+          position: 'absolute',
           top: 'auto',
           width: 1,
-          height: 1,
-          overflow: 'hidden',
         }}
       >
         /
@@ -51,8 +51,8 @@ const Fraction = props => {
 };
 
 Fraction.propTypes = {
-  numerator: PropTypes.number,
   denominator: PropTypes.number,
+  numerator: PropTypes.number,
 };
 
 export default Fraction;

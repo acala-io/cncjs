@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 
 const TaskbarButton = styled.button`
-  display: inline-block;
-  margin: 4px;
-  padding: 2px 5px;
+  background-color: inherit;
+  background-image: none;
   border: 0;
+  cursor: pointer;
+  display: inline-block;
   font-weight: normal;
   line-height: 0;
-  text-align: center;
-  white-space: nowrap;
-  touch-action: manipulation;
-  cursor: pointer;
-  user-select: none;
-  background-image: none;
-  background-color: inherit;
-
+  margin: 4px;
   opacity: 0.6;
+  padding: 2px 5px;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  white-space: nowrap;
+
   &:hover {
     opacity: 0.8;
   }

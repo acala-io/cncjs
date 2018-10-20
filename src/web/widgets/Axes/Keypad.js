@@ -14,11 +14,9 @@ import KeypadXY from './components/KeypadXY';
 import KeypadZ from './components/KeypadZ';
 import Padding from '../../components_new/Padding';
 import Space from '../../components/Space';
-import SplitButton from '../../components_new/SplitButton';
+// import SplitButton from '../../components_new/SplitButton';
 
 import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
-
-import './keypad.scss';
 
 class Keypad extends PureComponent {
   static propTypes = {
@@ -55,18 +53,21 @@ class Keypad extends PureComponent {
       <Fragment>
         <Padding sides="top">
           <Flexbox flexDirection="row" alignItems="center" justifyContent="space-around">
-            <KeypadXY height="168" {...this.props} />
-            <KeypadZ height="168" {...this.props} />
+            <KeypadXY {...this.props} />
+            <KeypadZ {...this.props} />
           </Flexbox>
         </Padding>
         <Padding size="small">
           <Padding size="small" sides="bottom">
             {this.stepSize}
           </Padding>
-          <SplitButton>
-            {this.buttonStepBackward}
-            {this.buttonStepForward}
-          </SplitButton>
+          {/*
+              I don't know what these buttons are for
+              <SplitButton>
+                {this.buttonStepBackward}
+                {this.buttonStepForward}
+              </SplitButton>
+          */}
           {this.unitSelect}
         </Padding>
       </Fragment>

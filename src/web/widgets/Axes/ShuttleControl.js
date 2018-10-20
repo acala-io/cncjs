@@ -1,5 +1,5 @@
-import {sumBy} from 'lodash';
 import events from 'events';
+import {sumBy} from 'lodash';
 
 const HERTZ_LIMIT = 60; // 60 items per second
 const FLUSH_INTERVAL = 250; // milliseconds

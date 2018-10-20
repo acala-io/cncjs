@@ -11,7 +11,7 @@ class KeypadZ extends PureComponent {
   };
 
   static defaultProps = {
-    height: '200px',
+    height: '168px',
   };
 
   render() {

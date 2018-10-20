@@ -67,7 +67,7 @@ a.button,
     &:active:not(.is-disabled) {
         box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
         margin-top: $visualZHeight; /* 2 */
-        padding-bottom: $inuit-global-spacing-unit-small - $visualZHeight; /* 3 */
+        padding-bottom: $inuit-global-spacing-unit - $visualZHeight; /* 3 */
     }
 
     /*
@@ -126,11 +126,11 @@ a.button,
 // Variants ------------------------------------------------------------------------------------------------------------
 .button--large.button {
     font-size: $font-size--large;
-    padding-bottom: $inuit-global-spacing-unit-tiny;
-    padding-top: $inuit-global-spacing-unit-tiny;
+    padding-bottom: $inuit-global-spacing-unit-small;
+    padding-top: $inuit-global-spacing-unit-small;
 
     &:active:not(.is-disabled) {
-        padding-bottom: $inuit-global-spacing-unit-tiny - $visualZHeight; /* 3 */
+        padding-bottom: $inuit-global-spacing-unit-small - $visualZHeight; /* 3 */
     }
 }
 

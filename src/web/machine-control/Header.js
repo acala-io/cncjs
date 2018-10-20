@@ -8,7 +8,6 @@ import i18n from '../lib/i18n';
 
 import * as dialogs from '../dialogs/actions';
 
-import ActionDropdown from '../components_new/ActionDropdown';
 import Button from '../components_new/Button';
 import Icon from '../components_new/Icon';
 import MachineControlFunctions from './MachineControlFunctions';
@@ -35,18 +34,7 @@ class Header extends PureComponent {
 
     return (
       <Fragment>
-        <div className="relative">
-          <ActionDropdown
-            className="animation--attention-seeker"
-            buttonProps={{
-              handleClick: connectMachine,
-              isDisabled,
-              text: i18n._('Connect Machine'),
-            }}
-          >
-            {this.connectDetails}
-          </ActionDropdown>
-        </div>
+        <Button text={i18n._('Connect Machine')} isDisabled={isDisabled} handleClick={connectMachine} />
         <Button text={i18n._('Home Machine')} icon="homing" isDisabled={isDisabled} handleClick={homeMachine} />
       </Fragment>
     );

@@ -13,10 +13,11 @@ class PositionInput extends PureComponent {
     onSave: PropTypes.func.isRequired,
     style: PropTypes.string,
   };
+
   static defaultProps = {
     defaultValue: '',
-    min: -10000,
     max: 10000,
+    min: -10000,
   };
 
   state = {
@@ -25,9 +26,6 @@ class PositionInput extends PureComponent {
 
   node = null;
 
-  componentDidMount() {
-    this.node.focus();
-  }
   render() {
     const {onSave = noop, onCancel = noop, min, max, className, style} = this.props;
     const isNumber = this.state.value !== '';
@@ -35,9 +33,7 @@ class PositionInput extends PureComponent {
     return (
       <div className={classcat([className, 'input-group input-group-xs'])} style={{...style, width: '100%'}}>
         <input
-          ref={node => {
-            this.node = node;
-          }}
+          ref={node => (this.node = node)}
           type="number"
           className="form-control"
           placeholder=""
@@ -88,6 +84,10 @@ class PositionInput extends PureComponent {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.node.focus();
   }
 }
 
