@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get, take} from 'lodash';
 
-import i18n from 'web/lib/i18n';
+import i18n from '../../../../lib/i18n';
 
 import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
 
-import Space from 'web/components/Space';
-import Table from 'web/components/Table';
-import {Button, ButtonGroup} from 'web/components/Buttons';
+import Space from '../../../../components/Space';
+import Table from '../../../../components/Table';
+import {Button, ButtonGroup} from '../../../../components/Buttons';
 
 class TableRecords extends PureComponent {
   static propTypes = {

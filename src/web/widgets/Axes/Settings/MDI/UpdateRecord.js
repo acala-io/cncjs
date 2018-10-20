@@ -3,14 +3,14 @@ import React, {PureComponent} from 'react';
 import Slider from 'rc-slider';
 
 import i18n from '../../../../lib/i18n';
-import * as validations from '../../../..//lib/validations';
+import * as validations from '../../../../lib/validations';
 
-import Modal from '../../../..//components/Modal';
-import Space from '../../../..//components/Space';
-import {Button} from '../../../..//components/Buttons';
-import {Form, Input, Textarea} from '../../../..//components/Validation';
-import {FormGroup} from '../../../..//components/Forms';
-import {ToastNotification} from '../../../..//components/Notifications';
+import Modal from '../../../../components/Modal';
+import Space from '../../../../components/Space';
+import {Button} from '../../../../components/Buttons';
+import {Form, Input, Textarea} from '../../../../components/Validation';
+import {FormGroup} from '../../../../components/Forms';
+import {ToastNotification} from '../../../../components/Notifications';
 
 class UpdateRecord extends PureComponent {
   static propTypes = {

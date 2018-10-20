@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import React, {PureComponent} from 'react';
 
-import i18n from 'web/lib/i18n';
-import * as validations from 'web/lib/validations';
+import i18n from '../../../../lib/i18n';
+import * as validations from '../../../../lib/validations';
 
-import Modal from 'web/components/Modal';
-import Space from 'web/components/Space';
-import {Button} from 'web/components/Buttons';
-import {Form, Input, Textarea} from 'web/components/Validation';
-import {FormGroup} from 'web/components/Forms';
-import {ToastNotification} from 'web/components/Notifications';
+import Modal from '../../../../components/Modal';
+import Space from '../../../../components/Space';
+import {Button} from '../../../../components/Buttons';
+import {Form, Input, Textarea} from '../../../../components/Validation';
+import {FormGroup} from '../../../../components/Forms';
+import {ToastNotification} from '../../../../components/Notifications';
 
 class CreateRecord extends PureComponent {
   static propTypes = {
