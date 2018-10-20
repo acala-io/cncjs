@@ -28,12 +28,9 @@
     "Sign In": "Přihlásit se",
     "Forgot your password?": "",
     "Learn more": "Další informace",
-    "Downloads": "Stažené soubory",
-    "Checking for updates...": "Vyhledávají se aktualizace...",
     "A new version of {{name}} is available": "Je dostupná nová verze aplikace {{name}}",
     "Version {{version}}": "Verze {{version}}",
     "Latest version": "Nejnovější verzi",
-    "You already have the newest version of {{name}}": "Máte nainstalovanou nejnovější verzi aplikace {{name}}",
     "New": "",
     "Account status": "",
     "Name": "Název",
@@ -461,5 +458,8 @@
     "Loading data": "",
     "New value": "",
     "New command": "",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
+    "Read Documentation": "",
+    "View Downloads": "",
+    "Checking for updates": "",
+    "up to date": ""
 }

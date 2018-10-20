@@ -28,12 +28,9 @@
     "Sign In": "Bejelentkezés",
     "Forgot your password?": "Elfelejtetted a jelszavad?",
     "Learn more": "További információ",
-    "Downloads": "Letöltés",
-    "Checking for updates...": "Frissítések keresése ...",
     "A new version of {{name}} is available": "Az új verzió {{name}} már elérhető",
     "Version {{version}}": "Verzió {{version}}",
     "Latest version": "Legutolsó vezió",
-    "You already have the newest version of {{name}}": "Már van egy újabb verzió {{name}}",
     "New": "Új",
     "Account status": "Felhasználó státusz",
     "Name": "Név",
@@ -461,5 +458,8 @@
     "Loading data": "",
     "New value": "",
     "New command": "",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
+    "Read Documentation": "",
+    "View Downloads": "",
+    "Checking for updates": "",
+    "up to date": ""
 }

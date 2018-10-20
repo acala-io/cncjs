@@ -28,12 +28,9 @@
     "Sign In": "登入",
     "Forgot your password?": "忘記密碼？",
     "Learn more": "深入瞭解",
-    "Downloads": "下載",
-    "Checking for updates...": "正在檢查更新項目...",
     "A new version of {{name}} is available": "已有新版本的 {{name}} 可供下載",
     "Version {{version}}": "版本{{version}}",
     "Latest version": "最新版本",
-    "You already have the newest version of {{name}}": "您已有最新版本的 {{name}}",
     "New": "新增",
     "Account status": "帳戶狀態",
     "Name": "名稱",
@@ -461,5 +458,8 @@
     "Loading data": "",
     "New value": "",
     "New command": "",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
+    "Read Documentation": "",
+    "View Downloads": "",
+    "Checking for updates": "",
+    "up to date": ""
 }

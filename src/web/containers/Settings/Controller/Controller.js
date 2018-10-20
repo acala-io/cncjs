@@ -24,7 +24,7 @@ class Controller extends PureComponent {
     }
 
     return (
-      <form>
+      <form style={{width: '100%'}}>
         {this.settingExceptionHandling}
         {this.formActions}
       </form>

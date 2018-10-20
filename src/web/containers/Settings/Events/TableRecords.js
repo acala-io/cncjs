@@ -29,6 +29,7 @@ class TableRecords extends PureComponent {
 
     return (
       <Table
+        style={{width: '100%'}}
         bordered={false}
         justified={false}
         data={state.api.err || state.api.fetching ? [] : state.records}

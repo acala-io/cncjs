@@ -28,12 +28,9 @@
     "Sign In": "Anmelden",
     "Forgot your password?": "Passwort vergessen?",
     "Learn more": "Weitere Informationen",
-    "Downloads": "Downloads",
-    "Checking for updates...": "Es wird nach Updates gesucht...",
     "A new version of {{name}} is available": "Eine neue Version von {{name}} ist verfügbar",
     "Version {{version}}": "Version {{version}}",
     "Latest version": "Neueste Version",
-    "You already have the newest version of {{name}}": "Sie haben bereits die neueste Version von {{name}}",
     "New": "Neu",
     "Account status": "Kontostatus",
     "Name": "Name",
@@ -461,5 +458,8 @@
     "Loading data": "",
     "New value": "",
     "New command": "",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
+    "Read Documentation": "",
+    "View Downloads": "",
+    "Checking for updates": "",
+    "up to date": ""
 }

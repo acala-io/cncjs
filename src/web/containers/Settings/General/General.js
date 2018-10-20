@@ -27,7 +27,7 @@ class General extends PureComponent {
     }
 
     return (
-      <form>
+      <form style={{width: '100%'}}>
         {this.settingCheckForUpdates}
         {this.settingLanguage}
         {this.formActions}

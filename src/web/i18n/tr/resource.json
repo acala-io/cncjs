@@ -28,12 +28,9 @@
     "Sign In": "Giriş",
     "Forgot your password?": "Parolanızı mı unuttunuz?",
     "Learn more": "Daha fazla",
-    "Downloads": "İndir",
-    "Checking for updates...": "Güncellemeler Kontrol Ediliyor...",
     "A new version of {{name}} is available": "{{name}} Yeni bir sürüm kullanıma sunuldu",
     "Version {{version}}": "Version {{version}}",
     "Latest version": "Son sürüm",
-    "You already have the newest version of {{name}}": "Zaten en yeni sürümüne sahipsiniz {{name}}",
     "New": "Yeni",
     "Account status": "Hesap durumu",
     "Name": "İsim",
@@ -461,5 +458,8 @@
     "Loading data": "",
     "New value": "",
     "New command": "",
-    "A web-based interface for CNC milling controller running Grbl, Smoothieware, Marlin, or TinyG": ""
+    "Read Documentation": "",
+    "View Downloads": "",
+    "Checking for updates": "",
+    "up to date": ""
 }

@@ -48,6 +48,7 @@ const ProductDescription = styled.p`
 const AboutContainer = styled.div`
   padding-bottom: ${s.globalSpacingUnit.large};
   text-align: center;
+  width: 100%;
 `;
 
 class About extends PureComponent {
@@ -68,8 +69,8 @@ class About extends PureComponent {
             {pkg.version} <UpdateStatus {...version} />
           </ProductVersion>
           <ProductDescription>{i18n._(pkg.description)}</ProductDescription>
-          <Button text={i18n._('Read Documentation')} onClick={onReadDocumentation} className="u-margin-right" />
-          <Button text={i18n._('View Downloads')} onClick={onViewReleases} className="u-margin-right" />
+          <Button text={i18n._('Read Documentation')} onClick={onReadDocumentation} />
+          <Button text={i18n._('View Downloads')} onClick={onViewReleases} className="u-margin-horizontal" />
           <Button text={i18n._('Report an issue')} onClick={onReportIssue} />
         </div>
       </AboutContainer>
