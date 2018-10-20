@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
 import {includes, set, uniqueId} from 'lodash';
 
-import i18n from 'web/lib/i18n';
+import i18n from '../../../lib/i18n';
 
-import Margin from 'web/components/Margin';
-import Space from 'web/components/Space';
-import {Button} from 'web/components/Buttons';
-import {Checkbox} from 'web/components/Checkbox';
-import {FlexContainer, Row, Col} from 'web/components/GridSystem';
-import {FormGroup, Input} from 'web/components/Forms';
+import ActionLink from '../../../components_new/ActionLink';
+import Button from '../../../components_new/Button';
+import Margin from '../../../components/Margin';
+import Space from '../../../components/Space';
+import {Checkbox} from '../../../components/Checkbox';
+import {FlexContainer, Row, Col} from '../../../components/GridSystem';
+import {FormGroup, Input} from '../../../components/Forms';
 
 const IMPERIAL_JOG_DISTANCES_MAX = 5;
 const METRIC_JOG_DISTANCES_MAX = 5;
@@ -202,25 +203,16 @@ class General extends PureComponent {
             <FormGroup key={uniqueId()}>
               <Row>
                 <Col>
-                  <Input type="number" onChange={() => onChange(i)} defaultValue={value} />
+                  <Input type="number" className="number" onChange={() => onChange(i)} defaultValue={value} />
                 </Col>
                 <Col>
-                  <Space width="8" />
-                  <Button btnStyle="flat" compact onClick={() => onRemove(i)}>
-                    <i className="fa fa-close" />
-                  </Button>
+                  <ActionLink action="delete" onClick={() => onRemove(i)} />
                 </Col>
               </Row>
             </FormGroup>
           )}
         </ForEach>
-        {items.length < maxItems && (
-          <Button btnStyle="flat" onClick={onAdd}>
-            <i className="fa fa-plus" />
-            <Space width="8" />
-            {i18n._('Add')}
-          </Button>
-        )}
+        {items.length < maxItems && <Button text={i18n._('Add a value')} onClick={onAdd} />}
       </Col>
     );
   }
