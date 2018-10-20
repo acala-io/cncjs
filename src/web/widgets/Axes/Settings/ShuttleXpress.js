@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import Slider from 'rc-slider';
 
-import i18n from 'web/lib/i18n';
+import i18n from '../../../lib/i18n';
 
-import {FormGroup} from 'web/components/Forms';
+import {FormGroup} from '../../../components/Forms';
 
 const FEEDRATE_RANGE = [100, 2500];
 const FEEDRATE_STEP = 50;
@@ -64,7 +64,12 @@ class ShuttleXpress extends PureComponent {
     return (
       <div>
         <FormGroup>
-          <p>{i18n._('Feed Rate Range: {{min}} - {{max}} mm/min', {min: feedrateMin, max: feedrateMax})}</p>
+          <p>
+            {i18n._('Feed Rate Range: {{min}} - {{max}} mm/min', {
+              max: feedrateMax,
+              min: feedrateMin,
+            })}
+          </p>
           <Slider.Range
             allowCross={false}
             defaultValue={[feedrateMin, feedrateMax]}
