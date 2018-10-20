@@ -1,18 +1,21 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
+import i18n from '../../lib/i18n';
+
 import Modal from '../../components/Modal';
 import ToggleSwitch from '../../components/ToggleSwitch';
-import i18n from '../../lib/i18n';
 
 class ZProbe extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
     const {state, actions} = this.props;
     const {useTLO} = state;
+
     const probeCommands = actions.populateProbeCommands();
     const content = probeCommands.join('\n');
 

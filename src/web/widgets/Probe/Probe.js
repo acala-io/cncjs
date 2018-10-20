@@ -135,13 +135,6 @@ class Probe extends PureComponent {
               actions.openModal(MODAL_PREVIEW);
             }}
           />
-          <Button
-            text={i18n._('Probe XYZ-Position')}
-            isDisabled={!canClick}
-            onClick={() => {
-              actions.openModal(MODAL_PREVIEW);
-            }}
-          />
         </div>
       </div>
     );

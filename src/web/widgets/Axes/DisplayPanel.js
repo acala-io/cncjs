@@ -646,12 +646,7 @@ class DisplayPanel extends PureComponent {
                     controller.command('gcode', `G28.3 ${axisLabel}0`);
                   }}
                 >
-                  <Tooltip
-                    placement="bottom"
-                    content={i18n._('Zero Out Machine')}
-                    disabled={!canZeroOutMachine}
-                    hideOnClick
-                  >
+                  <Tooltip placement="bottom" content={i18n._('Zero Out Machine')} hideOnClick>
                     <Icon name="location" size="small" />
                   </Tooltip>
                 </TaskbarButton>
@@ -661,7 +656,7 @@ class DisplayPanel extends PureComponent {
                     controller.command('gcode', `G28.2 ${axisLabel}0`);
                   }}
                 >
-                  <Tooltip placement="bottom" content={i18n._('Home Machine')} disabled={!canHomeMachine} hideOnClick>
+                  <Tooltip placement="bottom" content={i18n._('Home Machine')} hideOnClick>
                     <Icon name="home" size="small" />
                   </Tooltip>
                 </TaskbarButton>
@@ -690,7 +685,7 @@ class DisplayPanel extends PureComponent {
                     actions.jog({[axis]: -distance});
                   }}
                 >
-                  <Tooltip placement="bottom" content={i18n._('Move Backward')} disabled={!canMoveBackward} hideOnClick>
+                  <Tooltip placement="bottom" content={i18n._('Move Backward')} hideOnClick>
                     <Image src={iconMinus} width="14" height="14" />
                   </Tooltip>
                 </TaskbarButton>
@@ -701,7 +696,7 @@ class DisplayPanel extends PureComponent {
                     actions.jog({[axis]: distance});
                   }}
                 >
-                  <Tooltip placement="bottom" content={i18n._('Move Forward')} disabled={!canMoveForward} hideOnClick>
+                  <Tooltip placement="bottom" content={i18n._('Move Forward')} hideOnClick>
                     <Image src={iconPlus} width="14" height="14" />
                   </Tooltip>
                 </TaskbarButton>
@@ -711,12 +706,7 @@ class DisplayPanel extends PureComponent {
                     actions.setWorkOffsets(axis, 0);
                   }}
                 >
-                  <Tooltip
-                    placement="bottom"
-                    content={i18n._('Zero Out Work Offsets')}
-                    disabled={!canZeroOutWorkOffsets}
-                    hideOnClick
-                  >
+                  <Tooltip placement="bottom" content={i18n._('Zero Out Work Offsets')} hideOnClick>
                     <Icon name="location" size="small" />
                   </Tooltip>
                 </TaskbarButton>
@@ -725,12 +715,7 @@ class DisplayPanel extends PureComponent {
                   disabled={!canModifyWorkPosition}
                   onClick={this.showPositionInput(axis)}
                 >
-                  <Tooltip
-                    placement="bottom"
-                    content={i18n._('Set Work Offsets')}
-                    disabled={!canModifyWorkPosition}
-                    hideOnClick
-                  >
+                  <Tooltip placement="bottom" content={i18n._('Set Work Offsets')} hideOnClick>
                     <Icon name="edit" size="small" />
                   </Tooltip>
                 </TaskbarButton>

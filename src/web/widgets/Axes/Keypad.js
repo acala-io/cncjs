@@ -24,9 +24,11 @@ class Keypad extends PureComponent {
     state: PropTypes.object,
   };
 
+  sendGCode = gCode => controller.command('gcode', gCode);
+
   handleSelect = eventKey => {
     const commands = ensureArray(eventKey);
-    commands.forEach(command => controller.command('gcode', command));
+    commands.forEach(command => this.sendGCode(command));
   };
 
   renderRationalNumberWithBoundedDenominator(value) {
@@ -78,7 +80,7 @@ class Keypad extends PureComponent {
     const {canClick, units} = this.props.state;
 
     const select = (unit = METRIC_UNITS) => {
-      controller.command('gcode', unit === IMPERIAL_UNITS ? 'G20' : 'G21');
+      this.sendGCode(unit === IMPERIAL_UNITS ? 'G20' : 'G21');
     };
 
     return (
