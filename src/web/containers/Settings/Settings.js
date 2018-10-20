@@ -15,7 +15,6 @@ import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../../api/constants';
 
 import About from './About';
 import Account from './Account';
-import Breadcrumbs from '../../components/Breadcrumbs';
 import Commands from './Commands';
 import Controller from './Controller';
 import Events from './Events';
@@ -39,41 +38,33 @@ class Settings extends PureComponent {
 
   getInitialState() {
     return {
-      // General
       general: {
-        // followed by api state
         api: {
           err: false,
-          loading: true, // defaults to true
+          loading: true,
           saving: false,
         },
-        // followed by data
+        // data
         checkForUpdates: true,
         lang: i18next.language,
       },
-      // Workspace
       workspace: {
-        // Modal
         modal: {
           name: '',
           params: {},
         },
       },
-      // My Account
       account: {
-        // followed by api state
         api: {
           err: false,
           fetching: false,
         },
-        // followed by data
+        // data
         pagination: {
           page: 1,
           pageLength: 10,
           totalRecords: 0,
         },
-        records: [],
-        // Modal
         modal: {
           name: '',
           params: {
@@ -81,13 +72,12 @@ class Settings extends PureComponent {
             changePassword: false,
           },
         },
+        records: [],
       },
-      // Controller
       controller: {
-        // followed by api state
         api: {
           err: false,
-          loading: true, // defaults to true
+          loading: true,
           saving: false,
         },
         // followed by data
@@ -152,6 +142,7 @@ class Settings extends PureComponent {
     const actions = {
       ...this.actions,
     };
+
     const {pathname = ''} = this.props.location;
     const initialSectionPath = this.sections[0].path;
     const sectionPath = pathname.replace(/^\/settings(\/)?/, ''); // TODO
@@ -172,9 +163,6 @@ class Settings extends PureComponent {
 
     return (
       <div className="settings">
-        <Breadcrumbs>
-          <Breadcrumbs.Item active>{i18n._('Settings')}</Breadcrumbs.Item>
-        </Breadcrumbs>
         <div className="container border">
           <div className="row">
             <div className="col sidenav">
