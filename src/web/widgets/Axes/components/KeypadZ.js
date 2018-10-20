@@ -92,12 +92,7 @@ class KeypadZ extends PureComponent {
           />
         </svg>
         <AxisLabel>Z</AxisLabel>
-        <Flexbox
-          alignContent="stretch"
-          flexDirection="column"
-          justifyContent="stretch"
-          className="keypad-button__wrapper"
-        >
+        <Flexbox alignContent="stretch" flexDirection="column" className="keypad-button__wrapper">
           {jogButtonFactory(this.props, {direction: '+', name: 'z'})}
           {jogButtonFactory(this.props, {direction: '-', name: 'z'})}
         </Flexbox>
