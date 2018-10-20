@@ -23,9 +23,9 @@ import DefaultWidgets from './DefaultWidgets';
 import PrimaryWidgets from './PrimaryWidgets';
 import SecondaryWidgets from './SecondaryWidgets';
 
-import FeederPaused from './modals/FeederPaused';
-import FeederWait from './modals/FeederWait';
-// import ServerDisconnectedModal from './modals/ServerDisconnected';
+import FeederPausedModal from './FeederPausedModal';
+import FeederWaitModal from './FeederWaitModal';
+// import ServerDisconnectedModal from './ServerDisconnectedModal';
 
 import {MODAL_NONE, MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT, MODAL_SERVER_DISCONNECTED} from './constants';
 import {WORKFLOW_STATE_IDLE} from '../../constants';
@@ -357,8 +357,8 @@ class Workspace extends PureComponent {
 
     return (
       <Fragment>
-        {modalName === MODAL_FEEDER_PAUSED && <FeederPaused title={title} onClose={onClose} />}
-        {modalName === MODAL_FEEDER_WAIT && <FeederWait title={title} onClose={onClose} />}
+        {modalName === MODAL_FEEDER_PAUSED && <FeederPausedModal title={title} onClose={onClose} />}
+        {modalName === MODAL_FEEDER_WAIT && <FeederWaitModal title={title} onClose={onClose} />}
         {/* modalName === MODAL_SERVER_DISCONNECTED && <ServerDisconnectedModal /> */}
       </Fragment>
     );

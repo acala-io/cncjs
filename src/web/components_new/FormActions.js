@@ -4,8 +4,8 @@
  * Usage:
  *
  * <FormActions
- *   primaryAction={text: 'save', onClick: save}
- *   secondaryAction={onClick: cancel}
+ *   primaryAction={{text: 'save', onClick: save}}
+ *   secondaryAction={{onClick: cancel}}
  *   className="u-p-"
  * >
  *   ... tertiary action(s) go here
