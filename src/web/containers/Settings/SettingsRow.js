@@ -8,15 +8,15 @@ import Flexbox from '../../components_new/Flexbox';
 
 const Label = styled.div`
   color: ${s.color.text.lighter};
-  padding-bottom: ${s.globalSpacingUnit.small};
-  padding-right: ${s.globalSpacingUnit.default};
-  padding-top: ${s.globalSpacingUnit.small};
+  padding-bottom: ${s.size.small};
+  padding-right: ${s.size.default};
+  padding-top: ${s.size.small};
 `;
 
 const Value = styled.div`
-  padding-bottom: ${s.globalSpacingUnit.small};
-  padding-left: ${s.globalSpacingUnit.default};
-  padding-top: ${s.globalSpacingUnit.small};
+  padding-bottom: ${s.size.small};
+  padding-left: ${s.size.default};
+  padding-top: ${s.size.small};
 `;
 
 const SettingsRow = ({input, label, value}) => (

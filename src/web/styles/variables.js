@@ -10,7 +10,7 @@ const transitionTimeMultiplier = 1; // scaling factor for development / debuggin
 const borderRadius = 3;
 const borderWidth = 1;
 
-const globalSpacingUnit = 14;
+const size = 14;
 
 const colorPrimary = Color('hsl(248, 67%, 64%)');
 const colorSecondary = Color('hsl(100, 67%, 64%)');
@@ -159,12 +159,12 @@ export default {
       bold: '600',
     },
   },
-  globalSpacingUnit: {
-    default: `${globalSpacingUnit}px`,
-    tiny: `${globalSpacingUnit / 4}px`,
-    small: `${globalSpacingUnit / 2}px`,
-    large: `${globalSpacingUnit * 2}px`,
-    huge: `${globalSpacingUnit * 4}px`,
+  size: {
+    default: `${size}px`,
+    tiny: `${size / 4}px`,
+    small: `${size / 2}px`,
+    large: `${size * 2}px`,
+    huge: `${size * 4}px`,
   },
   transition: {
     style: {

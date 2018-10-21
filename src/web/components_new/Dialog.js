@@ -24,7 +24,7 @@ const CloseLink = styled(Link)`
   cursor: pointer;
   display: inline-block;
   opacity: 0;
-  padding: ${s.globalSpacingUnit.default};
+  padding: ${s.size.default};
   text-align: center;
   z-index: ${s.zIndex.topmost3}; /* 1 */
 
@@ -120,7 +120,7 @@ DialogHeader.propTypes = {
 };
 
 export const DialogActions = styled.div`
-  padding: 0 ${s.globalSpacingUnit.default} ${s.globalSpacingUnit.default};
+  padding: 0 ${s.size.default} ${s.size.default};
 
   .button {
     font-size: ${s.font.size.large};

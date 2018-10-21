@@ -43,7 +43,7 @@ export const Card = styled.div`
          */
 
         min-height: 772px; /* 1 */
-        min-height: calc(100vh - ${s.globalSpacingUnit.large}); /* 2 */
+        min-height: calc(100vh - ${s.size.large}); /* 2 */
         `
       : ''}
 `;
@@ -72,7 +72,7 @@ const StyledCardHeader = styled.div`
    * 1 - Enabled absolute positioning of children
    */
 
-  padding: ${s.globalSpacingUnit.small} ${s.globalSpacingUnit.default};
+  padding: ${s.size.small} ${s.size.default};
   position: relative; /* 1 */
 
   h2,

@@ -35,7 +35,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   display: inline-block;
   font-weight: ${s.font.weight.bold};
-  padding: ${s.globalSpacingUnit.small} ${s.globalSpacingUnit.default};
+  padding: ${s.size.small} ${s.size.default};
   text-align: center;
   text-shadow: 0 -1px 0 ${s.color.clickable.darker};
   transition: background, color ${s.transition.time.slow};
@@ -71,7 +71,7 @@ const StyledButton = styled.button`
         : `
           box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
           margin-top: ${visualZHeight}; /* 2 */
-          padding-bottom: calc(${s.globalSpacingUnit.small} - ${visualZHeight}); /* 3 */
+          padding-bottom: calc(${s.size.small} - ${visualZHeight}); /* 3 */
         `};
   }
 
@@ -82,8 +82,8 @@ const StyledButton = styled.button`
     display: inline-block;
     fill: ${s.color.text.inverse};
     filter: drop-shadow(0 -1px 0 ${s.color.clickable.darker});
-    margin-left: -${s.globalSpacingUnit.tiny}; /* 1 */
-    margin-right: ${s.globalSpacingUnit.small}; /* 1 */
+    margin-left: -${s.size.tiny}; /* 1 */
+    margin-right: ${s.size.small}; /* 1 */
     position: relative;
     vertical-align: middle;
   }
@@ -139,15 +139,15 @@ const StyledButton = styled.button`
     size === 'large'
       ? `
         font-size: ${s.font.size.large};
-        padding-bottom: ${s.globalSpacingUnit.small};
-        padding-top: ${s.globalSpacingUnit.small};
+        padding-bottom: ${s.size.small};
+        padding-top: ${s.size.small};
 
         :active {
           ${
             isDisabled
               ? ''
               : `
-                padding-bottom: calc(${s.globalSpacingUnit.small} - ${visualZHeight}); /* 3 */
+                padding-bottom: calc(${s.size.small} - ${visualZHeight}); /* 3 */
               `
           }
         }
@@ -158,14 +158,14 @@ const StyledButton = styled.button`
     size === 'huge'
       ? `
         font-size: ${s.font.size.large};
-        padding: ${s.globalSpacingUnit.default} ${s.globalSpacingUnit.large};
+        padding: ${s.size.default} ${s.size.large};
 
         :active {
           ${
             isDisabled
               ? ''
               : `
-                padding-bottom: calc(${s.globalSpacingUnit.default} - ${visualZHeight}); /* 3 */
+                padding-bottom: calc(${s.size.default} - ${visualZHeight}); /* 3 */
               `
           }
         }

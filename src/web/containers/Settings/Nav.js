@@ -15,7 +15,7 @@ const activeStyles = `
 const NavLink = styled.div`
   ${mixin.link}
   background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.transparent)};
-  padding: ${s.globalSpacingUnit.default};
+  padding: ${s.size.default};
 
   ${({isActive}) => (isActive ? activeStyles : '')};
 `;

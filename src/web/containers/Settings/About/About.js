@@ -25,7 +25,7 @@ const onReportIssue = () => openUrl(issuesURL);
 const Logo = styled.img`
   ${mixin.centerMX} display: block;
   height: auto;
-  padding-top: ${s.globalSpacingUnit.large};
+  padding-top: ${s.size.large};
   width: 256px;
 `;
 
@@ -37,16 +37,16 @@ const ProductName = styled.p`
 
 const ProductVersion = styled.p`
   color: ${s.color.text.lighter};
-  padding-bottom: ${s.globalSpacingUnit.large};
+  padding-bottom: ${s.size.large};
 `;
 
 const ProductDescription = styled.p`
   color: ${s.color.text.lighter};
-  padding-bottom: ${s.globalSpacingUnit.default};
+  padding-bottom: ${s.size.default};
 `;
 
 const StyledAbout = styled.div`
-  padding-bottom: ${s.globalSpacingUnit.large};
+  padding-bottom: ${s.size.large};
   text-align: center;
   width: 100%;
 `;

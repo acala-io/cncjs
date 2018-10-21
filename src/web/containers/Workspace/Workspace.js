@@ -40,7 +40,7 @@ import './index.scss';
 const SettingsLink = styled(Link)`
   ${mixin.pinBottomLeftFixed}
 
-  padding: ${s.globalSpacingUnit.default};
+  padding: ${s.size.default};
   width: 100%;
 `;
 

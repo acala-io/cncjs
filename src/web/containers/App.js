@@ -11,7 +11,6 @@ import AppLayout from '../layouts/AppLayout';
 
 import Error404 from './Errors/Error404';
 import Header from '../machine-control/Header';
-import Settings from './Settings';
 import Workspace from './Workspace';
 
 class App extends PureComponent {
@@ -50,14 +49,6 @@ class App extends PureComponent {
         <AppLayout>
           <Header />
           <Workspace {...this.props} />;
-        </AppLayout>
-      );
-    }
-
-    if (location.pathname.startsWith('/settings')) {
-      return (
-        <AppLayout>
-          <Settings {...this.props} />
         </AppLayout>
       );
     }

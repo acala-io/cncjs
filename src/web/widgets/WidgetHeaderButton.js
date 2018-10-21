@@ -8,8 +8,8 @@ const WidgetHeaderButton = styled(props => <div {...props} />)`
   cursor: pointer;
   display: inline-block;
   float: right;
-  margin-top: -${s.globalSpacingUnit.small};
-  padding: ${s.globalSpacingUnit.default} ${s.globalSpacingUnit.small};
+  margin-top: -${s.size.small};
+  padding: ${s.size.default} ${s.size.small};
   text-decoration: none;
 
   svg {
