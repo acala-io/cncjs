@@ -32,7 +32,6 @@
     "Version {{version}}": "Verze {{version}}",
     "Latest version": "Nejnovější verzi",
     "New": "",
-    "Account status": "",
     "Name": "Název",
     "Confirm Password": "",
     "Cancel": "Storno",
@@ -461,5 +460,6 @@
     "up to date": "",
     "Active": "",
     "New Account": "",
-    "Accounts": ""
+    "Accounts": "",
+    "Save Account": ""
 }

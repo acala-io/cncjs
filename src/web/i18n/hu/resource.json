@@ -32,7 +32,6 @@
     "Version {{version}}": "Verzió {{version}}",
     "Latest version": "Legutolsó vezió",
     "New": "Új",
-    "Account status": "Felhasználó státusz",
     "Name": "Név",
     "Confirm Password": "Jelszó megerősítése",
     "Cancel": "Mégse",
@@ -461,5 +460,6 @@
     "up to date": "",
     "Active": "",
     "New Account": "",
-    "Accounts": ""
+    "Accounts": "",
+    "Save Account": ""
 }

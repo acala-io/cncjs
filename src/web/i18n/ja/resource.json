@@ -32,7 +32,6 @@
     "Version {{version}}": "バージョン{{version}}",
     "Latest version": "最新バージョン",
     "New": "新規",
-    "Account status": "アカウントの状態",
     "Name": "名前",
     "Confirm Password": "パスワードの確認",
     "Cancel": "キャンセル",
@@ -461,5 +460,6 @@
     "up to date": "",
     "Active": "",
     "New Account": "",
-    "Accounts": ""
+    "Accounts": "",
+    "Save Account": ""
 }

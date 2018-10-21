@@ -32,7 +32,6 @@
     "Version {{version}}": "版本{{version}}",
     "Latest version": "最新版本",
     "New": "新建",
-    "Account status": "账号状态",
     "Name": "名称",
     "Confirm Password": "确认密码",
     "Cancel": "取消",
@@ -461,5 +460,6 @@
     "up to date": "",
     "Active": "",
     "New Account": "",
-    "Accounts": ""
+    "Accounts": "",
+    "Save Account": ""
 }

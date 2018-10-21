@@ -32,7 +32,6 @@
     "Version {{version}}": "Versión {{version}}",
     "Latest version": "Versión más reciente",
     "New": "Nuevo",
-    "Account status": "",
     "Name": "Nombre",
     "Confirm Password": "Confirmar contraseña",
     "Cancel": "Cancelar",
@@ -461,5 +460,6 @@
     "up to date": "",
     "Active": "",
     "New Account": "",
-    "Accounts": ""
+    "Accounts": "",
+    "Save Account": ""
 }

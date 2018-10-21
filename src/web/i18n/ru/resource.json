@@ -32,7 +32,6 @@
     "Version {{version}}": "Версия {{version}}",
     "Latest version": "Последней версии",
     "New": "",
-    "Account status": "",
     "Name": "Имя",
     "Confirm Password": "",
     "Cancel": "Отмена",
@@ -461,5 +460,6 @@
     "up to date": "",
     "Active": "",
     "New Account": "",
-    "Accounts": ""
+    "Accounts": "",
+    "Save Account": ""
 }
