@@ -44,10 +44,7 @@
     "Disabled": "無効",
     "Date Modified": "変更日時",
     "Action": "アクション",
-    "Edit Account": "アカウントの編集",
-    "Delete Account": "アカウントの削除",
     "Settings": "設定",
-    "Are you sure you want to delete the account?": "本当にアカウントを削除してもよろしいですか？",
     "Update": "アップデート",
     "Old Password": "旧パスワード",
     "Change Password": "パスワードの変更",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

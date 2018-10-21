@@ -44,10 +44,7 @@
     "Disabled": "Отключено",
     "Date Modified": "",
     "Action": "Действие",
-    "Edit Account": "",
-    "Delete Account": "",
     "Settings": "Настройки",
-    "Are you sure you want to delete the account?": "",
     "Update": "",
     "Old Password": "",
     "Change Password": "",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

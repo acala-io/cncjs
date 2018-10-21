@@ -44,10 +44,7 @@
     "Disabled": "Engelle",
     "Date Modified": "Değiştirilme Tarihi",
     "Action": "Action",
-    "Edit Account": "Hesabı Düzenle",
-    "Delete Account": "Hesabı Sil",
     "Settings": "Ayarlar",
-    "Are you sure you want to delete the account?": "Hesabı silmek istediğinize emin misiniz?",
     "Update": "Güncelle",
     "Old Password": "Eski Şifre",
     "Change Password": "Şifreyi değiştir",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

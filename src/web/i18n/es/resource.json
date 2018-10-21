@@ -44,10 +44,7 @@
     "Disabled": "Desactivada",
     "Date Modified": "Fecha de modificación",
     "Action": "Acción",
-    "Edit Account": "Editar cuenta",
-    "Delete Account": "Eliminar cuenta",
     "Settings": "Configuración",
-    "Are you sure you want to delete the account?": "Esta usted seguro de eliminar la cuenta?",
     "Update": "Actualizar",
     "Old Password": "Contraseña anterior",
     "Change Password": "Cambiar contraseña",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

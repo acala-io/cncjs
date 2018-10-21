@@ -44,10 +44,7 @@
     "Disabled": "已停用",
     "Date Modified": "修改日期",
     "Action": "動作",
-    "Edit Account": "編輯帳戶",
-    "Delete Account": "刪除帳戶",
     "Settings": "設定",
-    "Are you sure you want to delete the account?": "你確定要刪除這個帳戶嗎？",
     "Update": "更新",
     "Old Password": "舊密碼",
     "Change Password": "更改密碼",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

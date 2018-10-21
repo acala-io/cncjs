@@ -44,10 +44,7 @@
     "Disabled": "Tiltva",
     "Date Modified": "Módosítás dátuma",
     "Action": "Akció",
-    "Edit Account": "Felhasználó szerkesztés",
-    "Delete Account": "Felhasználó törlése",
     "Settings": "Beállítások",
-    "Are you sure you want to delete the account?": "Biztos, hogy törölni szeretné a felasználót?",
     "Update": "Frissítés",
     "Old Password": "Régi Jelszó",
     "Change Password": "Jelszó Csere",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

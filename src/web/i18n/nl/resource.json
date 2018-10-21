@@ -44,10 +44,7 @@
     "Disabled": "Uitzetten",
     "Date Modified": "Datum gemodificeerd",
     "Action": "Actie",
-    "Edit Account": "Pas Account aan",
-    "Delete Account": "Verwijder Account",
     "Settings": "Instellingen",
-    "Are you sure you want to delete the account?": "Weet U zeker dat U de account wil verwijderen?",
     "Update": "Update",
     "Old Password": "Oud Paswoord",
     "Change Password": "Verander Paswoord",
@@ -461,5 +458,8 @@
     "Read Documentation": "",
     "View Downloads": "",
     "Checking for updates": "",
-    "up to date": ""
+    "up to date": "",
+    "Active": "",
+    "New Account": "",
+    "Accounts": ""
 }

@@ -44,10 +44,7 @@
     "Disabled": "Disabled",
     "Date Modified": "Date Modified",
     "Action": "Action",
-    "Edit Account": "Edit Account",
-    "Delete Account": "Delete Account",
     "Settings": "Settings",
-    "Are you sure you want to delete the account?": "Are you sure you want to delete the account?",
     "Update": "Update",
     "Old Password": "Old Password",
     "Change Password": "Change Password",
@@ -461,5 +458,8 @@
     "Read Documentation": "Read Documentation",
     "View Downloads": "View Downloads",
     "Checking for updates": "Checking for updates",
-    "up to date": "up to date"
+    "up to date": "up to date",
+    "Active": "Active",
+    "New Account": "New Account",
+    "Accounts": "Accounts"
 }

@@ -30,7 +30,7 @@ const getSections = () => [
   {
     component: props => <Account {...props} />,
     id: 'account',
-    title: i18n._('My Account'),
+    title: i18n._('Accounts'),
   },
   {
     component: props => <Commands {...props} />,

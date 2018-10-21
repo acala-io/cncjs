@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
-
-import CreateRecord from './CreateRecord';
-import UpdateRecord from './UpdateRecord';
-import TableRecords from './TableRecords';
+import Accounts from './Accounts';
 
 class Account extends PureComponent {
   static propTypes = {
@@ -16,13 +12,7 @@ class Account extends PureComponent {
   render() {
     const {actions, state} = this.props;
 
-    return (
-      <div>
-        {state.modal.name === MODAL_CREATE_RECORD && <CreateRecord state={state} actions={actions} />}
-        {state.modal.name === MODAL_UPDATE_RECORD && <UpdateRecord state={state} actions={actions} />}
-        <TableRecords state={state} actions={actions} />
-      </div>
-    );
+    return <Accounts state={state} actions={actions} />;
   }
 
   componentDidMount() {
