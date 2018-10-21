@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {bool, node} from 'prop-types';
 import {connect} from 'react-redux';
 
+import AppNotices from '../containers/Workspace/AppNotices';
 import Dialogs from '../dialogs';
 import FlashMessages from '../components_new/FlashMessages';
 
@@ -45,6 +46,7 @@ class AppLayout extends Component {
     return (
       <StyledAppLayout>
         <FlashMessages />
+        <AppNotices />
         <Dialogs />
         <Body hasOverlay={hasOverlay}>{children}</Body>
       </StyledAppLayout>

@@ -2,8 +2,8 @@
   "name": "CNCjs",
   "version": "2.0.0-alpha",
   "description": "A web-based interface for CNC milling controller running Grbl, Marlin, Smoothieware, or TinyG",
-  "homepage": "https://github.com/cncjs/cncjs",
-  "issues": "https://github.com/cncjs/cncjs/issues",
+  "homepage": "https://github.com/acala-io/cncjs",
+  "issues": "https://github.com/acala-io/cncjs/issues",
   "author": "Cheton Wu <cheton@gmail.com>",
   "main": "./dist/cnc/cnc.js",
   "bin": {
