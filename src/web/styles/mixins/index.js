@@ -1,4 +1,5 @@
 import {centerMX, centerXY} from './center';
+import {input} from './input';
 import {link, linkDisabled} from './link';
 import {
   pinBottom,
@@ -23,6 +24,7 @@ import {truncateText} from './text';
 export default {
   centerMX,
   centerXY,
+  input,
   link,
   linkDisabled,
   pinBottom,
