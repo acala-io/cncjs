@@ -2,40 +2,108 @@
  * Global variables.
  */
 
+import Color from 'color';
+
 const transitionTimeMultiplier = 1; // scaling factor for development / debugging
+
+// Base values for deriving variations
+const borderRadius = 3;
+const borderWidth = 1;
+
+const globalSpacingUnit = 14;
+
+const colorPrimary = Color('hsl(248, 67%, 64%)');
+const colorSecondary = Color('hsl(100, 67%, 64%)');
+const colorClickable = Color('hsl(207, 67%, 64%)');
+const colorText = Color('hsl(201, 13%, 21%)');
+const colorBackground = Color('hsl(201, 2%, 92%)');
+const colorBorder = Color('hsl(201, 13%, 79%)');
+
+// Darker color variations:
+// - Brightness
+// + Saturation
+// Hue (often) shifts towards a luminosity minimum (red, green, or blue)
+
+// Lighter color variations:
+// + Brightness
+// - Saturation
+// Hue (often) shifts towards a luminosity maximum
 
 export default {
   color: {
     primary: {
-      default: 'hsl(248, 67%, 64%)',
-      darker: 'red', // 'darken(saturate($primary, 3%), 8%)',
-      darkest: 'red', // 'darken(saturate($primary, 5%), 42%)',
-      lighter: 'red', // 'lighten(desaturate($primary, 8%), 8%)',
-      lightest: 'red', // 'lighten(desaturate($primary, 13%), 34%)',
+      default: colorPrimary.string(),
+      darker: colorPrimary
+        .darken(0.08)
+        .saturate(0.03)
+        .string(),
+      darkest: colorPrimary
+        .darken(0.42)
+        .saturate(0.05)
+        .string(),
+      lighter: colorPrimary
+        .lighten(0.08)
+        .desaturate(0.08)
+        .string(),
+      lightest: colorPrimary
+        .lighten(0.34)
+        .desaturate(0.13)
+        .string(),
     },
     secondary: {
-      default: 'hsl(100, 67%, 64%)',
-      darker: 'red', // 'darken(saturate($secondary, 3%), 13%)',
-      darkest: 'red', // 'darken(saturate($secondary, 5%), 34%)',
-      lighter: 'red', // 'lighten(desaturate($secondary, 8%), 13%)',
-      lightest: 'red', // 'lighten(desaturate($secondary, 13%), 34%)',
+      default: colorSecondary.string(),
+      darker: colorSecondary
+        .darken(0.13)
+        .saturate(0.03)
+        .string(),
+      darkest: colorSecondary
+        .darken(0.34)
+        .saturate(0.05)
+        .string(),
+      lighter: colorSecondary
+        .lighten(0.13)
+        .desaturate(0.08)
+        .string(),
+      lightest: colorSecondary
+        .lighten(0.34)
+        .desaturate(0.13)
+        .string(),
     },
     clickable: {
       // colors for clickable items (links, buttons, etc.)
-      default: 'hsl(207, 67%, 64%)',
-      highlight: 'hsl(207, 80%, 69%)', // 'lighten(saturate($clickable, 13%), 5%)',
-      background: 'turquoise', // 'transparentize($clickable--highlight, 0.72)',
+      default: colorClickable.string(),
+      highlight: colorClickable
+        .lighten(0.05)
+        .saturate(0.13)
+        .string(),
+      background: colorClickable
+        .lighten(0.05)
+        .saturate(0.13)
+        .fade(0.72)
+        .string(),
     },
     text: {
-      default: 'hsl(201, 13%, 21%)',
-      lighter: 'hsl(204, 8%, 76%)', // 'lighten(desaturate($text, 5%), 55%)',
-      lightest: 'red', // 'lighten(desaturate($text, 5%), 68%)',
+      default: colorText.string(),
+      lighter: colorText
+        .lighten(0.55)
+        .desaturate(0.05)
+        .string(),
+      lightest: colorText
+        .lighten(0.68)
+        .desaturate(0.05)
+        .string(),
       inverse: 'hsl(0, 0%, 100%)',
     },
     background: {
-      default: 'hsl(201, 2%, 92%)',
-      darker: 'red', // 'darken(saturate($background, 3%), 16%)',
-      darkest: 'red', // 'darken(saturate($background, 3%), 55%)',
+      default: colorBackground.string(),
+      darker: colorBackground
+        .darken(0.16)
+        .saturate(0.03)
+        .string(),
+      darkest: colorBackground
+        .darken(0.55)
+        .saturate(0.03)
+        .string(),
       slightlyOffBlack: 'hsl(201, 2%, 8%)',
       lighter: 'hsl(201, 2%, 94%)',
       slightlyOffWhite: 'hsl(201, 1%, 97%)',
@@ -44,10 +112,10 @@ export default {
       warning: 'hsl(4, 90%, 94%)',
     },
     border: {
-      default: 'hsl(201, 13%, 79%)',
-      darker: 'red', // 'darken($border, 8%)',
-      lighter: 'red', // 'lighten($border, 8%)',
-      lightest: 'red', // 'lighten($border, 13%)',
+      default: colorBorder.string(),
+      darker: colorBorder.darken(0.08).string(),
+      lighter: colorBorder.lighten(0.08).string(),
+      lightest: colorBorder.lighten(0.13).string(),
     },
     state: {
       danger: 'hsl(0, 88%, 66%)',
@@ -59,17 +127,17 @@ export default {
   },
   border: {
     radius: {
-      default: '3px',
-      tiny: '2px',
-      small: '1px',
-      large: '6px', // 2x
-      huge: '$border-radius * 3',
+      default: `${borderRadius}px`,
+      tiny: `${borderRadius - 2}px`,
+      small: `${borderRadius - 1}px`,
+      large: `${borderRadius * 2}px`,
+      huge: `${borderRadius * 3}px`,
       circle: '50%',
       pill: '999px',
     },
     width: {
-      default: '1px',
-      strong: '2px',
+      default: `${borderWidth}px`,
+      strong: `${borderWidth * 2}px`,
     },
   },
   font: {
@@ -87,11 +155,11 @@ export default {
     },
   },
   globalSpacingUnit: {
-    default: '14px',
-    tiny: '3.5px',
-    small: '7px',
-    large: '28px',
-    huge: '56px',
+    default: `${globalSpacingUnit}px`,
+    tiny: `${globalSpacingUnit / 4}px`,
+    small: `${globalSpacingUnit / 2}px`,
+    large: `${globalSpacingUnit * 2}px`,
+    huge: `${globalSpacingUnit * 4}px`,
   },
   transition: {
     time: {
