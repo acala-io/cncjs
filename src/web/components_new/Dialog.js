@@ -20,17 +20,12 @@ const CloseLink = styled(Link)`
   ${animation.fadeIn}
 
   animation-delay: ${s.transition.time.medium};
-  color: ${s.color.text.lighter} !important;
   cursor: pointer;
   display: inline-block;
   opacity: 0;
-  padding: ${s.size.default};
+  padding: ${s.size.large};
   text-align: center;
   z-index: ${s.zIndex.topmost3}; /* 1 */
-
-  &:hover {
-    color: ${s.color.clickable.highlight} !important;
-  }
 `;
 
 class ActualDialog extends PureComponent {

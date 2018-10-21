@@ -17,7 +17,7 @@ class ConnectionModal extends PureComponent {
 
   render() {
     return (
-      <Dialog onClose={this.closeDialog} width="extraWide">
+      <Dialog onClose={this.closeDialog} width="wide">
         <DialogHeader heading={i18n._('Connection')} />
         <Padding>
           This is just mock content!
