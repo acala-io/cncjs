@@ -1,10 +1,7 @@
-/* eslint-disable react/forbid-foreign-prop-types */
-
 import i18next from 'i18next';
 import React, {PureComponent} from 'react';
 import Uri from 'jsuri';
 import {findIndex, get, isEqual} from 'lodash';
-import {withRouter} from 'react-router-dom';
 
 import api from '../api';
 import i18n from '../lib/i18n';
@@ -17,10 +14,6 @@ import Flexbox from '../components_new/Flexbox';
 import {Nav, NavItem} from './Nav';
 
 class Settings extends PureComponent {
-  static propTypes = {
-    ...withRouter.propTypes,
-  };
-
   initialState = getInitialState();
 
   state = getInitialState();
@@ -880,4 +873,4 @@ class Settings extends PureComponent {
   }
 }
 
-export default withRouter(Settings);
+export default Settings;

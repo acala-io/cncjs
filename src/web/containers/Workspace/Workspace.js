@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-foreign-prop-types, react/no-find-dom-node */
+/* eslint-disable react/no-find-dom-node */
 
 import classcat from 'classcat';
 import Dropzone from 'react-dropzone';
@@ -9,7 +9,6 @@ import React, {Fragment, PureComponent} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {includes, pick, throttle} from 'lodash';
-import {withRouter} from 'react-router-dom';
 
 import api from '../../api';
 import controller from '../../lib/controller';
@@ -62,12 +61,11 @@ const stopWaiting = () => {
 
 class Workspace extends PureComponent {
   static propTypes = {
-    ...withRouter.propTypes,
-    currentDialog: PropTypes.func,
+    // currentDialog: PropTypes.func,
+    editSettings: PropTypes.func,
     hideModals: PropTypes.func,
-    onEditSettings: PropTypes.func,
-    showFeederPausedModal: PropTypes.func,
-    showFeederWaitModal: PropTypes.func,
+    // showFeederPausedModal: PropTypes.func,
+    // showFeederWaitModal: PropTypes.func,
     showServerDisconnectedModal: PropTypes.func,
   };
 
@@ -89,11 +87,10 @@ class Workspace extends PureComponent {
   }
 
   render() {
-    const {className, style} = this.props;
     const {connection, isDraggingFile} = this.state;
 
     return (
-      <div className={classcat(['workspace', className])} style={style}>
+      <Fragment>
         {this.modals}
         <div className={classcat(['dropzone-overlay', {['hidden']: !(connection.ident && isDraggingFile)}])}>
           <div className="text-block">{i18n._('Drop G-code file here')}</div>
@@ -154,7 +151,7 @@ class Workspace extends PureComponent {
             </div>
           </div>
         </Dropzone>
-      </div>
+      </Fragment>
     );
   }
 
@@ -479,9 +476,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Workspace)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Workspace);
