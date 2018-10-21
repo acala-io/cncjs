@@ -90,7 +90,7 @@ class Workspace extends PureComponent {
     const {connection, isDraggingFile} = this.state;
 
     return (
-      <Fragment>
+      <div className="workspace">
         {this.modals}
         <div className={classcat(['dropzone-overlay', {['hidden']: !(connection.ident && isDraggingFile)}])}>
           <div className="text-block">{i18n._('Drop G-code file here')}</div>
@@ -151,7 +151,7 @@ class Workspace extends PureComponent {
             </div>
           </div>
         </Dropzone>
-      </Fragment>
+      </div>
     );
   }
 
