@@ -12,7 +12,7 @@ import {AXIS_E, AXIS_X, AXIS_Y, AXIS_Z, AXIS_A, AXIS_B, AXIS_C} from '../../cons
 
 import Dropdown, {MenuItem} from '../../components/Dropdown';
 import Icon from '../../components_new/Icon';
-import Image from '../../components/Image';
+import Image from '../../components_new/Image';
 import PositionInput from './components/PositionInput';
 import PositionLabel from './components/PositionLabel';
 import Taskbar from './components/Taskbar';

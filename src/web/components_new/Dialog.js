@@ -113,7 +113,7 @@ export const DialogHeader = ({children, heading}) => (
 
 DialogHeader.propTypes = {
   children: oneOfType([arrayOf(node), node]),
-  heading: string.isRequired,
+  heading: string,
 };
 
 export const DialogActions = styled.div`

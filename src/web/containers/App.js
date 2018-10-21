@@ -53,6 +53,11 @@ class App extends PureComponent {
       );
     }
 
+    if (location.pathname === '/login') {
+      // TODO: add <BlankLayout>
+      return <div {...this.props} />;
+    }
+
     return <Error404 />;
   }
 }

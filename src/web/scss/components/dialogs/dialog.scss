@@ -36,7 +36,7 @@
     /* browsers that don't understand vh units can fall back to the "top: 50%;" from the center--xy mixin */
     top: 50vh; /* 2 */
     /* stylelint-enable plugin/no-unsupported-browser-features */
-    width: $inuit-global-spacing-unit * 17;
+    width: $inuit-global-spacing-unit * 20;
     z-index: $z--topmost-2;
 }
 

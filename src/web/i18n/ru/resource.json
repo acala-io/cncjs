@@ -17,13 +17,9 @@
     "Sleep": "Сон",
     "Unlock": "Разблокировать",
     "Reset": "Сброс",
-    "Authentication failed.": "",
     "Error": "",
-    "Sign in to {{name}}": "",
     "Username": "Имя пользователя",
     "Password": "Пароль",
-    "Sign In": "Вход",
-    "Forgot your password?": "",
     "Learn more": "Подробнее",
     "A new version of {{name}} is available": "Имеется новая версия {{name}}",
     "Version {{version}}": "Версия {{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

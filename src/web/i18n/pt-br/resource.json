@@ -17,13 +17,9 @@
     "Sleep": "Suspender",
     "Unlock": "Desbloquear",
     "Reset": "Reiniciar",
-    "Authentication failed.": "Autenticação falhou",
     "Error": "Erro",
-    "Sign in to {{name}}": "Entrar como {{name}}",
     "Username": "Nome de Usuário",
     "Password": "Senha",
-    "Sign In": "Entrar",
-    "Forgot your password?": "Esqueceu sua senha?",
     "Learn more": "Saiba mais",
     "A new version of {{name}} is available": "Uma nova versão do {{name}} está disponível",
     "Version {{version}}": "Versão {{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

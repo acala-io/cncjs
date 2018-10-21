@@ -17,13 +17,9 @@
     "Sleep": "スリープ",
     "Unlock": "アンロック",
     "Reset": "リセット",
-    "Authentication failed.": "認証失敗.",
     "Error": "エラー",
-    "Sign in to {{name}}": "{{name}}にサインイン",
     "Username": "ユーザ名",
     "Password": "パスワード",
-    "Sign In": "サインイン",
-    "Forgot your password?": "パスワードを忘れましたか？",
     "Learn more": "詳細情報",
     "A new version of {{name}} is available": "新しいバージョンの {{name}} が入手できます",
     "Version {{version}}": "バージョン{{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

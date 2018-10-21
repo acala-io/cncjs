@@ -17,13 +17,9 @@
     "Sleep": "睡眠",
     "Unlock": "解除锁定",
     "Reset": "重置",
-    "Authentication failed.": "授权失败。",
     "Error": "错误",
-    "Sign in to {{name}}": "已登录用户{{name}}",
     "Username": "用户名",
     "Password": "密码",
-    "Sign In": "登录",
-    "Forgot your password?": "忘记密码？",
     "Learn more": "了解详情",
     "A new version of {{name}} is available": "新版本 {{name}} 已经提供下载了",
     "Version {{version}}": "版本{{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

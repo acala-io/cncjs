@@ -17,13 +17,9 @@
     "Sleep": "Režim spánku",
     "Unlock": "Odemknout",
     "Reset": "Resetovat",
-    "Authentication failed.": "",
     "Error": "",
-    "Sign in to {{name}}": "",
     "Username": "Uživatelské jméno",
     "Password": "Heslo",
-    "Sign In": "Přihlásit se",
-    "Forgot your password?": "",
     "Learn more": "Další informace",
     "A new version of {{name}} is available": "Je dostupná nová verze aplikace {{name}}",
     "Version {{version}}": "Verze {{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

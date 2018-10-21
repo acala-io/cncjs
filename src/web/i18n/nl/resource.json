@@ -17,13 +17,9 @@
     "Sleep": "Slapen",
     "Unlock": "Ontsluiten",
     "Reset": "Reset",
-    "Authentication failed.": "Authenticatie mislukt",
     "Error": "Fout",
-    "Sign in to {{name}}": "Log in naar {{name}}",
     "Username": "Gebruikersnaam",
     "Password": "Paswoord",
-    "Sign In": "Log in",
-    "Forgot your password?": "Uw wachtwoord vergeten?",
     "Learn more": "Meer weten?",
     "A new version of {{name}} is available": "Een nieuwe versie van {{name}} is beschikbaar",
     "Version {{version}}": "Versie {{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

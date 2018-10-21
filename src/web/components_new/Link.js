@@ -6,7 +6,7 @@ import s from '../styles/variables';
 import mixin from '../styles/mixins/';
 
 export const LinkIcon = styled(Icon)`
-    margin-right: ${s.size.default};
+  margin-right: ${s.size.small};
 `;
 
 export const Link = styled.div`

@@ -3,7 +3,7 @@ import store from '../store_old';
 
 let authenticated = false;
 
-module.exports = {
+export default {
   authenticated: () => authenticated,
   signin: ({name, password, token}) =>
     new Promise(resolve => {

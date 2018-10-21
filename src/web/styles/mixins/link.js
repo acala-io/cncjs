@@ -7,6 +7,15 @@ export const link = `
   text-decoration: none;
 
   /*
+   * 1 - I don't like underlining
+   */
+  :active,
+  :focus,
+  :hover {
+    text-decoration: none; /* 1 */
+  }
+
+  /*
    * 1 - Remove box shadows
    * 2 - Remove dotted outline
    */

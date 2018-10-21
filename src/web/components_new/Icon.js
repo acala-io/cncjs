@@ -7,7 +7,7 @@
  */
 
 import classcat from 'classcat';
-import {number, oneOf, oneOfType, string} from 'prop-types';
+import {number, object, oneOf, oneOfType, string} from 'prop-types';
 import React from 'react';
 
 /* eslint-disable max-len */
@@ -539,7 +539,7 @@ const iconPaths = function(name) {
 };
 /* eslint-enable */
 
-const Icon = ({className = '', color = 'inherit', name, rotate, size = 'default'}) => {
+const Icon = ({className = '', color = 'inherit', name, rotate, size = 'default', style = {}}) => {
   const styles = rotate ? {transform: `rotate(${rotate}deg)`} : null;
   const classes = classcat([
     'icon',
@@ -552,7 +552,7 @@ const Icon = ({className = '', color = 'inherit', name, rotate, size = 'default'
   ]);
 
   return (
-    <svg role="img" viewBox="0 0 84 84" className={classes} style={styles}>
+    <svg role="img" viewBox="0 0 84 84" className={classes} style={{...style, ...styles}}>
       {iconPaths(name)}
     </svg>
   );
@@ -564,6 +564,7 @@ Icon.propTypes = {
   name: string.isRequired,
   rotate: oneOfType([string, number]),
   size: oneOf(['default', 'tiny', 'small', 'large']),
+  style: object,
 };
 
 export default Icon;

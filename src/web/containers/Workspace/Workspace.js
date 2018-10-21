@@ -39,6 +39,7 @@ import './index.scss';
 const SettingsLink = styled(Link)`
   ${mixin.pinBottomLeftFixed}
 
+  font-weight: ${s.font.weight.bold};
   padding: ${s.size.default};
   width: 100%;
 `;

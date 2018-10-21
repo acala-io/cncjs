@@ -2,7 +2,6 @@
  * Alignment helper classes
  */
 
-
 // Floating ------------------------------------------------------------------------------------------------------------
 .left {
     float: left;
@@ -11,7 +10,6 @@
 .right {
     float: right;
 }
-
 
 // Position ------------------------------------------------------------------------------------------------------------
 .absolute {
@@ -25,7 +23,6 @@
 .fixed {
     position: fixed;
 }
-
 
 // Centering -----------------------------------------------------------------------------------------------------------
 .center--mx,
@@ -49,22 +46,28 @@
     @extend %center--x;
 }
 
+/*
+ * 1 - Perceptive adjustment, because the visual vertical center is slightly above the geometric center
+ */
 .center--y,
 %center--y {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 48%;
+    transform: translateY(-50%); /* 1 */
 }
 
 @mixin center--y {
     @extend %center--y;
 }
 
+/*
+ * 1 - Perceptive adjustment, because the visual vertical center is slightly above the geometric center
+ */
 .center--xy,
 %center--xy {
     left: 50%;
     position: absolute;
-    top: 50%;
+    top: 48%; /* 1 */
     transform: translate(-50%, -50%);
 }
 

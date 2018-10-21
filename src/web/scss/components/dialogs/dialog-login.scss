@@ -14,22 +14,10 @@
     }
 }
 
-.dialog__errors {
-    color: $error;
-    margin-bottom: $inuit-global-spacing-unit;
-    text-align: center;
-}
-
 /*
  * 1 - .input-stack is inline-block, thus not allowing horizontal centering
  */
 .user-credentials {
-    background: $background--white;
-    border-radius: $border-radius;
-    display: block; /* 1 */
-    padding: $inuit-global-spacing-unit;
-    position: relative;
-
     .input-add-on {
         width: 100%;
     }
@@ -41,30 +29,9 @@
             fill: $text--lighter;
             position: relative;
         }
-
-        .icon--username {
-            height: 1.25 * $inuit-global-spacing-unit;
-            left: -3px;
-            top: -9px;
-            width: 1.25 * $inuit-global-spacing-unit;
-        }
-
-        .icon--password {
-            height: 1.25 * $inuit-global-spacing-unit;
-            left: -3px;
-            top: -9px;
-            width: 1.25 * $inuit-global-spacing-unit;
-        }
     }
 
     .input-add-on__input {
         padding-left: 2.5em;
     }
-}
-
-.user-credentials__action {
-    font-weight: bold;
-    padding: $inuit-global-spacing-unit;
-    position: absolute;
-    text-align: center;
 }

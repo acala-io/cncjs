@@ -17,13 +17,9 @@
     "Sleep": "Uyku",
     "Unlock": "Kilidi Aç",
     "Reset": "Sıfırla",
-    "Authentication failed.": "Kimlik Doğrulama Başarısız",
     "Error": "Hata",
-    "Sign in to {{name}}": "Giriş yap {{name}}",
     "Username": "Kullanıcı adı",
     "Password": "şifre",
-    "Sign In": "Giriş",
-    "Forgot your password?": "Parolanızı mı unuttunuz?",
     "Learn more": "Daha fazla",
     "A new version of {{name}} is available": "{{name}} Yeni bir sürüm kullanıma sunuldu",
     "Version {{version}}": "Version {{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

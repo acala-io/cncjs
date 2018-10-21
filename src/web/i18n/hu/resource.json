@@ -17,13 +17,9 @@
     "Sleep": "Alvás",
     "Unlock": "Feloldás",
     "Reset": "Reset",
-    "Authentication failed.": "A hitelesítés sikertelen.",
     "Error": "",
-    "Sign in to {{name}}": "Bejelentkezés a {{name}}-be",
     "Username": "Felhasználó",
     "Password": "Jelszó",
-    "Sign In": "Bejelentkezés",
-    "Forgot your password?": "Elfelejtetted a jelszavad?",
     "Learn more": "További információ",
     "A new version of {{name}} is available": "Az új verzió {{name}} már elérhető",
     "Version {{version}}": "Verzió {{version}}",
@@ -458,5 +454,8 @@
     "Active": "",
     "New Account": "",
     "Accounts": "",
-    "Save Account": ""
+    "Save Account": "",
+    "Forgot password?": "",
+    "Log In": "",
+    "Combination of username and password is not valid.": ""
 }

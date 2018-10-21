@@ -1,4 +1,4 @@
-const routes = ['/workspace'];
+const routes = ['/login', '/workspace'];
 
 export const isAuthorizedRoute = pathname => routes.indexOf(pathname) >= 0;
 
