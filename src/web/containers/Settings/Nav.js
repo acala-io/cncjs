@@ -3,21 +3,21 @@ import styled from 'styled-components';
 import {arrayOf, bool, func, node, oneOfType, string} from 'prop-types';
 
 import s from '../../styles/variables';
+import mixin from '../../styles/mixins/';
 
 import Flexbox from '../../components_new/Flexbox';
 
-const NavLink = styled.div`
-  background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.transparent)};
-  color: ${({isActive}) => (isActive ? s.color.text.default : s.color.clickable.default)} !important;
-  cursor: ${({isActive}) => (isActive ? 'default' : 'pointer')};
-  padding: ${s.globalSpacingUnit.default};
-  text-decoration: none;
+const activeStyles = `
+  color: ${s.color.text.default};
+  cursor: default;
+`;
 
-  :hover,
-  :active,
-  :focus {
-    text-decoration: none;
-  }
+const NavLink = styled.div`
+  ${mixin.link}
+  background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.transparent)};
+  padding: ${s.globalSpacingUnit.default};
+
+  ${({isActive}) => (isActive ? activeStyles : '')};
 `;
 
 export const NavItem = ({isActive = false, onClick, title}) => (

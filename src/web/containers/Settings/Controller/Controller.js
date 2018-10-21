@@ -57,6 +57,10 @@ class Controller extends PureComponent {
   }
 
   get formActions() {
+    if (!this.props.stateChanged) {
+      return null;
+    }
+
     return (
       <FormActions
         primaryAction={{
