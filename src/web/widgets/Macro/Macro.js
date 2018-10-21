@@ -1,6 +1,7 @@
 import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {includes} from 'lodash';
 
@@ -16,6 +17,10 @@ import EditMacroModal from './EditMacroModal';
 import LoadMacroModal from './LoadMacroModal';
 
 import './index.scss';
+
+const MacroName = styled(ActionLink)`
+  width: 100%;
+`;
 
 class Macro extends PureComponent {
   static propTypes = {
@@ -50,7 +55,7 @@ class Macro extends PureComponent {
           {ensureArray(macros).map(macro => (
             <tr key={macro.id}>
               <td>
-                <ActionLink
+                <MacroName
                   action="run"
                   onClick={this.handleRunMacro(macro)}
                   label={macro.name}
