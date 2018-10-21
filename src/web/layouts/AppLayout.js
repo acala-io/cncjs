@@ -19,6 +19,7 @@ const StyledAppLayout = styled.div`
 `;
 
 const Body = styled.div`
+  // blur the content under the overlay
   ${({hasOverlay}) =>
     hasOverlay
       ? `
