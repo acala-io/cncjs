@@ -110,6 +110,10 @@ export default {
       white: 'hsl(0, 0%, 100%)',
       highlight: 'hsl(201, 100%, 94%)',
       warning: 'hsl(4, 90%, 94%)',
+      overlay: colorText
+        .darken(0.21)
+        .fade(0.21)
+        .string(),
     },
     border: {
       default: colorBorder.string(),
@@ -162,6 +166,11 @@ export default {
     huge: `${globalSpacingUnit * 4}px`,
   },
   transition: {
+    style: {
+      default: 'ease-in-out',
+      dynamic: 'cubic-bezier(0.73, 0.01, 0, 1)',
+      easeInOut: 'ease-in-out',
+    },
     time: {
       veryFast: `${75 * transitionTimeMultiplier}ms`,
       fast: `${150 * transitionTimeMultiplier}ms`,

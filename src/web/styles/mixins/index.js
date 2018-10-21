@@ -1,6 +1,23 @@
 import {centerMX, centerXY} from './center';
 import {link, linkDisabled} from './link';
-import {pinBottom, pinBottomLeft, pinBottomRight, pinLeft, pinRight, pinTop, pinTopLeft, pinTopRight} from './pin';
+import {
+  pinBottom,
+  pinBottomFixed,
+  pinBottomLeft,
+  pinBottomLeftFixed,
+  pinBottomRight,
+  pinBottomRightFixed,
+  pinLeft,
+  pinLeftFixed,
+  pinRight,
+  pinRightFixed,
+  pinTop,
+  pinTopFixed,
+  pinTopLeft,
+  pinTopLeftFixed,
+  pinTopRight,
+  pinTopRightFixed,
+} from './pin';
 
 export default {
   centerMX,
@@ -8,11 +25,19 @@ export default {
   link,
   linkDisabled,
   pinBottom,
+  pinBottomFixed,
   pinBottomLeft,
+  pinBottomLeftFixed,
   pinBottomRight,
+  pinBottomRightFixed,
   pinLeft,
+  pinLeftFixed,
   pinRight,
+  pinRightFixed,
   pinTop,
+  pinTopFixed,
   pinTopLeft,
+  pinTopLeftFixed,
   pinTopRight,
+  pinTopRightFixed,
 };

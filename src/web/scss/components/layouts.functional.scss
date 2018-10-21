@@ -1,20 +1,56 @@
-.layout {
-    display: grid;
-}
-
 .layout--app {
     .header {
-        align-content: space-between;
         align-items: center;
         display: flex;
         flex-flow: row;
         justify-content: space-between;
-        padding: $inuit-global-spacing-unit;
+        padding: $inuit-global-spacing-unit $inuit-global-spacing-unit-small;
     }
 
-    .main {
+    .body {
+        display: flex;
+        flex-flow: row wrap;
     }
 
-    .sidebar {
+    /* We tell all items to be 100% width, via flex-basis */
+    .body > .main,
+    .body > .aside {
+        flex: 1 100%;
+    }
+
+    /* Medium screens */
+    @media all and (min-width: 600px) {
+        /* We tell both sidebars to share a row */
+        .aside {
+            flex: 1 auto;
+        }
+    }
+
+    /* Large screens */
+    @media all and (min-width: 800px) {
+        /* We invert order of first sidebar and main
+         * And tell the main element to take twice as much width as the other two sidebars
+        */
+
+        .main {
+            flex: 2 0px;
+            order: 2;
+        }
+
+        .aside-1 {
+            order: 1;
+            padding-left: $inuit-global-spacing-unit-small;
+            padding-right: $inuit-global-spacing-unit;
+        }
+
+        .aside-2 {
+            order: 3;
+            padding-left: $inuit-global-spacing-unit;
+            padding-right: $inuit-global-spacing-unit-small;
+        }
+
+        .footer {
+            order: 4;
+        }
     }
 }

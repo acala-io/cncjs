@@ -33,10 +33,13 @@ import ServerDisconnectedModal from './ServerDisconnectedModal';
 import SettingsModal from '../../settings/SettingsModal';
 
 import s from '../../styles/variables';
+import mixin from '../../styles/mixins';
 
 import './index.scss';
 
 const SettingsLink = styled(Link)`
+  ${mixin.pinBottomLeftFixed}
+
   padding: ${s.globalSpacingUnit.default};
   width: 100%;
 `;

@@ -1,10 +1,32 @@
-import classcat from 'classcat';
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import styled from 'styled-components';
 import {bool, node} from 'prop-types';
+import {connect} from 'react-redux';
 
 import Dialogs from '../dialogs';
 import FlashMessages from '../components_new/FlashMessages';
+
+import s from '../styles/variables';
+
+const StyledAppLayout = styled.div`
+  align-items: stretch;
+  background-color: ${s.color.background.darkest};
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100.1vh; // force space for scrollbar
+  width: 100vw;
+`;
+
+const Body = styled.div`
+  ${({hasOverlay}) =>
+    hasOverlay
+      ? `
+        filter: blur(5px);
+        transition: blur ${s.transition.time.medium};
+      `
+      : ''};
+`;
 
 class AppLayout extends Component {
   static propTypes = {
@@ -16,11 +38,11 @@ class AppLayout extends Component {
     const {children, hasOverlay} = this.props;
 
     return (
-      <div className="layout layout--app">
+      <StyledAppLayout>
         <FlashMessages />
         <Dialogs />
-        <div className={classcat([{'has-overlay': hasOverlay}])}>{children}</div>
-      </div>
+        <Body hasOverlay={hasOverlay}>{children}</Body>
+      </StyledAppLayout>
     );
   }
 }
