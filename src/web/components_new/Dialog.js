@@ -1,9 +1,37 @@
 import classcat from 'classcat';
 import React, {Fragment, PureComponent} from 'react';
-import {connect} from 'react-redux';
+import styled from 'styled-components';
 import {bool, func, node, oneOf, string} from 'prop-types';
+import {connect} from 'react-redux';
 
 import Icon from './Icon';
+import {Link} from './Link';
+
+import animation from '../styles/animations/';
+import mixin from '../styles/mixins/';
+import s from '../styles/variables';
+
+const CloseLink = styled(Link)`
+  /*
+   * 1 - Make sure the close button is never covered by anything
+   */
+
+  ${mixin.pinTopRightFixed}
+  ${animation.fadeIn}
+
+  animation-delay: ${s.transition.time.medium};
+  color: ${s.color.text.lighter} !important;
+  cursor: pointer;
+  display: inline-block;
+  opacity: 0;
+  padding: ${s.globalSpacingUnit.default};
+  text-align: center;
+  z-index: ${s.zIndex.topmost3}; /* 1 */
+
+  &:hover {
+    color: ${s.color.clickable.highlight} !important;
+  }
+`;
 
 class ActualDialog extends PureComponent {
   static propTypes = {
@@ -68,9 +96,9 @@ class ActualDialog extends PureComponent {
     }
 
     return (
-      <span className="dialog__close-link tooltip tooltip--left" data-title={'cancel'} onClick={this.handleClosing}>
+      <CloseLink onClick={this.handleClosing}>
         <Icon name="cancel" size="large" />
-      </span>
+      </CloseLink>
     );
   }
 }
@@ -91,7 +119,20 @@ DialogHeader.propTypes = {
   heading: string.isRequired,
 };
 
-export const DialogActions = ({children}) => <div className="dialog__actions">{children}</div>;
+export const DialogActions = styled.div`
+  padding: 0 ${s.globalSpacingUnit.default} ${s.globalSpacingUnit.default};
+
+  .button {
+    font-size: ${s.font.size.large};
+
+    /*
+     * 1 - Make buttons full width, except for in full-width dialogs
+     */
+    .dialog:not(.dialog--full-width) & {
+      width: 100%; /* 1 */
+    }
+  }
+`;
 
 DialogActions.propTypes = {
   children: node,
