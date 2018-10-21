@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get, includes} from 'lodash';
 
-import i18n from '../../../lib/i18n';
-import * as validations from '../../../lib/validations';
+import i18n from '../../lib/i18n';
+import * as validations from '../../lib/validations';
 
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import {Form, Select, Textarea} from '../../../components/Validation';
-import {ToastNotification} from '../../../components/Notifications';
+import Modal from '../../components/Modal';
+import Space from '../../components/Space';
+import ToggleSwitch from '../../components/ToggleSwitch';
+import {Form, Select, Textarea} from '../../components/Validation';
+import {ToastNotification} from '../../components/Notifications';
 
 const SYSTEM_EVENTS = [
   // The following events are only available with system trigger (i.e. scripts)

@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 
-import settings from '../../config/settings';
+import settings from '../config/settings';
 
 const getInitialState = () => ({
   about: {

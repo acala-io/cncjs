@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get} from 'lodash';
 
-import i18n from '../../../lib/i18n';
+import i18n from '../../lib/i18n';
 
-import FormActions from '../../../components_new/FormActions';
-import LoadingIndicator from '../../../components_new/LoadingIndicator';
-import Select from '../../../components_new/Select';
-import Toggle from '../../../components_new/Toggle';
+import FormActions from '../../components_new/FormActions';
+import LoadingIndicator from '../../components_new/LoadingIndicator';
+import Select from '../../components_new/Select';
+import Toggle from '../../components_new/Toggle';
 import SettingsRow from '../SettingsRow';
 
 class General extends PureComponent {

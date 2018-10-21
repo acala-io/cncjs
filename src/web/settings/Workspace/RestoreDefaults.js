@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import i18n from '../../../lib/i18n';
+import i18n from '../../lib/i18n';
 
-import defaultState from '../../../store_old/defaultState';
-import store from '../../../store_old';
+import defaultState from '../../store_old/defaultState';
+import store from '../../store_old';
 
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import {Button} from '../../../components/Buttons';
+import Modal from '../../components/Modal';
+import Space from '../../components/Space';
+import {Button} from '../../components/Buttons';
 
 class RestoreDefaults extends PureComponent {
   static propTypes = {

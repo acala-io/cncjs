@@ -6,7 +6,7 @@ import i18n from '../../../lib/i18n';
 
 import Flexbox from '../../../components_new/Flexbox';
 import Select from '../../../components_new/Select';
-import SettingsRow from '../../../containers/Settings/SettingsRow';
+import SettingsRow from '../../../settings/SettingsRow';
 
 const FEEDRATE_RANGE = [100, 2500];
 const FEEDRATE_STEP = 50;

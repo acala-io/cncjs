@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 
-import i18n from '../../../lib/i18n';
+import i18n from '../../lib/i18n';
 
-import pkg from '../../../../../package.json';
+import pkg from '../../../../package.json';
 
-import Button from '../../../components_new/Button';
+import Button from '../../components_new/Button';
 import UpdateStatus from './UpdateStatus';
 
-import s from '../../../styles/variables';
-import mixin from '../../../styles/mixins/';
+import s from '../../styles/variables';
+import mixin from '../../styles/mixins/';
 
 const openUrl = url => window.open(url, '_blank');
 

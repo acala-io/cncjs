@@ -3,18 +3,18 @@
 import PropTypes from 'prop-types';
 import React, {Fragment, PureComponent} from 'react';
 
-import i18n from '../../../lib/i18n';
+import i18n from '../../lib/i18n';
 
 import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
 
-import ActionLink from '../../../components_new/ActionLink';
-import Button from '../../../components_new/Button';
+import ActionLink from '../../components_new/ActionLink';
+import Button from '../../components_new/Button';
 import CreateAccount from './CreateAccount';
 import EditAccount from './EditAccount';
-import Flexbox from '../../../components_new/Flexbox';
-import LoadingIndicator from '../../../components_new/LoadingIndicator';
-import Toggle from '../../../components_new/Toggle';
-import {TablePagination} from '../../../components/Paginations';
+import Flexbox from '../../components_new/Flexbox';
+import LoadingIndicator from '../../components_new/LoadingIndicator';
+import Toggle from '../../components_new/Toggle';
+import {TablePagination} from '../../components/Paginations';
 
 const AccountRow = ({account, actions}) => (
   <Flexbox flexDirection="row">

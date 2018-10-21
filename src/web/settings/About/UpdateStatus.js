@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import semver from 'semver';
 
-import i18n from '../../../lib/i18n';
+import i18n from '../../lib/i18n';
 
-import settings from '../../../config/settings';
+import settings from '../../config/settings';
 
-import Anchor from '../../../components/Anchor';
-import Space from '../../../components/Space';
+import Anchor from '../../components/Anchor';
+import Space from '../../components/Space';
 
 import './index.scss';
 

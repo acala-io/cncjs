@@ -1,17 +1,18 @@
 import {get} from 'lodash';
+
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import i18n from '../../../lib/i18n';
-import * as validations from '../../../lib/validations';
+import i18n from '../../lib/i18n';
+import * as validations from '../../lib/validations';
 
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import {Form, Input, Textarea} from '../../../components/Validation';
-import {ToastNotification} from '../../../components/Notifications';
+import Modal from '../../components/Modal';
+import Space from '../../components/Space';
+import ToggleSwitch from '../../components/ToggleSwitch';
+import {Form, Input, Textarea} from '../../components/Validation';
+import {ToastNotification} from '../../components/Notifications';
 
-class CreateRecord extends PureComponent {
+class UpdateRecord extends PureComponent {
   static propTypes = {
     actions: PropTypes.object,
     state: PropTypes.object,
@@ -35,7 +36,7 @@ class CreateRecord extends PureComponent {
   render() {
     const {state, actions} = this.props;
     const {modal} = state;
-    const {alertMessage} = modal.params;
+    const {alertMessage, enabled, title, commands} = modal.params;
 
     return (
       <Modal size="sm" onClose={actions.closeModal}>
@@ -45,7 +46,7 @@ class CreateRecord extends PureComponent {
             <Space width="8" />
             &rsaquo;
             <Space width="8" />
-            {i18n._('New')}
+            {i18n._('Update')}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -77,7 +78,7 @@ class CreateRecord extends PureComponent {
                       this.fields.enabled = node;
                     }}
                     size="sm"
-                    checked
+                    checked={enabled}
                   />
                 </div>
               </div>
@@ -86,7 +87,7 @@ class CreateRecord extends PureComponent {
                 <Input
                   type="text"
                   name="title"
-                  value=""
+                  value={title}
                   className="form-control form-control short"
                   validations={[validations.required]}
                 />
@@ -95,7 +96,7 @@ class CreateRecord extends PureComponent {
                 <label>{i18n._('Commands')}</label>
                 <Textarea
                   name="commands"
-                  value=""
+                  value={commands}
                   rows="5"
                   className="form-control long"
                   validations={[validations.required]}
@@ -117,8 +118,11 @@ class CreateRecord extends PureComponent {
                   return;
                 }
 
+                const {id} = modal.params;
                 const {enabled, title, commands} = this.value;
-                actions.createRecord({enabled, title, commands});
+                const forceReload = true;
+
+                actions.updateRecord(id, {enabled, title, commands}, forceReload);
               });
             }}
           >
@@ -130,4 +134,4 @@ class CreateRecord extends PureComponent {
   }
 }
 
-export default CreateRecord;
+export default UpdateRecord;

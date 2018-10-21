@@ -3,13 +3,13 @@ import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import i18n from '../../../lib/i18n';
-import * as validations from '../../../lib/validations';
+import i18n from '../../lib/i18n';
+import * as validations from '../../lib/validations';
 
-import FormActions from '../../../components_new/FormActions';
-import Toggle from '../../../components_new/Toggle';
-import {Form, Input} from '../../../components/Validation';
-import {ToastNotification} from '../../../components/Notifications';
+import FormActions from '../../components_new/FormActions';
+import Toggle from '../../components_new/Toggle';
+import {Form, Input} from '../../components/Validation';
+import {ToastNotification} from '../../components/Notifications';
 
 class EditAccount extends PureComponent {
   static propTypes = {

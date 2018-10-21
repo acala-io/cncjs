@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {get} from 'lodash';
 
-import * as validations from '../../../lib/validations';
-import i18n from '../../../lib/i18n';
+import * as validations from '../../lib/validations';
+import i18n from '../../lib/i18n';
 
-import FormActions from '../../../components_new/FormActions';
-import {Form, Input} from '../../../components/Validation';
-import {ToastNotification} from '../../../components/Notifications';
+import FormActions from '../../components_new/FormActions';
+import {Form, Input} from '../../components/Validation';
+import {ToastNotification} from '../../components/Notifications';
 
 class CreateAccount extends PureComponent {
   static propTypes = {

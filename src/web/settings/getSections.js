@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 
 import React from 'react';
-import i18n from '../../lib/i18n';
+import i18n from '../lib/i18n';
 
 import About from './About';
 import Account from './Account';

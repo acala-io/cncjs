@@ -1,22 +1,22 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import i18n from '../../../lib/i18n';
-import log from '../../../lib/log';
-import portal from '../../../lib/portal';
-import settings from '../../../config/settings';
+import i18n from '../../lib/i18n';
+import log from '../../lib/log';
+import portal from '../../lib/portal';
+import settings from '../../config/settings';
 
-import store from '../../../store_old';
+import store from '../../store_old';
 
 import {MODAL_RESTORE_DEFAULTS, MODAL_IMPORT_SETTINGS} from './constants';
 
-import Button from '../../../components_new/Button';
-import FormActions from '../../../components_new/FormActions';
+import Button from '../../components_new/Button';
+import FormActions from '../../components_new/FormActions';
 import ImportSettings from './ImportSettings';
-import Modal from '../../../components/Modal';
-import ModalTemplate from '../../../components/ModalTemplate';
+import Modal from '../../components/Modal';
+import ModalTemplate from '../../components/ModalTemplate';
 import RestoreDefaults from './RestoreDefaults';
-import Space from '../../../components/Space';
+import Space from '../../components/Space';
 
 class Workspace extends PureComponent {
   static propTypes = {

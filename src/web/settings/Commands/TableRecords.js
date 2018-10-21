@@ -6,17 +6,18 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {take} from 'lodash';
 
-import i18n from '../../../lib/i18n';
-import portal from '../../../lib/portal';
+import i18n from '../../lib/i18n';
+import portal from '../../lib/portal';
+
+import Anchor from '../../components/Anchor';
+import Modal from '../../components/Modal';
+import Space from '../../components/Space';
+import Table from '../../components/Table';
+import ToggleSwitch from '../../components/ToggleSwitch';
+import {Button} from '../../components/Buttons';
+import {TablePagination} from '../../components/Paginations';
 
 import {MODAL_CREATE_RECORD, MODAL_UPDATE_RECORD} from './constants';
-
-import Modal from '../../../components/Modal';
-import Space from '../../../components/Space';
-import Table from '../../../components/Table';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import {Button} from '../../../components/Buttons';
-import {TablePagination} from '../../../components/Paginations';
 
 class TableRecords extends PureComponent {
   static propTypes = {
@@ -46,7 +47,7 @@ class TableRecords extends PureComponent {
               <span>
                 <i className="fa fa-fw fa-spin fa-circle-o-notch" />
                 <Space width="8" />
-                {i18n._('Loading')}
+                {i18n._('Loading...')}
               </span>
             );
           }
@@ -85,8 +86,8 @@ class TableRecords extends PureComponent {
         )}
         columns={[
           {
-            title: i18n._('Enabled'),
             key: 'enabled',
+            title: i18n._('Enabled'),
             render: (value, row) => {
               const {id, enabled} = row;
               const title = enabled ? i18n._('Enabled') : i18n._('Disabled');
@@ -104,48 +105,20 @@ class TableRecords extends PureComponent {
             },
           },
           {
-            className: 'text-nowrap',
-            key: 'event',
-            title: i18n._('Event'),
+            key: 'title',
+            title: i18n._('Title'),
             render: (value, row) => {
-              const eventText =
-                {
-                  'connection:close': i18n._('Close'),
-                  'connection:open': i18n._('Open'),
-                  'macro:load': i18n._('Load Macro'),
-                  'macro:run': i18n._('Run Macro'),
-                  'sender:load': i18n._('G-code: Load'),
-                  'sender:pause': i18n._('G-code: Pause'),
-                  'sender:resume': i18n._('G-code: Resume'),
-                  'sender:start': i18n._('G-code: Start'),
-                  'sender:stop': i18n._('G-code: Stop'),
-                  'sender:unload': i18n._('G-code: Unload'),
-                  cyclestart: i18n._('Cycle Start'),
-                  feedhold: i18n._('Feed Hold'),
-                  homing: i18n._('Homing'),
-                  sleep: i18n._('Sleep'),
-                  startup: i18n._('Startup'),
-                }[row.event] || '';
+              const {title} = row;
 
-              return eventText;
-            },
-          },
-          {
-            className: 'text-nowrap',
-            key: 'trigger',
-            title: i18n._('Trigger'),
-            render: (value, row) => {
-              const {trigger} = row;
-
-              if (trigger === 'system') {
-                return <span>{i18n._('System')}</span>;
-              }
-
-              if (trigger === 'gcode') {
-                return <span>{i18n._('G-code')}</span>;
-              }
-
-              return '–';
+              return (
+                <Anchor
+                  onClick={() => {
+                    actions.openModal(MODAL_UPDATE_RECORD, row);
+                  }}
+                >
+                  {title}
+                </Anchor>
+              );
             },
           },
           {
@@ -220,7 +193,7 @@ class TableRecords extends PureComponent {
                               <Space width="8" />
                               &rsaquo;
                               <Space width="8" />
-                              {i18n._('Events')}
+                              {i18n._('Commands')}
                             </Modal.Title>
                           </Modal.Header>
                           <Modal.Body>{i18n._('Are you sure you want to delete this item?')}</Modal.Body>

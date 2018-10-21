@@ -3,7 +3,7 @@ import {func} from 'prop-types';
 
 import i18n from '../lib/i18n';
 
-import Settings from '../containers/Settings/';
+import Settings from './index';
 import {Dialog, DialogHeader} from '../components_new/Dialog';
 
 class SettingsModal extends PureComponent {

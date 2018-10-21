@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {max} from 'lodash';
 
-import i18n from 'web/lib/i18n';
+import i18n from '../../../lib/i18n';
 
 import DateTimeRangePicker from '../DateTimeRangePicker';
 import Dropdown, {MenuItem} from '../../../components/Dropdown';

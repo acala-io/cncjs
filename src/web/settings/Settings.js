@@ -6,14 +6,14 @@ import Uri from 'jsuri';
 import {findIndex, get, isEqual} from 'lodash';
 import {withRouter} from 'react-router-dom';
 
-import api from '../../api';
-import i18n from '../../lib/i18n';
+import api from '../api';
+import i18n from '../lib/i18n';
 
 import getInitialState from './getInitialState';
 import getSections from './getSections';
-import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../../api/constants';
+import {ERR_CONFLICT, ERR_PRECONDITION_FAILED} from '../api/constants';
 
-import Flexbox from '../../components_new/Flexbox';
+import Flexbox from '../components_new/Flexbox';
 import {Nav, NavItem} from './Nav';
 
 class Settings extends PureComponent {
