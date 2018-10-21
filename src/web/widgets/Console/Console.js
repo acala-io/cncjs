@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+import styled from 'styled-components';
 
 import i18n from '../../lib/i18n';
 
+import Hint from '../../components_new/Hint';
 import Terminal from './Terminal';
+
+import s from '../../styles/variables';
+
+const NoSerialConnection = styled(Hint)`
+  display: block;
+  padding: ${s.size.default} ${s.size.default} ${s.size.large};
+  text-align: center;
+`;
 
 class Console extends PureComponent {
   static propTypes = {
@@ -20,7 +30,7 @@ class Console extends PureComponent {
     const {onTerminalData} = actions;
 
     if (!ident) {
-      return <div className="no-serial-connection">{i18n._('No serial connection')}</div>;
+      return <NoSerialConnection>{i18n._('No serial connection')}</NoSerialConnection>;
     }
 
     return (
