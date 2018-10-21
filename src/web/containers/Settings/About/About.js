@@ -45,7 +45,7 @@ const ProductDescription = styled.p`
   padding-bottom: ${s.globalSpacingUnit.default};
 `;
 
-const AboutContainer = styled.div`
+const StyledAbout = styled.div`
   padding-bottom: ${s.globalSpacingUnit.large};
   text-align: center;
   width: 100%;
@@ -61,7 +61,7 @@ class About extends PureComponent {
     const {version} = this.props.state;
 
     return (
-      <AboutContainer>
+      <StyledAbout>
         <Logo src="images/logo-square-256x256.png" />
         <div>
           <ProductName>{pkg.name}</ProductName>
@@ -73,7 +73,7 @@ class About extends PureComponent {
           <Button text={i18n._('View Downloads')} onClick={onViewReleases} className="u-margin-horizontal" />
           <Button text={i18n._('Report an issue')} onClick={onReportIssue} />
         </div>
-      </AboutContainer>
+      </StyledAbout>
     );
   }
 

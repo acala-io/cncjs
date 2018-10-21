@@ -40,9 +40,12 @@ export const link = `
   }
 `;
 
-// .is-disabled,
-// .is-disabled:hover {
-//     color: $text--lightest;
-//     cursor: not-allowed;
-//     font-style: italic;
-// }
+export const linkDisabled = `
+  &,
+  &:hover {
+    color: ${s.color.text.lightest};
+    cursor: not-allowed;
+    font-style: italic;
+  }
+`;
+

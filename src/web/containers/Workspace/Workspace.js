@@ -6,6 +6,7 @@ import ensureArray from 'ensure-array';
 import PropTypes from 'prop-types';
 import pubsub from 'pubsub-js';
 import React, {Fragment, PureComponent} from 'react';
+import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {includes, pick, throttle} from 'lodash';
 import {withRouter} from 'react-router-dom';
@@ -25,13 +26,20 @@ import {WORKFLOW_STATE_IDLE} from '../../constants';
 import DefaultWidgets from './DefaultWidgets';
 import FeederPausedModal from './FeederPausedModal';
 import FeederWaitModal from './FeederWaitModal';
-import Icon from '../../components_new/Icon';
+import {Link, LinkIcon} from '../../components_new/Link';
 import PrimaryWidgets from './PrimaryWidgets';
 import SecondaryWidgets from './SecondaryWidgets';
 import ServerDisconnectedModal from './ServerDisconnectedModal';
 import SettingsModal from '../../settings/SettingsModal';
 
+import s from '../../styles/variables';
+
 import './index.scss';
+
+const SettingsLink = styled(Link)`
+  padding: ${s.globalSpacingUnit.default};
+  width: 100%;
+`;
 
 const WAIT = '%wait';
 
@@ -53,8 +61,8 @@ class Workspace extends PureComponent {
   static propTypes = {
     ...withRouter.propTypes,
     currentDialog: PropTypes.func,
-    onEditSettings: PropTypes.func,
     hideModals: PropTypes.func,
+    onEditSettings: PropTypes.func,
     showFeederPausedModal: PropTypes.func,
     showFeederWaitModal: PropTypes.func,
     showServerDisconnectedModal: PropTypes.func,
@@ -149,10 +157,10 @@ class Workspace extends PureComponent {
 
   get editSettings() {
     return (
-      <div className="link u-padding-small" onClick={this.props.editSettings}>
-        <Icon name="settings" size="small" className="u-margin-right-tiny" />
+      <SettingsLink onClick={this.props.editSettings}>
+        <LinkIcon name="settings" />
         {i18n._('Settings')}
-      </div>
+      </SettingsLink>
     );
   }
 
