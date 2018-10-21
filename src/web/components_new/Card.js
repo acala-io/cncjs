@@ -57,7 +57,7 @@ Card.propTypes = {
   style: object,
 };
 
-const Heading = styled.h2`
+const Heading = styled.h3`
   color: ${s.color.text.lighter};
   line-height: 1.5;
   margin: 0;
@@ -75,7 +75,6 @@ const StyledCardHeader = styled.div`
   padding: ${s.size.small} ${s.size.default};
   position: relative; /* 1 */
 
-  h2,
   h3 {
     color: ${s.color.text.lighter};
     line-height: 1.5;

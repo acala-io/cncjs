@@ -9,12 +9,16 @@ import FlashMessages from '../components_new/FlashMessages';
 import s from '../styles/variables';
 
 const StyledAppLayout = styled.div`
+  /*
+   * 1 - Force space for scrollbar
+   */
+
   align-items: stretch;
   background-color: ${s.color.background.darkest};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 100.1vh; // force space for scrollbar
+  min-height: 100.1vh; /* 1 */
   width: 100vw;
 `;
 

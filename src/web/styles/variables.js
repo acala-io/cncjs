@@ -150,7 +150,8 @@ export default {
       default: '1rem', // = 14px $inuit-base-font-size
       tiny: '0.714rem',
       small: '0.857rem',
-      large: '1.5rem',
+      large: '1.25rem',
+      larger: '1.5rem',
       huge: '3rem',
       pageTitle: '4rem',
     },
