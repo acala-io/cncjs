@@ -732,7 +732,7 @@ class AxesWidget extends PureComponent {
     const {openModal, toggleKeypadJogging, toggleMDIMode} = this.actions;
 
     return (
-      <div>
+      <div className="clearfix">
         <KeypadOverlay show={canClick && jog.keypad}>
           <WidgetHeaderButton title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
             <Icon name="keyboard" />
