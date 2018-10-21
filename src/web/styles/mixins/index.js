@@ -18,6 +18,7 @@ import {
   pinTopRight,
   pinTopRightFixed,
 } from './pin';
+import {truncateText} from './text';
 
 export default {
   centerMX,
@@ -40,4 +41,5 @@ export default {
   pinTopLeftFixed,
   pinTopRight,
   pinTopRightFixed,
+  truncateText,
 };

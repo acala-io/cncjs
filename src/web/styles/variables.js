@@ -76,6 +76,7 @@ export default {
         .lighten(0.05)
         .saturate(0.13)
         .string(),
+      darker: colorClickable.darken(0.13).string(),
       background: colorClickable
         .lighten(0.05)
         .saturate(0.13)
@@ -155,7 +156,7 @@ export default {
     },
     weight: {
       normal: '400',
-      bold: '700',
+      bold: '600',
     },
   },
   globalSpacingUnit: {
