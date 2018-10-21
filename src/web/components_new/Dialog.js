@@ -1,7 +1,7 @@
 import classcat from 'classcat';
 import React, {Fragment, PureComponent} from 'react';
 import styled from 'styled-components';
-import {bool, func, node, oneOf, string} from 'prop-types';
+import {arrayOf, func, node, oneOf, oneOfType, string, bool} from 'prop-types';
 import {connect} from 'react-redux';
 
 import Icon from './Icon';
@@ -104,13 +104,15 @@ export const Dialog = connect(state => ({
 
 export default Dialog;
 
-export const DialogHeader = ({heading}) => (
+export const DialogHeader = ({children, heading}) => (
   <header className="dialog__header">
     <h2 className="dialog__heading">{heading}</h2>
+    {children}
   </header>
 );
 
 DialogHeader.propTypes = {
+  children: oneOfType([arrayOf(node), node]),
   heading: string.isRequired,
 };
 
@@ -130,7 +132,7 @@ export const DialogActions = styled.div`
 `;
 
 DialogActions.propTypes = {
-  children: node,
+  children: oneOfType([arrayOf(node), node]),
 };
 
 export const DialogFooter = ({children, noPad = false}) => (
@@ -138,6 +140,6 @@ export const DialogFooter = ({children, noPad = false}) => (
 );
 
 DialogFooter.propTypes = {
-  children: node,
+  children: oneOfType([arrayOf(node), node]),
   noPad: bool,
 };
