@@ -12,30 +12,44 @@
  * </Card>
  */
 
-import classcat from 'classcat';
 import React from 'react';
-import {bool, node, object, string} from 'prop-types';
+import styled from 'styled-components';
+import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types';
 
-export const Card = ({children, className = '', fitToPage = false, noPad = false, shadow = false, style = {}}) => {
-  const classes = classcat([
-    'card',
-    {
-      'card--fit-to-vh': fitToPage,
-      'card--no-padding': noPad,
-      'card--shadow': shadow,
-    },
-    className,
-  ]);
+import s from '../styles/variables';
 
-  return (
-    <div className={classes} style={style}>
-      {children}
-    </div>
-  );
-};
+export const Card = styled.div`
+ /*
+  * 1 - Allow absolute positioning of children
+  */
+
+  background: ${s.color.background.white};
+  border-radius: ${s.border.radius.large};
+  position: relative; /* 1 */
+
+  ${({shadow}) =>
+    shadow
+      ? 'box-shadow: 1px 1px 3px 1px hsla(0, 0%, 0%, 0.21);'
+      : `border: ${s.border.width.default} solid ${s.color.border.lighter};`}
+
+  ${({noPad}) => (noPad ? '' : `padding: ${s.border.width.default};`)}
+
+  ${({fitToPage}) =>
+    fitToPage
+      ? `
+        /*
+         * 1 - Fallback value for calculated min-height using vh
+         * 2 - 100% - some margin at top and bottom
+         */
+
+        min-height: 772px; /* 1 */
+        min-height: calc(100vh - ${s.globalSpacingUnit.large}); /* 2 */
+        `
+      : ''}
+`;
 
 Card.propTypes = {
-  children: node,
+  children: oneOfType([arrayOf(node), node]).isRequired,
   className: string,
   fitToPage: bool,
   noPad: bool,
@@ -43,24 +57,43 @@ Card.propTypes = {
   style: object,
 };
 
-const Heading = ({heading}) => <h2>{heading}</h2>;
+const Heading = styled.h2`
+  color: ${s.color.text.lighter};
+  line-height: 1.5;
+  margin: 0;
+`;
 
 Heading.propTypes = {
   heading: string,
 };
 
-export const CardHeader = ({heading, children, className, removeCardPadding = false}) => (
-  <div className={classcat(['card__header', {'card__header--wo-card-padding': removeCardPadding}, className])}>
-    {heading ? <Heading heading={heading} /> : null}
+const StyledCardHeader = styled.div`
+  /*
+   * 1 - Enabled absolute positioning of children
+   */
+
+  padding: ${s.globalSpacingUnit.small} ${s.globalSpacingUnit.default};
+  position: relative; /* 1 */
+
+  h2,
+  h3 {
+    color: ${s.color.text.lighter};
+    line-height: 1.5;
+    margin: 0;
+  }
+`;
+
+export const CardHeader = ({children, className, heading}) => (
+  <StyledCardHeader className={className}>
+    {heading ? <Heading>{heading}</Heading> : null}
     {children}
-  </div>
+  </StyledCardHeader>
 );
 
 CardHeader.propTypes = {
-  children: node,
+  children: oneOfType([arrayOf(node), node]).isRequired,
   className: string,
   heading: string,
-  removeCardPadding: bool,
 };
 
 export default Card;
