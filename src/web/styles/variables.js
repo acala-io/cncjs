@@ -34,93 +34,71 @@ export default {
     primary: {
       default: colorPrimary.string(),
       darker: colorPrimary
-        .darken(0.08)
+        .lightness(-0.08)
         .saturate(0.03)
         .string(),
       darkest: colorPrimary
-        .darken(0.42)
+        .lightness(-0.42)
         .saturate(0.05)
         .string(),
       lighter: colorPrimary
-        .lighten(0.08)
+        .lightness(0.08)
         .desaturate(0.08)
         .string(),
       lightest: colorPrimary
-        .lighten(0.34)
+        .lightness(0.34)
         .desaturate(0.13)
         .string(),
     },
     secondary: {
       default: colorSecondary.string(),
       darker: colorSecondary
-        .darken(0.13)
+        .lightness(-0.13)
         .saturate(0.03)
         .string(),
       darkest: colorSecondary
-        .darken(0.34)
+        .lightness(-0.34)
         .saturate(0.05)
         .string(),
       lighter: colorSecondary
-        .lighten(0.13)
+        .lightness(0.13)
         .desaturate(0.08)
         .string(),
       lightest: colorSecondary
-        .lighten(0.34)
+        .lightness(0.34)
         .desaturate(0.13)
         .string(),
     },
     clickable: {
       // colors for clickable items (links, buttons, etc.)
       default: colorClickable.string(),
-      highlight: colorClickable
-        .lighten(0.05)
-        .saturate(0.13)
-        .string(),
-      darker: colorClickable.darken(0.13).string(),
-      background: colorClickable
-        .lighten(0.05)
-        .saturate(0.13)
-        .fade(0.72)
-        .string(),
+      highlight: 'hsl(207, 80%, 69%)',
+      darker: 'hsl(207, 67%, 59%)',
+      background: 'hsla(207, 62%, 69%, 0.28)',
     },
     text: {
       default: colorText.string(),
-      lighter: colorText
-        .lighten(0.55)
-        .desaturate(0.05)
-        .string(),
-      lightest: colorText
-        .lighten(0.68)
-        .desaturate(0.05)
-        .string(),
+      lighter: 'hsl(201, 8%, 63%)',
+      lightest: 'hsl(201, 8%, 89%)',
       inverse: 'hsl(0, 0%, 100%)',
     },
     background: {
       default: colorBackground.string(),
-      darker: colorBackground
-        .darken(0.16)
-        .saturate(0.03)
-        .string(),
-      darkest: colorBackground
-        .darken(0.55)
-        .saturate(0.03)
-        .string(),
+      darker: 'hsl(201, 5%, 76%)',
+      darkest: 'hsl(201, 5%, 37%)',
       slightlyOffBlack: 'hsl(201, 2%, 8%)',
       lighter: 'hsl(201, 2%, 94%)',
       slightlyOffWhite: 'hsl(201, 1%, 97%)',
       white: 'hsl(0, 0%, 100%)',
       highlight: 'hsl(201, 100%, 94%)',
       warning: 'hsl(4, 90%, 94%)',
-      overlay: colorText
-        .darken(0.21)
-        .fade(0.21)
-        .string(),
+      overlay: 'hsla(201, 13%, 0%, 0.78)',
     },
     border: {
       default: colorBorder.string(),
-      darker: colorBorder.darken(0.08).string(),
-      lighter: colorBorder.lighten(0.08).string(),
-      lightest: colorBorder.lighten(0.13).string(),
+      darker: 'hsl(201, 13%, 71%)',
+      lighter: 'hsl(201, 13%, 87%)',
+      lightest: 'hsl(201, 13%, 92%)',
     },
     state: {
       danger: 'hsl(0, 88%, 66%)',

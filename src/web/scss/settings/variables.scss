@@ -34,7 +34,7 @@ $clickable-background: transparentize($clickable--highlight, 0.72);
 
 // text colors
 $text: hsl(201, 13%, 21%);
-$text--lighter: lighten(desaturate($text, 5%), 55%);
+$text--lighter: lighten(desaturate($text, 5%), 42%);
 $text--lightest: lighten(desaturate($text, 5%), 68%);
 $text--inverse: hsl(0, 0%, 100%);
 

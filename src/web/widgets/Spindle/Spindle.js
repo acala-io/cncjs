@@ -9,7 +9,7 @@ import controller from '../../lib/controller';
 
 import Button from '../../components_new/Button';
 import Flexbox from '../../components_new/Flexbox';
-import NumberInput from '../../components_new/NumberInput';
+import Slider from 'rc-slider';
 import SplitButton from '../../components_new/SplitButton';
 import SpindleAnimation from './SpindleAnimation';
 
@@ -24,10 +24,12 @@ const StyledLabel = styled.label`
 const ControlSection = ({children, label}) => (
   <Flexbox
     flexDirection="row"
-    justifyContent="center"
+    justifyContent="space-between"
     alignItems="center"
     style={{
       paddingBottom: s.size.default,
+      paddingLeft: s.size.default,
+      paddingRight: s.size.default,
       width: '100%',
     }}
   >
@@ -40,10 +42,6 @@ ControlSection.propTypes = {
   children: oneOf([node, arrayOf(node)]),
   label: string,
 };
-
-const SpeedControl = styled.div`
-  padding-bottom: ${s.size.default};
-`;
 
 class Spindle extends PureComponent {
   static propTypes = {
@@ -64,31 +62,12 @@ class Spindle extends PureComponent {
     return (
       <Fragment>
         <Flexbox flexDirection="column" alignItems="center">
-          {this.spindleSpeed}
           {this.spindleAnimation}
           {this.spindleControl}
+          {this.speedControl}
           {this.coolantControl}
         </Flexbox>
       </Fragment>
-    );
-  }
-
-  get spindleSpeed() {
-    const {actions, state} = this.props;
-    const {spindleSpeed} = state;
-
-    return (
-      <SpeedControl>
-        <NumberInput
-          value={spindleSpeed}
-          defaultValue={0}
-          digits={0}
-          placeholder="0"
-          onChange={actions.handleSpindleSpeedChange}
-          large
-        />
-        RPM
-      </SpeedControl>
     );
   }
 
@@ -109,7 +88,7 @@ class Spindle extends PureComponent {
       <Flexbox
         flexDirection="row"
         style={{
-          height: `${globalBaseUnit * 11}px`,
+          height: `${globalBaseUnit * 12}px`,
           overflow: 'hidden',
           paddingBottom: s.size.default,
         }}
@@ -123,6 +102,29 @@ class Spindle extends PureComponent {
     );
   }
 
+  get speedControl() {
+    const {actions} = this.props;
+    // const {actions, state} = this.props;
+    // const {spindleSpeed} = state;
+
+    return (
+      <ControlSection label="">
+        <Slider
+          defaultValue={20000}
+          // value={spindleSpeed}
+          min={1000}
+          max={35000}
+          step={100}
+          marks={{
+            1000: '1000',
+            2000: '2000',
+          }}
+          onChange={actions.handleSpindleSpeedChange}
+        />
+      </ControlSection>
+    );
+  }
+
   get spindleControl() {
     const {state} = this.props;
     // const {canClick} = state;
@@ -130,7 +132,7 @@ class Spindle extends PureComponent {
 
     const spindle = get(state, 'controller.modal.spindle');
 
-    const spindleIsOn = spindle !== '';
+    const spindleIsOn = spindle !== '' || this.state.spindle !== this.getDefaultState().spindle;
 
     return (
       <ControlSection label="Spindle">
@@ -169,7 +171,7 @@ class Spindle extends PureComponent {
     const coolant = ensureArray(get(state, 'controller.modal.coolant'));
     const mistCoolant = coolant.indexOf('M7') >= 0;
     const floodCoolant = coolant.indexOf('M8') >= 0;
-    const coolantIsOn = mistCoolant || floodCoolant;
+    const coolantIsOn = mistCoolant || floodCoolant || this.state.coolant !== this.getDefaultState().coolant;
 
     return (
       <ControlSection label="Coolant">
@@ -217,7 +219,7 @@ class Spindle extends PureComponent {
   turnOffSpindle = () => {
     controller.command('gcode', 'M5');
 
-    this.setState({spindle: 'M5'});
+    this.setState({spindle: 'off'});
   };
 
   turnOnCoolant = type => {
@@ -238,7 +240,7 @@ class Spindle extends PureComponent {
   turnOffCoolant = () => {
     controller.command('gcode', 'M9');
 
-    this.setState({coolant: 'M9'});
+    this.setState({coolant: 'off'});
   };
 }
 
