@@ -65,7 +65,7 @@ class Spindle extends PureComponent {
         style={{
           height: `${globalBaseUnit * 12}px`,
           overflow: 'hidden',
-          paddingBottom: s.size.default,
+          marginBottom: s.size.default,
         }}
       >
         <SpindleAnimation
@@ -157,14 +157,14 @@ class Spindle extends PureComponent {
           text="Mist"
           // text={i18n._('Mist')}
           size="large"
-          isDisabled={!canClick || mistCoolant}
+          isDisabled={!canClick || this.state.coolant === 'M7'}
           onClick={() => this.turnOnCoolant('mist')}
         />
         <Button
           text="Flood"
           // text={i18n._('Flood')}
           size="large"
-          isDisabled={!canClick || floodCoolant}
+          isDisabled={!canClick || this.state.coolant === 'M8'}
           onClick={() => this.turnOnCoolant('flood')}
         />
       </SplitButton>
