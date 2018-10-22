@@ -301,7 +301,6 @@
     "Are you sure you want to delete this macro?": "本当にこのマクロを削除しますか？",
     "No": "いいえ",
     "Yes": "はい",
-    "Macro": "マクロ",
     "Are you sure you want to load this macro?": "本当にこのマクロを読み込みますか？",
     "No macros": "マクロがありません",
     "Run": "実行",
@@ -457,5 +456,10 @@
     "Z-axis": "",
     "A-axis": "",
     "B-axis": "",
-    "C-axis": ""
+    "C-axis": "",
+    "G-Code": "",
+    "Macros": "",
+    "Off": "",
+    "Mist": "",
+    "Flood": ""
 }

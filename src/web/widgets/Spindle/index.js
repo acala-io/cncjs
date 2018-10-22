@@ -25,7 +25,6 @@ import {
 } from '../../constants';
 
 import Card from '../../components_new/Card';
-import Padding from '../../components_new/Padding';
 import Spindle from './Spindle';
 import WidgetConfig from '../WidgetConfig';
 import {WidgetHeader, WidgetName} from '../WidgetHeader';
@@ -84,9 +83,7 @@ class SpindleWidget extends PureComponent {
           <WidgetName name={i18n._('Spindle')} onClick={actions.toggleMinimized} />
         </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
-          <Padding size="small">
-            <Spindle state={state} actions={actions} />
-          </Padding>
+          <Spindle state={state} actions={actions} />
         </div>
       </Card>
     );

@@ -301,7 +301,6 @@
     "Are you sure you want to delete this macro?": "Tem certeza de que deseja excluir esta macro?",
     "No": "Não",
     "Yes": "Sim",
-    "Macro": "Macro",
     "Are you sure you want to load this macro?": "Tem certeza de que deseja carregar essa macro?",
     "No macros": "Sem macros",
     "Run": "Executar",
@@ -457,5 +456,10 @@
     "Z-axis": "",
     "A-axis": "",
     "B-axis": "",
-    "C-axis": ""
+    "C-axis": "",
+    "G-Code": "",
+    "Macros": "",
+    "Off": "",
+    "Mist": "",
+    "Flood": ""
 }

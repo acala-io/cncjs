@@ -19,8 +19,9 @@
 import classcat from 'classcat';
 import debounce from 'lodash/debounce';
 import React, {Component} from 'react';
-import {allowSpecialKeys, preventNonNumbers} from '../lib/key-events';
 import {bool, func, number, oneOfType, string} from 'prop-types';
+
+import {allowSpecialKeys, preventNonNumbers} from '../lib/key-events';
 import {formatNumber} from '../lib/l10n';
 
 export default class NumberInput extends Component {
@@ -30,6 +31,8 @@ export default class NumberInput extends Component {
     className: string,
     defaultValue: number,
     digits: number,
+    formatNumber: bool,
+    large: bool,
     max: number,
     min: number,
     narrow: bool,
@@ -47,6 +50,8 @@ export default class NumberInput extends Component {
     className: '',
     defaultValue: 1,
     digits: 0,
+    formatNumber: false,
+    large: false,
     narrow: false,
     onChange: value => {
       console.log(`The value is ${value}`);
@@ -167,14 +172,14 @@ export default class NumberInput extends Component {
     }
 
     this.setState({
-      value: formatNumber(value, digits),
+      value: this.props.formatNumber ? formatNumber(value, digits) : value,
     });
 
     this.props.onChange(value);
   };
 
   render() {
-    const {autoFocus, className, narrow, placeholder, wide} = this.props;
+    const {autoFocus, className, large, narrow, placeholder, wide} = this.props;
 
     let width = '4.5em';
     if (wide) {
@@ -187,7 +192,7 @@ export default class NumberInput extends Component {
     return (
       <input
         type="text"
-        className={classcat(['number', className])}
+        className={classcat(['number', {'input--large': large}, className])}
         style={{width}}
         value={this.state.value}
         onKeyDown={this.onKeyDown}
@@ -208,6 +213,10 @@ export default class NumberInput extends Component {
   }
 
   formatInitialValue(value) {
+    if (!this.props.formatNumber) {
+      return value;
+    }
+
     return formatNumber(value.toString().replace(',', '.'), this.props.digits);
   }
 }

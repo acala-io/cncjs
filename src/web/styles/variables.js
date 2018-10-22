@@ -10,7 +10,7 @@ const transitionTimeMultiplier = 1; // scaling factor for development / debuggin
 const borderRadius = 3;
 const borderWidth = 1;
 
-const size = 14;
+export const size = 14;
 
 const colorPrimary = Color('hsl(248, 67%, 64%)');
 const colorSecondary = Color('hsl(100, 67%, 64%)');
