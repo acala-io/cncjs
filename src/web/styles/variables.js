@@ -73,7 +73,7 @@ export default {
       // colors for clickable items (links, buttons, etc.)
       default: colorClickable.string(),
       highlight: 'hsl(248, 80%, 72%)',
-      darker: 'hsl(248, 70%, 51%)',
+      darker: 'hsl(248, 70%, 55%)',
       background: 'hsla(248, 80%, 72%, 0.28)',
     },
     text: {
