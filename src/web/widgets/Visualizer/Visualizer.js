@@ -25,6 +25,8 @@ import ToolHead from './ToolHead';
 import TrackballControls from './TrackballControls';
 import Viewport from './Viewport';
 
+import s from '../../styles/variables';
+
 const IMPERIAL_GRID_COUNT = 32; // 32 in
 const IMPERIAL_GRID_SPACING = 25.4; // 1 in
 const IMPERIAL_AXIS_LENGTH = IMPERIAL_GRID_SPACING * 12; // 12 in
@@ -498,7 +500,7 @@ class Visualizer extends Component {
     });
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.renderer.setClearColor(new THREE.Color('hsl(201, 5%, 42%)'), 1);
+    this.renderer.setClearColor(new THREE.Color(s.color.background.lighter), 1);
     this.renderer.setSize(width, height);
     this.renderer.clear();
 

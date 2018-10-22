@@ -14,7 +14,7 @@ export const size = 14;
 
 const colorPrimary = Color('hsl(248, 67%, 64%)');
 const colorSecondary = Color('hsl(100, 67%, 64%)');
-const colorClickable = Color('hsl(207, 67%, 64%)');
+const colorClickable = Color('hsl(248, 67%, 64%)');
 const colorText = Color('hsl(201, 13%, 21%)');
 const colorBackground = Color('hsl(201, 2%, 92%)');
 const colorBorder = Color('hsl(201, 13%, 79%)');
@@ -72,9 +72,9 @@ export default {
     clickable: {
       // colors for clickable items (links, buttons, etc.)
       default: colorClickable.string(),
-      highlight: 'hsl(207, 80%, 69%)',
-      darker: 'hsl(207, 67%, 59%)',
-      background: 'hsla(207, 62%, 69%, 0.28)',
+      highlight: 'hsl(248, 80%, 72%)',
+      darker: 'hsl(248, 70%, 51%)',
+      background: 'hsla(248, 80%, 72%, 0.28)',
     },
     text: {
       default: colorText.string(),

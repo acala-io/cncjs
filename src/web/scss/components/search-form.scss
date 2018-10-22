@@ -2,7 +2,6 @@
  * Search form.
  */
 
-
 /*
  * 1 - Enable absolute positioning of .search-form__results
  */
@@ -14,7 +13,7 @@
     border: 1px solid $border;
     border-radius: $border-radius--pill;
 
-    input[type=search] {
+    input[type='search'] {
         font-size: $font-size--large;
         height: $inuit-global-spacing-unit-large;
         max-width: none;
@@ -46,7 +45,7 @@
     width: calc(100% - 49px - 28px); /* 2 */
 
     .search-result {
-        background: transparentize($background--white, .92);
+        background: transparentize($background--white, 0.92);
         padding: 0;
         position: relative;
 
@@ -71,7 +70,7 @@
          */
         &.is-selected,
         &:not(.is-selected):hover {
-            background: $background--highlight;
+            background: $clickable--background;
             border-bottom-color: $transparent !important; /* 2 */
             border-radius: $border-radius;
             border-top-color: $transparent !important; /* 1 */
@@ -100,24 +99,20 @@
     }
 }
 
-
 // Variants ------------------------------------------------------------------------------------------------------------
 .search-form--light {
-
     .search-form__input {
         background: $background--slightly-off-white;
         border-color: $transparent;
     }
 }
 
-
 .search-form--dark {
-
     .search-form__input {
         border-color: $transparent;
     }
 
-    input[type=search] {
+    input[type='search'] {
         color: $text--inverse;
     }
 

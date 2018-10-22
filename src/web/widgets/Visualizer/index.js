@@ -59,6 +59,7 @@ import WidgetConfig from '../WidgetConfig';
 import WorkflowControl from './WorkflowControl';
 import {Button} from '../../components/Buttons';
 
+import s from '../../styles/variables';
 import './index.scss';
 
 const translateExpression = (function() {
@@ -232,7 +233,7 @@ class VisualizerWidget extends PureComponent {
       <Card
         ref={node => (this.widgetContent = node)}
         className={classcat([{'view-3D': capable.view3D}])}
-        style={{background: 'hsl(201, 5%, 42%)'}}
+        style={{background: s.color.background.lighter}}
         noPad
         shadow
       >

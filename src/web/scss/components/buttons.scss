@@ -103,6 +103,7 @@ a.button,
 // Variants ------------------------------------------------------------------------------------------------------------
 .button--large.button {
     font-size: $font-size--large;
+    font-weight: normal;
     padding-bottom: $inuit-global-spacing-unit-small;
     padding-top: $inuit-global-spacing-unit-small;
 

@@ -15,7 +15,7 @@ const StyledAppLayout = styled.div`
    */
 
   align-items: stretch;
-  background-color: ${s.color.background.darkest};
+  background-color: ${s.color.background.white};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

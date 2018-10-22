@@ -17,6 +17,7 @@ WidgetHeader.propTypes = {
 };
 
 const StyledName = styled.div`
+  color: ${s.color.text.lighter};
   cursor: pointer;
   font-size: ${s.font.size.large};
   padding: ${s.size.small} ${s.size.default};

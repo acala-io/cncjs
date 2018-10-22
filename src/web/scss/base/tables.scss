@@ -143,7 +143,7 @@ tr.details-row {
         transition: background $transition-time--very-fast ease-out;
 
         &:hover {
-            background: $background--highlight !important;
+            background: $clickable-background !important;
         }
     }
 }
