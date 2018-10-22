@@ -28,12 +28,12 @@ import {
 import {MODAL_NONE, MODAL_ADD_MACRO, MODAL_RUN_MACRO} from './constants';
 
 import AddMacroModal from './AddMacroModal';
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Icon from '../../components_new/Icon';
 import Macro from './Macro';
 import RunMacro from './RunMacro';
 import WidgetConfig from '../WidgetConfig';
-import WidgetHeaderButton from '../WidgetHeaderButton';
+import {WidgetHeader, WidgetHeaderButton, WidgetHeaderButtons, WidgetName} from '../WidgetHeader';
 
 import './index.scss';
 
@@ -89,20 +89,30 @@ class MacroWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          {!minimized && (
-            <WidgetHeaderButton title={i18n._('Add Macro')} onClick={actions.openAddMacroModal}>
-              <Icon name="add" />
-            </WidgetHeaderButton>
-          )}
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Macros')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Macros')} onClick={actions.toggleMinimized} />
+          <WidgetHeaderButtons>{this.widgetHeaderButtons}</WidgetHeaderButtons>
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Macro state={state} actions={actions} />
           {state.modal.name === MODAL_ADD_MACRO && <AddMacroModal state={state} actions={actions} />}
           {state.modal.name === MODAL_RUN_MACRO && <RunMacro state={state} actions={actions} />}
         </div>
       </Card>
+    );
+  }
+
+  get widgetHeaderButtons() {
+    const actions = {...this.actions};
+
+    if (this.state.minimized) {
+      return null;
+    }
+
+    return (
+      <WidgetHeaderButton title={i18n._('Add Macro')} onClick={actions.openAddMacroModal}>
+        <Icon name="add" />
+      </WidgetHeaderButton>
     );
   }
 

@@ -1,15 +1,12 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import s from '../styles/variables';
 
-const WidgetHeaderButton = styled(props => <div {...props} />)`
+const WidgetHeaderButton = styled.div`
   color: ${s.color.clickable.default};
   cursor: pointer;
   display: inline-block;
-  float: right;
-  margin-top: -${s.size.small};
-  padding: ${s.size.default} ${s.size.small};
+  padding: ${s.size.default};
   text-decoration: none;
 
   svg {

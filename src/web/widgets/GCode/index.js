@@ -19,10 +19,11 @@ import {
   TINYG,
 } from '../../constants';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import GCodeStats from './GCodeStats';
 import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
+import {WidgetHeader, WidgetName} from '../WidgetHeader';
 
 class GCodeWidget extends PureComponent {
   static propTypes = {
@@ -96,9 +97,9 @@ class GCodeWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('G-code')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('G-Code')} onClick={actions.toggleMinimized} />
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
             <GCodeStats state={state} actions={actions} />

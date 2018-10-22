@@ -11,12 +11,12 @@ import log from '../../lib/log';
 
 import settings from '../../config/settings';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Console from './Console';
 import Icon from '../../components_new/Icon';
 import Padding from '../../components_new/Padding';
-import WidgetHeaderButton from '../WidgetHeaderButton';
 import WidgetConfig from '../WidgetConfig';
+import {WidgetHeader, WidgetHeaderButton, WidgetHeaderButtons, WidgetName} from '../WidgetHeader';
 
 const appName = settings.productName;
 const appVersion = settings.version;
@@ -75,22 +75,10 @@ class ConsoleWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          {minimized ? null : (
-            <Fragment>
-              <WidgetHeaderButton title={i18n._('Select All')} onClick={() => this.terminal.selectAll()}>
-                <Icon name="select-all" />
-              </WidgetHeaderButton>
-              <WidgetHeaderButton title={i18n._('Clear Selection')} onClick={() => this.terminal.clearSelection()}>
-                <Icon name="clear-selection" />
-              </WidgetHeaderButton>
-              <WidgetHeaderButton title={i18n._('Clear all')} onClick={actions.clearAll}>
-                <Icon name="clear-all" />
-              </WidgetHeaderButton>
-            </Fragment>
-          )}
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Console')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Console')} onClick={actions.toggleMinimized} />
+          <WidgetHeaderButtons>{this.widgetHeaderButtons}</WidgetHeaderButtons>
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
             <Console
@@ -105,6 +93,29 @@ class ConsoleWidget extends PureComponent {
           </Padding>
         </div>
       </Card>
+    );
+  }
+
+  get widgetHeaderButtons() {
+    const actions = {...this.actions};
+
+    if (this.state.minimized) {
+      // TODO: hide with visibility: hidden
+      return null;
+    }
+
+    return (
+      <Fragment>
+        <WidgetHeaderButton title={i18n._('Select All')} onClick={() => this.terminal.selectAll()}>
+          <Icon name="select-all" />
+        </WidgetHeaderButton>
+        <WidgetHeaderButton title={i18n._('Clear Selection')} onClick={() => this.terminal.clearSelection()}>
+          <Icon name="clear-selection" />
+        </WidgetHeaderButton>
+        <WidgetHeaderButton title={i18n._('Clear all')} onClick={actions.clearAll}>
+          <Icon name="clear-all" />
+        </WidgetHeaderButton>
+      </Fragment>
     );
   }
 

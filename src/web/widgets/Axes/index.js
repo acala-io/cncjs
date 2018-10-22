@@ -44,7 +44,7 @@ import Padding from '../../components_new/Padding';
 import Settings from './Settings';
 import ShuttleControl from './ShuttleControl';
 import WidgetConfig from '../../widgets/WidgetConfig';
-import WidgetHeaderButton from '../WidgetHeaderButton';
+import {WidgetHeaderButton, WidgetHeaderButtons} from '../WidgetHeader';
 
 const getControllerState = (type, controllerState, state) => {
   const {machinePosition, workPosition} = state;
@@ -732,7 +732,7 @@ class AxesWidget extends PureComponent {
     const {openModal, toggleKeypadJogging, toggleMDIMode} = this.actions;
 
     return (
-      <div className="clearfix">
+      <WidgetHeaderButtons>
         <KeypadOverlay show={canClick && jog.keypad}>
           <WidgetHeaderButton title={i18n._('Keypad jogging')} onClick={toggleKeypadJogging}>
             <Icon name="keyboard" />
@@ -744,7 +744,7 @@ class AxesWidget extends PureComponent {
         <WidgetHeaderButton title={i18n._('Settings')} onClick={() => openModal(MODAL_SETTINGS)}>
           <Icon name="settings" />
         </WidgetHeaderButton>
-      </div>
+      </WidgetHeaderButtons>
     );
   }
 

@@ -24,10 +24,11 @@ import {
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Padding from '../../components_new/Padding';
 import Spindle from './Spindle';
 import WidgetConfig from '../WidgetConfig';
+import {WidgetHeader, WidgetName} from '../WidgetHeader';
 
 class SpindleWidget extends PureComponent {
   static propTypes = {
@@ -79,9 +80,9 @@ class SpindleWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Spindle')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Spindle')} onClick={actions.toggleMinimized} />
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
             <Spindle state={state} actions={actions} />

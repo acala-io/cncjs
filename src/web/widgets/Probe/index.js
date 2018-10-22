@@ -26,10 +26,11 @@ import {
 } from '../../constants';
 import {MODAL_NONE, MODAL_PREVIEW} from './constants';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Padding from '../../components_new/Padding';
 import Probe from './Probe';
 import WidgetConfig from '../WidgetConfig';
+import {WidgetHeader, WidgetName} from '../WidgetHeader';
 import ZProbe from './ZProbe';
 
 import './index.scss';
@@ -99,9 +100,9 @@ class ProbeWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Probe')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Probe')} onClick={actions.toggleMinimized} />
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
             <Probe state={state} actions={actions} />

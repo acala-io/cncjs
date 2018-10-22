@@ -8,10 +8,11 @@ import i18n from '../../lib/i18n';
 import log from '../../lib/log';
 import promisify from '../../lib/promisify';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Connection from './Connection';
 import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
+import {WidgetHeader, WidgetName} from '../WidgetHeader';
 
 class ConnectionWidget extends PureComponent {
   static propTypes = {
@@ -65,9 +66,9 @@ class ConnectionWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Connection')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Connection')} onClick={actions.toggleMinimized} />
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
             <Connection state={state} actions={actions} />

@@ -7,14 +7,14 @@ import portal from '../../lib/portal';
 
 import {MEDIA_SOURCE_LOCAL} from './constants';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Icon from '../../components_new/Icon';
 import Padding from '../../components_new/Padding';
 import Settings from './Settings';
 import Toggle from '../../components_new/Toggle';
 import Webcam from './Webcam';
 import WidgetConfig from '../WidgetConfig';
-import WidgetHeaderButton from '../WidgetHeaderButton';
+import {WidgetHeader, WidgetHeaderButton, WidgetHeaderButtons, WidgetName} from '../WidgetHeader';
 
 import './index.scss';
 
@@ -65,10 +65,10 @@ class WebcamWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          {this.widgetHeaderButtons}
-          <h3 onMouseDown={isFullscreen ? () => {} : actions.toggleMinimized}>{i18n._('Webcam')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Webcam')} onClick={isFullscreen ? () => {} : actions.toggleMinimized} />
+          <WidgetHeaderButtons>{this.widgetHeaderButtons}</WidgetHeaderButtons>
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="none">
             <Webcam ref={ref => (this.webcam = ref)} state={state} actions={actions} />
@@ -102,14 +102,6 @@ class WebcamWidget extends PureComponent {
 
     return (
       <Fragment>
-        <Toggle
-          value={!disabled}
-          className="right"
-          onClick={() => this.setState({disabled: !disabled, minimized: false})}
-        />
-        <WidgetHeaderButton className="u--margin-right" title={i18n._('Edit Settings')} onClick={editSettings}>
-          <Icon name="settings" />
-        </WidgetHeaderButton>
         {!disabled && (
           <Fragment>
             <WidgetHeaderButton title={i18n._('Refresh')} onClick={() => this.webcam.refresh()}>
@@ -123,6 +115,10 @@ class WebcamWidget extends PureComponent {
             </WidgetHeaderButton>
           </Fragment>
         )}
+        <Toggle value={!disabled} onClick={() => this.setState({disabled: !disabled, minimized: false})} />
+        <WidgetHeaderButton title={i18n._('Edit Settings')} onClick={editSettings} className="u--margin-left">
+          <Icon name="settings" />
+        </WidgetHeaderButton>
       </Fragment>
     );
   }

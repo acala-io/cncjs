@@ -25,10 +25,11 @@ import {
   WORKFLOW_STATE_RUNNING,
 } from '../../constants';
 
-import Card, {CardHeader} from '../../components_new/Card';
+import Card from '../../components_new/Card';
 import Laser from './Laser';
 import Padding from '../../components_new/Padding';
 import WidgetConfig from '../WidgetConfig';
+import {WidgetHeader, WidgetName} from '../WidgetHeader';
 
 import './index.scss';
 
@@ -89,9 +90,9 @@ class LaserWidget extends PureComponent {
 
     return (
       <Card noPad shadow>
-        <CardHeader>
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Laser')}</h3>
-        </CardHeader>
+        <WidgetHeader>
+          <WidgetName name={i18n._('Laser')} onClick={actions.toggleMinimized} />
+        </WidgetHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Padding size="small">
             <Laser state={state} actions={actions} />
