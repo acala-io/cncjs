@@ -95,7 +95,7 @@ class MacroWidget extends PureComponent {
               <Icon name="add" />
             </WidgetHeaderButton>
           )}
-          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Macro')}</h3>
+          <h3 onMouseDown={actions.toggleMinimized}>{i18n._('Macros')}</h3>
         </CardHeader>
         <div className={classcat([{hidden: minimized}])}>
           <Macro state={state} actions={actions} />
