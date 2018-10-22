@@ -1,6 +1,8 @@
+import {css} from 'styled-components';
+
 import s from '../variables';
 
-export const input = `
+export const input = css`
   appearance: none;
   background: rgba(255, 255, 255, 0.92);
   border-radius: ${s.border.radius.default};

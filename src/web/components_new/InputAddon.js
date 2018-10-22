@@ -21,6 +21,7 @@ const StyledInputAddon = styled.div`
   display: flex;
   font-size: ${({large}) => (large ? s.font.size.large : 'inherit')};
   justify-content: flex-start;
+  max-width: 10em;
   padding: 0;
 `;
 

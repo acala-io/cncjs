@@ -90,13 +90,14 @@ class Keypad extends PureComponent {
         selectedValue={units}
         onChange={select}
         isDisabled={!canClick}
+        equalWidth
       />
     );
   }
 
   get stepSize() {
     const {actions, state} = this.props;
-    const {jog, units} = state; // canClick,
+    const {canClick, jog, units} = state;
 
     const imperialJogDistances = ensureArray(jog.imperial.distances);
     const metricJogDistances = ensureArray(jog.metric.distances);
@@ -114,7 +115,8 @@ class Keypad extends PureComponent {
         options={(isImperial ? imperialJogSteps : metricJogSteps).map(s => ({label: s, unit: units, value: s}))}
         selectedValue={isImperial ? jog.imperial.step : jog.metric.step}
         onChange={onSelectStepSize}
-        // isDisabled={!canClick}
+        isDisabled={!canClick}
+        equalWidth
       />
     );
   }

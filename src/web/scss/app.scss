@@ -74,7 +74,6 @@ $mq-breakpoints: (
 @import 'components/avatars';
 @import 'components/badges';
 @import 'components/buttons';
-@import 'components/button-groups';
 @import 'components/action-dropdown'; // must come after button component, because it uses the button mixin
 @import 'components/checkbox';
 @import 'components/display-panel';

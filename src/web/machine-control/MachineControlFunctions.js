@@ -38,7 +38,7 @@ const MachineControlFunctions = ({}) => {
   const canClose = true; // isReady && includes([WORKFLOW_STATE_IDLE], workflow.state);
 
   return (
-    <SplitButton>
+    <SplitButton equalWidth>
       {canRun && <Button text={i18n._('Cycle Start')} icon="cyclestart" onClick={cyclestart} size="large" />}
       {(canPause || canStop) && <Button text={i18n._('Feedhold')} onClick={feedhold} size="large" />}
       {canClose && <Button text={i18n._('Sleep')} onClick={sleep} size="large" />}

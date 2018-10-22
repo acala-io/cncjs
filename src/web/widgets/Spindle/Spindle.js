@@ -16,26 +16,33 @@ import SpindleAnimation from './SpindleAnimation';
 import s, {size as globalBaseUnit} from '../../styles/variables';
 
 const StyledLabel = styled.label`
+  color: ${s.color.text.lighter};
   font-weight: ${s.font.weight.normal};
-  padding-right: ${s.size.default};
+  width: 5em;
+`;
+
+const StyledControlSection = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding-bottom: ${s.size.small};
+  padding-left: ${s.size.small};
+  padding-right: ${s.size.small};
+  width: 100%;
+
+  & + & {
+    padding-top: ${s.size.large};
+  }
 `;
 
 // TODO: this is a layout pattern that should be abstracted
 const ControlSection = ({children, label}) => (
-  <Flexbox
-    flexDirection="row"
-    justifyContent="space-between"
-    alignItems="center"
-    style={{
-      paddingBottom: s.size.default,
-      paddingLeft: s.size.default,
-      paddingRight: s.size.default,
-      width: '100%',
-    }}
-  >
+  <StyledControlSection flexDirection="row" justifyContent="flex-start" alignItems="center">
     <StyledLabel>{label}</StyledLabel>
     {children}
-  </Flexbox>
+  </StyledControlSection>
 );
 
 ControlSection.propTypes = {
@@ -136,7 +143,7 @@ class Spindle extends PureComponent {
 
     return (
       <ControlSection label="Spindle">
-        <SplitButton>
+        <SplitButton equalWidth style={{width: '100%'}}>
           <Button
             text="Off"
             // text={i18n._('Off')}
@@ -175,7 +182,7 @@ class Spindle extends PureComponent {
 
     return (
       <ControlSection label="Coolant">
-        <SplitButton>
+        <SplitButton equalWidth style={{width: '100%'}}>
           <Button
             text="Off"
             // text={i18n._('Off')}

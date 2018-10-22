@@ -9,6 +9,7 @@ import {MODAL_PREVIEW} from './constants';
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
 import Hint from '../../components_new/Hint';
+import InputAddon from '../../components_new/InputAddon';
 
 class Probe extends PureComponent {
   static propTypes = {
@@ -32,10 +33,10 @@ class Probe extends PureComponent {
         <div>
           <Button
             text={i18n._('Probe Z-Position')}
-            isDisabled={!canClick}
             onClick={() => {
               actions.openModal(MODAL_PREVIEW);
             }}
+            isDisabled={!canClick}
           />
         </div>
       </div>
@@ -86,23 +87,23 @@ class Probe extends PureComponent {
     const {probeDepth, units} = this.props.state;
 
     const displayUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
-    const step = units === METRIC_UNITS ? 1 : 0.1;
+    // const step = units === METRIC_UNITS ? 1 : 0.1;
 
     return (
-      <div className="form-group">
+      <div>
         <label className="control-label">{i18n._('Probe Depth')}</label>
-        <div className="input-group input-group-sm">
-          <input
-            type="number"
-            className="form-control"
-            value={probeDepth}
-            placeholder="0.00"
-            min={0}
-            step={step}
-            onChange={handleProbeDepthChange}
-          />
-          <div className="input-group-addon">{displayUnits}</div>
-        </div>
+        <InputAddon
+          addOn={displayUnits}
+          inputProps={{
+            type: 'text',
+            value: probeDepth,
+            placeholder: '0.00',
+            onChange: handleProbeDepthChange,
+            // min: 0,
+            // step: step,
+          }}
+          isNumber
+        />
       </div>
     );
   }
@@ -112,23 +113,23 @@ class Probe extends PureComponent {
     const {probeFeedrate, units} = this.props.state;
 
     const feedrateUnits = units === METRIC_UNITS ? i18n._('mm/min') : i18n._('in/min');
-    const step = units === METRIC_UNITS ? 1 : 0.1;
+    // const step = units === METRIC_UNITS ? 1 : 0.1;
 
     return (
       <div className="form-group">
         <label className="control-label">{i18n._('Probe Feedrate')}</label>
-        <div className="input-group input-group-sm">
-          <input
-            type="number"
-            className="form-control"
-            value={probeFeedrate}
-            placeholder="0.00"
-            min={0}
-            step={step}
-            onChange={handleProbeFeedrateChange}
-          />
-          <span className="input-group-addon">{feedrateUnits}</span>
-        </div>
+        <InputAddon
+          addOn={feedrateUnits}
+          inputProps={{
+            type: 'text',
+            value: probeFeedrate,
+            placeholder: '0.00',
+            onChange: handleProbeFeedrateChange,
+            // min: 0,
+            // step: step,
+          }}
+          isNumber
+        />
       </div>
     );
   }
@@ -138,23 +139,23 @@ class Probe extends PureComponent {
     const {touchPlateHeight, units} = this.props.state;
 
     const displayUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
-    const step = units === METRIC_UNITS ? 1 : 0.1;
+    // const step = units === METRIC_UNITS ? 1 : 0.1;
 
     return (
       <div className="form-group">
         <label className="control-label">{i18n._('Touch Plate Thickness')}</label>
-        <div className="input-group input-group-sm">
-          <input
-            type="number"
-            className="form-control"
-            value={touchPlateHeight}
-            placeholder="0.00"
-            min={0}
-            step={step}
-            onChange={handleTouchPlateHeightChange}
-          />
-          <span className="input-group-addon">{displayUnits}</span>
-        </div>
+        <InputAddon
+          addOn={displayUnits}
+          inputProps={{
+            type: 'text',
+            value: touchPlateHeight,
+            placeholder: '0.00',
+            onChange: handleTouchPlateHeightChange,
+            // min: 0,
+            // step: step,
+          }}
+          isNumber
+        />
       </div>
     );
   }
@@ -164,23 +165,23 @@ class Probe extends PureComponent {
     const {retractionDistance, units} = this.props.state;
 
     const displayUnits = units === METRIC_UNITS ? i18n._('mm') : i18n._('in');
-    const step = units === METRIC_UNITS ? 1 : 0.1;
+    // const step = units === METRIC_UNITS ? 1 : 0.1;
 
     return (
       <div className="form-group">
         <label className="control-label">{i18n._('Retraction Distance')}</label>
-        <div className="input-group input-group-sm">
-          <input
-            type="number"
-            className="form-control"
-            value={retractionDistance}
-            placeholder="0.00"
-            min={0}
-            step={step}
-            onChange={handleRetractionDistanceChange}
-          />
-          <span className="input-group-addon">{displayUnits}</span>
-        </div>
+        <InputAddon
+          addOn={displayUnits}
+          inputProps={{
+            type: 'text',
+            value: retractionDistance,
+            placeholder: '0.00',
+            onChange: handleRetractionDistanceChange,
+            // min: 0,
+            // step: step,
+          }}
+          isNumber
+        />
       </div>
     );
   }

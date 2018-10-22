@@ -8,19 +8,33 @@
  * </SplitButton>
  */
 
-import classcat from 'classcat';
-import React from 'react';
-import {arrayOf, node, oneOfType, string} from 'prop-types';
+import styled from 'styled-components';
 
-const SplitButton = ({children, className = ''}) => {
-    const classes = classcat(['split-button', className]);
+import s from '../styles/variables';
 
-    return <div className={classes}>{children}</div>;
-};
+const SplitButton = styled.div`
+  display: ${({equalWidth}) => (equalWidth ? 'flex' : 'table')};
 
-SplitButton.propTypes = {
-    className: string,
-    children: oneOfType([arrayOf(node), node]).isRequired,
-};
+  /*
+   * 1 - Remove border-radius from inner buttons
+   * 2 - Keep outer border-radius on left- and rightmost buttons
+   */
+
+  button,
+  .button {
+    border-radius: 0; /* 1 */
+    ${({equalWidth}) => (equalWidth ? 'flex: 1' : '')};
+
+    :first-child {
+      border-bottom-left-radius: ${s.border.radius.large}; /* 2 */
+      border-top-left-radius: ${s.border.radius.large}; /* 2 */
+    }
+
+    :last-child {
+      border-bottom-right-radius: ${s.border.radius.large}; /* 2 */
+      border-top-right-radius: ${s.border.radius.large}; /* 2 */
+    }
+  }
+`;
 
 export default SplitButton;

@@ -1,6 +1,8 @@
+import {css} from 'styled-components';
+
 import s from '../variables';
 
-export const link = `
+export const link = css`
   color: ${s.color.clickable.default};
   cursor: pointer;
   display: inline-block;
@@ -22,30 +24,30 @@ export const link = `
   :active,
   :focus,
   :visited {
-      box-shadow: none; /* 1 */
-      outline: 0 none; /* 2 */
+    box-shadow: none; /* 1 */
+    outline: 0 none; /* 2 */
   }
 
   &:visited {
-      color: $clickable;
+    color: $clickable;
   }
 
   :active,
   :focus,
   :hover,
   :visited:hover {
-      color: ${s.color.clickable.highlight};
+    color: ${s.color.clickable.highlight};
 
-      svg {
-          fill: currentColor;
-      }
+    svg {
+      fill: currentColor;
+    }
   }
 
   /*
    * 1 - Inherit the color value of the parent element
    */
   svg {
-      fill: currentColor; /* 1 */
+    fill: currentColor; /* 1 */
   }
 `;
 
@@ -57,4 +59,3 @@ export const linkDisabled = `
     font-style: italic;
   }
 `;
-
