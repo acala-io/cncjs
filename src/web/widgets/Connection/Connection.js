@@ -75,6 +75,7 @@ class Connection extends PureComponent {
           options={controller.availableControllers}
           selectedValue={state.controller.type}
           onChange={actions.changeController}
+          equalWidth
         />
       </div>
     );
@@ -201,6 +202,7 @@ class Connection extends PureComponent {
           options={[...baudRates].reverse().map(b => ({label: b / 1000, value: b}))}
           selectedValue={Number(baudRate)}
           onChange={onChangeBaudRateOption}
+          equalWidth
         />
       </div>
     );

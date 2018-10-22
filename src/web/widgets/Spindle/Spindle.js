@@ -1,54 +1,20 @@
 import ensureArray from 'ensure-array';
-import {arrayOf, node, object, oneOf, string} from 'prop-types';
-import React, {Fragment, PureComponent} from 'react';
-import styled from 'styled-components';
+import React, {PureComponent} from 'react';
 import {get} from 'lodash';
+import {object} from 'prop-types';
 
 import controller from '../../lib/controller';
 // import i18n from '../../lib/i18n';
 
 import Button from '../../components_new/Button';
+import Fieldset from '../../components_new/Fieldset';
 import Flexbox from '../../components_new/Flexbox';
+import Padding from '../../components_new/Padding';
 import Slider from 'rc-slider';
 import SplitButton from '../../components_new/SplitButton';
 import SpindleAnimation from './SpindleAnimation';
 
 import s, {size as globalBaseUnit} from '../../styles/variables';
-
-const StyledLabel = styled.label`
-  color: ${s.color.text.lighter};
-  font-weight: ${s.font.weight.normal};
-  width: 5em;
-`;
-
-const StyledControlSection = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  padding-bottom: ${s.size.small};
-  padding-left: ${s.size.small};
-  padding-right: ${s.size.small};
-  width: 100%;
-
-  & + & {
-    padding-top: ${s.size.large};
-  }
-`;
-
-// TODO: this is a layout pattern that should be abstracted
-const ControlSection = ({children, label}) => (
-  <StyledControlSection flexDirection="row" justifyContent="flex-start" alignItems="center">
-    <StyledLabel>{label}</StyledLabel>
-    {children}
-  </StyledControlSection>
-);
-
-ControlSection.propTypes = {
-  children: oneOf([node, arrayOf(node)]),
-  label: string,
-};
 
 class Spindle extends PureComponent {
   static propTypes = {
@@ -67,14 +33,16 @@ class Spindle extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <Padding size="small">
         <Flexbox flexDirection="column" alignItems="center">
           {this.spindleAnimation}
-          {this.spindleControl}
-          {this.speedControl}
-          {this.coolantControl}
+          <Fieldset label={'Spindle'}>
+            {this.spindleControl}
+            {this.speedControl}
+          </Fieldset>
+          <Fieldset label={'Coolant'}>{this.coolantControl}</Fieldset>
         </Flexbox>
-      </Fragment>
+      </Padding>
     );
   }
 
@@ -115,20 +83,18 @@ class Spindle extends PureComponent {
     // const {spindleSpeed} = state;
 
     return (
-      <ControlSection label="">
-        <Slider
-          defaultValue={20000}
-          // value={spindleSpeed}
-          min={1000}
-          max={35000}
-          step={100}
-          marks={{
-            1000: '1000',
-            2000: '2000',
-          }}
-          onChange={actions.handleSpindleSpeedChange}
-        />
-      </ControlSection>
+      <Slider
+        defaultValue={20000}
+        // value={spindleSpeed}
+        min={1000}
+        max={35000}
+        step={100}
+        marks={{
+          1000: '1000',
+          2000: '2000',
+        }}
+        onChange={actions.handleSpindleSpeedChange}
+      />
     );
   }
 
@@ -142,31 +108,29 @@ class Spindle extends PureComponent {
     const spindleIsOn = spindle !== '' || this.state.spindle !== this.getDefaultState().spindle;
 
     return (
-      <ControlSection label="Spindle">
-        <SplitButton equalWidth style={{width: '100%'}}>
-          <Button
-            text="Off"
-            // text={i18n._('Off')}
-            size="large"
-            isDisabled={!spindleIsOn}
-            onClick={this.turnOffSpindle}
-          />
-          <Button
-            text="Right"
-            // text={i18n._('Right')}
-            size="large"
-            isDisabled={!canClick || spindleIsOn}
-            onClick={() => this.turnOnSpindle('right')}
-          />
-          <Button
-            text="Left"
-            // text={i18n._('Left')}
-            size="large"
-            isDisabled={!canClick || spindleIsOn}
-            onClick={() => this.turnOnSpindle('left')}
-          />
-        </SplitButton>
-      </ControlSection>
+      <SplitButton equalWidth style={{width: '100%'}}>
+        <Button
+          text="Off"
+          // text={i18n._('Off')}
+          size="large"
+          isDisabled={!spindleIsOn}
+          onClick={this.turnOffSpindle}
+        />
+        <Button
+          text="Right"
+          // text={i18n._('Right')}
+          size="large"
+          isDisabled={!canClick || spindleIsOn}
+          onClick={() => this.turnOnSpindle('right')}
+        />
+        <Button
+          text="Left"
+          // text={i18n._('Left')}
+          size="large"
+          isDisabled={!canClick || spindleIsOn}
+          onClick={() => this.turnOnSpindle('left')}
+        />
+      </SplitButton>
     );
   }
 
@@ -181,31 +145,29 @@ class Spindle extends PureComponent {
     const coolantIsOn = mistCoolant || floodCoolant || this.state.coolant !== this.getDefaultState().coolant;
 
     return (
-      <ControlSection label="Coolant">
-        <SplitButton equalWidth style={{width: '100%'}}>
-          <Button
-            text="Off"
-            // text={i18n._('Off')}
-            size="large"
-            isDisabled={!coolantIsOn}
-            onClick={this.turnOffCoolant}
-          />
-          <Button
-            text="Mist"
-            // text={i18n._('Mist')}
-            size="large"
-            isDisabled={!canClick || mistCoolant}
-            onClick={() => this.turnOnCoolant('mist')}
-          />
-          <Button
-            text="Flood"
-            // text={i18n._('Flood')}
-            size="large"
-            isDisabled={!canClick || floodCoolant}
-            onClick={() => this.turnOnCoolant('flood')}
-          />
-        </SplitButton>
-      </ControlSection>
+      <SplitButton equalWidth style={{width: '100%'}}>
+        <Button
+          text="Off"
+          // text={i18n._('Off')}
+          size="large"
+          isDisabled={!coolantIsOn}
+          onClick={this.turnOffCoolant}
+        />
+        <Button
+          text="Mist"
+          // text={i18n._('Mist')}
+          size="large"
+          isDisabled={!canClick || mistCoolant}
+          onClick={() => this.turnOnCoolant('mist')}
+        />
+        <Button
+          text="Flood"
+          // text={i18n._('Flood')}
+          size="large"
+          isDisabled={!canClick || floodCoolant}
+          onClick={() => this.turnOnCoolant('flood')}
+        />
+      </SplitButton>
     );
   }
 
