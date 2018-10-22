@@ -6,6 +6,8 @@ import jogButtonFactory from '../jogButtonFactory';
 import AxisLabel from './AxisLabel';
 import Flexbox from '../../../components_new/Flexbox';
 
+import s from '../../../styles/variables';
+
 class KeypadXY extends PureComponent {
   static propTypes = {
     clicked: PropTypes.string,
@@ -47,8 +49,8 @@ class KeypadXY extends PureComponent {
               r="211.8629"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.21" style={{stopColor: 'hsl(207, 67%, 64%)'}} />
-              <stop offset="1" style={{stopColor: 'hsl(207, 69%, 62%)'}} />
+              <stop offset="0.21" style={{stopColor: s.color.clickable.default}} />
+              <stop offset="1" style={{stopColor: 'hsl(248, 69%, 62%)'}} />
             </radialGradient>
             <radialGradient
               id="svg-radial-gradient--darker"
@@ -57,8 +59,8 @@ class KeypadXY extends PureComponent {
               r="211.8629"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.34" style={{stopColor: 'hsl(207, 67%, 63%)'}} />
-              <stop offset="1" style={{stopColor: 'hsl(207, 69%, 58%)'}} />
+              <stop offset="0.34" style={{stopColor: 'hsl(248, 69%, 62%)'}} />
+              <stop offset="1" style={{stopColor: 'hsl(248, 69%, 58%)'}} />
             </radialGradient>
             <filter id="svg-dropshadow" height="130%">
               <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
