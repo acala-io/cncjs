@@ -1,8 +1,10 @@
 import pubsub from 'pubsub-js';
 import React, {Component, Fragment} from 'react';
 import {includes, isEqual} from 'lodash';
+import {oneOf} from 'prop-types';
 
 import controller from '../../lib/controller';
+import {toTitleCase} from '../../lib/string';
 
 import store from '../../store_old';
 
@@ -10,9 +12,17 @@ import {GRBL, MARLIN, SMOOTHIE, TINYG} from '../../constants';
 
 import Widget from './Widget';
 
-class PrimaryWidgets extends Component {
+class WidgetsSidebar extends Component {
+  static propTypes = {
+    category: oneOf(['primary', 'secondary']),
+  };
+
+  static defaultProps = {
+    category: 'primary',
+  };
+
   state = {
-    widgets: store.get('workspace.container.primary.widgets'),
+    widgets: store.get(`workspace.container.${this.props.category}.widgets`),
   };
 
   pubsubTokens = [];
@@ -76,15 +86,16 @@ class PrimaryWidgets extends Component {
 
     // Calling store.set() will merge two different arrays into one.
     // Remove the property first to avoid duplication.
-    store.replace('workspace.container.primary.widgets', widgets);
+    store.replace(`workspace.container.${this.props.category}.widgets`, widgets);
   }
 
   subscribe() {
     {
-      // updatePrimaryWidgets
-      const token = pubsub.subscribe('updatePrimaryWidgets', (msg, widgets) => {
+      const message = `update${[toTitleCase(this.props.category)]}Widgets`;
+      const token = pubsub.subscribe(message, (msg, widgets) => {
         this.setState({widgets});
       });
+
       this.pubsubTokens.push(token);
     }
   }
@@ -93,8 +104,9 @@ class PrimaryWidgets extends Component {
     this.pubsubTokens.forEach(token => {
       pubsub.unsubscribe(token);
     });
+
     this.pubsubTokens = [];
   }
 }
 
-export default PrimaryWidgets;
+export default WidgetsSidebar;

@@ -26,10 +26,9 @@ import DefaultWidgets from './DefaultWidgets';
 import FeederPausedModal from './FeederPausedModal';
 import FeederWaitModal from './FeederWaitModal';
 import {Link, LinkIcon} from '../../components_new/Link';
-import PrimaryWidgets from './PrimaryWidgets';
-import SecondaryWidgets from './SecondaryWidgets';
 import ServerDisconnectedModal from './ServerDisconnectedModal';
 import SettingsModal from '../../settings/SettingsModal';
+import WidgetsSidebar from './WidgetsSidebar';
 
 import s from '../../styles/variables';
 import mixin from '../../styles/mixins';
@@ -142,12 +141,12 @@ class Workspace extends PureComponent {
           <div className="workspace-table">
             <div className="workspace-table-row">
               <div ref={ref => (this.primaryContainer = ref)} className="primary-container">
-                {this.primaryWidgetsComponent}
+                {this.primaryWidgetsSidebar}
                 {this.editSettings}
               </div>
               {this.defaultWidgetsComponent}
               <div ref={ref => (this.secondaryContainer = ref)} className="secondary-container">
-                {this.secondaryWidgetsComponent}
+                {this.secondaryWidgetsSidebar}
               </div>
             </div>
           </div>
@@ -384,12 +383,12 @@ class Workspace extends PureComponent {
     );
   }
 
-  get primaryWidgetsComponent() {
-    return <PrimaryWidgets ref={ref => (this.primaryWidgets = ref)} />;
+  get primaryWidgetsSidebar() {
+    return <WidgetsSidebar ref={ref => (this.primaryWidgets = ref)} category="primary" />;
   }
 
-  get secondaryWidgetsComponent() {
-    return <SecondaryWidgets ref={ref => (this.secondaryWidgets = ref)} />;
+  get secondaryWidgetsSidebar() {
+    return <WidgetsSidebar ref={ref => (this.secondaryWidgets = ref)} category="secondary" />;
   }
 
   addControllerEvents() {
