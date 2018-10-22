@@ -170,8 +170,11 @@ class Login extends PureComponent {
             onChange={this.updatePassword}
             autoComplete="off"
           />
-          <UserCredentialsAction onClick={this.togglePasswordVisibility}>
-            {passwordInputType === 'password' ? i18n._('Show') : i18n._('Hide')}
+          <UserCredentialsAction
+            onClick={this.togglePasswordVisibility}
+            title={passwordInputType === 'password' ? i18n._('Show') : i18n._('Hide')}
+          >
+            <Icon name={passwordInputType === 'password' ? 'visible' : 'invisible'} />
           </UserCredentialsAction>
         </div>
       </Fragment>
