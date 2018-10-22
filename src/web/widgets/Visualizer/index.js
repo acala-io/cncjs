@@ -233,7 +233,7 @@ class VisualizerWidget extends PureComponent {
       <Card
         ref={node => (this.widgetContent = node)}
         className={classcat([{'view-3D': capable.view3D}])}
-        style={{background: s.color.background.lighter}}
+        style={{background: s.color.background.white}}
         noPad
         shadow
       >

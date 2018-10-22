@@ -500,7 +500,7 @@ class Visualizer extends Component {
     });
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.renderer.setClearColor(new THREE.Color(s.color.background.lighter), 1);
+    this.renderer.setClearColor(new THREE.Color(s.color.background.white), 1);
     this.renderer.setSize(width, height);
     this.renderer.clear();
 
