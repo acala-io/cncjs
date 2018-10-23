@@ -49,13 +49,6 @@ const tables = css`
     }
   }
 
-  tr.details-row {
-    td,
-    th {
-      color: ${({theme}) => theme.color.text.lighter};
-    }
-  }
-
   .table {
     margin-bottom: 0;
 

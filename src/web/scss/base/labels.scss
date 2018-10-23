@@ -2,7 +2,6 @@
  * Labels.
  */
 
-
 /*
  * 1 - Prevent text from being selected when clicking on the label
  */
@@ -25,7 +24,7 @@ input + label {
  */
 label + input,
 label + select {
-    margin-left: .25em; /* 1 */
+    margin-left: 0.25em; /* 1 */
 }
 
 /*
@@ -34,24 +33,6 @@ label + select {
 .label--inline {
     display: inline-block;
     vertical-align: top; /* 1 */
-}
-
-/*
- * dynamic labels that appear / disappear on focus / blur
- */
-.label--dynamic {
-    color: $text--lighter;
-    display: block;
-    font-size: $font-size--small;
-    margin-left: .25em;
-    opacity: 0;
-    padding: .05em .35em;
-    position: relative;
-    transition: opacity $transition-time--medium ease-in-out;
-
-    &.is-active {
-        opacity: 1;
-    }
 }
 
 /*

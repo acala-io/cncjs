@@ -6,9 +6,9 @@
  *   <Icon name="create-offer" size="small" rotate="-90" className="flamboyant"/>
  */
 
-import classcat from 'classcat';
-import {number, object, oneOf, oneOfType, string} from 'prop-types';
 import React from 'react';
+import styled from 'styled-components';
+import {number, object, oneOf, oneOfType, string} from 'prop-types';
 
 /* eslint-disable max-len */
 const iconPaths = function(name) {
@@ -556,24 +556,37 @@ const iconPaths = function(name) {
 };
 /* eslint-enable */
 
-const Icon = ({className = '', color = 'inherit', name, rotate, size = 'default', style = {}}) => {
-  const styles = rotate ? {transform: `rotate(${rotate}deg)`} : null;
-  const classes = classcat([
-    'icon',
-    `icon--${name}`,
-    {
-      [`icon--${size}`]: size !== 'default',
-      [`icon--${color}`]: color !== 'inherit',
-    },
-    className,
-  ]);
+const getDimension = (theme, size) => {
+  switch (size) {
+    case 'tiny':
+      return theme.size.small;
 
-  return (
-    <svg role="img" viewBox="0 0 84 84" className={classes} style={{...style, ...styles}}>
-      {iconPaths(name)}
-    </svg>
-  );
+    case 'small':
+      return theme.size.default;
+
+    case 'large':
+      return theme.size.large;
+
+    default:
+      return `calc(${theme.size.default} * 1.5)`;
+  }
 };
+
+const StyledIcon = styled.svg.attrs({
+  role: 'img',
+  viewBox: '0 0 84 84',
+})`
+  ${({rotate}) => (rotate ? `transform: rotate(${rotate}deg)` : '')};
+  display: inline-block;
+  fill: ${({theme, light}) => (light ? theme.color.text.lightest : 'currentColor')};
+  height: ${({theme, size}) => getDimension(theme, size)};
+  position: relative;
+  transition: transform ${({theme}) => theme.transition.time.fast};
+  vertical-align: middle;
+  width: ${({theme, size}) => getDimension(theme, size)};
+`;
+
+const Icon = props => <StyledIcon {...props}>{iconPaths(props.name)}</StyledIcon>;
 
 Icon.propTypes = {
   className: string,
