@@ -1,4 +1,9 @@
+import theme from '../src/web/styles/theme';
 import {addDecorator, configure} from '@storybook/react';
+import {withThemesProvider} from 'storybook-addon-styled-component-theme';
+
+const themes = [theme];
+addDecorator(withThemesProvider(themes));
 // import {initScreenshot} from 'storybook-chrome-screenshot';
 
 // addDecorator(initScreenshot());
