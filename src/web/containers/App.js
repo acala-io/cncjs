@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
-import React, {PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import {Redirect, withRouter} from 'react-router-dom';
 
 import {trackPage} from '../lib/analytics';
@@ -12,6 +12,8 @@ import AppLayout from '../layouts/AppLayout';
 import Error404 from './Errors/Error404';
 import Header from '../machine-control/Header';
 import Workspace from './Workspace';
+
+import GlobalStyle from '../styles/GlobalStyle';
 
 class App extends PureComponent {
   static propTypes = {
@@ -46,10 +48,13 @@ class App extends PureComponent {
   getPage(location) {
     if (location.pathname === '/workspace') {
       return (
-        <AppLayout>
-          <Header />
-          <Workspace {...this.props} />;
-        </AppLayout>
+        <Fragment>
+          <GlobalStyle />
+          <AppLayout>
+            <Header />
+            <Workspace {...this.props} />;
+          </AppLayout>
+        </Fragment>
       );
     }
 
