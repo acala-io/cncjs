@@ -2,16 +2,15 @@ import styled from 'styled-components';
 
 import Icon from './Icon';
 
-import s from '../styles/theme';
 import mixin from '../styles/mixins/';
 
 export const Link = styled.div`
-  ${mixin.link}
+  ${mixin.link};
   ${({isDisabled}) => (isDisabled ? mixin.linkDisabled : '')}
 
-  padding: ${s.size.small};
+  padding: ${({theme}) => theme.size.small};
 `;
 
 export const LinkIcon = styled(Icon)`
-  margin-right: ${s.size.small};
+  margin-right: ${({theme}) => theme.size.small};
 `;

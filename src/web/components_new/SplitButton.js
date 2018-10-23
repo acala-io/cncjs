@@ -10,8 +10,6 @@
 
 import styled from 'styled-components';
 
-import s from '../styles/theme';
-
 const SplitButton = styled.div`
   display: ${({equalWidth}) => (equalWidth ? 'flex' : 'table')};
 
@@ -26,13 +24,13 @@ const SplitButton = styled.div`
     ${({equalWidth}) => (equalWidth ? 'flex: 1' : '')};
 
     :first-child {
-      border-bottom-left-radius: ${s.border.radius.large}; /* 2 */
-      border-top-left-radius: ${s.border.radius.large}; /* 2 */
+      border-bottom-left-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
+      border-top-left-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
     }
 
     :last-child {
-      border-bottom-right-radius: ${s.border.radius.large}; /* 2 */
-      border-top-right-radius: ${s.border.radius.large}; /* 2 */
+      border-bottom-right-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
+      border-top-right-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
     }
   }
 `;

@@ -30,7 +30,6 @@ import ServerDisconnectedModal from './ServerDisconnectedModal';
 import SettingsModal from '../../settings/SettingsModal';
 import WidgetsSidebar from './WidgetsSidebar';
 
-import s from '../../styles/theme';
 import mixin from '../../styles/mixins';
 
 import './index.scss';
@@ -38,8 +37,8 @@ import './index.scss';
 const SettingsLink = styled(Link)`
   ${mixin.pinBottomLeftFixed}
 
-  font-weight: ${s.font.weight.bold};
-  padding: ${s.size.default};
+  font-weight: ${({theme}) => theme.font.weight.bold};
+  padding: ${({theme}) => theme.size.default};
   width: 100%;
 `;
 

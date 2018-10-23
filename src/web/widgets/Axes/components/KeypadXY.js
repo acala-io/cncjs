@@ -6,7 +6,7 @@ import jogButtonFactory from '../jogButtonFactory';
 import AxisLabel from './AxisLabel';
 import Flexbox from '../../../components_new/Flexbox';
 
-import s from '../../../styles/theme';
+import theme from '../../../styles/theme';
 
 class KeypadXY extends PureComponent {
   static propTypes = {
@@ -49,7 +49,7 @@ class KeypadXY extends PureComponent {
               r="211.8629"
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.21" style={{stopColor: s.color.clickable.default}} />
+              <stop offset="0.21" style={{stopColor: theme.color.clickable.default}} />
               <stop offset="1" style={{stopColor: 'hsl(248, 69%, 62%)'}} />
             </radialGradient>
             <radialGradient

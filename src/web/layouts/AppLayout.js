@@ -7,15 +7,13 @@ import AppNotices from '../containers/Workspace/AppNotices';
 import Dialogs from '../dialogs';
 import FlashMessages from '../components_new/FlashMessages';
 
-import s from '../styles/theme';
-
 const StyledAppLayout = styled.div`
   /*
    * 1 - Force space for scrollbar
    */
 
   align-items: stretch;
-  background-color: ${s.color.background.white};
+  background-color: ${({theme}) => theme.color.background.white};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,7 +27,7 @@ const Body = styled.div`
     hasOverlay
       ? `
         filter: blur(5px);
-        transition: blur ${s.transition.time.medium};
+        transition: blur ${({theme}) => theme.transition.time.medium};
       `
       : ''};
 `;

@@ -1,8 +1,6 @@
-import {arrayOf, func, node, oneOfType, string} from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-
-import s from '../styles/theme';
+import {arrayOf, func, node, oneOfType, string} from 'prop-types';
 
 import Flexbox from '../components_new/Flexbox';
 
@@ -17,10 +15,10 @@ WidgetHeader.propTypes = {
 };
 
 const StyledName = styled.div`
-  color: ${s.color.text.lighter};
+  color: ${({theme}) => theme.color.text.lighter};
   cursor: pointer;
-  font-size: ${s.font.size.large};
-  padding: ${s.size.small} ${s.size.default};
+  font-size: ${({theme}) => theme.font.size.large};
+  padding: ${({theme}) => theme.size.small} ${({theme}) => theme.size.default};
   user-select: none;
 `;
 
@@ -40,10 +38,10 @@ WidgetHeaderButtons.propTypes = {
 };
 
 export const WidgetHeaderButton = styled.div`
-  color: ${s.color.clickable.default};
+  color: ${({theme}) => theme.color.clickable.default};
   cursor: pointer;
   display: inline-block;
-  padding: ${s.size.default};
+  padding: ${({theme}) => theme.size.default};
   text-decoration: none;
 
   svg {
@@ -58,14 +56,14 @@ export const WidgetHeaderButton = styled.div`
   }
 
   :visited {
-    color: ${s.color.clickable.default};
+    color: ${({theme}) => theme.color.clickable.default};
   }
 
   :active,
   :focus,
   :hover,
   :visited:hover {
-    color: ${s.color.clickable.highlight};
+    color: ${({theme}) => theme.color.clickable.highlight};
 
     svg {
       fill: currentColor;

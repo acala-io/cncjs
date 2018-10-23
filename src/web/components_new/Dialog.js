@@ -9,7 +9,6 @@ import {Link} from './Link';
 
 import animation from '../styles/animations/';
 import mixin from '../styles/mixins/';
-import s from '../styles/theme';
 
 const CloseLink = styled(Link)`
   /*
@@ -19,13 +18,13 @@ const CloseLink = styled(Link)`
   ${mixin.pinTopRightFixed}
   ${animation.fadeIn}
 
-  animation-delay: ${s.transition.time.medium};
+  animation-delay: ${({theme}) => theme.transition.time.medium};
   cursor: pointer;
   display: inline-block;
   opacity: 0;
-  padding: ${s.size.large};
+  padding: ${({theme}) => theme.size.large};
   text-align: center;
-  z-index: ${s.zIndex.topmost3}; /* 1 */
+  z-index: ${({theme}) => theme.zIndex.topmost3}; /* 1 */
 `;
 
 class ActualDialog extends PureComponent {
@@ -117,10 +116,10 @@ DialogHeader.propTypes = {
 };
 
 export const DialogActions = styled.div`
-  padding: 0 ${s.size.default} ${s.size.default};
+  padding: 0 ${({theme}) => theme.size.default} ${({theme}) => theme.size.default};
 
   .button {
-    font-size: ${s.font.size.large};
+    font-size: ${({theme}) => theme.font.size.large};
 
     /*
      * 1 - Make buttons full width, except for in full-width dialogs

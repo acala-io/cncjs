@@ -2,21 +2,19 @@ import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import {arrayOf, string, node, oneOfType} from 'prop-types';
 
-import s from '../styles/theme';
-
 import Flexbox from '../components_new/Flexbox';
 
 const Label = styled.div`
-  color: ${s.color.text.lighter};
-  padding-bottom: ${s.size.small};
-  padding-right: ${s.size.default};
-  padding-top: ${s.size.small};
+  color: ${({theme}) => theme.color.text.lighter};
+  padding-bottom: ${({theme}) => theme.size.small};
+  padding-right: ${({theme}) => theme.size.default};
+  padding-top: ${({theme}) => theme.size.small};
 `;
 
 const Value = styled.div`
-  padding-bottom: ${s.size.small};
-  padding-left: ${s.size.default};
-  padding-top: ${s.size.small};
+  padding-bottom: ${({theme}) => theme.size.small};
+  padding-left: ${({theme}) => theme.size.default};
+  padding-top: ${({theme}) => theme.size.small};
 `;
 
 const SettingsRow = ({input, label, value}) => (

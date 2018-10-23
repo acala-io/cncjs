@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import {arrayOf, bool, func, node, oneOfType, string} from 'prop-types';
 
-import s from '../styles/theme';
 import mixin from '../styles/mixins/';
 
 import Flexbox from '../components_new/Flexbox';
 
 const activeStyles = `
-  color: ${s.color.text.default};
+  color: ${({theme}) => theme.color.text.default};
   cursor: default;
 `;
 
 const NavLink = styled.div`
-  ${mixin.link}
-  background-color: ${({isActive}) => (isActive ? s.color.background.default : s.color.transparent)};
-  padding: ${s.size.default};
+  ${mixin.link};
+
+  background-color: ${({isActive, theme}) => (isActive ? theme.color.background.default : theme.color.transparent)};
+  padding: ${({theme}) => theme.size.default};
 
   ${({isActive}) => (isActive ? activeStyles : '')};
 `;

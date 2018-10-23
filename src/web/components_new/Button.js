@@ -16,7 +16,6 @@ import Icon from './Icon';
 import LoadingIndicator from './LoadingIndicator';
 
 import mixin from '../styles/mixins/';
-import s from '../styles/theme';
 
 const visualZHeight = '1.5px';
 
@@ -26,19 +25,21 @@ const StyledButton = styled.button`
    * 2 - Always vertically center buttons with other elements
    */
 
-  ${mixin.truncateText} appearance: none;
-  background-color: ${s.color.clickable.default};
-  border-radius: ${s.border.radius.large};
+  ${mixin.truncateText};
+
+  appearance: none;
+  background-color: ${({theme}) => theme.color.clickable.default};
+  border-radius: ${({theme}) => theme.border.radius.large};
   border: 0;
   box-shadow: inset -1px -${visualZHeight} 0 hsla(0, 0%, 0%, 0.23); /* 1 */
-  color: ${s.color.text.inverse};
+  color: ${({theme}) => theme.color.text.inverse};
   cursor: pointer;
   display: inline-block;
-  font-weight: ${s.font.weight.normal};
-  padding: ${s.size.small} ${s.size.default};
+  font-weight: ${({theme}) => theme.font.weight.normal};
+  padding: ${({theme}) => theme.size.small} ${({theme}) => theme.size.default};
   text-align: center;
-  text-shadow: 0 -1px 0 ${s.color.clickable.darker};
-  transition: background, color ${s.transition.time.slow};
+  text-shadow: 0 -1px 0 ${({theme}) => theme.color.clickable.darker};
+  transition: background, color ${({theme}) => theme.transition.time.slow};
   user-select: none;
   vertical-align: middle; /* 2 */
 
@@ -47,8 +48,8 @@ const StyledButton = styled.button`
       isDisabled
         ? ''
         : `
-          background-color: ${s.color.clickable.highlight};
-          color: ${s.color.text.inverse};
+          background-color: ${({theme}) => theme.color.clickable.highlight};
+          color: ${({theme}) => theme.color.text.inverse};
         `};
   }
 
@@ -71,7 +72,7 @@ const StyledButton = styled.button`
         : `
           box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
           margin-top: ${visualZHeight}; /* 2 */
-          padding-bottom: calc(${s.size.small} - ${visualZHeight}); /* 3 */
+          padding-bottom: calc(${({theme}) => theme.size.small} - ${visualZHeight}); /* 3 */
         `};
   }
 
@@ -80,21 +81,21 @@ const StyledButton = styled.button`
    */
   .icon {
     display: inline-block;
-    fill: ${s.color.text.inverse};
-    filter: drop-shadow(0 -1px 0 ${s.color.clickable.darker});
-    margin-left: -${s.size.tiny}; /* 1 */
-    margin-right: ${s.size.small}; /* 1 */
+    fill: ${({theme}) => theme.color.text.inverse};
+    filter: drop-shadow(0 -1px 0 ${({theme}) => theme.color.clickable.darker});
+    margin-left: -${({theme}) => theme.size.tiny}; /* 1 */
+    margin-right: ${({theme}) => theme.size.small}; /* 1 */
     position: relative;
     vertical-align: middle;
   }
 
-  ${({isDisabled}) =>
+  ${({isDisabled, theme}) =>
     isDisabled
       ? `
-        background-color: ${s.color.background.default};
-        border-color: ${s.color.transparent} ${Color(s.color.background.default)
+        background-color: ${theme.color.background.default};
+        border-color: ${theme.color.transparent} ${Color(theme.color.background.default)
           .darken(0.21)
-          .string()} ${Color(s.color.background.default)
+          .string()} ${Color(theme.color.background.default)
           .darken(0.21)
           .string()};
         cursor: not-allowed;
@@ -106,26 +107,26 @@ const StyledButton = styled.button`
       `
       : ''};
 
-  ${({danger}) =>
+  ${({danger, theme}) =>
     danger
       ? `
-      background-color: ${s.color.state.danger};
-      border-color: ${Color(s.color.state.danger)
+      background-color: ${theme.color.state.danger};
+      border-color: ${Color(theme.color.state.danger)
         .darken(0.21)
         .string()};
-      text-shadow: 0 -1px 0 ${Color(s.color.state.danger)
+      text-shadow: 0 -1px 0 ${Color(theme.color.state.danger)
         .darken(0.21)
         .string()};
 
       :hover {
-        background: ${Color(s.color.state.danger)
+        background: ${Color(theme.color.state.danger)
           .lighten(0.03)
           .string()}
       }
 
       .icon {
         filter: drop-shadow(
-            0 -1px 0 ${Color(s.color.state.danger)
+            0 -1px 0 ${Color(theme.color.state.danger)
               .darken(0.25)
               .string()}
         );
@@ -133,44 +134,39 @@ const StyledButton = styled.button`
       `
       : ''};
 
-  ${({fullWidth}) => (fullWidth ? 'width: 100%;' : '')};
+  ${({fullWidth}) => fullWidth && 'width: 100%'};
 
-  ${({isDisabled, size}) =>
-    size === 'large'
-      ? `
-        font-size: ${s.font.size.large};
-        padding-bottom: ${s.size.small};
-        padding-top: ${s.size.small};
+  ${({isDisabled, size, theme}) =>
+    size === 'large' &&
+    `
+        font-size: ${theme.font.size.large};
+        padding-bottom: ${theme.size.small};
+        padding-top: ${theme.size.small};
+
+        :active {
+          ${!isDisabled &&
+            `
+              padding-bottom: calc(${theme.size.small} - ${visualZHeight}); /* 3 */
+            `}
+        }
+        `};
+
+  ${({isDisabled, size, theme}) =>
+    size === 'huge' &&
+    `
+        font-size: ${theme.font.size.large};
+        padding: ${theme.size.default} ${theme.size.large};
 
         :active {
           ${
             isDisabled
               ? ''
               : `
-                padding-bottom: calc(${s.size.small} - ${visualZHeight}); /* 3 */
+                padding-bottom: calc(${theme.size.default} - ${visualZHeight}); /* 3 */
               `
           }
         }
-        `
-      : ''};
-
-  ${({isDisabled, size}) =>
-    size === 'huge'
-      ? `
-        font-size: ${s.font.size.large};
-        padding: ${s.size.default} ${s.size.large};
-
-        :active {
-          ${
-            isDisabled
-              ? ''
-              : `
-                padding-bottom: calc(${s.size.default} - ${visualZHeight}); /* 3 */
-              `
-          }
-        }
-        `
-      : ''};
+        `};
 `;
 
 const Button = ({

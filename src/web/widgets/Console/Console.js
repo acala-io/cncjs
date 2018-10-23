@@ -7,11 +7,9 @@ import i18n from '../../lib/i18n';
 import Hint from '../../components_new/Hint';
 import Terminal from './Terminal';
 
-import s from '../../styles/theme';
-
 const NoSerialConnection = styled(Hint)`
   display: block;
-  padding: ${s.size.default} ${s.size.default} ${s.size.large};
+  padding: ${({theme}) => theme.size.default} ${({theme}) => theme.size.default} ${({theme}) => theme.size.large};
   text-align: center;
 `;
 

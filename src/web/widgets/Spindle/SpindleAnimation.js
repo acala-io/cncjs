@@ -1,8 +1,6 @@
-import {oneOf, string} from 'prop-types';
 import React, {PureComponent} from 'react';
+import {oneOf, string} from 'prop-types';
 // import styled from 'styled-components';
-
-// import s from '../../styles/theme';
 
 import './spindle-animation.scss';
 

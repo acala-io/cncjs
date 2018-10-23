@@ -2,24 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import {bool, oneOf, object, string} from 'prop-types';
 
-import s from '../styles/theme';
 import mixin from '../styles/mixins/';
 
 const roundedLeft = `
-  0 calc(${s.border.radius.default} - 1px) calc(${s.border.radius.default} - 1px) 0
+  0 calc(${({theme}) => theme.border.radius.default} - 1px) calc(${({theme}) => theme.border.radius.default} - 1px) 0
 `;
 
 const roundedRight = `
-  calc(${s.border.radius.default} - 1px) 0 0 calc(${s.border.radius.default} - 1px)
+  calc(${({theme}) => theme.border.radius.default} - 1px) 0 0 calc(${({theme}) => theme.border.radius.default} - 1px)
 `;
 
 const StyledInputAddon = styled.div`
   ${mixin.input};
 
   align-items: center;
-  background: ${s.color.transparent};
+  background: ${({theme}) => theme.color.transparent};
   display: flex;
-  font-size: ${({large}) => (large ? s.font.size.large : 'inherit')};
+  font-size: ${({large, theme}) => (large ? theme.font.size.large : 'inherit')};
   justify-content: flex-start;
   max-width: 10em;
   padding: 0;
@@ -44,10 +43,10 @@ const AddOn = styled.div`
    * 1 - Make sure AddOn does not cover border of wrapper
    */
 
-  background-color: ${s.color.background.default};
+  background-color: ${({theme}) => theme.color.background.default};
   border-radius: ${({position}) => (position === 'after' ? roundedLeft : roundedRight)};
-  color: ${s.color.text.lighter} !important;
-  height: calc(2em - ${s.border.width.default} - ${s.border.width.default}); /* 1 */
+  color: ${({theme}) => theme.color.text.lighter} !important;
+  height: calc(2em - ${({theme}) => theme.border.width.default} - ${({theme}) => theme.border.width.default}); /* 1 */
   line-height: 0.95;
   order: ${({position}) => (position === 'after' ? 2 : 1)};
   padding: 0.5em;

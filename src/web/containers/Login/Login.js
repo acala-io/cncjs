@@ -22,15 +22,14 @@ import {Dialog, DialogActions, DialogFooter, DialogHeader} from '../../component
 import {Link} from '../../components_new/Link';
 
 import mixin from '../../styles/mixins/';
-import s from '../../styles/theme';
 
 const Logo = styled(Image)`
   ${mixin.centerMX} display: block;
 `;
 
 const AppName = styled.h2`
-  color: ${s.color.primary.default};
-  font-weight: ${s.font.weight.bold};
+  color: ${({theme}) => theme.color.primary.default};
+  font-weight: ${({theme}) => theme.font.weight.bold};
   text-align: center;
 `;
 
@@ -41,27 +40,27 @@ const ForgotPasswordLink = styled.a`
 `;
 
 const ErrorMessage = styled.div`
-  color: ${s.color.state.error};
-  margin-bottom: {s.sized.default};
+  color: ${({theme}) => theme.color.state.error};
+  margin-bottom: ${({theme}) => theme.size.default};
   text-align: center;
 `;
 
 const UserCredentials = styled.div`
-  background: ${s.color.background.white};
-  border-radius: ${s.border.radius.default};
-  margin: 0 ${s.size.default} ${s.size.default};
+  background: ${({theme}) => theme.color.background.white};
+  border-radius: ${({theme}) => theme.border.radius.default};
+  margin: 0 ${({theme}) => theme.size.default} ${({theme}) => theme.size.default};
   position: relative;
 `;
 
 const UserCredentialsAction = styled(Link)`
   ${mixin.pinRight}
 
-  font-size: ${s.font.size.default};
-  padding: ${s.size.default};
+  font-size: ${({theme}) => theme.font.size.default};
+  padding: ${({theme}) => theme.size.default};
   text-align: center;
-  top: -${s.size.tiny};
+  top: -${({theme}) => theme.size.tiny};
   user-select: none;
-  z-index: ${s.zIndex.overlayed1};
+  z-index: ${({theme}) => theme.zIndex.overlayed1};
 
 `;
 
@@ -129,8 +128,8 @@ class Login extends PureComponent {
             name="avatar"
             size="large"
             style={{
-              left: `-${s.size.tiny}`,
-              top: `-${s.size.small}`,
+              left: `-${({theme}) => theme.size.tiny}`,
+              top: `-${({theme}) => theme.size.small}`,
             }}
           />
         </span>
@@ -157,8 +156,8 @@ class Login extends PureComponent {
               name="password"
               size="large"
               style={{
-                left: `-${s.size.tiny}`,
-                top: `-${s.size.small}`,
+                left: `-${({theme}) => theme.size.tiny}`,
+                top: `-${({theme}) => theme.size.small}`,
               }}
             />
           </span>

@@ -59,7 +59,7 @@ import WidgetConfig from '../WidgetConfig';
 import WorkflowControl from './WorkflowControl';
 import {Button} from '../../components/Buttons';
 
-import s from '../../styles/theme';
+import theme from '../../styles/theme';
 import './index.scss';
 
 // prettier-ignore
@@ -234,7 +234,7 @@ class VisualizerWidget extends PureComponent {
       <Card
         ref={node => (this.widgetContent = node)}
         className={classcat([{'view-3D': capable.view3D}])}
-        style={{background: s.color.background.white}}
+        style={{background: theme.color.background.white}}
         noPad
         shadow
       >

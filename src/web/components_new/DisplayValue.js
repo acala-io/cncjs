@@ -4,23 +4,21 @@ import {bool, string} from 'prop-types';
 
 import Unit from './Unit';
 
-import s from '../styles/theme';
-
 const StyledDisplayValue = styled.div`
-  color: ${s.color.text.default};
+  color: ${({theme}) => theme.color.text.default};
   display: inline-block;
-  font-size: ${({large, huge}) => {
+  font-size: ${({large, huge, theme}) => {
     if (huge) {
-      return s.font.size.huge;
+      return theme.font.size.huge;
     }
 
     if (large) {
-      return s.font.size.large;
+      return theme.font.size.large;
     }
 
     return 'inherit';
   }};
-  font-weight: ${s.font.weight.normal};
+  font-weight: ${({theme}) => theme.font.weight.normal};
   text-align: right;
 
   ${Unit} {

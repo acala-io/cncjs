@@ -1,24 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
 import {arrayOf, node, oneOf, oneOfType} from 'prop-types';
 
-import styled from 'styled-components';
-
-import s from '../styles/theme';
-
 const StyledNotificationBar = styled.div`
-  font-weight: ${s.font.weight.bold};
-  padding: ${s.size.default} ${s.size.large};
+  font-weight: ${({theme}) => theme.font.weight.bold};
+  padding: ${({theme}) => theme.size.default} ${({theme}) => theme.size.large};
   text-align: center;
   width: 100%;
 `;
 
 export const InfoBar = styled(StyledNotificationBar)`
-  background-color: ${s.color.state.attention};
+  background-color: ${({theme}) => theme.color.state.attention};
 `;
 
 export const WarningBar = styled(StyledNotificationBar)`
-  background-color: ${s.color.state.danger};
-  color: ${s.color.text.inverse};
+  background-color: ${({theme}) => theme.color.state.danger};
+  color: ${({theme}) => theme.color.text.inverse};
 `;
 
 const NotificationBar = ({children, type = 'info'}) => {

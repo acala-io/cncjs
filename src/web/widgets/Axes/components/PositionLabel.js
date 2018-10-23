@@ -2,26 +2,24 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import s from '../../../styles/theme';
-
 const MajorValue = styled.span`
-  color: ${s.color.secondary.default};
+  color: ${({theme}) => theme.color.secondary.default};
   display: inline-block;
-  font-size: ${s.font.size.huge};
+  font-size: ${({theme}) => theme.font.size.huge};
   vertical-align: top;
 `;
 
 const Separator = styled.span`
-  color: ${s.color.secondary.default};
+  color: ${({theme}) => theme.color.secondary.default};
   display: inline-block;
-  font-size: ${s.font.size.large};
+  font-size: ${({theme}) => theme.font.size.large};
   vertical-align: top;
 `;
 
 const MinorValue = styled.span`
-  color: ${s.color.secondary.default};
+  color: ${({theme}) => theme.color.secondary.default};
   display: inline-block;
-  font-size: ${s.font.size.large};
+  font-size: ${({theme}) => theme.font.size.large};
   vertical-align: top;
 `;
 

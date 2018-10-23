@@ -16,23 +16,21 @@ import React from 'react';
 import styled from 'styled-components';
 import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types';
 
-import s from '../styles/theme';
-
 export const Card = styled.div`
  /*
   * 1 - Allow absolute positioning of children
   */
 
-  background: ${s.color.background.white};
-  border-radius: ${s.border.radius.large};
+  background: ${({theme}) => theme.color.background.white};
+  border-radius: ${({theme}) => theme.border.radius.large};
   position: relative; /* 1 */
 
   ${({shadow}) =>
     shadow
       ? 'box-shadow: 1px 1px 3px 1px hsla(0, 0%, 0%, 0.21);'
-      : `border: ${s.border.width.default} solid ${s.color.border.lighter};`}
+      : `border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.lighter};`}
 
-  ${({noPad}) => (noPad ? '' : `padding: ${s.border.width.default};`)}
+  ${({noPad}) => (noPad ? '' : `padding: ${({theme}) => theme.border.width.default};`)}
 
   ${({fitToPage}) =>
     fitToPage
@@ -43,7 +41,7 @@ export const Card = styled.div`
          */
 
         min-height: 772px; /* 1 */
-        min-height: calc(100vh - ${s.size.large}); /* 2 */
+        min-height: calc(100vh - ${({theme}) => theme.size.large}); /* 2 */
         `
       : ''}
 `;
@@ -58,7 +56,7 @@ Card.propTypes = {
 };
 
 const Heading = styled.h3`
-  color: ${s.color.text.lighter};
+  color: ${({theme}) => theme.color.text.lighter};
   line-height: 1.5;
   margin: 0;
 `;
@@ -72,11 +70,11 @@ const StyledCardHeader = styled.div`
    * 1 - Enabled absolute positioning of children
    */
 
-  padding: ${s.size.small} ${s.size.default};
+  padding: ${({theme}) => theme.size.small} ${({theme}) => theme.size.default};
   position: relative; /* 1 */
 
   h3 {
-    color: ${s.color.text.lighter};
+    color: ${({theme}) => theme.color.text.lighter};
     line-height: 1.5;
     margin: 0;
   }

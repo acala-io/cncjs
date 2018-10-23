@@ -15,8 +15,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import s from '../styles/theme';
-
 export type Props = {
   className?: string,
   equalWidth?: boolean,
@@ -39,26 +37,28 @@ function getSelected(selectedValue: number | string, options: Array<any>): numbe
 }
 
 const StyledButtonGroup = styled.div`
-  border-radius: ${s.border.radius.default};
+  border-radius: ${({theme}) => theme.border.radius.default};
   display: ${({equalWidth}) => (equalWidth ? 'flex' : 'inline-block')};
   white-space: nowrap;
 `;
 
 const ButtonGroupButton = styled.label`
-  background: ${s.color.background.white};
-  border: ${s.border.width.default} solid ${s.color.border.default};
-  color: ${({isDisabled}) => (isDisabled ? s.color.text.default : s.color.clickable.default)};
+  background: ${({theme}) => theme.color.background.white};
+  border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
+  color: ${({isDisabled, theme}) => (isDisabled ? theme.color.text.default : theme.color.clickable.default)};
   cursor: ${({isDisabled}) => (isDisabled ? 'not-allowed' : 'pointer')};
   display: inline-block;
   ${({equalWidth}) => (equalWidth ? 'flex: 1' : '')};
-  font-weight: ${s.font.weight.default};
+  font-weight: ${({theme}) => theme.font.weight.default};
   line-height: ${({variant}) => (variant === 'icons' ? 0 : 1)};
   margin: 0;
   min-width: 2em;
-  padding-bottom: ${({hasUnits, variant}) => (hasUnits || variant === 'icons' ? s.size.small : s.size.default)};
-  padding-left: ${({variant}) => (variant === 'icons' ? s.size.small : s.size.default)};
-  padding-right: ${({variant}) => (variant === 'icons' ? s.size.small : s.size.default)};
-  padding-top: ${({hasUnits, variant}) => (hasUnits || variant === 'icons' ? s.size.small : s.size.default)};
+  padding-bottom: ${({hasUnits, theme, variant}) =>
+    hasUnits || variant === 'icons' ? theme.size.small : theme.size.default};
+  padding-left: ${({theme, variant}) => (variant === 'icons' ? theme.size.small : theme.size.default)};
+  padding-right: ${({theme, variant}) => (variant === 'icons' ? theme.size.small : theme.size.default)};
+  padding-top: ${({hasUnits, theme, variant}) =>
+    hasUnits || variant === 'icons' ? theme.size.small : theme.size.default};
   position: relative;
   text-align: center;
 
@@ -67,24 +67,24 @@ const ButtonGroupButton = styled.label`
       isDisabled
         ? ''
         : `
-          border-color: ${s.color.clickable.highlight};
-          color: ${s.color.clickable.highlight};
-          z-index: ${s.zIndex.elevated1};
+          border-color: ${({theme}) => theme.color.clickable.highlight};
+          color: ${({theme}) => theme.color.clickable.highlight};
+          z-index: ${({theme}) => theme.zIndex.elevated1};
         `};
   }
 
   :not(:last-child) {
-    margin-right: -${s.border.width.default};
+    margin-right: -${({theme}) => theme.border.width.default};
   }
 
   :first-child {
-    border-bottom-left-radius: ${s.border.radius.default};
-    border-top-left-radius: ${s.border.radius.default};
+    border-bottom-left-radius: ${({theme}) => theme.border.radius.default};
+    border-top-left-radius: ${({theme}) => theme.border.radius.default};
   }
 
   :last-child {
-    border-bottom-right-radius: ${s.border.radius.default};
-    border-top-right-radius: ${s.border.radius.default};
+    border-bottom-right-radius: ${({theme}) => theme.border.radius.default};
+    border-top-right-radius: ${({theme}) => theme.border.radius.default};
   }
 
   ${({isSelected}) =>
@@ -92,12 +92,12 @@ const ButtonGroupButton = styled.label`
       ? `
         &,
         &:hover {
-          background: ${s.color.background.default};
-          border-color: ${s.color.border.default};
+          background: ${({theme}) => theme.color.background.default};
+          border-color: ${({theme}) => theme.color.border.default};
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.13);
-          color: ${s.color.text.default};
+          color: ${({theme}) => theme.color.text.default};
           cursor: default;
-          z-index: ${s.zIndex.base};
+          z-index: ${({theme}) => theme.zIndex.base};
         }
         `
       : ''};
@@ -108,8 +108,8 @@ const ButtonGroupButton = styled.label`
 `;
 
 const ButtonGroupUnit = styled.div`
-  color: ${s.color.text.lighter};
-  font-weight: ${s.font.weight.normal};
+  color: ${({theme}) => theme.color.text.lighter};
+  font-weight: ${({theme}) => theme.font.weight.normal};
 `;
 
 const ButtonGroup = ({

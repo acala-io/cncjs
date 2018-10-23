@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import s from '../styles/theme';
-
 const WidgetHeaderButton = styled.div`
-  color: ${s.color.clickable.default};
+  color: ${({theme}) => theme.color.clickable.default};
   cursor: pointer;
   display: inline-block;
-  padding: ${s.size.default};
+  padding: ${({theme}) => theme.size.default};
   text-decoration: none;
 
   svg {
@@ -21,14 +19,14 @@ const WidgetHeaderButton = styled.div`
   }
 
   :visited {
-    color: ${s.color.clickable.default};
+    color: ${({theme}) => theme.color.clickable.default};
   }
 
   :active,
   :focus,
   :hover,
   :visited:hover {
-    color: ${s.color.clickable.highlight};
+    color: ${({theme}) => theme.color.clickable.highlight};
 
     svg {
       fill: currentColor;
