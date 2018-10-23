@@ -40,7 +40,7 @@ a.button,
     color: $text--inverse;
     cursor: pointer;
     display: inline-block;
-    font-weight: bold;
+    font-weight: normal;
     padding: $inuit-global-spacing-unit;
     text-align: center;
     text-shadow: 0 -1px 0 darken($clickable, 13);

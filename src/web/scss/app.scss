@@ -42,7 +42,6 @@ $mq-breakpoints: (
 @import '~inuitcss/elements/elements.images';
 @import '~inuitcss/elements/elements.tables';
 @import 'base/animations';
-@import 'base/hr';
 @import 'base/icons';
 @import 'base/labels';
 @import 'base/links';
@@ -85,10 +84,8 @@ $mq-breakpoints: (
 @import 'components/input-addon';
 @import 'components/input-stack';
 @import 'components/keypad';
-@import 'components/labeled-divider';
 @import 'components/layouts';
 @import 'components/nav';
-@import 'components/search-form';
 @import 'components/styled-select';
 @import 'components/toggle';
 
