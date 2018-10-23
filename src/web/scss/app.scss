@@ -25,12 +25,10 @@ $mq-breakpoints: (
 @import 'helpers/display';
 @import 'helpers/pin';
 @import 'helpers/text';
-@import 'helpers/triangles';
 
 // ELEMENTS
 @import '~inuitcss/elements/elements.headings';
 @import 'base/animations';
-@import 'helpers/pseudo-elements';
 
 // OBJECTS
 @import '~inuitcss/objects/objects.list-bare';
