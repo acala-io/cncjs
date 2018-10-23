@@ -29,13 +29,7 @@ const Input = styled.input`
   border-radius: ${({position}) => (position === 'after' ? roundedRight : roundedLeft)};
   order: ${({position}) => (position === 'after' ? 1 : 2)};
   text-align: ${({isNumber}) => (isNumber ? 'right' : 'left')};
-
-  && {
-    width: 4.5em;
-    // default: width: 4.5em;
-    // wide: width: 3.25em;
-    // narrow: width: 3.25em;
-  }
+  width: 4.5em;
 `;
 
 const AddOn = styled.div`
@@ -54,7 +48,7 @@ const AddOn = styled.div`
   user-select: none;
 
   &,
-  &:hover {
+  :hover {
     cursor: default;
   }
 `;
