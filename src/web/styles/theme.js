@@ -74,7 +74,6 @@ const theme = {
       default: colorClickable.string(),
       highlight: 'hsl(248, 80%, 72%)',
       darker: 'hsl(248, 70%, 55%)',
-      background: 'hsla(248, 80%, 72%, 0.28)',
     },
     text: {
       default: colorText.string(),
@@ -93,6 +92,7 @@ const theme = {
       highlight: 'hsl(201, 100%, 94%)',
       warning: 'hsl(4, 90%, 94%)',
       overlay: 'hsla(201, 13%, 0%, 0.78)',
+      clickable: 'hsla(248, 80%, 72%, 0.28)',
     },
     border: {
       default: colorBorder.string(),
