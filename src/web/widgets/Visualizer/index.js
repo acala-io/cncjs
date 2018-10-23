@@ -62,6 +62,7 @@ import {Button} from '../../components/Buttons';
 import s from '../../styles/theme';
 import './index.scss';
 
+// prettier-ignore
 const translateExpression = (function() {
   const {Parser} = ExpressionEvaluator;
   const reExpressionContext = new RegExp(/\[[^\]]+\]/g);
