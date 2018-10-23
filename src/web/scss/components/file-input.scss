@@ -8,7 +8,7 @@
 
 .file-input {
     .file-input__input {
-        @include visuallyhidden;
+        @include inuit-hidden-visually;
     }
 
     .file-input__label {

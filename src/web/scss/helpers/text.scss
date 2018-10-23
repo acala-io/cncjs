@@ -2,15 +2,9 @@
  * Text helper classes
  */
 
-
 // Standard text styles ------------------------------------------------------------------------------------------------
 .number {
     text-align: right;
-}
-
-.unit {
-    color: $text--lighter;
-    padding-left: .5ch;
 }
 
 /*
@@ -19,10 +13,9 @@
  */
 .number-sign {
     display: inline-block; /* 1 */
-    padding-right: .5ch; /* 2 */
+    padding-right: 0.5ch; /* 2 */
     vertical-align: middle; /* 1 */
 }
-
 
 // Color ---------------------------------------------------------------------------------------------------------------
 .text--lighter {
@@ -33,7 +26,6 @@
     color: $text--lightest;
 }
 
-
 // Font-weight ---------------------------------------------------------------------------------------------------------
 .text--bold {
     font-weight: bold;
@@ -42,7 +34,6 @@
 .text--normal {
     font-weight: normal;
 }
-
 
 // Alignment -----------------------------------------------------------------------------------------------------------
 .text--left {
@@ -58,7 +49,6 @@
     margin-right: auto;
     text-align: center !important;
 }
-
 
 // Wrapping ------------------------------------------------------------------------------------------------------------
 .nowrap {

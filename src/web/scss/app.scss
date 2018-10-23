@@ -6,7 +6,6 @@
  */
 
 // SETTINGS
-@import 'settings/settings.config.scss';
 @import 'settings/settings.core.scss';
 @import 'settings/settings.global';
 @import 'settings/theme';
@@ -23,10 +22,8 @@ $mq-breakpoints: (
 );
 @import '~sass-mq/mq';
 @import 'helpers/alignment';
-@import 'helpers/color';
 @import 'helpers/display';
 @import 'helpers/pin';
-@import 'helpers/printing';
 @import 'helpers/text';
 @import 'helpers/triangles';
 
@@ -38,23 +35,14 @@ $mq-breakpoints: (
 @import 'helpers/pseudo-elements';
 
 // OBJECTS
-@import '~inuitcss/objects/objects.wrapper';
-@import '~inuitcss/objects/objects.layout';
-@import '~inuitcss/objects/objects.media';
-@import '~inuitcss/objects/objects.flag';
 @import '~inuitcss/objects/objects.list-bare';
-@import '~inuitcss/objects/objects.list-inline';
 @import '~inuitcss/objects/objects.box';
-@import '~inuitcss/objects/objects.block';
 @import '~inuitcss/objects/objects.ratio';
-@import '~inuitcss/objects/objects.crop';
-@import '~inuitcss/objects/objects.table';
+@import '~inuitcss/objects/objects.media';
 @import '~inuitcss/objects/objects.pack';
-
 @import 'objects/content-width-wrapper';
 
 // COMPONENTS
-@import 'components/action-links';
 @import 'components/avatars';
 @import 'components/badges';
 @import 'components/buttons';
@@ -81,6 +69,7 @@ $mq-breakpoints: (
 @import 'components/dialogs/dialog-footer';
 @import 'components/dialogs/dialog-login';
 
+// VENDOR STYLES
 @import 'vendor/font-awesome';
 @import 'vendor/infinite-tree';
 @import 'vendor/perfect-scrollbar';
@@ -91,10 +80,5 @@ $mq-breakpoints: (
 
 // UTILITIES
 @import '~inuitcss/utilities/utilities.clearfix';
-
-$inuit-fractions: 1 2 3 4 5 6;
-@import '~inuitcss/utilities/utilities.widths';
-@import '~inuitcss/utilities/utilities.headings';
-@import '~inuitcss/utilities/utilities.spacings';
-@import '~inuitcss/utilities/utilities.responsive-spacings';
 @import '~inuitcss/utilities/utilities.hide';
+@import '~inuitcss/utilities/utilities.spacings';

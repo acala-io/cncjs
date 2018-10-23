@@ -9,10 +9,12 @@
  * <ActionLink action="edit" onClick={() => { alert('clicked!'); }} isDisabled={false} />
  */
 
-import classcat from 'classcat';
 import * as React from 'react';
+import styled from 'styled-components';
 
 import Icon from './Icon';
+
+import mixin from '../styles/mixins/';
 
 type Action = 'add' | 'cancel' | 'delete' | 'download' | 'duplicate' | 'edit' | 'run' | string;
 
@@ -27,14 +29,10 @@ const TEXTS = {
 
 export type Props = {
   action: Action,
-  className: string,
   label: string,
   isDisabled: boolean,
   onClick: Function,
   renderWithLabel: boolean,
-  style: any,
-  title: string,
-  // tooltipPosition: 'above' | 'right' | 'below' | 'left',
 };
 
 function getOptions(action: string): {icon: string, text: string} {
@@ -45,7 +43,7 @@ function getOptions(action: string): {icon: string, text: string} {
 
   const options = {
     dunno: {
-      icon: 'dunno',
+      icon: 'none',
       text: TEXTS[action],
     },
   };
@@ -54,6 +52,20 @@ function getOptions(action: string): {icon: string, text: string} {
 }
 
 const ActionLinkIcon = ({type}: {type: string}) => <Icon name={type} />;
+
+const StyledActionLink = styled.span`
+  ${mixin.link};
+
+  display: inline-block;
+  font-weight: ${({theme}) => theme.font.weight.bold};
+  padding: ${({theme}) => theme.size.tiny} ${({theme}) => theme.size.small};
+  user-select: none;
+  vertical-align: middle;
+`;
+
+const LinkText = styled.span`
+  padding-left: ${({theme}) => theme.size.small};
+`;
 
 export default class ActionLink extends React.Component<Props> {
   static defaultProps = {
@@ -85,27 +97,14 @@ export default class ActionLink extends React.Component<Props> {
   };
 
   render() {
-    const {action, className, isDisabled, label, renderWithLabel, style, title} = this.props;
+    const {action, label, renderWithLabel} = this.props;
     const options = getOptions(action);
-    // const showTooltip = options.icon ? !renderWithLabel : false;
-    const classes = classcat([
-      'action-link',
-      {
-        'is-disabled': isDisabled,
-      },
-      className,
-    ]);
 
     return (
-      <span
-        className={classes}
-        data-title={renderWithLabel ? null : title || options.text}
-        onClick={this.onClick}
-        style={style}
-      >
+      <StyledActionLink onClick={this.onClick}>
         {options.icon ? <ActionLinkIcon type={options.icon} /> : null}
-        {!options.icon || renderWithLabel ? <span>{label || options.text}</span> : null}
-      </span>
+        {!options.icon || renderWithLabel ? <LinkText>{label || options.text}</LinkText> : null}
+      </StyledActionLink>
     );
   }
 }

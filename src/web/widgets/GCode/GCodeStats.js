@@ -6,6 +6,8 @@ import {formatDate, formatDuration, time24h} from '../../lib/l10n';
 
 import {METRIC_UNITS} from '../../constants';
 
+import Unit from '../../components_new/Unit';
+
 class GCodeStats extends PureComponent {
   static propTypes = {
     state: PropTypes.object,
@@ -38,45 +40,45 @@ class GCodeStats extends PureComponent {
               <th>X</th>
               <td className="number-cell">
                 {bbox.min.x}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
               <td className="number-cell">
                 {bbox.max.x}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
               <td className="number-cell">
                 {bbox.delta.x}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
             </tr>
             <tr>
               <th>Y</th>
               <td className="number-cell">
                 {bbox.min.y}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
               <td className="number-cell">
                 {bbox.max.y}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
               <td className="number-cell">
                 {bbox.delta.y}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
             </tr>
             <tr>
               <th>Z</th>
               <td className="number-cell">
                 {bbox.min.z}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
               <td className="number-cell">
                 {bbox.max.z}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
               <td className="number-cell">
                 {bbox.delta.z}
-                <span className="unit">{displayUnits}</span>
+                <Unit>{displayUnits}</Unit>
               </td>
             </tr>
           </tbody>

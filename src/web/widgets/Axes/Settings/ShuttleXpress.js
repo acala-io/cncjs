@@ -7,6 +7,7 @@ import i18n from '../../../lib/i18n';
 import Flexbox from '../../../components_new/Flexbox';
 import Select from '../../../components_new/Select';
 import SettingsRow from '../../../settings/SettingsRow';
+import Unit from '../../../components_new/Unit';
 
 const FEEDRATE_RANGE = [100, 2500];
 const FEEDRATE_STEP = 50;
@@ -85,7 +86,7 @@ class ShuttleXpress extends PureComponent {
           value={
             <Fragment>
               {feedrateMin} - {feedrateMax}
-              <span className="unit">mm/min</span>
+              <Unit>mm/min</Unit>
             </Fragment>
           }
         />
@@ -102,7 +103,7 @@ class ShuttleXpress extends PureComponent {
           value={
             <Fragment>
               {hertz}
-              <span className="unit">Hz</span>
+              <Unit>Hz</Unit>
             </Fragment>
           }
         />
@@ -120,7 +121,7 @@ class ShuttleXpress extends PureComponent {
           value={
             <Fragment>
               {overshoot}
-              <span className="unit">×</span>
+              <Unit>×</Unit>
             </Fragment>
           }
         />

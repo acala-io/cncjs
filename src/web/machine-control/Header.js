@@ -13,10 +13,12 @@ import ConnectionModal from '../widgets/Connection/ConnectionModal';
 import Flexbox from '../components_new/Flexbox';
 // import MachineControlFunctions from './MachineControlFunctions';
 
+import theme from '../styles/theme';
+
 class Header extends PureComponent {
   render() {
     return (
-      <Flexbox justifyContent="space-between" alignItems="center" className="u-padding-small">
+      <Flexbox justifyContent="space-between" alignItems="center" style={{padding: theme.size.small}}>
         <Flexbox>{this.machineConnect}</Flexbox>
         <Flexbox>{this.gcodePlayer}</Flexbox>
         <Flexbox>{/* <MachineControlFunctions /> */}</Flexbox>
