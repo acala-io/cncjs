@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
+
 import i18n from '../../lib/i18n';
-import {Button} from '../../components/Buttons';
+
 import Modal from '../../components/Modal';
+import Textarea from '../../components_new/Textarea';
+import {Button} from '../../components/Buttons';
 
 class RunMacro extends PureComponent {
   static propTypes = {
-    state: PropTypes.object,
     actions: PropTypes.object,
+    state: PropTypes.object,
   };
 
   render() {
-    const {state, actions} = this.props;
+    const {actions, state} = this.props;
     const {id, name, content} = {...state.modal.params};
 
     return (
@@ -24,7 +27,7 @@ class RunMacro extends PureComponent {
             <label>
               <strong>{name}</strong>
             </label>
-            <textarea readOnly rows="10" className="form-control" value={content} />
+            <Textarea rows="10" value={content} readOnly />
           </div>
         </Modal.Body>
         <Modal.Footer>
