@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import animation from '../styles/animations/';
 import mixin from '../styles/mixins/';
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const Overlay = styled.div`
   /*

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import s from '../../../styles/variables';
+import s from '../../../styles/theme';
 
 const MajorValue = styled.span`
   color: ${s.color.secondary.default};

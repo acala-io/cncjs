@@ -7,6 +7,7 @@ import controller from '../../lib/controller';
 // import i18n from '../../lib/i18n';
 
 import Button from '../../components_new/Button';
+import DisplayValue from '../../components_new/DisplayValue';
 import Fieldset from '../../components_new/Fieldset';
 import Flexbox from '../../components_new/Flexbox';
 import Padding from '../../components_new/Padding';
@@ -14,7 +15,7 @@ import Slider from 'rc-slider';
 import SplitButton from '../../components_new/SplitButton';
 import SpindleAnimation from './SpindleAnimation';
 
-import s, {size as globalBaseUnit} from '../../styles/variables';
+import s, {size as globalBaseUnit} from '../../styles/theme';
 
 class Spindle extends PureComponent {
   static propTypes = {
@@ -78,23 +79,25 @@ class Spindle extends PureComponent {
   }
 
   get speedControl() {
-    const {actions} = this.props;
-    // const {actions, state} = this.props;
-    // const {spindleSpeed} = state;
+    const {actions, state} = this.props;
+    const {spindleSpeed} = state;
 
     return (
-      <Slider
-        defaultValue={20000}
-        // value={spindleSpeed}
-        min={1000}
-        max={35000}
-        step={100}
-        marks={{
-          1000: '1000',
-          2000: '2000',
-        }}
-        onChange={actions.handleSpindleSpeedChange}
-      />
+      <Flexbox className="u-margin-top-small" flexDirection="row" justifyContent="stretch" alignItems="center">
+        <Slider
+          defaultValue={20000}
+          // value={spindleSpeed}
+          min={1000}
+          max={35000}
+          step={100}
+          // marks={{
+          //   1000: '1000',
+          //   2000: '2000',
+          // }}
+          onChange={actions.handleSpindleSpeedChange}
+        />
+        <DisplayValue value={spindleSpeed} unit="RPM" large />
+      </Flexbox>
     );
   }
 
@@ -117,18 +120,18 @@ class Spindle extends PureComponent {
           onClick={this.turnOffSpindle}
         />
         <Button
-          text="Right"
-          // text={i18n._('Right')}
-          size="large"
-          isDisabled={!canClick || spindleIsOn}
-          onClick={() => this.turnOnSpindle('right')}
-        />
-        <Button
           text="Left"
           // text={i18n._('Left')}
           size="large"
           isDisabled={!canClick || spindleIsOn}
           onClick={() => this.turnOnSpindle('left')}
+        />
+        <Button
+          text="Right"
+          // text={i18n._('Right')}
+          size="large"
+          isDisabled={!canClick || spindleIsOn}
+          onClick={() => this.turnOnSpindle('right')}
         />
       </SplitButton>
     );

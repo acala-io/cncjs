@@ -57,11 +57,12 @@ a,
 
     &.is-disabled,
     &.is-disabled:hover {
-        color: $text--lightest;
+        color: $text--lighter;
         /* stylelint-disable no-unsupported-browser-features */
         /* nobody cares, if the cursor is not changed in bad browsers */
         cursor: not-allowed;
         /* stylelint-enable */
         font-style: italic;
+        font-weight: normal;
     }
 }

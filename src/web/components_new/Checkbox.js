@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {bool, func, string} from 'prop-types';
 
 import mixin from '../styles/mixins/';
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 // /*
 //  * Styled checkbox.

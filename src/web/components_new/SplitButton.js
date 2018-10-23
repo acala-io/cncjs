@@ -10,7 +10,7 @@
 
 import styled from 'styled-components';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const SplitButton = styled.div`
   display: ${({equalWidth}) => (equalWidth ? 'flex' : 'table')};

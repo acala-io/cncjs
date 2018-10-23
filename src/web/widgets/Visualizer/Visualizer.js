@@ -25,7 +25,7 @@ import ToolHead from './ToolHead';
 import TrackballControls from './TrackballControls';
 import Viewport from './Viewport';
 
-import s from '../../styles/variables';
+import s from '../../styles/theme';
 
 const IMPERIAL_GRID_COUNT = 32; // 32 in
 const IMPERIAL_GRID_SPACING = 25.4; // 1 in

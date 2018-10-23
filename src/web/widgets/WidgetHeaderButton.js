@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const WidgetHeaderButton = styled.div`
   color: ${s.color.clickable.default};

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 import Icon from './Icon';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 import mixin from '../styles/mixins/';
 
 export const LinkIcon = styled(Icon)`
-  margin-right: ${s.size.small};
+    margin-right: ${s.size.small};
 `;
 
 export const Link = styled.div`

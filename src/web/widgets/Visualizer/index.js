@@ -59,7 +59,7 @@ import WidgetConfig from '../WidgetConfig';
 import WorkflowControl from './WorkflowControl';
 import {Button} from '../../components/Buttons';
 
-import s from '../../styles/variables';
+import s from '../../styles/theme';
 import './index.scss';
 
 const translateExpression = (function() {

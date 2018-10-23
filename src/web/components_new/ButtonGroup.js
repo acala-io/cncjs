@@ -15,7 +15,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 export type Props = {
   className?: string,

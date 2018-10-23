@@ -7,7 +7,7 @@ import AppNotices from '../containers/Workspace/AppNotices';
 import Dialogs from '../dialogs';
 import FlashMessages from '../components_new/FlashMessages';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const StyledAppLayout = styled.div`
   /*

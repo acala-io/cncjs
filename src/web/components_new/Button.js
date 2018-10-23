@@ -16,7 +16,7 @@ import Icon from './Icon';
 import LoadingIndicator from './LoadingIndicator';
 
 import mixin from '../styles/mixins/';
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const visualZHeight = '1.5px';
 
@@ -34,7 +34,7 @@ const StyledButton = styled.button`
   color: ${s.color.text.inverse};
   cursor: pointer;
   display: inline-block;
-  font-weight: ${s.font.weight.bold};
+  font-weight: ${s.font.weight.normal};
   padding: ${s.size.small} ${s.size.default};
   text-align: center;
   text-shadow: 0 -1px 0 ${s.color.clickable.darker};

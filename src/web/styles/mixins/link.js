@@ -1,6 +1,6 @@
 import {css} from 'styled-components';
 
-import s from '../variables';
+import s from '../theme';
 
 export const link = css`
   color: ${s.color.clickable.default};

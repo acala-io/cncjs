@@ -4,7 +4,7 @@ $rail-height: $inuit-global-spacing-unit-small !default;
     box-sizing: border-box;
     max-width: 25 * $inuit-global-spacing-unit;
     min-width: 5 * $inuit-global-spacing-unit;
-    padding: $inuit-global-spacing-unit;
+    padding: $inuit-global-spacing-unit-large $inuit-global-spacing-unit;
     position: relative;
     touch-action: none;
     width: 100%;
@@ -20,7 +20,7 @@ $rail-height: $inuit-global-spacing-unit-small !default;
 }
 
 .rc-slider-track {
-    background: $secondary;
+    background: $clickable-background;
     border-radius: $border-radius--pill;
     height: $rail-height;
     left: 0;

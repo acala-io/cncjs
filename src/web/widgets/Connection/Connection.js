@@ -255,17 +255,19 @@ class Connection extends PureComponent {
         {!connected && (
           <Button
             text={i18n._('Connect Machine')}
-            width="full-width"
             isDisabled={!canOpenPort}
             onClick={handleOpenPort}
+            size="large"
+            fullWidth
           />
         )}
         {connected && (
           <Button
             text={i18n._('Disconnect')}
-            width="full-width"
             isDisabled={!canClosePort}
             onClick={handleClosePort}
+            size="large"
+            fullWidth
             danger
           />
         )}

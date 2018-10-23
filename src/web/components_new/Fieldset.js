@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {arrayOf, node, oneOfType, string} from 'prop-types';
 
 import mixin from '../styles/mixins/';
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const FieldsetLabel = styled.label`
     ${mixin.centerX};

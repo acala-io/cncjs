@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import {arrayOf, string, node, oneOfType} from 'prop-types';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 import Flexbox from '../components_new/Flexbox';
 

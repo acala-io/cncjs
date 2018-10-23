@@ -9,7 +9,7 @@ import pkg from '../../../../package.json';
 import Button from '../../components_new/Button';
 import UpdateStatus from './UpdateStatus';
 
-import s from '../../styles/variables';
+import s from '../../styles/theme';
 import mixin from '../../styles/mixins/';
 
 const openUrl = url => window.open(url, '_blank');

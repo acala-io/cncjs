@@ -11,7 +11,7 @@ import * as dialogs from '../dialogs/actions';
 import Button from '../components_new/Button';
 import ConnectionModal from '../widgets/Connection/ConnectionModal';
 import Flexbox from '../components_new/Flexbox';
-import MachineControlFunctions from './MachineControlFunctions';
+// import MachineControlFunctions from './MachineControlFunctions';
 
 class Header extends PureComponent {
   render() {
@@ -19,9 +19,7 @@ class Header extends PureComponent {
       <Flexbox justifyContent="space-between" alignItems="center" className="u-padding-small">
         <Flexbox>{this.machineConnect}</Flexbox>
         <Flexbox>{this.gcodePlayer}</Flexbox>
-        <Flexbox>
-          <MachineControlFunctions />
-        </Flexbox>
+        <Flexbox>{/* <MachineControlFunctions /> */}</Flexbox>
       </Flexbox>
     );
   }

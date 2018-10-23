@@ -22,7 +22,7 @@ import {Dialog, DialogActions, DialogFooter, DialogHeader} from '../../component
 import {Link} from '../../components_new/Link';
 
 import mixin from '../../styles/mixins/';
-import s from '../../styles/variables';
+import s from '../../styles/theme';
 
 const Logo = styled(Image)`
   ${mixin.centerMX} display: block;

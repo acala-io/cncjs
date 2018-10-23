@@ -3,7 +3,7 @@ import {arrayOf, node, oneOf, oneOfType} from 'prop-types';
 
 import styled from 'styled-components';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const StyledNotificationBar = styled.div`
   font-weight: ${s.font.weight.bold};

@@ -2,7 +2,7 @@ import {oneOf, string} from 'prop-types';
 import React, {PureComponent} from 'react';
 // import styled from 'styled-components';
 
-// import s from '../../styles/variables';
+// import s from '../../styles/theme';
 
 import './spindle-animation.scss';
 

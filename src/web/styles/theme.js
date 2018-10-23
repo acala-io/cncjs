@@ -13,7 +13,7 @@ const borderWidth = 1;
 export const size = 14;
 
 const colorPrimary = Color('hsl(248, 67%, 64%)');
-const colorSecondary = Color('hsl(100, 67%, 64%)');
+const colorSecondary = Color('hsl(51, 98%, 48%)');
 const colorClickable = Color('hsl(248, 67%, 64%)');
 const colorText = Color('hsl(201, 13%, 21%)');
 const colorBackground = Color('hsl(201, 2%, 92%)');
@@ -29,7 +29,7 @@ const colorBorder = Color('hsl(201, 13%, 79%)');
 // - Saturation
 // Hue (often) shifts towards a luminosity maximum
 
-export default {
+const theme = {
   color: {
     primary: {
       default: colorPrimary.string(),
@@ -178,3 +178,5 @@ export default {
     topmost3: 1000020,
   },
 };
+
+export default theme;

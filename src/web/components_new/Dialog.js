@@ -9,7 +9,7 @@ import {Link} from './Link';
 
 import animation from '../styles/animations/';
 import mixin from '../styles/mixins/';
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 const CloseLink = styled(Link)`
   /*

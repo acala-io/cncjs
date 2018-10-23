@@ -21,7 +21,7 @@ $primary--lighter: lighten(desaturate($primary, 8%), 8%);
 $primary--lightest: lighten(desaturate($primary, 13%), 34%);
 
 // secondary color
-$secondary: hsl(100, 67%, 64%);
+$secondary: hsl(51, 98%, 48%);
 $secondary--darker: darken(saturate($secondary, 3%), 13%);
 $secondary--darkest: darken(saturate($secondary, 5%), 34%);
 $secondary--lighter: lighten(desaturate($secondary, 8%), 13%);
@@ -46,7 +46,7 @@ $background--slightly-off-black: hsl(201, 2%, 8%);
 $background--lighter: hsl(201, 2%, 94%);
 $background--slightly-off-white: hsl(201, 1%, 97%);
 $background--white: hsl(0, 0%, 100%);
-$clickable-background: hsl(201, 100%, 94%);
+$clickable-background: hsl(248, 100%, 92%);
 $background--warning: hsl(4, 90%, 94%);
 $black: hsl(201, 100%, 0%);
 

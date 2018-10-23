@@ -30,7 +30,7 @@ import ServerDisconnectedModal from './ServerDisconnectedModal';
 import SettingsModal from '../../settings/SettingsModal';
 import WidgetsSidebar from './WidgetsSidebar';
 
-import s from '../../styles/variables';
+import s from '../../styles/theme';
 import mixin from '../../styles/mixins';
 
 import './index.scss';

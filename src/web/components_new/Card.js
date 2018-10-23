@@ -16,7 +16,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 export const Card = styled.div`
  /*

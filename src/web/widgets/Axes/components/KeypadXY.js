@@ -6,7 +6,7 @@ import jogButtonFactory from '../jogButtonFactory';
 import AxisLabel from './AxisLabel';
 import Flexbox from '../../../components_new/Flexbox';
 
-import s from '../../../styles/variables';
+import s from '../../../styles/theme';
 
 class KeypadXY extends PureComponent {
   static propTypes = {

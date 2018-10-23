@@ -2,7 +2,7 @@ import {arrayOf, func, node, oneOfType, string} from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import s from '../styles/variables';
+import s from '../styles/theme';
 
 import Flexbox from '../components_new/Flexbox';
 

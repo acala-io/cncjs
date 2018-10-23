@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom';
 import XHR from 'i18next-xhr-backend';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
+import {ThemeProvider} from 'styled-components';
 import {TRACE, DEBUG, INFO, WARN, ERROR} from 'universal-logger';
 
 import controller from './lib/controller';
@@ -38,15 +39,19 @@ import {Button} from './components/Buttons';
 
 import './scss/app.scss';
 
+import theme from './styles/theme';
+
 const renderPage = () => {
   const app = (
     <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Route path="/login" component={Login} />
-          <ProtectedRoute path="/" component={App} />
-        </Fragment>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Fragment>
+            <Route path="/login" component={Login} />
+            <ProtectedRoute path="/" component={App} />
+          </Fragment>
+        </Router>
+      </ThemeProvider>
     </Provider>
   );
 
