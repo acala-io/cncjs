@@ -7,9 +7,9 @@ import i18n from '../../lib/i18n';
 import pkg from '../../../../package.json';
 
 import Button from '../../components_new/Button';
+import Section from '../../components_new/Section';
 import UpdateStatus from './UpdateStatus';
 
-import s from '../../styles/theme';
 import mixin from '../../styles/mixins/';
 
 const openUrl = url => window.open(url, '_blank');
@@ -25,28 +25,26 @@ const onReportIssue = () => openUrl(issuesURL);
 const Logo = styled.img`
   ${mixin.centerMX} display: block;
   height: auto;
-  padding-top: ${s.size.large};
-  width: 256px;
+  padding-top: ${({theme}) => theme.size.large};
+  width: 128px;
 `;
 
 const ProductName = styled.p`
-  font-size: ${s.font.size.huge};
-  font-weight: bold;
+  font-size: ${({theme}) => theme.font.size.huge};
+  font-weight: ${({theme}) => theme.font.weight.bold};
   margin-bottom: 0;
 `;
 
-const ProductVersion = styled.p`
-  color: ${s.color.text.lighter};
-  padding-bottom: ${s.size.large};
+const LightParagraph = styled.p`
+  color: ${({theme}) => theme.color.text.lighter};
+  margin-bottom: 0;
 `;
 
-const ProductDescription = styled.p`
-  color: ${s.color.text.lighter};
-  padding-bottom: ${s.size.default};
-`;
+const ProductVersion = LightParagraph;
+
+const ProductDescription = LightParagraph;
 
 const StyledAbout = styled.div`
-  padding-bottom: ${s.size.large};
   text-align: center;
   width: 100%;
 `;
@@ -63,16 +61,20 @@ class About extends PureComponent {
     return (
       <StyledAbout>
         <Logo src="images/logo-square-256x256.png" />
-        <div>
-          <ProductName>{pkg.name}</ProductName>
+        <Section>
           <ProductVersion>
+            <ProductName>{pkg.name}</ProductName>
             {pkg.version} <UpdateStatus {...version} />
           </ProductVersion>
+        </Section>
+        <Section>
           <ProductDescription>{i18n._(pkg.description)}</ProductDescription>
+        </Section>
+        <Section>
           <Button text={i18n._('Read Documentation')} onClick={onReadDocumentation} />
           <Button text={i18n._('View Downloads')} onClick={onViewReleases} className="u-margin-horizontal" />
-          <Button text={i18n._('Report an issue')} onClick={onReportIssue} />
-        </div>
+          <Button text={i18n._('Report an Issue')} onClick={onReportIssue} />
+        </Section>
       </StyledAbout>
     );
   }
