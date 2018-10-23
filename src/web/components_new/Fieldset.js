@@ -3,43 +3,56 @@ import styled from 'styled-components';
 import {arrayOf, node, oneOfType, string} from 'prop-types';
 
 import mixin from '../styles/mixins/';
-import s from '../styles/theme';
 
-const FieldsetLabel = styled.label`
+const Legend = styled.legend`
     ${mixin.centerX};
 
-    background: ${s.color.background.white};
-    color: ${s.color.text.lighter};
+    background: ${({theme}) => theme.color.background.white};
+    color: ${({theme}) => theme.color.text.lighter};
     display: inline-block;
-    font-weight: ${s.font.weight.normal};
+    font-weight: ${({theme}) => theme.font.weight.normal};
+    font: inherit;
     left: 50%;
     line-height: 1.25;
     margin: 0;
-    padding: 0 ${s.size.small};
+    padding: 0 ${({theme}) => theme.size.small};
     position: absolute;
     text-align: center;
     transform: translate(-50%, -100%);
     white-space: nowrap;
+
+    :hover,
+    :active,
+    :focus {
+      outline: none;
+    }
 }
 `;
 
 const StyledFieldset = styled.fieldset`
-  border: ${s.border.width.default} solid ${s.color.border.lighter};
-  border-radius: ${s.border.radius.large};
+  border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.lighter};
+  border-radius: ${({theme}) => theme.border.radius.large};
   display: block;
+  font: inherit;
   margin-bottom: 0;
-  padding: ${s.size.small};
+  padding: ${({theme}) => theme.size.small};
   position: relative;
   width: 100%;
 
+  :hover,
+  :active,
+  :focus {
+    outline: none;
+  }
+
   & + & {
-    margin-top: ${s.size.large};
+    margin-top: ${({theme}) => theme.size.large};
   }
 `;
 
 const Fieldset = ({children, label}) => (
   <StyledFieldset>
-    <FieldsetLabel>{label}</FieldsetLabel>
+    <Legend>{label}</Legend>
     {children}
   </StyledFieldset>
 );

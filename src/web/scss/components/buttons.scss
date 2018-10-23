@@ -40,6 +40,7 @@ a.button,
     color: $text--inverse;
     cursor: pointer;
     display: inline-block;
+    font: inherit;
     font-weight: normal;
     padding: $inuit-global-spacing-unit;
     text-align: center;
@@ -47,6 +48,12 @@ a.button,
     transition: background, color $transition-time--slow;
     user-select: none;
     vertical-align: middle; /* 2 */
+
+    &:hover,
+    &:active,
+    &:focus {
+        outline: none;
+    }
 
     &:hover {
         background: $clickable--highlight;
@@ -85,6 +92,7 @@ a.button,
         vertical-align: middle;
     }
 
+    &[disabled],
     &.is-disabled,
     &.is-disabled:hover {
         background: $background;
