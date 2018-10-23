@@ -10,7 +10,6 @@
     "Command": "Comando",
     "Show notifications": "Mostrar notificaciones",
     "Help": "Ayuda",
-    "Report an issue": "Señalar un problema",
     "Cycle Start": "Inicio de ciclo",
     "Feedhold": "Alimentar",
     "Homing": "Homing",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

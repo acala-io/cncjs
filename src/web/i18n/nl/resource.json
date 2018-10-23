@@ -10,7 +10,6 @@
     "Command": "Commando",
     "Show notifications": "Toon meldingen",
     "Help": "Help",
-    "Report an issue": "Rapporteer een probleem",
     "Cycle Start": "Start Cyclus",
     "Feedhold": "FeedStop",
     "Homing": "Homing",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

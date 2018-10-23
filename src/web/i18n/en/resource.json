@@ -10,7 +10,6 @@
     "Command": "Command",
     "Show notifications": "Show notifications",
     "Help": "Help",
-    "Report an issue": "Report an issue",
     "Cycle Start": "Cycle Start",
     "Feedhold": "Feedhold",
     "Homing": "Homing",
@@ -461,5 +460,6 @@
     "Macros": "Macros",
     "Off": "Off",
     "Mist": "Mist",
-    "Flood": "Flood"
+    "Flood": "Flood",
+    "Report an Issue": "Report an Issue"
 }

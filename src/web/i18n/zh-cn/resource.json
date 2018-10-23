@@ -10,7 +10,6 @@
     "Command": "命名",
     "Show notifications": "显示通知",
     "Help": "帮助",
-    "Report an issue": "报告问题",
     "Cycle Start": "循环启动",
     "Feedhold": "进给暂停",
     "Homing": "原点复位",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

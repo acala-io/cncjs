@@ -10,7 +10,6 @@
     "Command": "Komut",
     "Show notifications": "Bildirimleri Göster",
     "Help": "Yardım",
-    "Report an issue": "Sorun bildir",
     "Cycle Start": "İşi Başlat",
     "Feedhold": "İşi Beklet",
     "Homing": "Başlangıç",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

@@ -10,7 +10,6 @@
     "Command": "",
     "Show notifications": "",
     "Help": "Nápověda",
-    "Report an issue": "Nahlásit problém",
     "Cycle Start": "Start cyklu",
     "Feedhold": "Feedhold",
     "Homing": "Homing",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

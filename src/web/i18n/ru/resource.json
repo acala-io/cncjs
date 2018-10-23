@@ -10,7 +10,6 @@
     "Command": "",
     "Show notifications": "",
     "Help": "",
-    "Report an issue": "Сообщить о проблеме",
     "Cycle Start": "Пуск",
     "Feedhold": "Пауза",
     "Homing": "Базировать",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

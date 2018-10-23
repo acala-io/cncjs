@@ -10,7 +10,6 @@
     "Command": "命令",
     "Show notifications": "顯示通知",
     "Help": "輔助",
-    "Report an issue": "回報問題",
     "Cycle Start": "循環啟動",
     "Feedhold": "進給保持",
     "Homing": "原點復歸",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }

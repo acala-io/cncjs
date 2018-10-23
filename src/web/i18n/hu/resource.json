@@ -10,7 +10,6 @@
     "Command": "Parancs",
     "Show notifications": "Értesítések megjelenítése",
     "Help": "Segítség",
-    "Report an issue": "Hibabejelentés",
     "Cycle Start": "Folyamat Indítás",
     "Feedhold": "Előtolás Megállít",
     "Homing": "Alphelyzet",
@@ -461,5 +460,6 @@
     "Macros": "",
     "Off": "",
     "Mist": "",
-    "Flood": ""
+    "Flood": "",
+    "Report an Issue": ""
 }
