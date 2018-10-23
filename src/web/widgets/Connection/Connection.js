@@ -10,6 +10,7 @@ import i18n from '../../lib/i18n';
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
 import Icon from '../../components_new/Icon';
+import Label from '../../components_new/Label';
 // import Select from '../../components_new/Select';
 import Space from '../../components/Space';
 import Toggle from '../../components_new/Toggle';
@@ -221,10 +222,10 @@ class Connection extends PureComponent {
 
     return (
       <div className="form-group">
-        <label className="label--option">
+        <Label option>
           <Toggle value={enableHardwareFlowControl} onClick={toggleHardwareFlowControl} />
           {i18n._('Enable hardware flow control')}
-        </label>
+        </Label>
       </div>
     );
   }
@@ -235,10 +236,10 @@ class Connection extends PureComponent {
 
     return (
       <div className="form-group">
-        <label className="label--option">
+        <Label option>
           <Toggle value={autoReconnect} onClick={toggleAutoReconnect} />
           {i18n._('Connect automatically')}
-        </label>
+        </Label>
       </div>
     );
   }

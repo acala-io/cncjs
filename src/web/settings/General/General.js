@@ -5,6 +5,7 @@ import {get} from 'lodash';
 import i18n from '../../lib/i18n';
 
 import FormActions from '../../components_new/FormActions';
+import Label from '../../components_new/Label';
 import LoadingIndicator from '../../components_new/LoadingIndicator';
 import Select from '../../components_new/Select';
 import Toggle from '../../components_new/Toggle';
@@ -74,14 +75,14 @@ class General extends PureComponent {
   get settingCheckForUpdates() {
     return (
       <div>
-        <label className="label--option">
+        <Label option>
           <Toggle
             ref={ref => (this.fields.checkForUpdates = ref)}
             value={this.props.state.checkForUpdates}
             onClick={this.handlers.changeCheckForUpdates}
           />
           {i18n._('Automatically check for updates')}
-        </label>
+        </Label>
       </div>
     );
   }

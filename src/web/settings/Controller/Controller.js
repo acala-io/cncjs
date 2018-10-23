@@ -4,6 +4,7 @@ import React, {PureComponent} from 'react';
 import i18n from '../../lib/i18n';
 
 import FormActions from '../../components_new/FormActions';
+import Label from '../../components_new/Label';
 import LoadingIndicator from '../../components_new/LoadingIndicator';
 import Toggle from '../../components_new/Toggle';
 
@@ -34,14 +35,14 @@ class Controller extends PureComponent {
   get settingExceptionHandling() {
     return (
       <div>
-        <label className="label--option">
+        <Label option>
           <Toggle
             ref={ref => (this.fields.ignoreErrors = ref)}
             value={this.props.state.ignoreErrors}
             onClick={this.handlers.handleChangeIgnoreErrors}
           />
           {i18n._('Continue execution when an error is detected in the G-code program')}
-        </label>
+        </Label>
         <p>
           <span className="text-warning">
             <i className="fa fa-exclamation-circle" />
