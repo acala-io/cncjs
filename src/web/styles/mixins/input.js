@@ -1,12 +1,10 @@
 import {css} from 'styled-components';
 
-import s from '../theme';
-
 export const input = css`
   appearance: none;
   background: rgba(255, 255, 255, 0.92);
-  border-radius: ${s.border.radius.default};
-  border: ${s.border.width.default} solid ${s.color.border.default};
+  border-radius: ${({theme}) => theme.border.radius.default};
+  border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
   box-shadow: none;
   display: inline-block;
   font: inherit;
@@ -14,13 +12,13 @@ export const input = css`
   max-width: 19em;
   outline: none;
   padding: 0.5em;
-  transition: border-color ${s.transition.time.fast} ease-in-out;
+  transition: border-color ${({theme}) => theme.transition.time.fast} ease-in-out;
   width: 100%;
 
   :hover,
   :active,
   :focus {
-    border-color: ${s.color.clickable.highlight};
+    border-color: ${({theme}) => theme.color.clickable.highlight};
     outline: none;
   }
 `;

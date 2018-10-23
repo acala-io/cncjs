@@ -6,7 +6,7 @@ import placeholders from './base/placeholders';
 import tables from './base/tables';
 import text from './base/text';
 
-const globalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
   ${links}
   ${placeholders}
   ${tables}
@@ -14,4 +14,4 @@ const globalStyles = createGlobalStyle`
 }
 `;
 
-export default globalStyles;
+export default GlobalStyles;

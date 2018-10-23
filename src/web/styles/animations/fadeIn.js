@@ -1,7 +1,5 @@
 import {css} from 'styled-components';
 
-import s from '../theme';
-
 const fadeIn = css`
   @keyframes fadeIn {
     from {
@@ -13,7 +11,7 @@ const fadeIn = css`
     }
   }
 
-  animation: ${s.transition.time.fast} fadeIn ${s.transition.style.dynamic};
+  animation: ${({theme}) => theme.transition.time.fast} fadeIn ${({theme}) => theme.transition.style.dynamic};
   animation-fill-mode: both;
 `;
 

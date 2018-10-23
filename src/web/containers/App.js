@@ -13,7 +13,7 @@ import Error404 from './Errors/Error404';
 import Header from '../machine-control/Header';
 import Workspace from './Workspace';
 
-import GlobalStyle from '../styles/GlobalStyle';
+import GlobalStyles from '../styles/GlobalStyles';
 
 class App extends PureComponent {
   static propTypes = {
@@ -24,7 +24,12 @@ class App extends PureComponent {
     const {location} = this.props;
 
     if (!isDefinedRoute(location.pathname)) {
-      return <Error404 />;
+      return (
+        <Fragment>
+          <GlobalStyles />
+          <Error404 />
+        </Fragment>
+      );
     }
 
     if (!isAuthorizedRoute(location.pathname)) {
@@ -46,24 +51,25 @@ class App extends PureComponent {
   }
 
   getPage(location) {
-    if (location.pathname === '/workspace') {
+    if (location.pathname === '/login') {
+      // TODO: add <BlankLayout>
       return (
         <Fragment>
-          <GlobalStyle />
-          <AppLayout>
-            <Header />
-            <Workspace {...this.props} />;
-          </AppLayout>
+          <GlobalStyles />
+          <div {...this.props} />
         </Fragment>
       );
     }
 
-    if (location.pathname === '/login') {
-      // TODO: add <BlankLayout>
-      return <div {...this.props} />;
-    }
-
-    return <Error404 />;
+    return (
+      <Fragment>
+        <GlobalStyles />
+        <AppLayout>
+          <Header />
+          <Workspace {...this.props} />;
+        </AppLayout>
+      </Fragment>
+    );
   }
 }
 

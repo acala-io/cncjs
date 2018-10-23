@@ -1,9 +1,7 @@
 import {css} from 'styled-components';
 
-import s from '../theme';
-
 export const link = css`
-  color: ${s.color.clickable.default};
+  color: ${({theme}) => theme.color.clickable.default};
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
@@ -29,32 +27,32 @@ export const link = css`
   }
 
   &:visited {
-    color: $clickable;
+    color: ${({theme}) => theme.color.clickable.default};
   }
 
   :active,
   :focus,
   :hover,
   :visited:hover {
-    color: ${s.color.clickable.highlight};
+    color: ${({theme}) => theme.color.clickable.highlight};
 
+    /*
+     * 1 - Inherit the color value of the parent element
+     */
     svg {
-      fill: currentColor;
+      fill: currentColor; /* 1 */
     }
   }
 
-  /*
-   * 1 - Inherit the color value of the parent element
-   */
   svg {
-    fill: currentColor; /* 1 */
+    fill: currentColor;
   }
 `;
 
 export const linkDisabled = `
   &,
   &:hover {
-    color: ${s.color.text.lightest};
+    color: ${({theme}) => theme.color.text.lightest};
     cursor: not-allowed;
     font-style: italic;
   }
