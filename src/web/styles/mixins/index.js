@@ -1,4 +1,4 @@
-import {centerMX, centerXY} from './center';
+import {centerMX, centerX, centerXY} from './center';
 import {input} from './input';
 import {link, linkDisabled} from './link';
 import {
@@ -23,6 +23,7 @@ import {truncateText} from './text';
 
 export default {
   centerMX,
+  centerX,
   centerXY,
   input,
   link,

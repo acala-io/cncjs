@@ -198,7 +198,7 @@ const Button = ({
   if (isInProgress) {
     return (
       <StyledButton className={className} {...buttonVariantProps} onClick={e => e && e.preventDefault()} isDisabled>
-        <LoadingIndicator background="dark" />
+        <LoadingIndicator dark />
       </StyledButton>
     );
   }
