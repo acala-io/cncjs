@@ -10,6 +10,7 @@ const tables = css`
 
   table {
     margin-bottom: 0;
+    width: 100%;
   }
 
   th {

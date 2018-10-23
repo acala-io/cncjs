@@ -1,10 +1,10 @@
-/*
- * Default text styles for various elements.
- */
-
 import {css} from 'styled-components';
 
 const text = css`
+  /*
+   * Default text styles for various elements.
+   */
+
   body {
     color: ${({theme}) => theme.color.text.default};
     font-family: Nunito, Helvetica Neue, Calibri, Roboto, sans-serif;
@@ -45,26 +45,6 @@ const text = css`
 
   sub {
     bottom: -0.33em;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: normal;
-  }
-
-  h1 {
-    font-size: ${({theme}) => theme.color.text.huge};
-    text-align: center;
-  }
-
-  h2 {
-    font-size: ${({theme}) => theme.color.text.large};
-  }
-
-  h3 {
-    font-size: ${({theme}) => theme.color.text.large};
   }
 `;
 

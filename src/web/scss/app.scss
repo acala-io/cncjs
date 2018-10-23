@@ -30,17 +30,7 @@ $mq-breakpoints: (
 @import 'helpers/text';
 @import 'helpers/triangles';
 
-// GENERIC
-@import '~inuitcss/generic/generic.box-sizing';
-@import '~inuitcss/generic/generic.normalize';
-@import '~inuitcss/generic/generic.reset';
-@import '~inuitcss/generic/generic.shared';
-
 // ELEMENTS
-@import '~inuitcss/elements/elements.page';
-@import '~inuitcss/elements/elements.headings';
-@import '~inuitcss/elements/elements.images';
-@import '~inuitcss/elements/elements.tables';
 @import 'base/animations';
 @import 'base/links';
 @import 'base/spinners';
