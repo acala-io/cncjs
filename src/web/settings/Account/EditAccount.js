@@ -93,6 +93,15 @@ class EditAccount extends PureComponent {
               validations={[validations.required]}
             />
           </div>
+          <button
+            type="button"
+            className="btn btn-default pull-left"
+            onClick={() => {
+              updateModalParams({changePassword: true});
+            }}
+          >
+            {i18n._('Change Password')}
+          </button>
         </div>
       );
     }
@@ -106,8 +115,7 @@ class EditAccount extends PureComponent {
             type="password"
             name="oldPassword"
             className={classcat(['form-control', {'pull-left': !changePassword}, 'form-control', 'short'])}
-            validations={changePassword ? [validations.required] : []}
-            disabled={!changePassword}
+            validations={[]}
           />
           <button
             type="button"

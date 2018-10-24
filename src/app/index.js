@@ -119,7 +119,7 @@ const createServer = (options, callback) => {
 
   ensureArray(localOptions.mountPoints).forEach(mount => {
     if (!mount || !mount.route || mount.route === '/' || !mount.target) {
-      log.error(`Must specify a valid route path ${JSON.stringify(mount.route)}.`);
+      log.error(`Must specify a valid route path ${mount && mount.route && JSON.stringify(mount.route)}.`);
       return;
     }
 
