@@ -43,7 +43,7 @@ const StyledButtonGroup = styled.div`
 `;
 
 const ButtonGroupButton = styled.label`
-  background: ${({theme}) => theme.color.background.white};
+  background-color: ${({theme}) => theme.color.background.white};
   border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
   color: ${({isDisabled, theme}) => (isDisabled ? theme.color.text.default : theme.color.clickable.default)};
   cursor: ${({isDisabled}) => (isDisabled ? 'not-allowed' : 'pointer')};
@@ -86,17 +86,17 @@ const ButtonGroupButton = styled.label`
     border-top-right-radius: ${({theme}) => theme.border.radius.default};
   }
 
-  ${({isSelected}) =>
+  ${({isSelected, theme}) =>
     isSelected &&
     `
         &,
         &:hover {
-          background: ${({theme}) => theme.color.background.default};
-          border-color: ${({theme}) => theme.color.border.default};
+          background-color: ${theme.color.background.default};
+          border-color: ${theme.color.border.default};
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.13);
-          color: ${({theme}) => theme.color.text.default};
+          color: ${theme.color.text.default};
           cursor: default;
-          z-index: ${({theme}) => theme.zIndex.base};
+          z-index: ${theme.zIndex.base};
         }
         `};
 

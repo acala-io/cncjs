@@ -49,13 +49,13 @@ const ToggleLabels = styled.div`
   // 'off' text
   :before {
     content: '${({textOff}) => textOff}';
-    right: 0.6em;
+    right: 1em;
   }
 
   // 'on' text
   :after {
     content: '${({textOn}) => textOn}';
-    left: 0.75em;
+    left: 1.3em;
     opacity: 0;
   }
 `;
