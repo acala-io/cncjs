@@ -27,7 +27,10 @@ const tables = css`
     vertical-align: top;
   }
 
-  .number-cell, // <- TODO
+  /*
+   * TODO
+   */
+  .number-cell,
   td.number {
     text-align: right;
 
@@ -39,14 +42,6 @@ const tables = css`
     big + sup {
       margin-left: 0.5em;
       top: -1.2em;
-    }
-  }
-
-  tr.summary-row {
-    // <- TODO
-    td,
-    th {
-      font-weight: ${({theme}) => theme.font.weight.bold};
     }
   }
 
@@ -67,9 +62,24 @@ const tables = css`
     }
   }
 
-  // Variants ----------------------------------------------------------------------------------------------------------
+  /*
+   * TODO
+   */
+  tr.summary-row {
+    td,
+    th {
+      font-weight: ${({theme}) => theme.font.weight.bold};
+    }
+  }
+
+  /*
+   * Tabe Variants -----------------------------------------------------------------------------------------------------
+   */
+
+  /*
+    * TODO
+    */
   .table--row-hovers {
-    // <- TODO
     tr {
       transition: background ${({theme}) => theme.transition.time.veryFast} ease-out;
 
@@ -79,16 +89,23 @@ const tables = css`
     }
   }
 
+  /*
+   * TODO
+   */
   .table--scrollable {
-    // <- TODO
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
   }
 
+  /*
+   * TODO
+   */
   .table--auto-zebra {
-    // <- TODO
-    // if there are 6 or more rows, apply zebra-striping to rows instead of borders
+    /*
+     * If there are 6 or more rows, apply zebra-striping to rows instead of borders
+     */
+
     tr:nth-last-child(n + 6) ~ tr,
     tr:nth-last-child(n + 6):first-child {
       border-bottom: 0 !important;

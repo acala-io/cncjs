@@ -36,6 +36,10 @@ const ToggleLabels = styled.div`
   text-transform: uppercase;
   transition: ${({theme}) => theme.transition.time.medium} opacity ${({theme}) => theme.transition.style.dynamic};
 
+  /*
+   * The ON and OFF texts
+   */
+
   :before,
   :after {
     ${mixin.centerY};
@@ -46,13 +50,11 @@ const ToggleLabels = styled.div`
     transition: inherit;
   }
 
-  // 'off' text
   :before {
     content: '${({textOff}) => textOff}';
     right: 1em;
   }
 
-  // 'on' text
   :after {
     content: '${({textOn}) => textOn}';
     left: 1.3em;

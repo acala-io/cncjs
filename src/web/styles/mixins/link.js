@@ -30,6 +30,10 @@ export const link = css`
     color: ${({theme}) => theme.color.clickable.default};
   }
 
+  svg {
+    fill: currentColor;
+  }
+
   :active,
   :focus,
   :hover,
@@ -42,10 +46,6 @@ export const link = css`
     svg {
       fill: currentColor; /* 1 */
     }
-  }
-
-  svg {
-    fill: currentColor;
   }
 `;
 

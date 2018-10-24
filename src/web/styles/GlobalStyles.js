@@ -16,13 +16,17 @@ import text from './base/text';
 import textareas from './base/textareas';
 
 const GlobalStyles = createGlobalStyle`
-  // GENERIC
+  /*
+   * GENERIC
+   */
   ${boxSizing}
   ${normalize}
   ${reset}
   ${shared}
 
-  // ELEMENTS
+  /*
+   * ELEMENTS
+   */
   ${headings}
   ${images}
   ${inputs}
@@ -32,7 +36,6 @@ const GlobalStyles = createGlobalStyle`
   ${tables}
   ${textareas}
   ${text}
-}
 `;
 
 export default GlobalStyles;

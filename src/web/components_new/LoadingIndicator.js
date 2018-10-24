@@ -15,7 +15,9 @@ import Hint from './Hint';
 import animation from '../styles/animations/';
 import mixin from '../styles/mixins/';
 
-const Dots = styled.div``;
+const Dots = styled.div`
+  display: block;
+`;
 
 const Dot = styled.div`
   ${animation.pulsate};

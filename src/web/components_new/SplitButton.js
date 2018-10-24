@@ -23,14 +23,14 @@ const SplitButton = styled.div`
     border-radius: 0; /* 1 */
     ${({equalWidth}) => (equalWidth ? 'flex: 1' : '')};
 
-    :first-child {
-      border-bottom-left-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
-      border-top-left-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
-    }
-
     :last-child {
       border-bottom-right-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
       border-top-right-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
+    }
+
+    :first-child {
+      border-bottom-left-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
+      border-top-left-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
     }
   }
 `;
