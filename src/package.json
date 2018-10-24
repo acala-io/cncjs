@@ -6,10 +6,7 @@
   "homepage": "https://github.com/acala-io/cncjs",
   "author": "Cheton Wu <cheton@gmail.com>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:cncjs/cncjs.git"
-  },
+  "repository": "git@github.com:cncjs/cncjs.git",
   "main": "main.js",
   "dependencies": {
     "babel-polyfill": "~6.26.0",
