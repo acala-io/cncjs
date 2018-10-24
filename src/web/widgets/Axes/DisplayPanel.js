@@ -38,8 +38,8 @@ const StyledDisplayPanel = styled.div`
     352deg,
     ${({theme}) => theme.color.background.slightlyOffBlack} 0%,
     ${({theme}) => theme.color.background.slightlyOffBlack} 50%,
-    ${({theme}) => lighten(theme.color.background.slightlyOffBlack, 12)} 51%,
-    ${({theme}) => lighten(theme.color.background.slightlyOffBlack, 20)} 100%
+    ${({theme}) => lighten(theme.color.background.slightlyOffBlack, 0.13)} 51%,
+    ${({theme}) => lighten(theme.color.background.slightlyOffBlack, 0.21)} 100%
   );
   border-top-left-radius: calc(${({theme}) => theme.border.radius.large} - 1px); /* 1 */
   border-top-right-radius: calc(${({theme}) => theme.border.radius.large} - 1px); /* 1 */

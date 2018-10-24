@@ -6,6 +6,8 @@ import Repeatable from 'react-repeatable';
 
 import controller from '../../lib/controller';
 
+import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
+
 import Button from '../../components_new/Button';
 import ButtonGroup from '../../components_new/ButtonGroup';
 import Flexbox from '../../components_new/Flexbox';
@@ -15,8 +17,6 @@ import KeypadZ from './components/KeypadZ';
 import Padding from '../../components_new/Padding';
 import Space from '../../components/Space';
 // import SplitButton from '../../components_new/SplitButton';
-
-import {IMPERIAL_UNITS, IMPERIAL_STEPS, METRIC_UNITS, METRIC_STEPS} from '../../constants';
 
 class Keypad extends PureComponent {
   static propTypes = {

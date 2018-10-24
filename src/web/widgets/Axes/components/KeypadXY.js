@@ -2,9 +2,10 @@ import classcat from 'classcat';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import jogButtonFactory from '../jogButtonFactory';
 import AxisLabel from './AxisLabel';
 import Flexbox from '../../../components_new/Flexbox';
+import jogButtonFactory from '../jogButtonFactory';
+import StyledKeypad from './StyledKeypad';
 
 import theme from '../../../styles/theme';
 
@@ -22,7 +23,7 @@ class KeypadXY extends PureComponent {
     const {clicked} = this.props;
 
     return (
-      <div className="keypad">
+      <StyledKeypad>
         <svg
           role="img"
           viewBox="0 0 423.7 424.6"
@@ -142,7 +143,7 @@ class KeypadXY extends PureComponent {
             {jogButtonFactory(this.props, {direction: '+', name: 'x'}, {direction: '+', name: 'y'})}
           </Flexbox>
         </Flexbox>
-      </div>
+      </StyledKeypad>
     );
   }
 }

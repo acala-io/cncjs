@@ -67,8 +67,8 @@ const StyledLoadingIndicator = styled.div`
   ${mixin.centerMX};
   ${animation.fadeIn};
 
-  animation-delay: ${({theme}) => theme.$transition.time.slow};
-  animation-duration: ${({theme}) => theme.$transition.time.verySlow};
+  animation-delay: ${({theme}) => theme.transition.time.slow};
+  animation-duration: ${({theme}) => theme.transition.time.verySlow};
   padding: ${({theme}) => theme.size.default} 0;
   position: relative; /* 1 */
   text-align: center;

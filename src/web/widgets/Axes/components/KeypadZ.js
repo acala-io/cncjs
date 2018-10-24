@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 
-import jogButtonFactory from '../jogButtonFactory';
 import AxisLabel from './AxisLabel';
 import Flexbox from '../../../components_new/Flexbox';
+import jogButtonFactory from '../jogButtonFactory';
+import StyledKeypad from './StyledKeypad';
 
 class KeypadZ extends PureComponent {
   static propTypes = {
@@ -16,7 +17,7 @@ class KeypadZ extends PureComponent {
 
   render() {
     return (
-      <div className="keypad">
+      <StyledKeypad>
         <svg
           role="img"
           viewBox="0 0 130.8 423.7"
@@ -96,7 +97,7 @@ class KeypadZ extends PureComponent {
           {jogButtonFactory(this.props, {direction: '+', name: 'z'})}
           {jogButtonFactory(this.props, {direction: '-', name: 'z'})}
         </Flexbox>
-      </div>
+      </StyledKeypad>
     );
   }
 }

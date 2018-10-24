@@ -83,7 +83,7 @@ class Spindle extends PureComponent {
     const {spindleSpeed} = state;
 
     return (
-      <Flexbox className="u-margin-top-small" flexDirection="row" justifyContent="stretch" alignItems="center">
+      <Flexbox className="u-margin-top-small" flexDirection="row" alignItems="center">
         <Slider
           defaultValue={20000}
           // value={spindleSpeed}
