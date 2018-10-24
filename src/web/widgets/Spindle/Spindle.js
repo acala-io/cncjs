@@ -10,6 +10,7 @@ import Button from '../../components_new/Button';
 import DisplayValue from '../../components_new/DisplayValue';
 import Fieldset from '../../components_new/Fieldset';
 import Flexbox from '../../components_new/Flexbox';
+import FormRow from '../../components_new/FormRow';
 import Padding from '../../components_new/Padding';
 import Slider from 'rc-slider';
 import SplitButton from '../../components_new/SplitButton';
@@ -37,11 +38,13 @@ class Spindle extends PureComponent {
       <Padding size="small">
         <Flexbox flexDirection="column" alignItems="center">
           {this.spindleAnimation}
-          <Fieldset label={'Spindle'}>
-            {this.spindleControl}
-            {this.speedControl}
+          <Fieldset legend={'Spindle'}>
+            <FormRow>{this.spindleControl}</FormRow>
+            <FormRow marginSize="small">{this.speedControl}</FormRow>
           </Fieldset>
-          <Fieldset label={'Coolant'}>{this.coolantControl}</Fieldset>
+          <Fieldset legend={'Coolant'}>
+            <FormRow>{this.coolantControl}</FormRow>
+          </Fieldset>
         </Flexbox>
       </Padding>
     );
@@ -83,7 +86,7 @@ class Spindle extends PureComponent {
     const {spindleSpeed} = state;
 
     return (
-      <Flexbox className="u-margin-top-small" flexDirection="row" alignItems="center">
+      <Flexbox flexDirection="row" alignItems="center">
         <Slider
           defaultValue={20000}
           // value={spindleSpeed}
@@ -96,7 +99,9 @@ class Spindle extends PureComponent {
           // }}
           onChange={actions.handleSpindleSpeedChange}
         />
-        <DisplayValue value={spindleSpeed} unit="RPM" large />
+        <Padding sides="left">
+          <DisplayValue value={spindleSpeed} unit="RPM" large />
+        </Padding>
       </Flexbox>
     );
   }

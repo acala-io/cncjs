@@ -50,16 +50,16 @@ const StyledFieldset = styled.fieldset`
   }
 `;
 
-const Fieldset = ({children, label}) => (
+const Fieldset = ({children, legend}) => (
   <StyledFieldset>
-    <Legend>{label}</Legend>
+    <Legend>{legend}</Legend>
     {children}
   </StyledFieldset>
 );
 
 Fieldset.propTypes = {
   children: oneOfType([arrayOf(node), node]),
-  label: string,
+  legend: string,
 };
 
 export default Fieldset;

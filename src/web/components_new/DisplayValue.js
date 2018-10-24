@@ -19,7 +19,9 @@ const StyledDisplayValue = styled.div`
     return 'inherit';
   }};
   font-weight: ${({theme}) => theme.font.weight.normal};
+  min-width: 5em;
   text-align: right;
+  white-space: nowrap;
 
   ${Unit} {
     font-size: 0.66em;
