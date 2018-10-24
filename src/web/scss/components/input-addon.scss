@@ -3,7 +3,6 @@
  * Positioned inline at beginning or end of input.
  */
 
-
 /*
  * 1 - Restrict wrapper width to width of its content
  * 2 - Prevent centering the input-add-on itself using text-align: center to affect its layout
@@ -18,9 +17,8 @@
      * 1 - Add-ons that only consist of text need a little more space
      */
     &.input-add-on--text {
-
         .input-add-on__label {
-            padding: .25em .5em; /* 1 */
+            padding: 0.25em 0.5em; /* 1 */
             width: 5em; /* 1 */
 
             /*
@@ -36,9 +34,8 @@
      * This works well for 2-3 character strings
      */
     &.input-add-on--text-narrow {
-
         .input-add-on__label {
-            padding: .25em .5em;
+            padding: 0.25em 0.5em;
             width: 2.5em;
 
             /*
@@ -58,7 +55,7 @@
  * 2 - Set height 2px less than on input (which has 2em) so it does not overlap the input border
  * 3 - Apply margin to align label within input
  */
- .input-add-on__label {
+.input-add-on__label {
     background: $background--lighter;
     border-radius: $border-radius 0 0 $border-radius;
     color: $text--lighter;
@@ -67,7 +64,7 @@
     line-height: 1.5;
     margin-left: 1px; /* 3 */
     margin-top: 1px; /* 3 */
-    padding: .5em;
+    padding: 0.5em;
     position: absolute;
     text-align: center;
     width: 4em;
@@ -109,15 +106,15 @@
  */
 .input-add-on__label--apended,
 .input-add-on__function {
-    @include pin(right, absolute);
-
     background: $background--lighter;
     border: 1px solid $transparent;
     color: $text--lighter;
     display: inline-block;
     height: calc(2em + 2px);
     line-height: 1.5;
-    padding: .5em;
+    padding: 0.5em;
+    position: absolute;
+    right: 0;
     text-align: center;
     width: 2.5em;
 

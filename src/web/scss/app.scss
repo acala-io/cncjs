@@ -21,10 +21,21 @@ $mq-breakpoints: (
     wide: 1440px,
 );
 @import '~sass-mq/mq';
-@import 'helpers/alignment';
-@import 'helpers/display';
-@import 'helpers/pin';
-@import 'helpers/text';
+
+.text--right {
+    text-align: right;
+}
+.text--centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center !important;
+}
+.nowrap {
+    white-space: nowrap;
+}
+.number {
+    text-align: right;
+}
 
 // ELEMENTS
 @import '~inuitcss/elements/elements.headings';

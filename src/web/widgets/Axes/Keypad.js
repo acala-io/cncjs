@@ -111,7 +111,6 @@ class Keypad extends PureComponent {
     return (
       <ButtonGroup
         optionName="step-size"
-        className="center--mx"
         options={(isImperial ? imperialJogSteps : metricJogSteps).map(s => ({label: s, unit: units, value: s}))}
         selectedValue={isImperial ? jog.imperial.step : jog.metric.step}
         onChange={onSelectStepSize}

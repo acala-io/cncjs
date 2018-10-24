@@ -21,7 +21,7 @@ class Error404 extends PureComponent {
     return (
       <Fragment>
         {/* <BlankLayout> */}
-        <section className="center--xy error-page--404">
+        <section className="error-page--404">
           {/* <Row>
             <Cell> */}
           <h1>404</h1>
