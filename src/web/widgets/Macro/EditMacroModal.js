@@ -152,11 +152,11 @@ class EditMacroModal extends PureComponent {
           const textarea = ReactDOM.findDOMNode(this.fields.content).querySelector('textarea');
           if (textarea) {
             insertAtCaret(textarea, eventKey);
-          }
 
-          updateModalParams({
-            content: textarea.value,
-          });
+            updateModalParams({
+              content: textarea.value,
+            });
+          }
         }}
       >
         <Dropdown.Toggle className="btn-link" style={{boxShadow: 'none'}} useAnchor noCaret>

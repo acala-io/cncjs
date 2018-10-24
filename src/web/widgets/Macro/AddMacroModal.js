@@ -79,11 +79,11 @@ class AddMacroModal extends PureComponent {
                     const textarea = ReactDOM.findDOMNode(this.fields.content).querySelector('textarea');
                     if (textarea) {
                       insertAtCaret(textarea, eventKey);
-                    }
 
-                    actions.updateModalParams({
-                      content: textarea.value,
-                    });
+                      actions.updateModalParams({
+                        content: textarea.value,
+                      });
+                    }
                   }}
                   pullRight
                 >

@@ -784,7 +784,11 @@ class GrblController {
     // Modal group
     const modal = this.runner.getModalGroup();
 
-    return Object.assign(context || {}, {
+    if (!context || isEmpty(context)) {
+      return {};
+    }
+
+    return Object.assign(context, {
       // Bounding box
       xmin: Number(context.xmin) || 0,
       xmax: Number(context.xmax) || 0,

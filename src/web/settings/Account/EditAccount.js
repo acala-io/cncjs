@@ -109,17 +109,15 @@ class EditAccount extends PureComponent {
             validations={changePassword ? [validations.required] : []}
             disabled={!changePassword}
           />
-          {changePassword && (
-            <button
-              type="button"
-              className="btn btn-default pull-left"
-              onClick={() => {
-                updateModalParams({changePassword: true});
-              }}
-            >
-              {i18n._('Change Password')}
-            </button>
-          )}
+          <button
+            type="button"
+            className="btn btn-default pull-left"
+            onClick={() => {
+              updateModalParams({changePassword: true});
+            }}
+          >
+            {i18n._('Change Password')}
+          </button>
         </div>
       </div>
     );
