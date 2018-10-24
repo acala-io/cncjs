@@ -1,4 +1,4 @@
-import {isPlainObject} from 'lodash';
+import {find, isPlainObject} from 'lodash';
 import ensureArray from 'ensure-array';
 import rangeCheck from 'range_check';
 
@@ -50,7 +50,7 @@ export const validateUser = user =>
       }));
     const enabledUsers = users.filter(user => user.enabled);
 
-    if (enabledUsers.length === 0 || enabledUsers.find({id, name})) {
+    if (enabledUsers.length === 0 || find(enabledUsers, {id, name})) {
       resolve();
     } else {
       reject(new Error(`Unauthorized user: user.id=${id}, user.name=${name}`));

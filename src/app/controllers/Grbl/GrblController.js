@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import {get, includes, intersection, isEmpty, isEqual, noop, throttle} from 'lodash';
+import {find, get, intersection, isEmpty, isEqual, noop, throttle} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import controllers from '../../store/controllers';
@@ -164,7 +164,7 @@ class GrblController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!includes(['serial', 'socket'], connectionType)) {
+    if (!['serial', 'socket'].includes(connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -262,7 +262,7 @@ class GrblController {
         }
 
         // M6 Tool Change
-        if (includes(words, 'M6')) {
+        if (words.includes('M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
 
@@ -353,7 +353,7 @@ class GrblController {
         }
 
         // M6 Tool Change
-        if (includes(words, 'M6')) {
+        if (words.includes('M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
 
@@ -521,7 +521,7 @@ class GrblController {
 
     this.runner.on('error', res => {
       const code = Number(res.message) || undefined;
-      const error = GRBL_ERRORS.find({code});
+      const error = find(GRBL_ERRORS, {code});
 
       if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
         const ignoreErrors = config.get('state.controller.exception.ignoreErrors');
@@ -566,7 +566,7 @@ class GrblController {
 
     this.runner.on('alarm', res => {
       const code = Number(res.message) || undefined;
-      const alarm = GRBL_ALARMS.find({code});
+      const alarm = find(GRBL_ALARMS, {code});
 
       if (alarm) {
         // Grbl v1.1
@@ -595,7 +595,7 @@ class GrblController {
     });
 
     this.runner.on('settings', res => {
-      const setting = GRBL_SETTINGS.find({setting: res.name});
+      const setting = find(GRBL_SETTINGS, {setting: res.name});
 
       if (!res.message && setting) {
         // Grbl v1.1
@@ -1266,7 +1266,7 @@ class GrblController {
         }
 
         const macros = config.get('macros');
-        const macro = macros.find({id});
+        const macro = find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1287,7 +1287,7 @@ class GrblController {
         }
 
         const macros = config.get('macros');
-        const macro = macros.find({id});
+        const macro = find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1345,7 +1345,7 @@ class GrblController {
   }
 
   writeln(data, context) {
-    if (includes(GRBL_REALTIME_COMMANDS, data)) {
+    if (GRBL_REALTIME_COMMANDS.includes(data)) {
       this.write(data, context);
     } else {
       this.write(`${data}\n`, context);

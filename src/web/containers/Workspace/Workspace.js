@@ -8,7 +8,7 @@ import pubsub from 'pubsub-js';
 import React, {Fragment, PureComponent} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {includes, pick, throttle} from 'lodash';
+import {pick, throttle} from 'lodash';
 
 import api from '../../api';
 import controller from '../../lib/controller';
@@ -240,7 +240,7 @@ class Workspace extends PureComponent {
       const {hold, holdReason} = {...status};
 
       if (!hold) {
-        if (includes([MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT], modal.name)) {
+        if ([MODAL_FEEDER_PAUSED, MODAL_FEEDER_WAIT].includes(modal.name)) {
           this.action.closeModal();
         }
 

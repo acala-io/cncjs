@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import {get, includes, intersection, isEmpty, isEqual, noop, throttle} from 'lodash';
+import {get, intersection, isEmpty, isEqual, noop, throttle} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';
@@ -159,7 +159,7 @@ class SmoothieController {
       throw new TypeError(`"engine" must be specified: ${engine}`);
     }
 
-    if (!includes(['serial', 'socket'], connectionType)) {
+    if (!['serial', 'socket'].includes(connectionType)) {
       throw new TypeError(`"connectionType" is invalid: ${connectionType}`);
     }
 
@@ -230,7 +230,7 @@ class SmoothieController {
         }
 
         // M6 Tool Change
-        if (includes(words, 'M6')) {
+        if (words.includes('M6')) {
           log.debug('M6 Tool Change');
           this.feeder.hold({data: 'M6'}); // Hold reason
         }
@@ -317,7 +317,7 @@ class SmoothieController {
         }
 
         // M6 Tool Change
-        if (includes(words, 'M6')) {
+        if (words.includes('M6')) {
           log.debug(`M6 Tool Change: line=${sent + 1}, sent=${sent}, received=${received}`);
           this.workflow.pause({data: 'M6'});
         }
@@ -1151,7 +1151,7 @@ class SmoothieController {
         }
 
         const macros = config.get('macros');
-        const macro = macros.find({id});
+        const macro = find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1172,7 +1172,7 @@ class SmoothieController {
         }
 
         const macros = config.get('macros');
-        const macro = macros.find({id});
+        const macro = find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1230,7 +1230,7 @@ class SmoothieController {
   }
 
   writeln(data, context) {
-    if (includes(SMOOTHIE_REALTIME_COMMANDS, data)) {
+    if (SMOOTHIE_REALTIME_COMMANDS.includes(data)) {
       this.write(data, context);
     } else {
       this.write(`${data}\n`, context);

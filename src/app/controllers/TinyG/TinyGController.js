@@ -1,7 +1,7 @@
 /* eslint-disable import/default */
 
 import * as parser from 'gcode-parser';
-import {get, intersection, isEqual, isEmpty, noop, pickBy} from 'lodash';
+import {find, get, intersection, isEqual, isEmpty, noop, pickBy} from 'lodash';
 import ensureArray from 'ensure-array';
 
 import delay from '../../lib/delay';
@@ -587,7 +587,7 @@ class TinyGController {
 
       if (statusCode !== 0) {
         const code = Number(statusCode);
-        const err = TINYG_STATUS_CODES.find({code}) || {};
+        const err = find(TINYG_STATUS_CODES, {code}) || {};
 
         if (this.workflow.state === WORKFLOW_STATE_RUNNING) {
           const ignoreErrors = config.get('state.controller.exception.ignoreErrors');
@@ -1306,7 +1306,7 @@ class TinyGController {
         }
 
         const macros = config.get('macros');
-        const macro = macros.find({id});
+        const macro = find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);
@@ -1327,7 +1327,7 @@ class TinyGController {
         }
 
         const macros = config.get('macros');
-        const macro = macros.find({id});
+        const macro = find(macros, {id});
 
         if (!macro) {
           log.error(`Cannot find the macro: id=${id}`);

@@ -1,5 +1,5 @@
 import ensureArray from 'ensure-array';
-import {get, includes, set} from 'lodash';
+import {get, set} from 'lodash';
 import {GRBL_MODAL_GROUPS} from './constants';
 
 class GrblLineParserResultParserState {
@@ -24,7 +24,7 @@ class GrblLineParserResultParserState {
 
       // Gx, Mx
       if (word.indexOf('G') === 0 || word.indexOf('M') === 0) {
-        const modalGroup = GRBL_MODAL_GROUPS.find(group => includes(group.modes, word));
+        const modalGroup = GRBL_MODAL_GROUPS.find(group => group.modes.includes(word));
 
         if (!modalGroup) {
           continue;
