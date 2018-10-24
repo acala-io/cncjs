@@ -20,6 +20,8 @@
  * </div>
  */
 
+$visualZHeight: 1.5px !default;
+
 .action-dropdown {
     border-radius: $border-radius--large;
     position: absolute;
@@ -55,7 +57,7 @@
      * 1 - Override padding inherited from .button; TODO: this really should not need a non-standard value
      */
     .action-dropdown__trigger {
-        @include button;
+        // @include button;
 
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;

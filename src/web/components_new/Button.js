@@ -19,6 +19,34 @@ import mixin from '../styles/mixins/';
 
 const visualZHeight = '1.5px';
 
+const ButtonIcon = styled(Icon)`
+  /*
+   * 1 - Equalize spacing around icon
+   */
+
+  display: inline-block;
+  fill: ${({theme}) => theme.color.text.inverse};
+  filter: drop-shadow(
+    0 -1px 0 ${({danger, isDisabled, theme}) => {
+        if (isDisabled) {
+          return 'hsla(0, 0%, 0%, 0.13)';
+        }
+
+        if (danger) {
+          return Color(theme.color.state.danger)
+            .darken(0.25)
+            .string();
+        }
+
+        return theme.color.clickable.darker;
+      }}
+  );
+  margin-left: -${({theme}) => theme.size.tiny}; /* 1 */
+  margin-right: ${({theme}) => theme.size.small}; /* 1 */
+  position: relative;
+  vertical-align: middle;
+`;
+
 const StyledButton = styled.button`
   /*
    * 1 - Add shadow at bottom of button to create spatial depth and make button stand out
@@ -45,12 +73,11 @@ const StyledButton = styled.button`
 
   :hover {
     ${({isDisabled}) =>
-      isDisabled
-        ? ''
-        : `
-          background-color: ${({theme}) => theme.color.clickable.highlight};
-          color: ${({theme}) => theme.color.text.inverse};
-        `};
+      !isDisabled &&
+      `
+        background-color: ${({theme}) => theme.color.clickable.highlight};
+        color: ${({theme}) => theme.color.text.inverse};
+      `};
   }
 
   :active,
@@ -67,49 +94,18 @@ const StyledButton = styled.button`
 
   :active {
     ${({isDisabled}) =>
-      isDisabled
-        ? ''
-        : `
-          box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
-          margin-top: ${visualZHeight}; /* 2 */
-          padding-bottom: calc(${({theme}) => theme.size.small} - ${visualZHeight}); /* 3 */
-        `};
-  }
-
-  /*
-   * 1 - Equalize spacing around icon
-   */
-  .icon {
-    display: inline-block;
-    fill: ${({theme}) => theme.color.text.inverse};
-    filter: drop-shadow(0 -1px 0 ${({theme}) => theme.color.clickable.darker});
-    margin-left: -${({theme}) => theme.size.tiny}; /* 1 */
-    margin-right: ${({theme}) => theme.size.small}; /* 1 */
-    position: relative;
-    vertical-align: middle;
-  }
-
-  ${({isDisabled, theme}) =>
-    isDisabled
-      ? `
-        background-color: ${theme.color.background.default};
-        border-color: ${theme.color.transparent} ${Color(theme.color.background.default)
-          .darken(0.21)
-          .string()} ${Color(theme.color.background.default)
-          .darken(0.21)
-          .string()};
-        cursor: not-allowed;
-        text-shadow: 0 -1px 0 hsla(0, 0%, 0%, 0.13);
-
-        .icon {
-          filter: drop-shadow(0 -1px 0 hsla(0, 0%, 0%, 0.13));
-        }
+      !isDisabled &&
       `
-      : ''};
+        box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
+        margin-top: ${visualZHeight}; /* 2 */
+        padding-bottom: calc(${({theme}) => theme.size.small} - ${visualZHeight}); /* 3 */
+    `};
+  }
 
-  ${({danger, theme}) =>
-    danger
-      ? `
+  ${({danger, isDisabled, theme}) =>
+    danger &&
+    !isDisabled &&
+    `
       background-color: ${theme.color.state.danger};
       border-color: ${Color(theme.color.state.danger)
         .darken(0.21)
@@ -120,53 +116,54 @@ const StyledButton = styled.button`
 
       :hover {
         background: ${Color(theme.color.state.danger)
-          .lighten(0.03)
+          .lighten(0.08)
           .string()}
       }
+  `};
 
-      .icon {
-        filter: drop-shadow(
-            0 -1px 0 ${Color(theme.color.state.danger)
-              .darken(0.25)
-              .string()}
-        );
-      }
-      `
-      : ''};
+  ${({isDisabled, theme}) =>
+    isDisabled &&
+    `
+      background-color: ${theme.color.background.default};
+      border-color: ${theme.color.transparent} ${Color(theme.color.background.default)
+      .darken(0.21)
+      .string()} ${Color(theme.color.background.default)
+      .darken(0.21)
+      .string()};
+      cursor: not-allowed;
+      text-shadow: 0 -1px 0 hsla(0, 0%, 0%, 0.13);
+  `};
 
   ${({fullWidth}) => fullWidth && 'width: 100%'};
 
   ${({isDisabled, size, theme}) =>
     size === 'large' &&
     `
-        font-size: ${theme.font.size.large};
-        padding-bottom: ${theme.size.small};
-        padding-top: ${theme.size.small};
+      font-size: ${theme.font.size.large};
+      padding-bottom: ${theme.size.small};
+      padding-top: ${theme.size.small};
 
-        :active {
-          ${!isDisabled &&
-            `
-              padding-bottom: calc(${theme.size.small} - ${visualZHeight}); /* 3 */
-            `}
-        }
-        `};
+      :active {
+        ${!isDisabled &&
+          `
+          padding-bottom: calc(${theme.size.small} - ${visualZHeight}); /* 3 */
+        `}
+      }
+  `};
 
   ${({isDisabled, size, theme}) =>
     size === 'huge' &&
     `
-        font-size: ${theme.font.size.large};
-        padding: ${theme.size.default} ${theme.size.large};
+      font-size: ${theme.font.size.large};
+      padding: ${theme.size.default} ${theme.size.large};
 
-        :active {
-          ${
-            isDisabled
-              ? ''
-              : `
-                padding-bottom: calc(${theme.size.default} - ${visualZHeight}); /* 3 */
-              `
-          }
-        }
-        `};
+      :active {
+        ${!isDisabled &&
+          `
+          padding-bottom: calc(${theme.size.default} - ${visualZHeight}); /* 3 */
+        `}
+      }
+  `};
 `;
 
 const Button = ({
@@ -215,7 +212,7 @@ const Button = ({
         onClick();
       }}
     >
-      {icon ? <Icon name={icon} size="small" /> : null}
+      {icon ? <ButtonIcon name={icon} size="small" danger={danger} isDisabled={isDisabled} /> : null}
       {text}
     </StyledButton>
   );

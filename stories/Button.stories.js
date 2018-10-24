@@ -16,13 +16,15 @@ storiesOf('Components/Button', module)
   .add('Icon', () => (
     <Fragment>
       <Button text="Save" icon="cancel" onClick={action('onClick')} />{' '}
-      <Button text="Save" icon="cancel" onClick={action('onClick')} />
+      <Button text="Save" icon="cancel" onClick={action('onClick')} isDisabled />
     </Fragment>
   ))
   .add('Danger', () => (
     <Fragment>
       <Button text="Save" onClick={action('onClick')} danger />{' '}
       <Button text="Save" onClick={action('onClick')} danger isDisabled />
+      <Button text="Save" icon="cancel" onClick={action('onClick')} danger />{' '}
+      <Button text="Save" icon="cancel" onClick={action('onClick')} danger isDisabled />
     </Fragment>
   ))
   .add('Large', () => (
