@@ -45,13 +45,6 @@ $mq-breakpoints: (
 @import 'components/input-addon';
 @import 'components/input-stack';
 
-@import 'components/dialogs/dialog';
-@import 'components/dialogs/dialog-header';
-@import 'components/dialogs/dialog-body';
-@import 'components/dialogs/dialog-actions';
-@import 'components/dialogs/dialog-footer';
-@import 'components/dialogs/dialog-login';
-
 // VENDOR STYLES
 @import 'vendor/font-awesome';
 @import 'vendor/infinite-tree';

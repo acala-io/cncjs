@@ -6,7 +6,7 @@
  *   Some content
  * </Card>
  *
- * <Card noPad className="background--flamboyant">
+ * <Card className="background--flamboyant" noPad>
  *   <CardHeader heading="Heading of the card"/>
  *   Some content
  * </Card>
@@ -25,14 +25,14 @@ export const Card = styled.div`
   border-radius: ${({theme}) => theme.border.radius.large};
   position: relative; /* 1 */
 
-  ${({shadow}) =>
+  ${({shadow, theme}) =>
     shadow
-      ? 'box-shadow: 1px 1px 3px 1px hsla(0, 0%, 0%, 0.21);'
-      : `border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.lighter};`}
+      ? `box-shadow: ${theme.boxShadow.default};`
+      : `border: ${theme.border.width.default} solid ${theme.color.border.lighter};`}
 
   ${({noPad}) => (noPad ? '' : `padding: ${({theme}) => theme.border.width.default};`)}
 
-  ${({fitToPage}) =>
+  ${({fitToPage, theme}) =>
     fitToPage
       ? `
         /*
@@ -41,7 +41,7 @@ export const Card = styled.div`
          */
 
         min-height: 772px; /* 1 */
-        min-height: calc(100vh - ${({theme}) => theme.size.large}); /* 2 */
+        min-height: calc(100vh - ${theme.size.large}); /* 2 */
         `
       : ''}
 `;

@@ -123,6 +123,9 @@ const theme = {
       strong: `${borderWidth * 2}px`,
     },
   },
+  boxShadow: {
+    default: '1px 1px 6px 0.5px rgba(0, 0, 0, 0.21)',
+  },
   font: {
     size: {
       default: '1rem', // = 14px $inuit-base-font-size

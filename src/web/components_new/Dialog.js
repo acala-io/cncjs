@@ -1,7 +1,6 @@
-import classcat from 'classcat';
 import React, {Fragment, PureComponent} from 'react';
 import styled from 'styled-components';
-import {arrayOf, func, node, oneOf, oneOfType, string, bool} from 'prop-types';
+import {arrayOf, func, node, object, oneOf, oneOfType, string, bool} from 'prop-types';
 import {connect} from 'react-redux';
 
 import Icon from './Icon';
@@ -9,6 +8,13 @@ import {Link} from './Link';
 
 import animation from '../styles/animations/';
 import mixin from '../styles/mixins/';
+
+const dialogWidthFactor = {
+  default: 20,
+  wide: 30,
+  extraWide: 70,
+  full: 96,
+};
 
 const CloseLink = styled(Link)`
   /*
@@ -27,6 +33,54 @@ const CloseLink = styled(Link)`
   z-index: ${({theme}) => theme.zIndex.topmost3}; /* 1 */
 `;
 
+const ShadowWrapper = styled.div`
+  /*
+   * 1 - Limit the maximum height of the dialog
+   * 2 - Fallback for browsers that don't support vh units
+   */
+
+  background-color: ${({theme}) => theme.color.background.white};
+  border-radius: ${({theme}) => theme.border.radius.large};
+  box-shadow: ${({theme}) => theme.boxShadow.default};
+  max-height: 800px; /* 1, 2 */
+  max-height: 80vh; /* 1 */
+  overflow-y: auto;
+
+  ${({width = 'default'}) =>
+    width === 'full' &&
+    `
+      /*
+       * 1 - Assign a minimum height to dialog to avoid ridiculously small dialogs
+       * 2 - Fallback for browsers that don't support vh units
+       */
+
+      min-height: 500px; /* 1, 2 */
+      min-height: 80vh; /* 1 */
+    `};
+`;
+
+const StyledDialog = styled.div`
+  ${mixin.centerXY};
+  ${({animated}) => animated && animation.slideDownIn};
+  ${({animated, leaving}) => animated && leaving && animation.slideUpOut};
+
+  border-radius: ${({theme}) => theme.border.radius.large};
+  position: fixed;
+  top: 50vh;
+  z-index: ${({theme}) => theme.zIndex.topmost2};
+
+  ${({theme, width = 'default'}) =>
+    width === 'full'
+      ? `
+        max-width: calc(${theme.size.default} * ${dialogWidthFactor.full});
+        width: calc(${theme.size.default} * ${dialogWidthFactor.full});
+      `
+      : `
+        max-width: 100%;
+        width: calc(${theme.size.default} * ${dialogWidthFactor[width] || 20});
+      `};
+`;
+
 class ActualDialog extends PureComponent {
   static propTypes = {
     animated: bool,
@@ -34,6 +88,7 @@ class ActualDialog extends PureComponent {
     className: string,
     leaving: bool,
     onClose: func,
+    style: object,
     width: oneOf(['normal', 'wide', 'extraWide', 'full']),
   };
 
@@ -62,23 +117,14 @@ class ActualDialog extends PureComponent {
   }
 
   get dialog() {
-    const {animated, children, className, width, leaving} = this.props;
-    const classes = classcat([
-      'dialog',
-      {
-        'dialog--animation-appear': animated,
-        'dialog--animation-leave': animated && leaving,
-        'dialog--extra-wide': width === 'extraWide',
-        'dialog--full-width': width === 'full',
-        'dialog--wide': width === 'wide',
-      },
-      className,
-    ]);
+    const {animated, children, className, leaving, style, width} = this.props;
 
     return (
-      <div className={classes}>
-        <div className="dialog__shadow-wrapper">{children}</div>
-      </div>
+      <StyledDialog width={width} animated={animated} leaving={leaving}>
+        <ShadowWrapper width={width} className={className} style={style}>
+          {children}
+        </ShadowWrapper>
+      </StyledDialog>
     );
   }
 
@@ -103,11 +149,21 @@ export const Dialog = connect(state => ({
 
 export default Dialog;
 
+const StyledDialogHeader = styled.header`
+  padding: ${({theme}) => theme.size.default};
+`;
+
+const DialogHeading = styled.h2`
+  font-size: ${({theme}) => theme.font.size.large};
+  margin: 0;
+  text-align: center;
+`;
+
 export const DialogHeader = ({children, heading}) => (
-  <header className="dialog__header">
-    <h2 className="dialog__heading">{heading}</h2>
+  <StyledDialogHeader>
+    {heading && <DialogHeading>{heading}</DialogHeading>}
     {children}
-  </header>
+  </StyledDialogHeader>
 );
 
 DialogHeader.propTypes = {
@@ -118,15 +174,10 @@ DialogHeader.propTypes = {
 export const DialogActions = styled.div`
   padding: 0 ${({theme}) => theme.size.default} ${({theme}) => theme.size.default};
 
-  .button {
+  button {
     font-size: ${({theme}) => theme.font.size.large};
 
-    /*
-     * 1 - Make buttons full width, except for in full-width dialogs
-     */
-    .dialog:not(.dialog--full-width) & {
-      width: 100%; /* 1 */
-    }
+    ${({fullWidth}) => fullWidth && 'width: 100%'};
   }
 `;
 
@@ -134,9 +185,20 @@ DialogActions.propTypes = {
   children: oneOfType([arrayOf(node), node]),
 };
 
-export const DialogFooter = ({children, noPad = false}) => (
-  <footer className={classcat(['dialog__footer', {'dialog__footer--no-padding': noPad}])}>{children}</footer>
-);
+export const DialogFooter = styled.footer`
+  color: ${({theme}) => theme.color.text.lightest};
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+
+  ${({noPad, theme}) => !noPad && `padding: ${theme.size.default}`};
+
+  a {
+    display: block;
+    padding: ${({theme}) => theme.font.size.default} 0;
+  }
+`;
 
 DialogFooter.propTypes = {
   children: oneOfType([arrayOf(node), node]),

@@ -67,8 +67,7 @@ const FlashMessage = styled.div`
 
   background: ${({theme}) => transparentize(theme.color.background.lighter, 0.03)};
   border-radius: ${({theme}) => theme.border.radius.default};
-  box-shadow: ${({theme}) => `1px 1px ${theme.size.tiny} `} ${({theme}) =>
-  transparentize(theme.color.background.darkest, 0.76)};
+  box-shadow: ${({theme}) => theme.boxShadow.default};
   color: ${({theme}) => theme.color.text.default};
   padding: ${({theme}) => theme.size.small};
   width: 20em;

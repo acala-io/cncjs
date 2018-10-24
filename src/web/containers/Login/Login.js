@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 
-import classcat from 'classcat';
 import React, {Fragment, PureComponent} from 'react';
 import styled from 'styled-components';
 import {withRouter, Redirect} from 'react-router-dom';
@@ -21,6 +20,7 @@ import Image from '../../components_new/Image';
 import {Dialog, DialogActions, DialogFooter, DialogHeader} from '../../components_new/Dialog';
 import {Link} from '../../components_new/Link';
 
+import animation from '../../styles/animations/';
 import mixin from '../../styles/mixins/';
 
 const Logo = styled(Image)`
@@ -50,6 +50,27 @@ const UserCredentials = styled.div`
   border-radius: ${({theme}) => theme.border.radius.default};
   margin: 0 ${({theme}) => theme.size.default} ${({theme}) => theme.size.default};
   position: relative;
+
+  /*
+   * 1 - .input-stack is inline-block, thus not allowing horizontal centering
+   */
+
+  .input-add-on {
+    width: 100%;
+  }
+
+  .input-add-on__label {
+    width: 2em;
+
+    svg {
+      fill: $text--lighter;
+      position: relative;
+    }
+  }
+
+  .input-add-on__input {
+    padding-left: 2.5em;
+  }
 `;
 
 const UserCredentialsAction = styled(Link)`
@@ -61,7 +82,17 @@ const UserCredentialsAction = styled(Link)`
   top: -${({theme}) => theme.size.tiny};
   user-select: none;
   z-index: ${({theme}) => theme.zIndex.overlayed1};
+`;
 
+const LoginDialog = styled(Dialog)`
+  ${({indicateError}) => indicateError && animation.shakeDialog};
+
+  animation-duration: ${({theme}) => theme.transition.time.slow};
+
+  //    .dialog__shadow-wrapper {
+  //      max-height: 95vh; /* 1 */ /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  //    }
+  //  }
 `;
 
 class Login extends PureComponent {
@@ -92,7 +123,7 @@ class Login extends PureComponent {
     }
 
     return (
-      <Dialog className={classcat(['login', {'indicate-error': Boolean(errorMessage)}])} animated={false} noPad>
+      <LoginDialog indicateError={Boolean(errorMessage)} animated={false} noPad>
         <DialogHeader>
           <Logo src="images/logo-square-256x256.png" height={128} width={128} />
           <AppName>{pkg.name}</AppName>
@@ -106,7 +137,7 @@ class Login extends PureComponent {
         <DialogFooter noPad>
           <ForgotPasswordLink href={forgotPasswordLink}>{i18n._('Forgot password?')}</ForgotPasswordLink>
         </DialogFooter>
-      </Dialog>
+      </LoginDialog>
     );
   }
 
