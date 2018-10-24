@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React from 'react';
 // import {action} from '@storybook/addon-actions';
-=======
-import React, from 'react';
-import {action} from '@storybook/addon-actions';
->>>>>>> 51eadfa4197375c2d25d72074fe211c42ad2fb46
 import {storiesOf} from '@storybook/react';
 
 import backgroundsDecorator from './lib/backgroundsDecorator';
