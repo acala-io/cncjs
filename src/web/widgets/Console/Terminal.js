@@ -22,7 +22,7 @@ class TerminalWrapper extends PureComponent {
     onData: PropTypes.func,
     rows: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     scrollback: PropTypes.number,
-    style: PropTypes.string,
+    style: PropTypes.object,
     tabStopWidth: PropTypes.number,
   };
 
