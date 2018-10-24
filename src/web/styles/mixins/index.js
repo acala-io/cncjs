@@ -1,4 +1,4 @@
-import {centerMX, centerX, centerXY} from './center';
+import {centerMX, centerX, centerXY, centerY} from './center';
 import {input} from './input';
 import {link, linkDisabled} from './link';
 import {
@@ -25,6 +25,7 @@ export default {
   centerMX,
   centerX,
   centerXY,
+  centerY,
   input,
   link,
   linkDisabled,

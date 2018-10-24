@@ -15,6 +15,12 @@ export const centerX = `
   transform: translateX(-50%);
 `;
 
+export const centerY = `
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
 export const centerMX = `
   margin-left: auto;
   margin-right: auto;
