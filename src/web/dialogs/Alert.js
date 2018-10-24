@@ -22,7 +22,7 @@ const Alert = ({buttonText = 'ok', heading, onClose, text}) => (
       </Hint>
     )}
     <DialogActions>
-      <Button text={buttonText} onClick={onClose} />
+      <Button text={buttonText} onClick={onClose} style={{width: '100%'}} />
     </DialogActions>
   </Dialog>
 );

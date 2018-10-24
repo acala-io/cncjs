@@ -112,6 +112,7 @@ class Prompt extends Component {
           text={this.props.buttonText}
           isDisabled={this.state.userInput.length < 2}
           onClick={this.confirmValidity}
+          style={{width: '100%'}}
         />
       </DialogActions>
     );

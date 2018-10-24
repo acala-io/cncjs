@@ -1,5 +1,24 @@
 @import '../../scss/settings/theme';
-@import '../../scss/base/animations';
+
+@keyframes spinRight {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinLeft {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
 
 #spindle {
     display: inline-block;
