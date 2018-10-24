@@ -214,7 +214,7 @@ class WorkflowControl extends PureComponent {
     return (
       <div>
         {playerActions.map(a => (
-          <Button key={a.title} icon={a.icon} isDisabled={a.disabled} onClick={a.action} />
+          <Button key={a.title} icon={a.icon} disabled={a.disabled} onClick={a.action} />
         ))}
       </div>
     );

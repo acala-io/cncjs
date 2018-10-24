@@ -109,19 +109,17 @@ const ToggleInput = styled.input.attrs({type: 'checkbox'})`
 const StyledToggle = styled.div`
   display: inline-block;
 
-  ${({disabled}) =>
+  ${({disabled, theme}) =>
     disabled &&
     `
-      &,
-      &:hover {
-        ${ToggleFrame},
-        ${ToggleHandle} {
-          cursor: not-allowed;
-        }
+      span,
+      :hover span {
+        background-color: ${theme.color.background.darker};
+      }
 
-        ${ToggleHandle} {
-          background: ${({theme}) => theme.color.background.darker};
-        }
+      :hover label,
+      :hover span {
+        cursor: not-allowed;
       }
   `};
 
@@ -145,18 +143,7 @@ const Toggle = ({
 }) => (
   <StyledToggle className={className} style={style} disabled={disabled}>
     <ToggleFrame>
-      <ToggleInput
-        checked={value}
-        onChange={e => {
-          if (disabled) {
-            e.preventDefault();
-            return;
-          }
-
-          onClick();
-        }}
-        disabled={disabled}
-      />
+      <ToggleInput checked={value} onChange={e => (disabled ? e.preventDefault() : onClick())} disabled={disabled} />
       <ToggleLabels textOn={textOn} textOff={textOff} />
       <ToggleHandle />
     </ToggleFrame>

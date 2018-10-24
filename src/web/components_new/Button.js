@@ -2,7 +2,7 @@
  * Button component.
  *
  * Usage:
- * <Button text="Save" size="large" isDisabled={!this.isValid} onClick={() => { alert('hi'); }}/>
+ * <Button text="Save" size="large" disabled={!this.isValid} onClick={() => { alert('hi'); }}/>
  *
  * <Button text="Save" isInProgress={this.isLoading} onClick={() => { alert('hi'); }} fullWidth/>
  */
@@ -27,8 +27,8 @@ const ButtonIcon = styled(Icon)`
   display: inline-block;
   fill: ${({theme}) => theme.color.text.inverse};
   filter: drop-shadow(
-    0 -1px 0 ${({danger, isDisabled, theme}) => {
-        if (isDisabled) {
+    0 -1px 0 ${({danger, disabled, theme}) => {
+        if (disabled) {
           return 'hsla(0, 0%, 0%, 0.13)';
         }
 
@@ -72,8 +72,8 @@ const StyledButton = styled.button`
   vertical-align: middle; /* 2 */
 
   :hover {
-    ${({isDisabled}) =>
-      !isDisabled &&
+    ${({disabled}) =>
+      !disabled &&
       `
         background-color: ${({theme}) => theme.color.clickable.highlight};
         color: ${({theme}) => theme.color.text.inverse};
@@ -93,8 +93,8 @@ const StyledButton = styled.button`
    */
 
   :active {
-    ${({isDisabled}) =>
-      !isDisabled &&
+    ${({disabled}) =>
+      !disabled &&
       `
         box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.08); /* 1 */
         margin-top: ${visualZHeight}; /* 2 */
@@ -102,9 +102,9 @@ const StyledButton = styled.button`
     `};
   }
 
-  ${({danger, isDisabled, theme}) =>
+  ${({danger, disabled, theme}) =>
     danger &&
-    !isDisabled &&
+    !disabled &&
     `
       background-color: ${theme.color.state.danger};
       border-color: ${Color(theme.color.state.danger)
@@ -121,8 +121,8 @@ const StyledButton = styled.button`
       }
   `};
 
-  ${({isDisabled, theme}) =>
-    isDisabled &&
+  ${({disabled, theme}) =>
+    disabled &&
     `
       background-color: ${theme.color.background.default};
       border-color: ${theme.color.transparent} ${Color(theme.color.background.default)
@@ -136,7 +136,7 @@ const StyledButton = styled.button`
 
   ${({fullWidth}) => fullWidth && 'width: 100%'};
 
-  ${({isDisabled, size, theme}) =>
+  ${({disabled, size, theme}) =>
     size === 'large' &&
     `
       font-size: ${theme.font.size.large};
@@ -144,27 +144,29 @@ const StyledButton = styled.button`
       padding-top: ${theme.size.small};
 
       :active {
-        ${!isDisabled &&
+        ${!disabled &&
           `
           padding-bottom: calc(${theme.size.small} - ${visualZHeight}); /* 3 */
         `}
       }
   `};
 
-  ${({isDisabled, size, theme}) =>
+  ${({disabled, size, theme}) =>
     size === 'huge' &&
     `
       font-size: ${theme.font.size.large};
       padding: ${theme.size.default} ${theme.size.large};
 
       :active {
-        ${!isDisabled &&
+        ${!disabled &&
           `
           padding-bottom: calc(${theme.size.default} - ${visualZHeight}); /* 3 */
         `}
       }
   `};
 `;
+
+const preventDefault = e => e && e.preventDefault();
 
 const Button = ({
   className = '',
@@ -173,7 +175,7 @@ const Button = ({
   disabledMessageHandler = window.alert,
   fullWidth = false,
   icon,
-  isDisabled = false,
+  disabled = false,
   isInProgress = false,
   onClick,
   size = 'normal',
@@ -182,15 +184,15 @@ const Button = ({
   const buttonVariantProps = {
     className,
     danger,
+    disabled,
     fullWidth,
-    isDisabled,
     isInProgress,
     size,
   };
 
   if (isInProgress) {
     return (
-      <StyledButton className={className} {...buttonVariantProps} onClick={e => e && e.preventDefault()} isDisabled>
+      <StyledButton className={className} {...buttonVariantProps} onClick={preventDefault} disabled>
         <LoadingIndicator dark />
       </StyledButton>
     );
@@ -201,7 +203,7 @@ const Button = ({
       className={className}
       {...buttonVariantProps}
       onClick={e => {
-        if (isDisabled) {
+        if (disabled) {
           if (disabledMessage !== false) {
             disabledMessageHandler(disabledMessage);
           }
@@ -212,7 +214,7 @@ const Button = ({
         onClick();
       }}
     >
-      {icon ? <ButtonIcon name={icon} size="small" danger={danger} isDisabled={isDisabled} /> : null}
+      {icon ? <ButtonIcon name={icon} size="small" danger={danger} disabled={disabled} /> : null}
       {text}
     </StyledButton>
   );
@@ -221,11 +223,11 @@ const Button = ({
 Button.propTypes = {
   className: string,
   danger: bool,
+  disabled: bool,
   disabledMessage: oneOfType([string, bool]),
   disabledMessageHandler: func,
   fullWidth: bool,
   icon: string,
-  isDisabled: bool,
   isInProgress: bool,
   onClick: func.isRequired,
   size: oneOf(['normal', 'large']),

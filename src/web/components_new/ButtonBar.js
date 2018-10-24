@@ -2,15 +2,17 @@
  * Split Button component for wrapping multiple buttons.
  *
  * Usage:
- * <SplitButton className="">
- *   <Button text="Save" size="large" isDisabled={!this.isValid} onClick={() => { alert('hi'); }}/>
+ * <ButtonBar>
+ *   <Button text="Save" size="large" disabled={!this.isValid} onClick={() => { alert('hi'); }}/>
  *   <Button text="Save" width="full-width" isInProgress={this.isLoading} onClick={() => { alert('hi'); }}/>
- * </SplitButton>
+ * </ButtonBar>
  */
 
 import styled from 'styled-components';
 
-const SplitButton = styled.div`
+import Button from './Button';
+
+const ButtonBar = styled.div`
   display: ${({equalWidth}) => (equalWidth ? 'flex' : 'table')};
 
   /*
@@ -18,10 +20,9 @@ const SplitButton = styled.div`
    * 2 - Keep outer border-radius on left- and rightmost buttons
    */
 
-  button,
-  .button {
+  ${Button} {
     border-radius: 0; /* 1 */
-    ${({equalWidth}) => (equalWidth ? 'flex: 1' : '')};
+    ${({equalWidth}) => equalWidth && 'flex: 1'};
 
     :last-child {
       border-bottom-right-radius: ${({theme}) => theme.border.radius.large}; /* 2 */
@@ -35,4 +36,4 @@ const SplitButton = styled.div`
   }
 `;
 
-export default SplitButton;
+export default ButtonBar;

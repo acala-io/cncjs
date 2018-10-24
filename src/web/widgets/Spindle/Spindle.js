@@ -7,13 +7,13 @@ import controller from '../../lib/controller';
 // import i18n from '../../lib/i18n';
 
 import Button from '../../components_new/Button';
+import ButtonBar from '../../components_new/ButtonBar';
 import DisplayValue from '../../components_new/DisplayValue';
 import Fieldset from '../../components_new/Fieldset';
 import Flexbox from '../../components_new/Flexbox';
 import FormRow from '../../components_new/FormRow';
 import Padding from '../../components_new/Padding';
 import Slider from 'rc-slider';
-import SplitButton from '../../components_new/SplitButton';
 import SpindleAnimation from './SpindleAnimation';
 
 import s, {size as globalBaseUnit} from '../../styles/theme';
@@ -116,7 +116,7 @@ class Spindle extends PureComponent {
     const spindleIsOn = spindle !== '' || this.state.spindle !== this.getDefaultState().spindle;
 
     return (
-      <SplitButton equalWidth style={{width: '100%'}}>
+      <ButtonBar equalWidth style={{width: '100%'}}>
         <Button
           text="Off"
           // text={i18n._('Off')}
@@ -138,7 +138,7 @@ class Spindle extends PureComponent {
           isDisabled={!canClick || spindleIsOn}
           onClick={() => this.turnOnSpindle('right')}
         />
-      </SplitButton>
+      </ButtonBar>
     );
   }
 
@@ -153,7 +153,7 @@ class Spindle extends PureComponent {
     const coolantIsOn = mistCoolant || floodCoolant || this.state.coolant !== this.getDefaultState().coolant;
 
     return (
-      <SplitButton equalWidth style={{width: '100%'}}>
+      <ButtonBar equalWidth style={{width: '100%'}}>
         <Button
           text="Off"
           // text={i18n._('Off')}
@@ -175,7 +175,7 @@ class Spindle extends PureComponent {
           isDisabled={!canClick || this.state.coolant === 'M8'}
           onClick={() => this.turnOnCoolant('flood')}
         />
-      </SplitButton>
+      </ButtonBar>
     );
   }
 

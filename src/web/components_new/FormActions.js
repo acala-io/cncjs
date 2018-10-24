@@ -12,9 +12,8 @@
  * </FormActions>
  */
 
-import * as React from 'react';
-import classcat from 'classcat';
-import PropTypes from 'prop-types';
+import React from 'react';
+import {arrayOf, node, object, oneOfType, string} from 'prop-types';
 
 import ActionLink from './ActionLink';
 import Button from './Button';
@@ -22,7 +21,6 @@ import Flexbox from './Flexbox';
 
 const FormActions = ({children, className, primaryAction, secondaryAction}) => {
   const primaryActionProps = {text: 'save', ...primaryAction};
-  const classes = classcat(['form-actions', className]);
 
   return (
     <Flexbox
@@ -32,7 +30,7 @@ const FormActions = ({children, className, primaryAction, secondaryAction}) => {
       flexWrap="wrap"
       justifyContent="flex-start"
       style={{width: '100%'}}
-      className={classes}
+      className={className}
     >
       <Flexbox flexBasis="auto" flexGrow={1} flexShrink={1}>
         {primaryActionProps.onClick && <Button {...primaryActionProps} />}
@@ -48,13 +46,12 @@ const FormActions = ({children, className, primaryAction, secondaryAction}) => {
 };
 
 FormActions.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  className: PropTypes.string,
-  primaryAction: PropTypes.object,
-  secondaryAction: PropTypes.object,
+  children: oneOfType([arrayOf(node), node]),
+  className: string,
+  primaryAction: object,
+  secondaryAction: object,
 };
 
-/* eslint-disable react/default-props-match-prop-types */
 FormActions.defaultProps = {
   children: null,
   className: '',

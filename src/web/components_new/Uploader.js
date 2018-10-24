@@ -14,7 +14,7 @@ import Button from './Button';
 import mixin from '../styles/mixins/';
 
 const StyledFileInput = ({buttonText, className, disabled, icon, multiple, onChange, style}) => (
-  <Button as="div" text={buttonText} icon={icon} className={className} style={style} isDisabled={disabled}>
+  <Button as="div" text={buttonText} icon={icon} className={className} style={style} disabled={disabled}>
     <ActualInput multiple={multiple} onChange={onChange} disabled={disabled} />
   </Button>
 );

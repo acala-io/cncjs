@@ -16,7 +16,7 @@ import KeypadXY from './components/KeypadXY';
 import KeypadZ from './components/KeypadZ';
 import Padding from '../../components_new/Padding';
 import Space from '../../components/Space';
-// import SplitButton from '../../components_new/SplitButton';
+// import ButtonBar from '../../components_new/ButtonBar';
 
 class Keypad extends PureComponent {
   static propTypes = {
@@ -65,10 +65,10 @@ class Keypad extends PureComponent {
           </Padding>
           {/*
               I don't know what these buttons are for
-              <SplitButton>
+              <ButtonBar>
                 {this.buttonStepBackward}
                 {this.buttonStepForward}
-              </SplitButton>
+              </ButtonBar>
           */}
           {this.unitSelect}
         </Padding>
@@ -89,7 +89,7 @@ class Keypad extends PureComponent {
         options={[METRIC_UNITS, IMPERIAL_UNITS]}
         selectedValue={units}
         onChange={select}
-        isDisabled={!canClick}
+        disabled={!canClick}
         equalWidth
       />
     );
@@ -114,7 +114,7 @@ class Keypad extends PureComponent {
         options={(isImperial ? imperialJogSteps : metricJogSteps).map(s => ({label: s, unit: units, value: s}))}
         selectedValue={isImperial ? jog.imperial.step : jog.metric.step}
         onChange={onSelectStepSize}
-        isDisabled={!canClick}
+        disabled={!canClick}
         equalWidth
       />
     );
@@ -142,7 +142,7 @@ class Keypad extends PureComponent {
         onHold={actions.stepForward}
         onRelease={actions.stepForward}
       >
-        <Button text="+" isDisabled={!canStepForward} />
+        <Button text="+" disabled={!canStepForward} />
       </Repeatable>
     );
   }
@@ -163,7 +163,7 @@ class Keypad extends PureComponent {
         onHold={actions.stepBackward}
         onRelease={actions.stepBackward}
       >
-        <Button text="-" isDisabled={!canStepBackward} />
+        <Button text="-" disabled={!canStepBackward} />
       </Repeatable>
     );
   }

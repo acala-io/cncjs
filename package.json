@@ -71,7 +71,8 @@
     "coveralls": "tap test/*.js --coverage --coverage-report=text-lcov --nyc-arg=--require --nyc-arg=babel-register --nyc-arg=--require --nyc-arg=babel-polyfill | coveralls",
     "postinstall": "opencollective postinstall",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lintit": "eslint --fix --ext .js 'src/web/components_new/*.js'"
   },
   "build": {
     "appId": "org.cncjs",

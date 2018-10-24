@@ -18,7 +18,7 @@ import styled from 'styled-components';
 export type Props = {
   className?: string,
   equalWidth?: boolean,
-  isDisabled?: boolean,
+  disabled?: boolean,
   onChange: Function,
   optionName: string,
   options: Array<any>,
@@ -45,8 +45,8 @@ const StyledButtonGroup = styled.div`
 const ButtonGroupButton = styled.label`
   background-color: ${({theme}) => theme.color.background.white};
   border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
-  color: ${({isDisabled, theme}) => (isDisabled ? theme.color.text.default : theme.color.clickable.default)};
-  cursor: ${({isDisabled}) => (isDisabled ? 'not-allowed' : 'pointer')};
+  color: ${({disabled, theme}) => (disabled ? theme.color.text.default : theme.color.clickable.default)};
+  cursor: ${({disabled}) => (disabled ? 'not-allowed' : 'pointer')};
   display: inline-block;
   ${({equalWidth}) => equalWidth && 'flex: 1'};
   font-weight: ${({theme}) => theme.font.weight.default};
@@ -63,8 +63,8 @@ const ButtonGroupButton = styled.label`
   text-align: center;
 
   :hover {
-    ${({isDisabled}) =>
-      !isDisabled &&
+    ${({disabled}) =>
+      !disabled &&
       `
           border-color: ${({theme}) => theme.color.clickable.highlight};
           color: ${({theme}) => theme.color.clickable.highlight};
@@ -113,7 +113,7 @@ const ButtonGroupUnit = styled.div`
 const ButtonGroup = ({
   className,
   equalWidth,
-  isDisabled,
+  disabled,
   onChange,
   optionName,
   options,
@@ -144,7 +144,7 @@ const ButtonGroup = ({
           checked: isSelected,
           defaultValue: value,
           name: optionName,
-          onChange: e => (isDisabled ? false : onChange(e.target.value)),
+          onChange: e => (disabled ? false : onChange(e.target.value)),
         };
 
         return (
@@ -153,7 +153,7 @@ const ButtonGroup = ({
             variant={variant}
             hasUnits={Boolean(unit)}
             isSelected={isSelected}
-            isDisabled={isDisabled}
+            disabled={disabled}
             equalWidth={equalWidth}
           >
             <input type="radio" {...radioContext} />
@@ -168,7 +168,7 @@ const ButtonGroup = ({
 
 ButtonGroup.defaultProps = {
   className: '',
-  isDisabled: false,
+  disabled: false,
 };
 
 export default ButtonGroup;

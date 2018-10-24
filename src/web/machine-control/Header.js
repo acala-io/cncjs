@@ -29,18 +29,12 @@ class Header extends PureComponent {
   get machineConnect() {
     const homeMachine = () => controller.command('homing');
     const connectMachine = this.props.configureConnection;
-    const isDisabled = false; // disable when machine is not idle
+    const disabled = false; // disable when machine is not idle
 
     return (
       <Fragment>
-        <Button text={i18n._('Connect Machine')} isDisabled={isDisabled} onClick={connectMachine} size="large" />
-        <Button
-          text={i18n._('Home Machine')}
-          icon="homing"
-          isDisabled={isDisabled}
-          onClick={homeMachine}
-          size="large"
-        />
+        <Button text={i18n._('Connect Machine')} disabled={disabled} onClick={connectMachine} size="large" />
+        <Button text={i18n._('Home Machine')} icon="homing" disabled={disabled} onClick={homeMachine} size="large" />
       </Fragment>
     );
   }

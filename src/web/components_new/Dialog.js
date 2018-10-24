@@ -9,12 +9,14 @@ import {Link} from './Link';
 import animation from '../styles/animations/';
 import mixin from '../styles/mixins/';
 
+/* eslint-disable sort-keys */
 const dialogWidthFactor = {
   default: 20,
   wide: 30,
   extraWide: 70,
   full: 96,
 };
+/* eslint-enable sort-keys */
 
 const CloseLink = styled(Link)`
   /*
