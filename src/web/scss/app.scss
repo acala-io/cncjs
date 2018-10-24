@@ -39,12 +39,10 @@ $mq-breakpoints: (
 @import 'objects/content-width-wrapper';
 
 // COMPONENTS
-@import 'components/avatars';
 @import 'components/buttons';
 @import 'components/action-dropdown'; // must come after button component, because it uses the button mixin
 @import 'components/display-panel';
 @import 'components/error-page';
-@import 'components/flash-messages';
 @import 'components/file-input';
 @import 'components/input-addon';
 @import 'components/input-stack';
