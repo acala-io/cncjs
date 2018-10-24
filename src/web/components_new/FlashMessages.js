@@ -44,6 +44,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {arrayOf, number, object, oneOf, shape, string} from 'prop-types';
 import {connect} from 'react-redux';
+import {transparentize} from '../lib/color';
 
 import {getFlashMessages} from '../reducers/flash';
 
@@ -64,24 +65,25 @@ const FlashMessage = styled.div`
   ${animation.slideLeftIn};
   ${helper.spaceBetweenSelf('small')}
 
-  background: ${({theme}) => theme.color.background.lighter}; // transparentize( 0.03);
+  background: ${({theme}) => transparentize(theme.color.background.lighter, 0.03)};
   border-radius: ${({theme}) => theme.border.radius.default};
-  box-shadow: ${({theme}) => `1px 1px ${theme.size.tiny} ${theme.color.background.darkest}`}; // transparentize(0.76);
+  box-shadow: ${({theme}) => `1px 1px ${theme.size.tiny} `} ${({theme}) =>
+  transparentize(theme.color.background.darkest, 0.76)};
   color: ${({theme}) => theme.color.text.default};
   padding: ${({theme}) => theme.size.small};
   width: 20em;
 `;
 
 const FlashMessageError = styled(FlashMessage)`
-  background: ${({theme}) => theme.color.state.error}; // transparentize( 0.03);
+  background: ${({theme}) => transparentize(theme.color.state.error, 0.03)};
 `;
 
 const FlashMessageSuccess = styled(FlashMessage)`
-  background: ${({theme}) => theme.color.state.success}; // transparentize( 0.03);
+  background: ${({theme}) => transparentize(theme.color.state.success, 0.03)};
 `;
 
 const FlashMessageInfo = styled(FlashMessage)`
-  background: ${({theme}) => theme.color.state.attention}; // transparentize( 0.03);
+  background: ${({theme}) => transparentize(theme.color.state.attention, 0.03)};
 `;
 
 const Message = styled.p`
