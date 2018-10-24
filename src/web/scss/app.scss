@@ -40,7 +40,6 @@ $mq-breakpoints: (
 
 // COMPONENTS
 @import 'components/action-dropdown'; // must come after button component, because it uses the button mixin
-@import 'components/display-panel';
 @import 'components/error-page';
 @import 'components/file-input';
 @import 'components/input-addon';

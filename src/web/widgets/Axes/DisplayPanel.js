@@ -5,6 +5,7 @@ import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import {noop} from 'lodash';
 
+import {lighten} from '../../lib/color';
 import controller from '../../lib/controller';
 import i18n from '../../lib/i18n';
 
@@ -25,6 +26,76 @@ import iconPlus from './images/plus.svg';
 const AxisLabel = styled.div`
   font-size: 28px;
   font-weight: ${props => (props.highlight ? 'bold' : 'normal')};
+`;
+
+// TODO: I just quickly copied the SCSS over to be able to get rid of SCSS in the app
+const StyledDisplayPanel = styled.div`
+  /*
+   * 1 - Needs to be slightly smaller than radius of enclosing card to prevent background bleeding through
+   */
+
+  background: linear-gradient(
+    352deg,
+    ${({theme}) => theme.color.background.slightlyOffBlack} 0%,
+    ${({theme}) => theme.color.background.slightlyOffBlack} 50%,
+    ${({theme}) => lighten(theme.color.background.slightlyOffBlack, 12)} 51%,
+    ${({theme}) => lighten(theme.color.background.slightlyOffBlack, 20)} 100%
+  );
+  border-top-left-radius: calc(${({theme}) => theme.border.radius.large} - 1px); /* 1 */
+  border-top-right-radius: calc(${({theme}) => theme.border.radius.large} - 1px); /* 1 */
+  color: ${({theme}) => theme.color.text.lighter};
+
+  th {
+    padding: 0 0.25em;
+  }
+
+  /*
+   * 1 - Force cell to consume the entire width not used by the position data
+   */
+  .coordinate {
+    text-align: center;
+    width: 100%; /* 1 */
+
+    .axis {
+      font-size: 28px;
+    }
+  }
+
+  .machine-position,
+  .work-position {
+    padding: 0;
+    position: relative;
+    white-space: nowrap;
+    width: 48%;
+  }
+
+  .action {
+    width: 1%;
+    padding: 0;
+    text-align: center;
+
+    .action-dropdown {
+      min-width: auto;
+      border-radius: 0;
+
+      > * {
+        color: #666;
+      }
+
+      &:disabled:hover {
+        background-color: inherit;
+        > * {
+          color: #666;
+        }
+      }
+      &:hover {
+        background-color: #e6e6e6;
+        > * {
+          color: #333;
+        }
+      }
+    }
+  }
 `;
 
 class DisplayPanel extends PureComponent {
@@ -58,7 +129,7 @@ class DisplayPanel extends PureComponent {
     const hasAxisC = axes.includes(AXIS_C);
 
     return (
-      <div className="display-panel">
+      <StyledDisplayPanel>
         <table>
           <thead>
             <tr>
@@ -82,7 +153,7 @@ class DisplayPanel extends PureComponent {
             {hasAxisC && this.renderAxis(AXIS_C)}
           </tbody>
         </table>
-      </div>
+      </StyledDisplayPanel>
     );
   }
 
