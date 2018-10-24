@@ -2,7 +2,7 @@ import {css} from 'styled-components';
 
 export const input = css`
   appearance: none;
-  background: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.92);
   border-radius: ${({theme}) => theme.border.radius.default};
   border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
   box-shadow: none;

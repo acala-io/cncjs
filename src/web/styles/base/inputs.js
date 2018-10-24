@@ -113,7 +113,7 @@ const standardWidthInputs = css`
   input[type='time'],
   input[type='url'],
   input[type='week'] {
-    background: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.92);
     border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
     border-radius: ${({theme}) => theme.border.radius.default};
     box-shadow: none;

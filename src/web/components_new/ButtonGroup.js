@@ -48,7 +48,7 @@ const ButtonGroupButton = styled.label`
   color: ${({isDisabled, theme}) => (isDisabled ? theme.color.text.default : theme.color.clickable.default)};
   cursor: ${({isDisabled}) => (isDisabled ? 'not-allowed' : 'pointer')};
   display: inline-block;
-  ${({equalWidth}) => (equalWidth ? 'flex: 1' : '')};
+  ${({equalWidth}) => equalWidth && 'flex: 1'};
   font-weight: ${({theme}) => theme.font.weight.default};
   line-height: ${({variant}) => (variant === 'icons' ? 0 : 1)};
   margin: 0;
@@ -64,9 +64,8 @@ const ButtonGroupButton = styled.label`
 
   :hover {
     ${({isDisabled}) =>
-      isDisabled
-        ? ''
-        : `
+      !isDisabled &&
+      `
           border-color: ${({theme}) => theme.color.clickable.highlight};
           color: ${({theme}) => theme.color.clickable.highlight};
           z-index: ${({theme}) => theme.zIndex.elevated1};
@@ -88,8 +87,8 @@ const ButtonGroupButton = styled.label`
   }
 
   ${({isSelected}) =>
-    isSelected
-      ? `
+    isSelected &&
+    `
         &,
         &:hover {
           background: ${({theme}) => theme.color.background.default};
@@ -99,8 +98,7 @@ const ButtonGroupButton = styled.label`
           cursor: default;
           z-index: ${({theme}) => theme.zIndex.base};
         }
-        `
-      : ''};
+        `};
 
   input[type='radio'] {
     display: none !important;

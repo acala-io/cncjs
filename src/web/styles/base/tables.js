@@ -74,7 +74,7 @@ const tables = css`
       transition: background ${({theme}) => theme.transition.time.veryFast} ease-out;
 
       &:hover {
-        background: ${({theme}) => theme.color.background.clickable} !important;
+        background-color: ${({theme}) => theme.color.background.clickable} !important;
       }
     }
   }
@@ -94,7 +94,7 @@ const tables = css`
       border-bottom: 0 !important;
 
       &:nth-child(even) {
-        background: ${({theme}) => theme.color.background.lighter};
+        background-color: ${({theme}) => theme.color.background.lighter};
       }
     }
   }
