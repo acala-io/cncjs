@@ -181,7 +181,7 @@ const createServer = (options, callback) => {
           });
 
           proxy.on('proxyRes', proxyRes => {
-            log.debug(`proxy.on('proxyRes'): headers=${JSON.stringify(proxyRes.headers, true, 2)}`);
+            log.debug(`proxy.on('proxyRes'): headers=${JSON.stringify(proxyRes.headers, null, 2)}`);
           });
 
           const app = express();

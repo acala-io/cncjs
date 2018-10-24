@@ -11,7 +11,7 @@ class PositionInput extends PureComponent {
     min: PropTypes.number,
     onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-    style: PropTypes.string,
+    style: PropTypes.object,
   };
 
   static defaultProps = {

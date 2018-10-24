@@ -146,9 +146,8 @@ class MacroWidget extends PureComponent {
     },
     addMacro: async ({name, content}) => {
       try {
-        let res;
-        res = await api.macros.create({content, name});
-        res = await api.macros.fetch();
+        await api.macros.create({content, name});
+        const res = await api.macros.fetch();
         const {records: macros} = res.body;
         this.setState({macros});
       } catch (err) {
@@ -157,9 +156,8 @@ class MacroWidget extends PureComponent {
     },
     deleteMacro: async id => {
       try {
-        let res;
-        res = await api.macros.delete(id);
-        res = await api.macros.fetch();
+        await api.macros.delete(id);
+        const res = await api.macros.fetch();
         const {records: macros} = res.body;
 
         this.setState({macros});
@@ -169,9 +167,8 @@ class MacroWidget extends PureComponent {
     },
     updateMacro: async (id, {name, content}) => {
       try {
-        let res;
-        res = await api.macros.update(id, {content, name});
-        res = await api.macros.fetch();
+        await api.macros.update(id, {content, name});
+        const res = await api.macros.fetch();
         const {records: macros} = res.body;
 
         this.setState({macros});

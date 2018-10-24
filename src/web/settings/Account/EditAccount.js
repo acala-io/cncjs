@@ -99,19 +99,17 @@ class EditAccount extends PureComponent {
 
     return (
       <div>
-        <label>{changePassword ? i18n._('Old Password') : i18n._('Password')}</label>
+        <label>{i18n._('Password')}</label>
         <div className="clearfix">
           <Input
-            ref={node => {
-              this.fields.oldPassword = node;
-            }}
+            ref={ref => (this.fields.oldPassword = ref)}
             type="password"
             name="oldPassword"
             className={classcat(['form-control', {'pull-left': !changePassword}, 'form-control', 'short'])}
             validations={changePassword ? [validations.required] : []}
             disabled={!changePassword}
           />
-          {!changePassword && (
+          {changePassword && (
             <button
               type="button"
               className="btn btn-default pull-left"
