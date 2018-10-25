@@ -349,7 +349,7 @@ export const GRBL_SETTINGS = [
     setting: '$5',
     message: 'Invert limit pins',
     units: 'boolean',
-    description: 'Inverts the all of the limit input pins.',
+    description: 'Inverts all of the limit input pins.',
   },
   {
     setting: '$6',

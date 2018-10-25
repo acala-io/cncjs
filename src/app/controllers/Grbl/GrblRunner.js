@@ -1,6 +1,9 @@
 import events from 'events';
 import {has, get, isEqual} from 'lodash';
 import decimalPlaces from '../../lib/decimal-places';
+
+import {GRBL_MACHINE_STATE_IDLE, GRBL_MACHINE_STATE_ALARM} from './constants';
+
 import GrblLineParser from './GrblLineParser';
 import GrblLineParserResultStatus from './GrblLineParserResultStatus';
 import GrblLineParserResultOk from './GrblLineParserResultOk';
@@ -11,7 +14,6 @@ import GrblLineParserResultParameters from './GrblLineParserResultParameters';
 import GrblLineParserResultFeedback from './GrblLineParserResultFeedback';
 import GrblLineParserResultSettings from './GrblLineParserResultSettings';
 import GrblLineParserResultStartup from './GrblLineParserResultStartup';
-import {GRBL_MACHINE_STATE_IDLE, GRBL_MACHINE_STATE_ALARM} from './constants';
 
 class GrblRunner extends events.EventEmitter {
   state = {
