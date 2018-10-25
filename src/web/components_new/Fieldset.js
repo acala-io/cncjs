@@ -10,8 +10,9 @@ const Legend = styled.legend`
   background: ${({theme}) => theme.color.background.white};
   color: ${({theme}) => theme.color.text.lighter};
   display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
   font-weight: ${({theme}) => theme.font.weight.normal};
-  font: inherit;
   left: 50%;
   line-height: 1.25;
   margin: 0;

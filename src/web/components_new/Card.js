@@ -17,9 +17,9 @@ import styled from 'styled-components';
 import {arrayOf, bool, node, object, oneOfType, string} from 'prop-types';
 
 export const Card = styled.div`
- /*
-  * 1 - Allow absolute positioning of children
-  */
+  /*
+   * 1 - Allow absolute positioning of children
+   */
 
   background: ${({theme}) => theme.color.background.white};
   border-radius: ${({theme}) => theme.border.radius.large};

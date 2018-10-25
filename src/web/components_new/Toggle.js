@@ -45,7 +45,7 @@ const ToggleLabels = styled.div`
     ${mixin.centerY};
 
     color: ${({theme}) => theme.color.text.lighter};
-    font-size: 1.25em !important;
+    font-size: 1.25em;
     line-height: 1.5;
     transition: inherit;
   }
@@ -86,7 +86,7 @@ const ToggleHint = styled(Hint)`
 const ToggleInput = styled.input.attrs({type: 'checkbox'})`
   ${mixin.pinTopLeft};
 
-  opacity: 0 !important;
+  opacity: 0;
 
   :checked ~ ${ToggleLabels} {
     :before {

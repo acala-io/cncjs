@@ -90,9 +90,9 @@ const LoginDialog = styled(Dialog)`
   animation-duration: ${({theme}) => theme.transition.time.slow};
 
   /*
-    .dialog__shadow-wrapper {
-      max-height: 95vh; /* 1 */ /* stylelint-disable-line plugin/no-unsupported-browser-features */
-    }
+   * .dialog__shadow-wrapper {
+   *   max-height: 95vh;
+   * }
    */
 `;
 

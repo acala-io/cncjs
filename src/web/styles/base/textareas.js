@@ -8,6 +8,8 @@
 
 import {css} from 'styled-components';
 
+import {transparentize} from '../../lib/color';
+
 const textarea = css`
   /*
    * 1 - Limit width to some 13 words, for optimal readability
@@ -16,7 +18,7 @@ const textarea = css`
 
   textarea {
     appearance: none;
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: ${({theme}) => transparentize(theme.color.background.whiet, 0.08)};
     border-radius: ${({theme}) => theme.border.radius.default};
     border: ${({theme}) => theme.border.width.default} solid ${({theme}) => theme.color.border.default};
     box-shadow: none;

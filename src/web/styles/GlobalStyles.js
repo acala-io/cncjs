@@ -1,6 +1,5 @@
 import {createGlobalStyle} from 'styled-components';
 
-// import all the things from ./base
 import boxSizing from './base/boxSizing';
 import headings from './base/headings';
 import images from './base/images';
