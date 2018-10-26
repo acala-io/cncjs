@@ -10,7 +10,8 @@
 
 import styled from 'styled-components';
 
-import Button from './Button';
+// import Button from './Button';
+// ${Button} {
 
 const ButtonBar = styled.div`
   display: ${({equalWidth}) => (equalWidth ? 'flex' : 'table')};
@@ -20,7 +21,7 @@ const ButtonBar = styled.div`
    * 2 - Keep outer border-radius on left- and rightmost buttons
    */
 
-  ${Button} {
+  button {
     border-radius: 0; /* 1 */
     ${({equalWidth}) => equalWidth && 'flex: 1'};
 
